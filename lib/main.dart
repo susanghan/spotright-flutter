@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/page/home/home.dart';
 import 'package:spotright/presentation/page/signup/sign_up.dart';
 import 'package:spotright/presentation/page/signup/sign_up_controller.dart';
@@ -22,7 +23,7 @@ class Spotright extends StatelessWidget {
         '/signup': (context) => const SignUp(),
       },
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: SrColors.materialPrimary,
       ),
       initialRoute: '/signup',
       initialBinding: BindingsBuilder(() {
