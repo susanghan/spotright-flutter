@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spotright/presentation/common/colors.dart';
-import 'package:spotright/presentation/component/srtextfield/srtextfieldmodel.dart';
+import 'package:spotright/presentation/component/srtextfield/sr_text_field_model.dart';
 
 class SrTextField extends StatelessWidget {
   const SrTextField({Key? key, this.srTextFieldModel}) : super(key: key);
