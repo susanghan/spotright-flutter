@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/component/srctabutton/sr_cta_button.dart';
 import 'package:spotright/presentation/component/srctabutton/sr_cta_button_model.dart';
 import 'package:spotright/presentation/component/srtextfield/sr_text_field.dart';
@@ -21,6 +22,20 @@ class _SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios, color: SrColors.black,),
+            onPressed: () {
+              Get.back();
+            },
+          ),
+          centerTitle: true,
+          backgroundColor: SrColors.white,
+          title: Text(
+            '회원가입',
+            style: TextStyle(color: SrColors.black),
+          ),
+        ),
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: Stack(children: [
@@ -57,13 +72,14 @@ class _SignUpState extends State<SignUp> {
                   padding: EdgeInsets.zero,
                 )),
                 Obx(() => SrCTAButton(
-                  srCTAButtonModel: SrCTAButtonModel(
-                      text: '완료',
-                      isEnabled: signUpController.signUpState.ctaActive.value,
-                      action: () {
-                        signUpController.activateSignUpButton();
-                      }),
-                )),
+                      srCTAButtonModel: SrCTAButtonModel(
+                          text: '완료',
+                          isEnabled:
+                              signUpController.signUpState.ctaActive.value,
+                          action: () {
+                            signUpController.activateSignUpButton();
+                          }),
+                    )),
                 Padding(padding: EdgeInsets.only(bottom: 44)),
               ],
             )
