@@ -6,7 +6,7 @@ class SignUpController extends GetxController {
 
   final SignUpState signUpState;
 
-  void activateSignUpButton() {
-    signUpState.ctaActive.value = !signUpState.ctaActive.value;
+  void validate(String id) {
+    signUpState.validateId(id);
   }
 }

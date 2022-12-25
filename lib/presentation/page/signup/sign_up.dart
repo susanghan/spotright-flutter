@@ -53,10 +53,13 @@ class _SignUpState extends State<SignUp> {
                   Text('아이디를 입력해주세요.'),
                   Padding(padding: EdgeInsets.only(bottom: 4)),
                   SrTextField(
-                    srTextFieldModel: SrTextFieldModel(hint: '아이디'),
+                    srTextFieldModel: SrTextFieldModel(
+                        hint: '아이디',
+                        onChanged: signUpController.validate
+                    ),
                   ),
                   Padding(padding: EdgeInsets.only(bottom: 6)),
-                  Text(signUpController.signUpState.validationMessage),
+                  Obx(() => Text(signUpController.signUpState.validationMessage)),
                   Padding(padding: EdgeInsets.only(bottom: 16)),
                   Text('닉네임을 입력해주세요.'),
                   SrTextField(
@@ -77,7 +80,7 @@ class _SignUpState extends State<SignUp> {
                           isEnabled:
                               signUpController.signUpState.ctaActive.value,
                           action: () {
-                            signUpController.activateSignUpButton();
+
                           }),
                     )),
                 Padding(padding: EdgeInsets.only(bottom: 44)),
