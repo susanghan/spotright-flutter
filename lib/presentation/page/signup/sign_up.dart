@@ -41,7 +41,7 @@ class _SignUpState extends State<SignUp> {
           child: Stack(children: [
             Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   Padding(padding: EdgeInsets.only(bottom: 30)),
                   Text('이메일을 입력해주세요.'),
                   Padding(padding: EdgeInsets.only(bottom: 4)),
@@ -56,7 +56,7 @@ class _SignUpState extends State<SignUp> {
                     srTextFieldModel: SrTextFieldModel(hint: '아이디'),
                   ),
                   Padding(padding: EdgeInsets.only(bottom: 6)),
-                  Text('영문 소문자, 숫자, 특수기호 포함해서 8자이상'),
+                  Text(signUpController.signUpState.validationMessage),
                   Padding(padding: EdgeInsets.only(bottom: 16)),
                   Text('닉네임을 입력해주세요.'),
                   SrTextField(

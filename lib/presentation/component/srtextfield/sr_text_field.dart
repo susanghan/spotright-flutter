@@ -14,6 +14,7 @@ class SrTextField extends StatelessWidget {
       child: TextField(
         textAlign: TextAlign.start,
         textAlignVertical: TextAlignVertical.center,
+        onChanged: srTextFieldModel?.onChanged,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.all(12),
             border: const OutlineInputBorder(
