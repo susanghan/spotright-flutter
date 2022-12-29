@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:spotright/presentation/common/colors.dart';
-import 'package:spotright/presentation/component/srctabutton/sr_cta_button_model.dart';
+import 'package:spotright/presentation/component/sr_cta_button/sr_cta_button_model.dart';
 
 class SrCTAButton extends StatelessWidget {
   const SrCTAButton({Key? key, required this.srCTAButtonModel}) : super(key: key);

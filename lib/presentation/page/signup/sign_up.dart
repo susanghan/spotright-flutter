@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spotright/presentation/common/colors.dart';
-import 'package:spotright/presentation/component/srctabutton/sr_cta_button.dart';
-import 'package:spotright/presentation/component/srctabutton/sr_cta_button_model.dart';
-import 'package:spotright/presentation/component/srtextfield/sr_text_field.dart';
-import 'package:spotright/presentation/component/srtextfield/sr_text_field_model.dart';
+import 'package:spotright/presentation/component/sr_cta_button/sr_cta_button.dart';
+import 'package:spotright/presentation/component/sr_cta_button/sr_cta_button_model.dart';
+import 'package:spotright/presentation/component/sr_text_field/sr_text_field.dart';
+import 'package:spotright/presentation/component/sr_text_field/sr_text_field_model.dart';
 import 'package:spotright/presentation/page/signup/sign_up_controller.dart';
 
 class SignUp extends StatefulWidget {
