@@ -18,6 +18,7 @@ class _HomeState extends State<Home> {
       child: Scaffold(
         body: Stack(children: [
           const GoogleMap(
+            zoomControlsEnabled: false,
             myLocationButtonEnabled: true,
             myLocationEnabled: true,
             mapType: MapType.normal,
