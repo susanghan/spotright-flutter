@@ -96,17 +96,27 @@ class _HomeState extends State<Home> {
               followings: 100,
             ),
           ),
-          TextButton(
-            onPressed: () {},
-            child: Text(
-              '목록보기',
-              style: TextStyle(color: SrColors.black),
+          Container(
+            width: 112,
+            height: 36,
+            margin: EdgeInsets.only(bottom: 24),
+            child: Material(
+              elevation: 4,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(100)
+              ),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                Padding(
+                  padding: EdgeInsets.only(right: 4),
+                    child: Icon(Icons.menu)),
+                Text(
+                  '목록보기',
+                  style: TextStyle(color: SrColors.black),
+                ),
+              ]),
             ),
-            style: TextButton.styleFrom(
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                backgroundColor: SrColors.white,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(100))),
           )
         ]),
       ),

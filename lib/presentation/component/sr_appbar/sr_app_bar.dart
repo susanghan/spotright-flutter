@@ -24,7 +24,7 @@ class _SrAppBarState extends State<SrAppBar> {
       Container(
         padding: EdgeInsets.fromLTRB(20, 16, 20, 0),
         width: double.infinity,
-        height: expended ? 144 : 56,
+        height: expended ? 140 : 48,
         decoration: const BoxDecoration(
             color: SrColors.white,
             borderRadius: BorderRadius.only(
