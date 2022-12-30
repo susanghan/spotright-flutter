@@ -29,11 +29,9 @@ class Spotright extends StatelessWidget {
         '/home': (context) => const Home(),
         '/signup': (context) => const SignUp(),
         '/detail': (context) => const Detail(),
-        '/search': (context) => const Search(),
         '/block_list': (context) => const BlockList(),
         '/edit_profile': (context) => const EditProfile(),
         '/following': (context) => const Following(),
-        '/my_page': (context) => const MyPage(),
         '/spot_list': (context) => const SpotList(),
       },
       theme: ThemeData(

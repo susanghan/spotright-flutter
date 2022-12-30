@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/component/sr_appbar/sr_app_bar_model.dart';
 import 'package:spotright/presentation/component/sr_chip/sr_chip.dart';
+import 'package:spotright/presentation/page/my_page/my_page.dart';
 
 class SrAppBar extends StatefulWidget {
   SrAppBar({Key? key, required this.srAppBarModel}) : super(key: key);
@@ -113,7 +115,9 @@ class _SrAppBarState extends State<SrAppBar> {
                   width: double.infinity,
                   height: 26,
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.to(MyPage());
+                    },
                     child: Text(
                       '마이페이지',
                       style: TextStyle(
