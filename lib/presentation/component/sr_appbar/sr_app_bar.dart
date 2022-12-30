@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/component/sr_appbar/sr_app_bar_model.dart';
 import 'package:spotright/presentation/component/sr_chip/sr_chip.dart';
+import 'package:spotright/presentation/page/search/search.dart';
 
 class SrAppBar extends StatefulWidget {
   SrAppBar({Key? key, required this.srAppBarModel}) : super(key: key);
@@ -43,11 +44,16 @@ class _SrAppBarState extends State<SrAppBar> {
                       color: SrColors.black,
                     )),
                 Text(widget.srAppBarModel.id),
-                SvgPicture.asset(
-                  'assets/search.svg',
-                  color: SrColors.primary,
-                  width: 24,
-                  height: 24,
+                GestureDetector(
+                  onTap: () {
+                    Get.to(() => Search());
+                  },
+                  child: SvgPicture.asset(
+                    'assets/search.svg',
+                    color: SrColors.primary,
+                    width: 24,
+                    height: 24,
+                  ),
                 )
               ],
             ),
@@ -149,18 +155,18 @@ class _SrAppBarState extends State<SrAppBar> {
 
   Widget _Chips() {
     return Container(
-      width: double.infinity,
-      height: 40,
-      padding: EdgeInsets.only(left: 20),
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: List.generate(10, (int index) {
-          return Padding(
-              padding: EdgeInsets.only(right: 8),
-              child: SrChip(text: 'tag$index',)
-          );
-        }),
-      )
-    );
+        width: double.infinity,
+        height: 40,
+        padding: EdgeInsets.only(left: 20),
+        child: ListView(
+          scrollDirection: Axis.horizontal,
+          children: List.generate(10, (int index) {
+            return Padding(
+                padding: EdgeInsets.only(right: 8),
+                child: SrChip(
+                  text: 'tag$index',
+                ));
+          }),
+        ));
   }
 }

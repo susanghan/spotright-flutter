@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/component/sr_appbar/sr_app_bar.dart';
 import 'package:spotright/presentation/component/sr_appbar/sr_app_bar_model.dart';
 
@@ -41,11 +42,11 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        floatingActionButton: FloatingActionButton.extended(
-            onPressed: _currentLocation,
-            label: Text('My Location'),
-            icon: Icon(Icons.location_on)),
-        body: Stack(children: [
+        floatingActionButton:
+            FloatingActionButton.small(onPressed: _currentLocation),
+        body: Stack(
+          alignment: Alignment.bottomCenter,
+            children: [
           GoogleMap(
             zoomControlsEnabled: false,
             myLocationEnabled: true,
@@ -65,6 +66,17 @@ class _HomeState extends State<Home> {
               spots: 20,
               followers: 100,
               followings: 100,
+            ),
+          ),
+          TextButton(
+              onPressed: () {},
+              child: Text('목록보기', style: TextStyle(color: SrColors.black),),
+            style: TextButton.styleFrom(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              backgroundColor: SrColors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(100)
+              )
             ),
           )
         ]),
