@@ -18,59 +18,62 @@ class _SrAppBarState extends State<SrAppBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20),
-      width: double.infinity,
-      height: expended ? 200 : 112,
-      decoration: const BoxDecoration(
-          color: SrColors.white,
-          borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(12),
-              bottomRight: Radius.circular(12))),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              IconButton(
-                  onPressed: () {
-                    Get.back();
-                  },
-                  icon: const Icon(
-                    Icons.arrow_back_ios,
-                    color: SrColors.black,
-                  )),
-              Text(widget.srAppBarModel.id),
-              SvgPicture.asset(
-                'assets/search.svg',
+    return Column(children: [
+      Container(
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        width: double.infinity,
+        height: expended ? 200 : 112,
+        decoration: const BoxDecoration(
+            color: SrColors.white,
+            borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(12),
+                bottomRight: Radius.circular(12))),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(
+                    onPressed: () {
+                      Get.back();
+                    },
+                    icon: const Icon(
+                      Icons.arrow_back_ios,
+                      color: SrColors.black,
+                    )),
+                Text(widget.srAppBarModel.id),
+                SvgPicture.asset(
+                  'assets/search.svg',
+                  color: SrColors.primary,
+                  width: 24,
+                  height: 24,
+                )
+              ],
+            ),
+            Padding(padding: EdgeInsets.only(bottom: 24)),
+            _MiddleComponent(expended),
+            GestureDetector(
+              child: SvgPicture.asset(
+                expended ? 'assets/arrow_up.svg' : 'assets/arrow_down.svg',
                 color: SrColors.primary,
                 width: 24,
                 height: 24,
-              )
-            ],
-          ),
-          Padding(padding: EdgeInsets.only(bottom: 24)),
-          _MiddleComponent(expended),
-          GestureDetector(
-            child: SvgPicture.asset(
-              expended ? 'assets/arrow_up.svg' : 'assets/arrow_down.svg',
-              color: SrColors.primary,
-              width: 24,
-              height: 24,
-            ),
-            onTap: () {
-              setState(() {
-                expended = !expended;
-              });
-            },
-          )
-        ],
+              ),
+              onTap: () {
+                setState(() {
+                  expended = !expended;
+                });
+              },
+            )
+          ],
+        ),
       ),
-    );
+      expended ? SizedBox.shrink() : _Chips()
+    ]);
   }
 
-  Widget _MiddleComponent(bool extended) {
-    if(!extended) return SizedBox.shrink();
+  Widget _MiddleComponent(bool expended) {
+    if (!expended) return SizedBox.shrink();
 
     return Row(
       children: [
@@ -97,13 +100,22 @@ class _SrAppBarState extends State<SrAppBar> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Column(
-                    children: [Text(widget.srAppBarModel.spots.toString()), Text('장소')],
+                    children: [
+                      Text(widget.srAppBarModel.spots.toString()),
+                      Text('장소')
+                    ],
                   ),
                   Column(
-                    children: [Text(widget.srAppBarModel.followers.toString()), Text('팔로워')],
+                    children: [
+                      Text(widget.srAppBarModel.followers.toString()),
+                      Text('팔로워')
+                    ],
                   ),
                   Column(
-                    children: [Text(widget.srAppBarModel.followings.toString()), Text('팔로잉')],
+                    children: [
+                      Text(widget.srAppBarModel.followings.toString()),
+                      Text('팔로잉')
+                    ],
                   )
                 ],
               ),
@@ -124,14 +136,43 @@ class _SrAppBarState extends State<SrAppBar> {
                       minimumSize: Size.fromHeight(24),
                       fixedSize: Size.fromHeight(24),
                       shape: RoundedRectangleBorder(
-                          borderRadius:
-                          BorderRadius.circular(100))),
+                          borderRadius: BorderRadius.circular(100))),
                 ),
               ),
             ],
           ),
         )
       ],
+    );
+  }
+
+  Widget _Chips() {
+    return Container(
+      width: double.infinity,
+      height: 40,
+      padding: EdgeInsets.only(left: 20),
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        children: List.generate(10, (int index) {
+          return _Chip('태그$index');
+        }),
+      )
+    );
+  }
+
+  Widget _Chip(String text) {
+    return Padding(
+      padding: EdgeInsets.only(right: 8),
+      child: Row(children: [
+        OutlinedButton(
+          onPressed: () {},
+          child: Text(text),
+          style: OutlinedButton.styleFrom(
+              backgroundColor: SrColors.white,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(100))),
+        ),
+      ]),
     );
   }
 }
