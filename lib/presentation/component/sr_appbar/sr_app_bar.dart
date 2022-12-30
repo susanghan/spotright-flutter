@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/component/sr_appbar/sr_app_bar_model.dart';
+import 'package:spotright/presentation/component/sr_chip/sr_chip.dart';
 
 class SrAppBar extends StatefulWidget {
   SrAppBar({Key? key, required this.srAppBarModel}) : super(key: key);
@@ -154,25 +155,12 @@ class _SrAppBarState extends State<SrAppBar> {
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: List.generate(10, (int index) {
-          return _Chip('태그$index');
+          return Padding(
+              padding: EdgeInsets.only(right: 8),
+              child: SrChip(text: 'tag$index',)
+          );
         }),
       )
-    );
-  }
-
-  Widget _Chip(String text) {
-    return Padding(
-      padding: EdgeInsets.only(right: 8),
-      child: Row(children: [
-        OutlinedButton(
-          onPressed: () {},
-          child: Text(text),
-          style: OutlinedButton.styleFrom(
-              backgroundColor: SrColors.white,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(100))),
-        ),
-      ]),
     );
   }
 }
