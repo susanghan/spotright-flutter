@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/component/sr_appbar/sr_app_bar_model.dart';
 import 'package:spotright/presentation/component/sr_chip/sr_chip.dart';
-import 'package:spotright/presentation/page/search/search.dart';
 
 class SrAppBar extends StatefulWidget {
   SrAppBar({Key? key, required this.srAppBarModel}) : super(key: key);
@@ -22,9 +20,9 @@ class _SrAppBarState extends State<SrAppBar> {
   Widget build(BuildContext context) {
     return Column(children: [
       Container(
-        padding: EdgeInsets.symmetric(horizontal: 20),
+        padding: EdgeInsets.fromLTRB(20, 16, 20, 0),
         width: double.infinity,
-        height: expended ? 200 : 112,
+        height: expended ? 144 : 56,
         decoration: const BoxDecoration(
             color: SrColors.white,
             borderRadius: BorderRadius.only(
@@ -32,32 +30,6 @@ class _SrAppBarState extends State<SrAppBar> {
                 bottomRight: Radius.circular(12))),
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(
-                    onPressed: () {
-                      Get.back();
-                    },
-                    icon: const Icon(
-                      Icons.arrow_back_ios,
-                      color: SrColors.black,
-                    )),
-                Text(widget.srAppBarModel.id),
-                GestureDetector(
-                  onTap: () {
-                    Get.to(() => Search());
-                  },
-                  child: SvgPicture.asset(
-                    'assets/search.svg',
-                    color: SrColors.primary,
-                    width: 24,
-                    height: 24,
-                  ),
-                )
-              ],
-            ),
-            Padding(padding: EdgeInsets.only(bottom: 24)),
             _MiddleComponent(expended),
             GestureDetector(
               child: SvgPicture.asset(
@@ -92,6 +64,11 @@ class _SrAppBarState extends State<SrAppBar> {
               Container(
                 width: 64,
                 height: 64,
+                margin: EdgeInsets.only(bottom: 4),
+                child: CircleAvatar(
+                  radius: 100,
+                    backgroundImage: NetworkImage('https://picsum.photos/200')
+                ),
                 decoration: BoxDecoration(
                     color: SrColors.black,
                     borderRadius: BorderRadius.circular(100)),
@@ -101,52 +78,59 @@ class _SrAppBarState extends State<SrAppBar> {
           ),
         ),
         Expanded(
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Column(
-                    children: [
-                      Text(widget.srAppBarModel.spots.toString()),
-                      Text('장소')
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Text(widget.srAppBarModel.followers.toString()),
-                      Text('팔로워')
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Text(widget.srAppBarModel.followings.toString()),
-                      Text('팔로잉')
-                    ],
-                  )
-                ],
-              ),
-              Padding(padding: EdgeInsets.only(bottom: 8)),
-              SizedBox(
-                width: double.infinity,
-                child: TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    '마이페이지',
-                    style: TextStyle(
-                      color: SrColors.darkGray,
+          child: Padding(
+            padding: EdgeInsets.only(right: 20),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(widget.srAppBarModel.spots.toString()),
+                        Text('장소')
+                      ],
                     ),
-                  ),
-                  style: TextButton.styleFrom(
-                      padding: EdgeInsets.zero,
-                      backgroundColor: SrColors.gray,
-                      minimumSize: Size.fromHeight(24),
-                      fixedSize: Size.fromHeight(24),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(100))),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(widget.srAppBarModel.followers.toString()),
+                        Text('팔로워')
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(widget.srAppBarModel.followings.toString()),
+                        Text('팔로잉')
+                      ],
+                    )
+                  ],
                 ),
-              ),
-            ],
+                Padding(padding: EdgeInsets.only(bottom: 8)),
+                SizedBox(
+                  width: double.infinity,
+                  height: 26,
+                  child: TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      '마이페이지',
+                      style: TextStyle(
+                        color: SrColors.gray1,
+                      ),
+                    ),
+                    style: TextButton.styleFrom(
+                        padding: EdgeInsets.zero,
+                        backgroundColor: SrColors.gray3,
+                        minimumSize: Size.fromHeight(24),
+                        fixedSize: Size.fromHeight(24),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100))),
+                  ),
+                ),
+              ],
+            ),
           ),
         )
       ],

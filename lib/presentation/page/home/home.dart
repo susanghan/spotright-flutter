@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:spotright/presentation/common/colors.dart';
@@ -42,11 +44,38 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: SrColors.black,
+            ),
+            onPressed: () {
+              Get.back();
+            },
+          ),
+          backgroundColor: SrColors.white,
+          title: Text(
+            'lalakorea',
+            style: TextStyle(color: SrColors.black),
+          ),
+          centerTitle: true,
+          elevation: 0,
+          actions: [
+            Padding(
+              padding: EdgeInsets.only(right: 20),
+              child: SvgPicture.asset(
+                'assets/search.svg',
+                color: SrColors.primary,
+                width: 24,
+                height: 24,
+              ),
+            )
+          ],
+        ),
         floatingActionButton:
             FloatingActionButton.small(onPressed: _currentLocation),
-        body: Stack(
-          alignment: Alignment.bottomCenter,
-            children: [
+        body: Stack(alignment: Alignment.bottomCenter, children: [
           GoogleMap(
             zoomControlsEnabled: false,
             myLocationEnabled: true,
@@ -61,7 +90,6 @@ class _HomeState extends State<Home> {
           ),
           SrAppBar(
             srAppBarModel: SrAppBarModel(
-              id: 'lalakorea',
               userName: '김라라',
               spots: 20,
               followers: 100,
@@ -69,15 +97,16 @@ class _HomeState extends State<Home> {
             ),
           ),
           TextButton(
-              onPressed: () {},
-              child: Text('목록보기', style: TextStyle(color: SrColors.black),),
-            style: TextButton.styleFrom(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              backgroundColor: SrColors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(100)
-              )
+            onPressed: () {},
+            child: Text(
+              '목록보기',
+              style: TextStyle(color: SrColors.black),
             ),
+            style: TextButton.styleFrom(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                backgroundColor: SrColors.white,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(100))),
           )
         ]),
       ),
