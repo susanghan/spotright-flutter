@@ -13,8 +13,6 @@ class SrChip extends StatefulWidget {
 }
 
 class _SrChipState extends State<SrChip> {
-  bool selected = false;
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -24,7 +22,7 @@ class _SrChipState extends State<SrChip> {
         shape: RoundedRectangleBorder(
           side: BorderSide(
               width: 1.5,
-              color: selected ? widget.model.color : SrColors.white
+              color: widget.model.selected ? widget.model.color : SrColors.white
           ),
           borderRadius: BorderRadius.circular(100),
       ),
@@ -36,9 +34,7 @@ class _SrChipState extends State<SrChip> {
           ),),
           backgroundColor: SrColors.white,
           onPressed: () {
-            setState(() {
-              selected = !selected;
-            });
+            if(widget.model.onTab != null) widget.model.onTab!(!widget.model.selected);
           },
           label: Text(
             widget.model.name,

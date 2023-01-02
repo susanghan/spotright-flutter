@@ -157,7 +157,14 @@ class _SrAppBarState extends State<SrAppBar> {
             return Padding(
                 padding: EdgeInsets.only(right: 8),
                 child: SrChip(
-                  model: SrChipModel(name: chipNames[index], color: chipColors[index])
+                  model: SrChipModel(
+                      name: chipNames[index], color: chipColors[index],
+                      selected: widget.srAppBarModel.selectedChips[index],
+                      onTab: (isSelected) {
+                        setState(() {
+                          widget.srAppBarModel.selectedChips[index] = isSelected;
+                        });
+                  })
                 ));
           }),
         ));

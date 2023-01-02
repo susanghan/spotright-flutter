@@ -11,5 +11,5 @@ class SrChipModel {
   String name;
   Color color;
   bool selected;
-  Function()? onTab;
+  Function(bool)? onTab;
 }
