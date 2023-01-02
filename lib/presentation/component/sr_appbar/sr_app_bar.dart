@@ -18,133 +18,160 @@ class SrAppBar extends StatefulWidget {
 
 class _SrAppBarState extends State<SrAppBar> {
   bool expended = true;
+  double topContainerSize = 100;
+  double arrowAreaSize = 44;
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      Container(
-        padding: EdgeInsets.fromLTRB(20, 16, 20, 0),
-        width: double.infinity,
-        height: expended ? 140 : 48,
+    return Container(
+      width: double.infinity,
+      child: Column(
+        children: [
+          _TopContent(expended),
+          _ExpandButton(),
+          expended ? SizedBox.shrink() : _Chips()
+        ],
+      ),
+    );
+  }
+
+  Widget _TopContent(bool expended) {
+    return AnimatedSize(
+      duration: Duration(milliseconds: 500),
+      curve: Curves.ease,
+      child: Container(
+        height: topContainerSize,
+        padding: EdgeInsets.symmetric(horizontal: 20),
         decoration: const BoxDecoration(
-            color: SrColors.white,
-            borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(12),
-                bottomRight: Radius.circular(12))),
-        child: Column(
+          color: SrColors.white,
+        ),
+        child: Row(
           children: [
-            _MiddleComponent(expended),
-            GestureDetector(
-              child: SvgPicture.asset(
-                expended ? 'assets/arrow_up.svg' : 'assets/arrow_down.svg',
-                color: SrColors.primary,
-                width: 24,
-                height: 24,
+            Padding(
+              padding: EdgeInsets.fromLTRB(20, 8, 40, 0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 64,
+                    height: 64,
+                    margin: EdgeInsets.only(bottom: 4),
+                    child: CircleAvatar(
+                        radius: 100,
+                        backgroundImage:
+                            NetworkImage('https://picsum.photos/200')),
+                    decoration: BoxDecoration(
+                        color: SrColors.black,
+                        borderRadius: BorderRadius.circular(100)),
+                  ),
+                  Text(widget.srAppBarModel.userName)
+                ],
               ),
-              onTap: () {
-                setState(() {
-                  expended = !expended;
-                });
-              },
+            ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(top: 16, right: 20),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(widget.srAppBarModel.spots.toString()),
+                            Text('장소')
+                          ],
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(widget.srAppBarModel.followers.toString()),
+                            Text('팔로워')
+                          ],
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(widget.srAppBarModel.followings.toString()),
+                            Text('팔로잉')
+                          ],
+                        )
+                      ],
+                    ),
+                    Padding(padding: EdgeInsets.only(bottom: 8)),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 26,
+                      child: TextButton(
+                        onPressed: () {
+                          Get.to(MyPage());
+                        },
+                        child: Text(
+                          '마이페이지',
+                          style: TextStyle(
+                            color: SrColors.gray1,
+                          ),
+                        ),
+                        style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            backgroundColor: SrColors.gray3,
+                            minimumSize: Size.fromHeight(24),
+                            fixedSize: Size.fromHeight(24),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(100))),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             )
           ],
         ),
       ),
-      expended ? SizedBox.shrink() : _Chips()
-    ]);
+    );
   }
 
-  Widget _MiddleComponent(bool expended) {
-    if (!expended) return SizedBox.shrink();
-
-    return Row(
-      children: [
-        Padding(
-          padding: EdgeInsets.only(left: 20, right: 40),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                width: 64,
-                height: 64,
-                margin: EdgeInsets.only(bottom: 4),
-                child: CircleAvatar(
-                  radius: 100,
-                    backgroundImage: NetworkImage('https://picsum.photos/200')
-                ),
-                decoration: BoxDecoration(
-                    color: SrColors.black,
-                    borderRadius: BorderRadius.circular(100)),
-              ),
-              Text(widget.srAppBarModel.userName)
-            ],
-          ),
+  Widget _ExpandButton() {
+    return Container(
+      alignment: Alignment.center,
+      width: double.infinity,
+      height: arrowAreaSize,
+      decoration: BoxDecoration(
+          color: SrColors.white,
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(12),
+              bottomRight: Radius.circular(12))
+      ),
+      child: GestureDetector(
+        child: SvgPicture.asset(
+          expended ? 'assets/arrow_up.svg' : 'assets/arrow_down.svg',
+          color: SrColors.primary,
+          width: 24,
+          height: 24,
         ),
-        Expanded(
-          child: Padding(
-            padding: EdgeInsets.only(right: 20),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(widget.srAppBarModel.spots.toString()),
-                        Text('장소')
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(widget.srAppBarModel.followers.toString()),
-                        Text('팔로워')
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(widget.srAppBarModel.followings.toString()),
-                        Text('팔로잉')
-                      ],
-                    )
-                  ],
-                ),
-                Padding(padding: EdgeInsets.only(bottom: 8)),
-                SizedBox(
-                  width: double.infinity,
-                  height: 26,
-                  child: TextButton(
-                    onPressed: () {
-                      Get.to(MyPage());
-                    },
-                    child: Text(
-                      '마이페이지',
-                      style: TextStyle(
-                        color: SrColors.gray1,
-                      ),
-                    ),
-                    style: TextButton.styleFrom(
-                        padding: EdgeInsets.zero,
-                        backgroundColor: SrColors.gray3,
-                        minimumSize: Size.fromHeight(24),
-                        fixedSize: Size.fromHeight(24),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(100))),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        )
-      ],
+        onTap: () {
+          setState(() {
+            expended = !expended;
+            topContainerSize = expended ? 108 : 0;
+          });
+        },
+      ),
     );
   }
 
   Widget _Chips() {
     const chipNames = ['전체', '식당', '카페', '관광지', '숙소', '쇼핑', '병원', '기타'];
-    const chipColors = [SrColors.primary, SrColors.restaurant, SrColors.cafe, SrColors.tour, SrColors.accommodation, SrColors.shopping, SrColors.hospital, SrColors.etc];
+    const chipColors = [
+      SrColors.primary,
+      SrColors.restaurant,
+      SrColors.cafe,
+      SrColors.tour,
+      SrColors.accommodation,
+      SrColors.shopping,
+      SrColors.hospital,
+      SrColors.etc
+    ];
 
     return Container(
         width: double.infinity,
@@ -157,15 +184,16 @@ class _SrAppBarState extends State<SrAppBar> {
             return Padding(
                 padding: EdgeInsets.only(right: 8),
                 child: SrChip(
-                  model: SrChipModel(
-                      name: chipNames[index], color: chipColors[index],
-                      selected: widget.srAppBarModel.selectedChips[index],
-                      onTab: (isSelected) {
-                        setState(() {
-                          widget.srAppBarModel.selectedChips[index] = isSelected;
-                        });
-                  })
-                ));
+                    model: SrChipModel(
+                        name: chipNames[index],
+                        color: chipColors[index],
+                        selected: widget.srAppBarModel.selectedChips[index],
+                        onTab: (isSelected) {
+                          setState(() {
+                            widget.srAppBarModel.selectedChips[index] =
+                                isSelected;
+                          });
+                        })));
           }),
         ));
   }
