@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/component/sr_appbar/sr_app_bar_model.dart';
 import 'package:spotright/presentation/component/sr_chip/sr_chip.dart';
+import 'package:spotright/presentation/component/sr_chip/sr_chip_model.dart';
 import 'package:spotright/presentation/page/my_page/my_page.dart';
 
 class SrAppBar extends StatefulWidget {
@@ -142,17 +143,21 @@ class _SrAppBarState extends State<SrAppBar> {
   }
 
   Widget _Chips() {
+    const chipNames = ['전체', '식당', '카페', '관광지', '숙소', '쇼핑', '병원', '기타'];
+    const chipColors = [SrColors.primary, SrColors.restaurant, SrColors.cafe, SrColors.tour, SrColors.accommodation, SrColors.shopping, SrColors.hospital, SrColors.etc];
+
     return Container(
         width: double.infinity,
         height: 40,
+        margin: EdgeInsets.only(top: 10),
         padding: EdgeInsets.only(left: 20),
         child: ListView(
           scrollDirection: Axis.horizontal,
-          children: List.generate(10, (int index) {
+          children: List.generate(8, (int index) {
             return Padding(
                 padding: EdgeInsets.only(right: 8),
                 child: SrChip(
-                  text: 'tag$index',
+                  model: SrChipModel(name: chipNames[index], color: chipColors[index])
                 ));
           }),
         ));

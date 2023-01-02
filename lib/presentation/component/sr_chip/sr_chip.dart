@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:spotright/presentation/component/sr_chip/sr_chip_model.dart';
 
 import '../../common/colors.dart';
 
 class SrChip extends StatefulWidget {
-  const SrChip({Key? key, required this.text}) : super(key: key);
+  const SrChip({Key? key, required this.model}) : super(key: key);
 
-  final String text;
+  final SrChipModel model;
 
   @override
   State<SrChip> createState() => _SrChipState();
@@ -16,21 +17,36 @@ class _SrChipState extends State<SrChip> {
 
   @override
   Widget build(BuildContext context) {
-    return ActionChip(
-      side: BorderSide(
-          color: selected ? SrColors.black : SrColors.white
+    return Padding(
+      padding: EdgeInsets.only(bottom: 4),
+      child: Material(
+        elevation: 4,
+        shape: RoundedRectangleBorder(
+          side: BorderSide(
+              width: 1.5,
+              color: selected ? widget.model.color : SrColors.white
+          ),
+          borderRadius: BorderRadius.circular(100),
       ),
-      backgroundColor: SrColors.white,
-      onPressed: () {
-        setState(() {
-          selected = !selected;
-        });
-      },
-      label: Text(
-        widget.text,
-      ),
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(100)
+        child: ActionChip(
+          avatar: Container(width: 11, height: 11,
+          decoration: BoxDecoration(
+            color: widget.model.color,
+            borderRadius: BorderRadius.circular(100)
+          ),),
+          backgroundColor: SrColors.white,
+          onPressed: () {
+            setState(() {
+              selected = !selected;
+            });
+          },
+          label: Text(
+            widget.model.name,
+          ),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(100)
+          ),
+        ),
       ),
     );
   }
