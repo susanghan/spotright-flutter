@@ -73,8 +73,6 @@ class _HomeState extends State<Home> {
             )
           ],
         ),
-        floatingActionButton:
-            FloatingActionButton.small(onPressed: _currentLocation),
         body: Stack(alignment: Alignment.bottomCenter, children: [
           GoogleMap(
             zoomControlsEnabled: false,
@@ -103,19 +101,52 @@ class _HomeState extends State<Home> {
             child: Material(
               elevation: 4,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(100)
-              ),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
+                  borderRadius: BorderRadius.circular(100)),
+              child:
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 Padding(
-                  padding: EdgeInsets.only(right: 4),
+                    padding: EdgeInsets.only(right: 4),
                     child: Icon(Icons.menu)),
                 Text(
                   '목록보기',
                   style: TextStyle(color: SrColors.black),
                 ),
               ]),
+            ),
+          ),
+          Container(
+            alignment: Alignment.bottomRight,
+            height: 172,
+            margin: EdgeInsets.only(right: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Container(
+                  width: 44,
+                  height: 44,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100),
+                      color: SrColors.primary),
+                  child: SvgPicture.asset(
+                    "assets/plus.svg",
+                    color: SrColors.white,
+                    fit: BoxFit.scaleDown,
+                  ),
+                  margin: EdgeInsets.only(bottom: 12),
+                ),
+                Container(
+                  width: 44,
+                  height: 44,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100),
+                      color: SrColors.gray9e),
+                  child: SvgPicture.asset(
+                    "assets/my_location.svg",
+                    color: SrColors.white,
+                    fit: BoxFit.scaleDown,
+                  ),
+                )
+              ],
             ),
           )
         ]),
