@@ -18,8 +18,9 @@ class SrAppBar extends StatefulWidget {
 
 class _SrAppBarState extends State<SrAppBar> {
   bool expended = true;
-  double topContainerSize = 100;
-  double arrowAreaSize = 44;
+  static const double _topContentSize = 96;
+  double topContentSize = _topContentSize;
+  double arrowAreaSize = 40;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +41,7 @@ class _SrAppBarState extends State<SrAppBar> {
       duration: Duration(milliseconds: 500),
       curve: Curves.ease,
       child: Container(
-        height: topContainerSize,
+        height: topContentSize,
         padding: EdgeInsets.symmetric(horizontal: 20),
         decoration: const BoxDecoration(
           color: SrColors.white,
@@ -153,7 +154,7 @@ class _SrAppBarState extends State<SrAppBar> {
         onTap: () {
           setState(() {
             expended = !expended;
-            topContainerSize = expended ? 108 : 0;
+            topContentSize = expended ? _topContentSize : 0;
           });
         },
       ),

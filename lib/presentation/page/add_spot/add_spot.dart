@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spotright/presentation/component/sr_appbar/default_app_bar.dart';
 
 class AddSpot extends StatefulWidget {
   const AddSpot({Key? key}) : super(key: key);
@@ -12,7 +13,10 @@ class _AddSpotState extends State<AddSpot> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          body: Text("스팟 추가"),
+          appBar: DefaultAppBar(
+            title: "장소추가",
+            hasBackButton: true,
+          ),
         ));
   }
 }

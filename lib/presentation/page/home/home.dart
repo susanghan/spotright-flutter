@@ -7,8 +7,10 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:spotright/presentation/common/colors.dart';
+import 'package:spotright/presentation/component/sr_appbar/default_app_bar.dart';
 import 'package:spotright/presentation/component/sr_appbar/sr_app_bar.dart';
 import 'package:spotright/presentation/component/sr_appbar/sr_app_bar_model.dart';
+import 'package:spotright/presentation/page/add_spot/add_spot.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -44,35 +46,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back_ios,
-              color: SrColors.black,
-            ),
-            onPressed: () {
-              Get.back();
-            },
-          ),
-          backgroundColor: SrColors.white,
-          title: Text(
-            'lalakorea',
-            style: TextStyle(color: SrColors.black),
-          ),
-          centerTitle: true,
-          elevation: 0,
-          actions: [
-            Padding(
-              padding: EdgeInsets.only(right: 20),
-              child: SvgPicture.asset(
-                'assets/search.svg',
-                color: SrColors.primary,
-                width: 24,
-                height: 24,
-              ),
-            )
-          ],
-        ),
+        appBar: DefaultAppBar(title: 'lalakorea', hasSearch: true,),
         body: Stack(alignment: Alignment.bottomCenter, children: [
           GoogleMap(
             zoomControlsEnabled: false,
@@ -121,18 +95,23 @@ class _HomeState extends State<Home> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Container(
-                  width: 44,
-                  height: 44,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      color: SrColors.primary),
-                  child: SvgPicture.asset(
-                    "assets/plus.svg",
-                    color: SrColors.white,
-                    fit: BoxFit.scaleDown,
+                GestureDetector(
+                  onTap: () {
+                    Get.to(AddSpot());
+                  },
+                  child: Container(
+                    width: 44,
+                    height: 44,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                        color: SrColors.primary),
+                    child: SvgPicture.asset(
+                      "assets/plus.svg",
+                      color: SrColors.white,
+                      fit: BoxFit.scaleDown,
+                    ),
+                    margin: EdgeInsets.only(bottom: 12),
                   ),
-                  margin: EdgeInsets.only(bottom: 12),
                 ),
                 Container(
                   width: 44,
