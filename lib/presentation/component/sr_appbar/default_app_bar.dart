@@ -5,7 +5,12 @@ import 'package:get/get.dart';
 import '../../common/colors.dart';
 
 class DefaultAppBar extends StatelessWidget with PreferredSizeWidget {
-  const DefaultAppBar({Key? key, required this.title, this.hasSearch = false, this.hasBackButton = false}) : super(key: key);
+  const DefaultAppBar(
+      {Key? key,
+      required this.title,
+      this.hasSearch = false,
+      this.hasBackButton = false})
+      : super(key: key);
 
   final String title;
   final bool hasSearch;
@@ -14,15 +19,17 @@ class DefaultAppBar extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: hasBackButton ? IconButton(
-        icon: Icon(
-          Icons.arrow_back_ios,
-          color: SrColors.black,
-        ),
-        onPressed: () {
-          Get.back();
-        },
-      ) : SizedBox.shrink(),
+      leading: hasBackButton
+          ? IconButton(
+              icon: Icon(
+                Icons.arrow_back_ios,
+                color: SrColors.black,
+              ),
+              onPressed: () {
+                Get.back();
+              },
+            )
+          : SizedBox.shrink(),
       backgroundColor: SrColors.white,
       title: Text(
         title,
@@ -31,15 +38,17 @@ class DefaultAppBar extends StatelessWidget with PreferredSizeWidget {
       centerTitle: true,
       elevation: 0,
       actions: [
-        hasSearch ? Padding(
-          padding: EdgeInsets.only(right: 20),
-          child: SvgPicture.asset(
-            'assets/search.svg',
-            color: SrColors.primary,
-            width: 24,
-            height: 24,
-          ),
-        ) : SizedBox.shrink()
+        hasSearch
+            ? Padding(
+                padding: EdgeInsets.only(right: 20),
+                child: SvgPicture.asset(
+                  'assets/search.svg',
+                  color: SrColors.primary,
+                  width: 24,
+                  height: 24,
+                ),
+              )
+            : SizedBox.shrink()
       ],
     );
   }

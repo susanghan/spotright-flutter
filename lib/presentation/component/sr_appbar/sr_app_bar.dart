@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/component/sr_chip/sr_chip.dart';
 import 'package:spotright/presentation/component/sr_chip/sr_chip_model.dart';
+import 'package:spotright/presentation/page/following/following.dart';
 import 'package:spotright/presentation/page/my_page/my_page.dart';
 
 class SrAppBar extends StatefulWidget {
@@ -99,12 +100,17 @@ class _SrAppBarState extends State<SrAppBar> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [Text(widget.spots.toString()), Text('장소')],
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(widget.followers.toString()),
-                            Text('팔로워')
-                          ],
+                        GestureDetector(
+                          onTap: () {
+                            Get.to(Following());
+                          },
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(widget.followers.toString()),
+                              Text('팔로워')
+                            ],
+                          ),
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
