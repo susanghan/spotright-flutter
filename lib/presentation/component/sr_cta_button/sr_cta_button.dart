@@ -1,12 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:spotright/presentation/common/colors.dart';
-import 'package:spotright/presentation/component/sr_cta_button/sr_cta_button_model.dart';
 
 class SrCTAButton extends StatelessWidget {
-  const SrCTAButton({Key? key, required this.srCTAButtonModel}) : super(key: key);
+  const SrCTAButton(
+      {Key? key, this.text = '', this.isEnabled = true, required this.action})
+      : super(key: key);
 
-  final SrCTAButtonModel srCTAButtonModel;
+  final String text;
+  final bool isEnabled;
+  final Function() action;
 
   @override
   Widget build(BuildContext context) {
@@ -15,16 +18,15 @@ class SrCTAButton extends StatelessWidget {
       height: 44,
       child: OutlinedButton(
         style: OutlinedButton.styleFrom(
-          backgroundColor: srCTAButtonModel.isEnabled ? SrColors.primary : SrColors.gray,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(100))
-          )
+            backgroundColor:
+                isEnabled ? SrColors.primary : SrColors.gray,
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(100)))),
+        onPressed: action,
+        child: Text(
+          text,
+          style: const TextStyle(color: SrColors.white),
         ),
-        onPressed: srCTAButtonModel.action,
-        child: Text(srCTAButtonModel.text,
-        style: const TextStyle(
-          color: SrColors.white
-        ),),
       ),
     );
   }
