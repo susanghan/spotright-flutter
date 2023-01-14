@@ -2,15 +2,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:spotright/presentation/common/colors.dart';
-import 'package:spotright/presentation/component/sr_appbar/sr_app_bar_model.dart';
 import 'package:spotright/presentation/component/sr_chip/sr_chip.dart';
 import 'package:spotright/presentation/component/sr_chip/sr_chip_model.dart';
 import 'package:spotright/presentation/page/my_page/my_page.dart';
 
 class SrAppBar extends StatefulWidget {
-  SrAppBar({Key? key, required this.srAppBarModel}) : super(key: key);
+  SrAppBar(
+      {Key? key,
+      this.userName = '',
+      this.spots = 0,
+      this.followers = 0,
+      this.followings = 0})
+      : super(key: key);
 
-  SrAppBarModel srAppBarModel;
+  String userName;
+  int spots;
+  int followers;
+  int followings;
+  List<bool> selectedChips = [
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+  ];
 
   @override
   State<SrAppBar> createState() => _SrAppBarState();
@@ -65,7 +83,7 @@ class _SrAppBarState extends State<SrAppBar> {
                         color: SrColors.black,
                         borderRadius: BorderRadius.circular(100)),
                   ),
-                  Text(widget.srAppBarModel.userName)
+                  Text(widget.userName)
                 ],
               ),
             ),
@@ -79,22 +97,19 @@ class _SrAppBarState extends State<SrAppBar> {
                       children: [
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(widget.srAppBarModel.spots.toString()),
-                            Text('장소')
-                          ],
+                          children: [Text(widget.spots.toString()), Text('장소')],
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text(widget.srAppBarModel.followers.toString()),
+                            Text(widget.followers.toString()),
                             Text('팔로워')
                           ],
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text(widget.srAppBarModel.followings.toString()),
+                            Text(widget.followings.toString()),
                             Text('팔로잉')
                           ],
                         )
@@ -142,8 +157,7 @@ class _SrAppBarState extends State<SrAppBar> {
           color: SrColors.white,
           borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(12),
-              bottomRight: Radius.circular(12))
-      ),
+              bottomRight: Radius.circular(12))),
       child: GestureDetector(
         child: SvgPicture.asset(
           expended ? 'assets/arrow_up.svg' : 'assets/arrow_down.svg',
@@ -188,11 +202,10 @@ class _SrAppBarState extends State<SrAppBar> {
                     model: SrChipModel(
                         name: chipNames[index],
                         color: chipColors[index],
-                        selected: widget.srAppBarModel.selectedChips[index],
+                        selected: widget.selectedChips[index],
                         onTab: (isSelected) {
                           setState(() {
-                            widget.srAppBarModel.selectedChips[index] =
-                                isSelected;
+                            widget.selectedChips[index] = isSelected;
                           });
                         })));
           }),
