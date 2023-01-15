@@ -13,4 +13,8 @@ class SignUpController extends GetxController {
   void selectSex(int sex) {
     signUpState.sex.value = sex;
   }
+
+  void changePrivacyPolicy() {
+    signUpState.privacyPolicy.value = !signUpState.privacyPolicy.value;
+  }
 }

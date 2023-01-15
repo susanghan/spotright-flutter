@@ -4,11 +4,15 @@ class Languages extends Translations {
 
   @override
   Map<String, Map<String, String>> get keys => {
-    'en_US': {
-      "input_sex": "sex"
-    },
-    'ko_KR': {
+    "ko_KR": {
+      // sign up
+      "input_email": "이메일을 입력해주세요.",
       "input_sex": "성별을 입력해주세요."
+    },
+    "en_US": {
+      // sign up
+      "input_email": "이메일을 입력해주세요.",
+      "input_sex": "성별을 입력해주세요.",
     },
   };
 }

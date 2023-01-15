@@ -14,6 +14,7 @@ class SignUpState {
   var messageStatus = MessageStatus.defaultMessage.obs;
   String get validationMessage => _messageMap[messageStatus.value]!;
   RxInt sex = 0.obs;
+  RxBool privacyPolicy = false.obs;
 
   void validateId(String id) {
     if(id.length >= 4) {

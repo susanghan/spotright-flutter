@@ -33,7 +33,7 @@ class _SignUpState extends State<SignUp> {
             Obx(() =>
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Padding(padding: EdgeInsets.only(bottom: 30)),
-                  Text('이메일을 입력해주세요.'),
+                  Text("input_email".tr),
                   Padding(padding: EdgeInsets.only(bottom: 4)),
                   SrTextField(
                     srTextFieldModel:
@@ -51,12 +51,33 @@ class _SignUpState extends State<SignUp> {
                       Text(signUpController.signUpState.validationMessage)),
                   Padding(padding: EdgeInsets.only(bottom: 16)),
                   Text('닉네임을 입력해주세요.'),
+                  Padding(padding: EdgeInsets.only(bottom: 6)),
                   SrTextField(
                     srTextFieldModel: SrTextFieldModel(hint: '닉네임'),
                   ),
+                  Padding(padding: EdgeInsets.only(bottom: 6)),
+                  Text("닉네임은 *~*자로 입력"),
+                  Padding(padding: EdgeInsets.only(bottom: 20)),
                   Text('생년월일을 입력해주세요.'),
+                  Padding(padding: EdgeInsets.only(bottom: 6)),
+                  SrTextField(
+                    srTextFieldModel: SrTextFieldModel(),
+                  ),
+                  Padding(padding: EdgeInsets.only(bottom: 16)),
                   Text("input_sex".tr),
                   _SexSelector(),
+                  Padding(padding: EdgeInsets.only(bottom: 18)),
+                  Row(
+                    children: [
+                      SrCheckBox(value: signUpController.signUpState.privacyPolicy.value, onChanged: (checked) => signUpController.changePrivacyPolicy()),
+                      Padding(padding: EdgeInsets.only(right: 12)),
+                      Text("개인정보 수집 및 이용동의(필수)".tr,
+                        style: TextStyle(
+                            decoration: TextDecoration.underline
+                        ),
+                      ),
+                    ],
+                  )
                 ])),
             Column(
               children: [
