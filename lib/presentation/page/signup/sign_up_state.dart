@@ -1,26 +1,43 @@
 import 'package:get/get.dart';
 
 class SignUpState {
-  final Map<MessageStatus, String> _messageMap = {
-    MessageStatus.defaultMessage: '영문자, 숫자, 특수기호를 사용하여 4자~12자',
-    MessageStatus.checkLength: '아이디는 4~12자여야 합니다.',
-    MessageStatus.checkSpecialCharacter: '특수문자는 ?, ?, ? 만 사용 가능합니다.',
+  final Map<MessageStatus, String> _idMessageMap = {
+    MessageStatus.defaultMessage: "영문자, 숫자, 특수문자('-', '_')를 사용해 입력해 주세요.",
+    MessageStatus.checkLength: '아이디는 6~16자여야 합니다.',
     MessageStatus.checkDuplicate: '중복된 아이디입니다.',
-    MessageStatus.enabled: '사용가능한 아이디입니다.',
+    MessageStatus.enabled: '사용 가능한 아이디입니다.',
+    MessageStatus.empty: '',
+  };
+
+  final Map<MessageStatus, String> _nicknameMessageMap = {
+    MessageStatus.defaultMessage: "한글 혹은 영문자를 사용해 10자 이내로 입력해 주세요.",
+    MessageStatus.checkLength: '닉네임은 10자 이내여야 합니다.',
+    MessageStatus.checkDuplicate: '한글 혹은 영문자만 입력해 주세요.',
+    MessageStatus.enabled: '사용 가능한 닉네임입니다.',
     MessageStatus.empty: '',
   };
 
   var ctaActive = false.obs;
-  var messageStatus = MessageStatus.defaultMessage.obs;
-  String get validationMessage => _messageMap[messageStatus.value]!;
+  var idMessageStatus = MessageStatus.defaultMessage.obs;
+  var nicknameMessageStatus = MessageStatus.defaultMessage.obs;
+  String get idValidationMessage => _idMessageMap[idMessageStatus.value]!;
+  String get nicknameValidationMessage => _idMessageMap[nicknameMessageStatus.value]!;
   RxInt sex = 0.obs;
   RxBool privacyPolicy = false.obs;
 
   void validateId(String id) {
-    if(id.length >= 4) {
-      messageStatus.value = MessageStatus.empty;
+    final regex = RegExp(r'^([0-9a-zA-Z-_]{6,16})$');
+    if (regex.hasMatch(id)) {
+      idMessageStatus.value = MessageStatus.empty;
+      return;
+    }
+
+    if (id.isEmpty) {
+      idMessageStatus.value = MessageStatus.defaultMessage;
+    } else if (id.length < 6 || id.length > 16) {
+      idMessageStatus.value = MessageStatus.checkLength;
     } else {
-      messageStatus.value = MessageStatus.checkLength;
+      idMessageStatus.value = MessageStatus.defaultMessage;
     }
   }
 }
