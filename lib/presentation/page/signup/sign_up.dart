@@ -18,7 +18,6 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   SignUpController signUpController = Get.find();
-  int _sex = 0; // 0 male, 1 female
 
   @override
   Widget build(BuildContext context) {
@@ -31,36 +30,34 @@ class _SignUpState extends State<SignUp> {
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: Stack(children: [
-            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Padding(padding: EdgeInsets.only(bottom: 30)),
-              Text('이메일을 입력해주세요.'),
-              Padding(padding: EdgeInsets.only(bottom: 4)),
-              SrTextField(
-                srTextFieldModel: SrTextFieldModel(hint: 'example@gmail.com'),
-              ),
-              Padding(padding: EdgeInsets.only(bottom: 24)),
-              Text('아이디를 입력해주세요.'),
-              Padding(padding: EdgeInsets.only(bottom: 4)),
-              SrTextField(
-                srTextFieldModel: SrTextFieldModel(
-                    hint: '아이디', onChanged: signUpController.validate),
-              ),
-              Padding(padding: EdgeInsets.only(bottom: 6)),
-              Obx(() => Text(signUpController.signUpState.validationMessage)),
-              Padding(padding: EdgeInsets.only(bottom: 16)),
-              Text('닉네임을 입력해주세요.'),
-              SrTextField(
-                srTextFieldModel: SrTextFieldModel(hint: '닉네임'),
-              ),
-              Text('생년월일을 입력해주세요.'),
-              Text("input_sex".tr),
-              SrCheckBox(value: _sex == 0, onChanged: (checked) {
-                setState(() {
-                  _sex = checked ? 0 : 1;
-                });
-              },
-              ),
-            ]),
+            Obx(() =>
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Padding(padding: EdgeInsets.only(bottom: 30)),
+                  Text('이메일을 입력해주세요.'),
+                  Padding(padding: EdgeInsets.only(bottom: 4)),
+                  SrTextField(
+                    srTextFieldModel:
+                        SrTextFieldModel(hint: 'example@gmail.com'),
+                  ),
+                  Padding(padding: EdgeInsets.only(bottom: 24)),
+                  Text('아이디를 입력해주세요.'),
+                  Padding(padding: EdgeInsets.only(bottom: 4)),
+                  SrTextField(
+                    srTextFieldModel: SrTextFieldModel(
+                        hint: '아이디', onChanged: signUpController.validate),
+                  ),
+                  Padding(padding: EdgeInsets.only(bottom: 6)),
+                  Obx(() =>
+                      Text(signUpController.signUpState.validationMessage)),
+                  Padding(padding: EdgeInsets.only(bottom: 16)),
+                  Text('닉네임을 입력해주세요.'),
+                  SrTextField(
+                    srTextFieldModel: SrTextFieldModel(hint: '닉네임'),
+                  ),
+                  Text('생년월일을 입력해주세요.'),
+                  Text("input_sex".tr),
+                  _SexSelector(),
+                ])),
             Column(
               children: [
                 Expanded(
@@ -77,6 +74,40 @@ class _SignUpState extends State<SignUp> {
             )
           ]),
         ),
+      ),
+    );
+  }
+
+  Widget _SexSelector() {
+    return Container(
+      margin: EdgeInsets.only(top: 16),
+      child: Row(
+        children: [
+          Flexible(
+            child: Row(
+              children: [
+                Text("남자"),
+                Padding(padding: EdgeInsets.only(right: 12)),
+                SrCheckBox(
+                  value: signUpController.signUpState.sex.value == 0,
+                  onChanged: (checked) => signUpController.selectSex(0),
+                ),
+              ],
+            ),
+          ),
+          Flexible(
+            child: Row(
+              children: [
+                Text("여자"),
+                Padding(padding: EdgeInsets.only(right: 12)),
+                SrCheckBox(
+                  value: signUpController.signUpState.sex.value == 1,
+                  onChanged: (checked) => signUpController.selectSex(1),
+                ),
+              ],
+            ),
+          )
+        ],
       ),
     );
   }

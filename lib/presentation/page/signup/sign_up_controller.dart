@@ -9,4 +9,8 @@ class SignUpController extends GetxController {
   void validate(String id) {
     signUpState.validateId(id);
   }
+
+  void selectSex(int sex) {
+    signUpState.sex.value = sex;
+  }
 }

@@ -13,6 +13,7 @@ class SignUpState {
   var ctaActive = false.obs;
   var messageStatus = MessageStatus.defaultMessage.obs;
   String get validationMessage => _messageMap[messageStatus.value]!;
+  RxInt sex = 0.obs;
 
   void validateId(String id) {
     if(id.length >= 4) {
