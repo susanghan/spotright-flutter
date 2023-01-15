@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:spotright/presentation/common/colors.dart';
+import 'package:spotright/presentation/common/language.dart';
 import 'package:spotright/presentation/page/block_list/block_list.dart';
 import 'package:spotright/presentation/page/detail/detail.dart';
 import 'package:spotright/presentation/page/edit_profile/efit_profile.dart';
@@ -15,11 +16,19 @@ import 'package:spotright/presentation/page/signup/sign_up_state.dart';
 import 'package:spotright/presentation/page/spot_list/spot_list.dart';
 
 void main() {
-  runApp(const Spotright());
+  runApp(Spotright());
 }
 
-class Spotright extends StatelessWidget {
+class Spotright extends StatefulWidget {
   const Spotright({Key? key}) : super(key: key);
+
+  @override
+  _State createState() => _State();
+}
+
+class _State extends State<Spotright> {
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -37,10 +46,19 @@ class Spotright extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: SrColors.materialPrimary,
       ),
-      initialRoute: '/signup',
+      initialRoute: '/home',
       initialBinding: BindingsBuilder(() {
         Get.put(SignUpController(signUpState: SignUpState()));
       }),
+      locale: Get.locale,
+      fallbackLocale: const Locale('en', 'US'),
+      translations: Languages(),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    Get.locale = const Locale('en', 'US');
   }
 }

@@ -51,7 +51,7 @@ class _SignUpState extends State<SignUp> {
                 srTextFieldModel: SrTextFieldModel(hint: '닉네임'),
               ),
               Text('생년월일을 입력해주세요.'),
-              Text('성별을 선택해주세요.'),
+              Text("input_sex".tr),
             ]),
             Column(
               children: [
