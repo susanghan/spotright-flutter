@@ -15,13 +15,12 @@ class SrCTAButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: 44,
+      height: 88,
       child: OutlinedButton(
         style: OutlinedButton.styleFrom(
-            backgroundColor:
-                isEnabled ? SrColors.primary : SrColors.gray,
+            backgroundColor: isEnabled ? SrColors.primary : SrColors.gray,
             shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(100)))),
+                borderRadius: BorderRadius.all(Radius.circular(0)))),
         onPressed: action,
         child: Text(
           text,
