@@ -3,9 +3,11 @@ import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/component/sr_text_field/sr_text_field_model.dart';
 
 class SrTextField extends StatelessWidget {
-  const SrTextField({Key? key, this.srTextFieldModel}) : super(key: key);
+  SrTextField({Key? key, this.srTextFieldModel, this.suffixIcon}) : super(key: key);
 
   final SrTextFieldModel? srTextFieldModel;
+  Widget? suffixIcon;
+
 
   @override
   Widget build(BuildContext context) {
@@ -16,11 +18,12 @@ class SrTextField extends StatelessWidget {
         textAlignVertical: TextAlignVertical.center,
         onChanged: srTextFieldModel?.onChanged,
         decoration: InputDecoration(
+          suffixIcon: suffixIcon,
           contentPadding: const EdgeInsets.all(12),
             border: const OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(100)),
                 borderSide: BorderSide(
-                    width: 1, color: SrColors.gray
+                    width: 1, color: SrColors.gray1
                 )
             ),
             focusedBorder: const OutlineInputBorder(

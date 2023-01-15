@@ -47,7 +47,7 @@ class _State extends State<Spotright> {
         primarySwatch: SrColors.materialPrimary,
         fontFamily: 'Pretendard'
       ),
-      initialRoute: '/signup',
+      initialRoute: '/home',
       initialBinding: BindingsBuilder(() {
         Get.put(SignUpController(signUpState: SignUpState()));
       }),
