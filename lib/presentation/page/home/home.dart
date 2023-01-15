@@ -22,23 +22,28 @@ class _HomeState extends State<Home> {
   Completer<GoogleMapController> _mapController = Completer();
 
   // todo: 지도 내 현재 위치에 마커 찍어주기
-  void _currentLocation() async {
+  Future<LatLng> _currentLocation() async {
     final GoogleMapController controller = await _mapController.future;
     LocationData? currentLocation;
     var location = Location();
 
     try {
       currentLocation = await location.getLocation();
+      controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+        bearing: 0,
+        target: LatLng(currentLocation.latitude!, currentLocation.longitude!),
+        zoom: 17.0,
+
+      )));
+      return LatLng(currentLocation.latitude!, currentLocation.longitude!);
     } on Exception {
       currentLocation = null;
-      return;
+      //Todo : Get.locale 함수로 언어 설정 받아와서 추후에 수도로 찍어주기
+      return LatLng(37.510181246, 127.043505829);
     }
 
-    controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
-      bearing: 0,
-      target: LatLng(currentLocation.latitude!, currentLocation.longitude!),
-      zoom: 17.0,
-    )));
+
+
   }
 
   @override
@@ -60,6 +65,7 @@ class _HomeState extends State<Home> {
             ),
             onMapCreated: (GoogleMapController controller) {
               _mapController.complete(controller);
+              _currentLocation();
             },
           ),
           SrAppBar(
@@ -113,16 +119,21 @@ class _HomeState extends State<Home> {
                     margin: EdgeInsets.only(bottom: 12),
                   ),
                 ),
-                Container(
-                  width: 44,
-                  height: 44,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      color: SrColors.gray9e),
-                  child: SvgPicture.asset(
-                    "assets/my_location.svg",
-                    color: SrColors.white,
-                    fit: BoxFit.scaleDown,
+                GestureDetector(
+                  onTap: () {
+                    _currentLocation();
+                  },
+                  child: Container(
+                    width: 44,
+                    height: 44,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                        color: SrColors.gray9e),
+                    child: SvgPicture.asset(
+                      "assets/my_location.svg",
+                      color: SrColors.white,
+                      fit: BoxFit.scaleDown,
+                    ),
                   ),
                 )
               ],
