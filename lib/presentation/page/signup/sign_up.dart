@@ -27,74 +27,76 @@ class _SignUpState extends State<SignUp> {
           title: "회원가입",
           hasBackButton: true,
         ),
-        body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
-          child: Stack(children: [
-            Obx(() =>
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  Padding(padding: EdgeInsets.only(bottom: 30)),
-                  Text("input_email".tr),
-                  Padding(padding: EdgeInsets.only(bottom: 4)),
-                  SrTextField(
-                    srTextFieldModel:
-                        SrTextFieldModel(hint: 'example@gmail.com'),
-                  ),
-                  Padding(padding: EdgeInsets.only(bottom: 24)),
-                  Text('아이디를 입력해주세요.'),
-                  Padding(padding: EdgeInsets.only(bottom: 4)),
-                  SrTextField(
-                    srTextFieldModel: SrTextFieldModel(
-                        hint: '아이디', onChanged: signUpController.validate),
-                  ),
-                  Padding(padding: EdgeInsets.only(bottom: 6)),
-                  Obx(() =>
-                      Text(signUpController.signUpState.validationMessage)),
-                  Padding(padding: EdgeInsets.only(bottom: 16)),
-                  Text('닉네임을 입력해주세요.'),
-                  Padding(padding: EdgeInsets.only(bottom: 6)),
-                  SrTextField(
-                    srTextFieldModel: SrTextFieldModel(hint: '닉네임'),
-                  ),
-                  Padding(padding: EdgeInsets.only(bottom: 6)),
-                  Text("닉네임은 *~*자로 입력"),
-                  Padding(padding: EdgeInsets.only(bottom: 20)),
-                  Text('생년월일을 입력해주세요.'),
-                  Padding(padding: EdgeInsets.only(bottom: 6)),
-                  SrTextField(
-                    srTextFieldModel: SrTextFieldModel(),
-                  ),
-                  Padding(padding: EdgeInsets.only(bottom: 16)),
-                  Text("input_sex".tr),
-                  _SexSelector(),
-                  Padding(padding: EdgeInsets.only(bottom: 18)),
-                  Row(
-                    children: [
-                      SrCheckBox(value: signUpController.signUpState.privacyPolicy.value, onChanged: (checked) => signUpController.changePrivacyPolicy()),
-                      Padding(padding: EdgeInsets.only(right: 12)),
-                      Text("개인정보 수집 및 이용동의(필수)".tr,
-                        style: TextStyle(
-                            decoration: TextDecoration.underline
+        body: Stack(alignment: Alignment.topCenter, children: [
+          Obx(() => Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: SingleChildScrollView(
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(padding: EdgeInsets.only(bottom: 30)),
+                        Text("input_email".tr),
+                        Padding(padding: EdgeInsets.only(bottom: 4)),
+                        SrTextField(
+                          srTextFieldModel:
+                              SrTextFieldModel(hint: 'example@gmail.com'),
                         ),
-                      ),
-                    ],
-                  )
-                ])),
-            Column(
-              children: [
-                Expanded(
-                    child: Padding(
-                  padding: EdgeInsets.zero,
+                        Padding(padding: EdgeInsets.only(bottom: 24)),
+                        Text('아이디를 입력해주세요.'),
+                        Padding(padding: EdgeInsets.only(bottom: 4)),
+                        SrTextField(
+                          srTextFieldModel: SrTextFieldModel(
+                              hint: '아이디', onChanged: signUpController.validate),
+                        ),
+                        Padding(padding: EdgeInsets.only(bottom: 6)),
+                        Obx(() =>
+                            Text(signUpController.signUpState.idValidationMessage)),
+                        Padding(padding: EdgeInsets.only(bottom: 16)),
+                        Text('닉네임을 입력해주세요.'),
+                        Padding(padding: EdgeInsets.only(bottom: 6)),
+                        SrTextField(
+                          srTextFieldModel: SrTextFieldModel(hint: '닉네임'),
+                        ),
+                        Padding(padding: EdgeInsets.only(bottom: 6)),
+                        Text("닉네임은 *~*자로 입력"),
+                        Padding(padding: EdgeInsets.only(bottom: 20)),
+                        Text('생년월일을 입력해주세요.'),
+                        Padding(padding: EdgeInsets.only(bottom: 6)),
+                        SrTextField(
+                          srTextFieldModel: SrTextFieldModel(),
+                        ),
+                        Padding(padding: EdgeInsets.only(bottom: 16)),
+                        Text("input_sex".tr),
+                        _SexSelector(),
+                        Padding(padding: EdgeInsets.only(bottom: 18)),
+                        Row(
+                          children: [
+                            SrCheckBox(
+                                value: signUpController
+                                    .signUpState.privacyPolicy.value,
+                                onChanged: (checked) =>
+                                    signUpController.changePrivacyPolicy()),
+                            Padding(padding: EdgeInsets.only(right: 12)),
+                            Text(
+                              "개인정보 수집 및 이용동의(필수)".tr,
+                              style:
+                                  TextStyle(decoration: TextDecoration.underline),
+                            ),
+                          ],
+                        ),
+                        Padding(padding: EdgeInsets.only(bottom: 40 + 88)),
+                      ]),
+                ),
+              )),
+          Column(children: [
+            Expanded(child: SizedBox.shrink()),
+            Obx(() => SrCTAButton(
+                  text: '완료',
+                  isEnabled: signUpController.signUpState.ctaActive.value,
+                  action: () {},
                 )),
-                Obx(() => SrCTAButton(
-                      text: '완료',
-                      isEnabled: signUpController.signUpState.ctaActive.value,
-                      action: () {},
-                    )),
-                Padding(padding: EdgeInsets.only(bottom: 44)),
-              ],
-            )
           ]),
-        ),
+        ]),
       ),
     );
   }
