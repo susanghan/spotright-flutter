@@ -45,6 +45,7 @@ class _State extends State<Spotright> {
       },
       theme: ThemeData(
         primarySwatch: SrColors.materialPrimary,
+        fontFamily: 'Pretendard'
       ),
       initialRoute: '/signup',
       initialBinding: BindingsBuilder(() {
