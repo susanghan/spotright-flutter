@@ -37,7 +37,7 @@ class Spotright extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: SrColors.materialPrimary,
       ),
-      initialRoute: '/home',
+      initialRoute: '/signup',
       initialBinding: BindingsBuilder(() {
         Get.put(SignUpController(signUpState: SignUpState()));
       }),

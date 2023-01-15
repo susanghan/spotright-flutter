@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spotright/presentation/common/colors.dart';
+import 'package:spotright/presentation/component/sr_appbar/default_app_bar.dart';
 import 'package:spotright/presentation/component/sr_cta_button/sr_cta_button.dart';
 import 'package:spotright/presentation/component/sr_text_field/sr_text_field.dart';
 import 'package:spotright/presentation/component/sr_text_field/sr_text_field_model.dart';
@@ -21,22 +22,9 @@ class _SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back_ios,
-              color: SrColors.black,
-            ),
-            onPressed: () {
-              Get.back();
-            },
-          ),
-          centerTitle: true,
-          backgroundColor: SrColors.white,
-          title: Text(
-            '회원가입',
-            style: TextStyle(color: SrColors.black),
-          ),
+        appBar: DefaultAppBar(
+          title: "회원가입",
+          hasBackButton: true,
         ),
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20),
