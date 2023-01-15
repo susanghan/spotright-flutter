@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/component/sr_appbar/default_app_bar.dart';
+import 'package:spotright/presentation/component/sr_check_box/sr_check_box.dart';
 import 'package:spotright/presentation/component/sr_cta_button/sr_cta_button.dart';
 import 'package:spotright/presentation/component/sr_text_field/sr_text_field.dart';
 import 'package:spotright/presentation/component/sr_text_field/sr_text_field_model.dart';
@@ -17,6 +18,7 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   SignUpController signUpController = Get.find();
+  int _sex = 0; // 0 male, 1 female
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +54,12 @@ class _SignUpState extends State<SignUp> {
               ),
               Text('생년월일을 입력해주세요.'),
               Text("input_sex".tr),
+              SrCheckBox(value: _sex == 0, onChanged: (checked) {
+                setState(() {
+                  _sex = checked ? 0 : 1;
+                });
+              },
+              ),
             ]),
             Column(
               children: [
