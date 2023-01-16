@@ -40,6 +40,22 @@ class SignUpState {
       idMessageStatus.value = MessageStatus.defaultMessage;
     }
   }
+
+  void validateNickname(String nickname) {
+    final regex = RegExp(r'^([a-zA-Zㄱ-ㅎ가-힣]{1,10})$');
+    if (regex.hasMatch(nickname)) {
+      nicknameMessageStatus.value = MessageStatus.enabled;
+      return;
+    }
+
+    if (nickname.isEmpty) {
+      nicknameMessageStatus.value = MessageStatus.defaultMessage;
+    } else if (nickname.length > 10) {
+      nicknameMessageStatus.value = MessageStatus.checkLength;
+    } else {
+      nicknameMessageStatus.value = MessageStatus.defaultMessage;
+    }
+  }
 }
 
 enum MessageStatus {

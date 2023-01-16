@@ -6,8 +6,12 @@ class SignUpController extends GetxController {
 
   final SignUpState signUpState;
 
-  void validate(String id) {
+  void onIdChanged(String id) {
     signUpState.validateId(id);
+  }
+
+  void onNicknameChanged(String nickname) {
+    signUpState.validateNickname(nickname);
   }
 
   void selectSex(int sex) {

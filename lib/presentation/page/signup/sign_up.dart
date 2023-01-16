@@ -116,7 +116,7 @@ class _SignUpState extends State<SignUp> {
         padding: EdgeInsets.only(bottom: 6),
         child: SrTextField(
           hint: '아이디',
-          onChanged: signUpController.validate,
+          onChanged: signUpController.onIdChanged,
           suffixIcon: Padding(
             padding: EdgeInsets.all(4),
             child: OutlinedButton(
@@ -149,7 +149,8 @@ class _SignUpState extends State<SignUp> {
       ),
       Padding(
         padding: EdgeInsets.only(bottom: 6),
-        child: SrTextField(hint: '닉네임'),
+        child: SrTextField(
+            hint: '닉네임', onChanged: signUpController.onNicknameChanged),
       ),
       Padding(
         padding: EdgeInsets.only(left: 12, bottom: 20),
