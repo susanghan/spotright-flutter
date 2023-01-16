@@ -21,7 +21,7 @@ class SignUpState {
   var idMessageStatus = MessageStatus.defaultMessage.obs;
   var nicknameMessageStatus = MessageStatus.defaultMessage.obs;
   String get idValidationMessage => _idMessageMap[idMessageStatus.value]!;
-  String get nicknameValidationMessage => _idMessageMap[nicknameMessageStatus.value]!;
+  String get nicknameValidationMessage => _nicknameMessageMap[nicknameMessageStatus.value]!;
   RxInt sex = 0.obs;
   RxBool privacyPolicy = false.obs;
 
