@@ -6,7 +6,6 @@ import 'package:spotright/presentation/component/sr_appbar/default_app_bar.dart'
 import 'package:spotright/presentation/component/sr_check_box/sr_check_box.dart';
 import 'package:spotright/presentation/component/sr_cta_button/sr_cta_button.dart';
 import 'package:spotright/presentation/component/sr_text_field/sr_text_field.dart';
-import 'package:spotright/presentation/component/sr_text_field/sr_text_field_model.dart';
 import 'package:spotright/presentation/page/signup/sign_up_controller.dart';
 
 class SignUp extends StatefulWidget {
@@ -38,15 +37,43 @@ class _SignUpState extends State<SignUp> {
                         Text("input_email".tr),
                         Padding(padding: EdgeInsets.only(bottom: 4)),
                         SrTextField(
-                          srTextFieldModel:
-                              SrTextFieldModel(hint: 'example@gmail.com'),
+                              hint: 'example@gmail.com',
+                          suffixIcon: Padding(
+                            padding: EdgeInsets.all(4),
+                            child: OutlinedButton(
+                              onPressed: () {
+
+                              },
+                              child: Text("인증완료", style: TextStyle(color: SrColors.white),),
+                              style: OutlinedButton.styleFrom(
+                                backgroundColor: SrColors.primary,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(100)
+                                )
+                              ),
+                            ),
+                          ),
                         ),
                         Padding(padding: EdgeInsets.only(bottom: 24)),
                         Text('아이디를 입력해주세요.'),
                         Padding(padding: EdgeInsets.only(bottom: 4)),
                         SrTextField(
-                          srTextFieldModel: SrTextFieldModel(
-                              hint: '아이디', onChanged: signUpController.validate),
+                              hint: '아이디', onChanged: signUpController.validate,
+                            suffixIcon: Padding(
+                              padding: EdgeInsets.all(4),
+                              child: OutlinedButton(
+                                onPressed: () {
+
+                                },
+                                child: Text("중복", style: TextStyle(color: SrColors.white),),
+                                style: OutlinedButton.styleFrom(
+                                    backgroundColor: SrColors.primary,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(100)
+                                    )
+                                ),
+                              ),
+                            ),
                         ),
                         Padding(padding: EdgeInsets.only(bottom: 6)),
                         Obx(() =>
@@ -54,17 +81,13 @@ class _SignUpState extends State<SignUp> {
                         Padding(padding: EdgeInsets.only(bottom: 16)),
                         Text('닉네임을 입력해주세요.'),
                         Padding(padding: EdgeInsets.only(bottom: 6)),
-                        SrTextField(
-                          srTextFieldModel: SrTextFieldModel(hint: '닉네임'),
-                        ),
+                        SrTextField(hint: '닉네임'),
                         Padding(padding: EdgeInsets.only(bottom: 6)),
-                        Text("닉네임은 *~*자로 입력"),
+                        Text("닉네임은 10자 이내로 입력"),
                         Padding(padding: EdgeInsets.only(bottom: 20)),
                         Text('생년월일을 입력해주세요.'),
                         Padding(padding: EdgeInsets.only(bottom: 6)),
-                        SrTextField(
-                          srTextFieldModel: SrTextFieldModel(),
-                        ),
+                        SrTextField(),
                         Padding(padding: EdgeInsets.only(bottom: 16)),
                         Text("input_sex".tr),
                         _SexSelector(),

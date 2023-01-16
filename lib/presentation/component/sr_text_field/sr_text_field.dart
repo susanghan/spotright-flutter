@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:spotright/presentation/common/colors.dart';
-import 'package:spotright/presentation/component/sr_text_field/sr_text_field_model.dart';
 
 class SrTextField extends StatelessWidget {
-  SrTextField({Key? key, this.srTextFieldModel, this.suffixIcon}) : super(key: key);
+  SrTextField({Key? key, this.suffixIcon, this.hint = '', this.onChanged}) : super(key: key);
 
-  final SrTextFieldModel? srTextFieldModel;
+  final String hint;
+  final Function(String)? onChanged;
   Widget? suffixIcon;
-
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +15,7 @@ class SrTextField extends StatelessWidget {
       child: TextField(
         textAlign: TextAlign.start,
         textAlignVertical: TextAlignVertical.center,
-        onChanged: srTextFieldModel?.onChanged,
+        onChanged: onChanged,
         decoration: InputDecoration(
           suffixIcon: suffixIcon,
           contentPadding: const EdgeInsets.all(12),
@@ -32,7 +31,7 @@ class SrTextField extends StatelessWidget {
                     width: 1, color: SrColors.primary
                 )
             ),
-            hintText: srTextFieldModel?.hint
+            hintText: hint
         ),
       ),
     );
