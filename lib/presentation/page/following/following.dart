@@ -34,10 +34,18 @@ class _FollowingState extends State<Following> {
             ),
             Expanded(
               child: TabBarView(children: [
-                Container(
-                  child: Text("follower"),
-                ),
-                Text("팔로잉"),
+                ListView.builder(
+                    padding: EdgeInsets.only(top: 20),
+                    itemCount: 10,
+                    itemBuilder: (BuildContext context, int index) {
+                      return _Profile(true);
+                    }),
+                ListView.builder(
+                  padding: EdgeInsets.only(top: 20),
+                    itemCount: 10,
+                    itemBuilder: (BuildContext context, int index) {
+                      return _Profile(false);
+                    })
               ]),
             )
           ])),
@@ -57,6 +65,42 @@ class _FollowingState extends State<Following> {
           Text("팔로잉", style: TextStyle(color: SrColors.black)),
         ],
       ),
+    );
+  }
+
+  Widget _Profile(bool isFollower) {
+    return Container(
+      margin: EdgeInsets.fromLTRB(16, 0, 16, 30),
+      child: Row(children: [
+        Container(
+          width: 60,
+          height: 60,
+          margin: EdgeInsets.only(right: 16),
+          child: CircleAvatar(
+              radius: 100,
+              backgroundImage: NetworkImage("https://picsum.photos/180")),
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("qkrthgus"),
+            Text("박소현"),
+          ],
+        ),
+        Spacer(),
+        SizedBox(
+          width: 108,
+          height: 36,
+          child: OutlinedButton(
+            onPressed: () {},
+            child: isFollower ? Text("삭제") : Text("팔로잉"),
+            style: OutlinedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(100)),
+                side: BorderSide(color: SrColors.primary)),
+          ),
+        )
+      ]),
     );
   }
 }
