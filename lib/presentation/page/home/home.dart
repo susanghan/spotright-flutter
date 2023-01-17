@@ -9,6 +9,7 @@ import 'package:location/location.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/appbars/sr_app_bar.dart';
+import 'package:spotright/presentation/component/dialog/sr_dialog.dart';
 import 'package:spotright/presentation/page/add_spot/add_spot.dart';
 
 class Home extends StatefulWidget {
@@ -40,9 +41,6 @@ class _HomeState extends State<Home> {
       //Todo : Get.locale 함수로 언어 설정 받아와서 추후에 수도로 찍어주기
       return LatLng(37.510181246, 127.043505829);
     }
-
-
-
   }
 
   @override
@@ -73,24 +71,29 @@ class _HomeState extends State<Home> {
             followers: 100,
             followings: 100,
           ),
-          Container(
-            width: 112,
-            height: 36,
-            margin: EdgeInsets.only(bottom: 24),
-            child: Material(
-              elevation: 4,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(100)),
-              child:
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                Padding(
-                    padding: EdgeInsets.only(right: 4),
-                    child: Icon(Icons.menu)),
-                Text(
-                  '목록보기',
-                  style: TextStyle(color: SrColors.black),
-                ),
-              ]),
+          GestureDetector(
+            onTap: () {
+
+            },
+            child: Container(
+              width: 112,
+              height: 36,
+              margin: EdgeInsets.only(bottom: 24),
+              child: Material(
+                elevation: 4,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(100)),
+                child:
+                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  Padding(
+                      padding: EdgeInsets.only(right: 4),
+                      child: Icon(Icons.menu)),
+                  Text(
+                    '목록보기',
+                    style: TextStyle(color: SrColors.black),
+                  ),
+                ]),
+              ),
             ),
           ),
           Container(
