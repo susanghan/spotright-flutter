@@ -83,8 +83,8 @@ class _FollowingState extends State<Following> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("qkrthgus"),
-            Text("박소현"),
+            Text("dkscjftn"),
+            Text("김철수"),
           ],
         ),
         Spacer(),
