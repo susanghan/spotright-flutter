@@ -21,7 +21,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   Completer<GoogleMapController> _mapController = Completer();
 
-  // todo: 지도 내 현재 위치에 마커 찍어주기
   Future<LatLng> _currentLocation() async {
     final GoogleMapController controller = await _mapController.future;
     LocationData? currentLocation;

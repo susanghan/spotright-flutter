@@ -7,6 +7,8 @@ import 'package:spotright/presentation/page/block_list/block_list.dart';
 import 'package:spotright/presentation/page/detail/detail.dart';
 import 'package:spotright/presentation/page/edit_profile/efit_profile.dart';
 import 'package:spotright/presentation/page/following/following.dart';
+import 'package:spotright/presentation/page/following/following_controller.dart';
+import 'package:spotright/presentation/page/following/following_state.dart';
 import 'package:spotright/presentation/page/home/home.dart';
 import 'package:spotright/presentation/page/my_page/my_page.dart';
 import 'package:spotright/presentation/page/search/search.dart';
@@ -40,16 +42,17 @@ class _State extends State<Spotright> {
         '/detail': (context) => const Detail(),
         '/block_list': (context) => const BlockList(),
         '/edit_profile': (context) => const EditProfile(),
-        '/following': (context) => const Following(),
         '/spot_list': (context) => const SpotList(),
       },
       theme: ThemeData(
         primarySwatch: SrColors.materialPrimary,
+        canvasColor: SrColors.white,
         fontFamily: 'Pretendard'
       ),
-      initialRoute: '/signup',
+      initialRoute: '/home',
       initialBinding: BindingsBuilder(() {
         Get.put(SignUpController(signUpState: SignUpState()));
+        Get.put(FollowingController(followingState: FollowingState()));
       }),
       locale: Get.locale,
       fallbackLocale: const Locale('en', 'US'),
