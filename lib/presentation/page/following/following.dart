@@ -30,19 +30,7 @@ class _FollowingState extends State<Following> {
           body: Column(children: [
             PreferredSize(
               preferredSize: Size.fromHeight(10),
-              child: Container(
-                height: 48,
-                padding: EdgeInsets.symmetric(horizontal: 8),
-                child: TabBar(
-                  tabs: [
-                    Text(
-                      "팔로워",
-                      style: TextStyle(color: SrColors.black),
-                    ),
-                    Text("팔로잉", style: TextStyle(color: SrColors.black)),
-                  ],
-                ),
-              ),
+              child: _TabBar(),
             ),
             Expanded(
               child: TabBarView(children: [
@@ -54,5 +42,21 @@ class _FollowingState extends State<Following> {
             )
           ])),
     ));
+  }
+
+  Widget _TabBar() {
+    return Container(
+      height: 48,
+      padding: EdgeInsets.symmetric(horizontal: 8),
+      child: TabBar(
+        tabs: [
+          Text(
+            "팔로워",
+            style: TextStyle(color: SrColors.black),
+          ),
+          Text("팔로잉", style: TextStyle(color: SrColors.black)),
+        ],
+      ),
+    );
   }
 }
