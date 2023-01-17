@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spotright/presentation/common/colors.dart';
-import 'package:spotright/presentation/component/sr_appbar/default_app_bar.dart';
+import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/page/following/following_controller.dart';
-import 'package:spotright/presentation/page/following/following_state.dart';
 
 class Following extends StatefulWidget {
   const Following({Key? key, required this.tabIndex}) : super(key: key);
@@ -33,6 +32,7 @@ class _FollowingState extends State<Following> {
               preferredSize: Size.fromHeight(10),
               child: Container(
                 height: 48,
+                padding: EdgeInsets.symmetric(horizontal: 8),
                 child: TabBar(
                   tabs: [
                     Text(

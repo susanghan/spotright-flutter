@@ -7,8 +7,8 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:spotright/presentation/common/colors.dart';
-import 'package:spotright/presentation/component/sr_appbar/default_app_bar.dart';
-import 'package:spotright/presentation/component/sr_appbar/sr_app_bar.dart';
+import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
+import 'package:spotright/presentation/component/appbars/sr_app_bar.dart';
 import 'package:spotright/presentation/page/add_spot/add_spot.dart';
 
 class Home extends StatefulWidget {

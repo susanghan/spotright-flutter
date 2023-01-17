@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spotright/presentation/common/colors.dart';
-import 'package:spotright/presentation/component/sr_appbar/default_app_bar.dart';
-import 'package:spotright/presentation/component/sr_cta_button/sr_cta_button.dart';
+import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
+import 'package:spotright/presentation/component/buttons/sr_cta_button.dart';
 import 'package:spotright/presentation/component/sr_text_field/sr_text_field.dart';
 
 import '../../component/sr_dropdown_box/sr_dropdown_box.dart';
