@@ -73,7 +73,17 @@ class _HomeState extends State<Home> {
           ),
           GestureDetector(
             onTap: () {
-
+              Get.dialog(
+                SrDialog(
+                  icon: Icon(Icons.cancel_outlined),
+                  title: "제목",
+                  description: "설명",
+                  actions: [
+                    Text("버튼1"),
+                    Text("버튼2"),
+                  ],
+                )
+              );
             },
             child: Container(
               width: 112,
