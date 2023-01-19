@@ -1,12 +1,13 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
 import 'package:spotright/presentation/common/colors.dart';
 
 /*
 * 참고 : https://pub.dev/packages/dropdown_button2
 * */
+
+//todo : isExpand 했을 때 모양 바꾸기
 
 class SrDropdownBox extends StatelessWidget {
   final List<Color>? dropdownIconColors;
@@ -36,43 +37,42 @@ class SrDropdownBox extends StatelessWidget {
   final bool? scrollbarAlwaysShow;
   final Offset? offset;
 
-  const SrDropdownBox({
-    required this.hint,
-    required this.dropdownItems,
-    required this.onChanged,
-    required this.dropdownIconSize,
-    this.dropdownIconColors,
-    this.selectedItemBuilder,
-    this.hintAlignment,
-    this.valueAlignment,
-    this.buttonHeight,
-    this.buttonWidth,
-    this.buttonPadding,
-    this.buttonDecoration,
-    this.buttonElevation,
-    this.icon,
-    this.iconSize,
-    this.iconEnabledColor,
-    this.iconDisabledColor,
-    this.itemHeight,
-    this.itemPadding,
-    this.dropdownHeight,
-    this.dropdownWidth,
-    this.dropdownPadding,
-    this.dropdownDecoration,
-    this.dropdownElevation,
-    this.scrollbarRadius,
-    this.scrollbarThickness,
-    this.scrollbarAlwaysShow,
-    this.offset,
-    Key? key
-  }) : super(key: key);
+  const SrDropdownBox(
+      {required this.hint,
+        required this.dropdownItems,
+        required this.onChanged,
+        required this.dropdownIconSize,
+        this.dropdownIconColors,
+        this.selectedItemBuilder,
+        this.hintAlignment,
+        this.valueAlignment,
+        this.buttonHeight,
+        this.buttonWidth,
+        this.buttonPadding,
+        this.buttonDecoration,
+        this.buttonElevation,
+        this.icon,
+        this.iconSize,
+        this.iconEnabledColor,
+        this.iconDisabledColor,
+        this.itemHeight,
+        this.itemPadding,
+        this.dropdownHeight,
+        this.dropdownWidth,
+        this.dropdownPadding,
+        this.dropdownDecoration,
+        this.dropdownElevation,
+        this.scrollbarRadius,
+        this.scrollbarThickness,
+        this.scrollbarAlwaysShow,
+        this.offset,
+        Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
-        //To avoid long text overflowing.
         isExpanded: true,
         hint: Container(
           alignment: hintAlignment,
@@ -87,16 +87,22 @@ class SrDropdownBox extends StatelessWidget {
             ),
           ),
         ),
+        underline:  Container(height: 1, width: 160, color: SrColors.gray,),
         items: dropdownItems.asMap().entries
             .map((entry) => DropdownMenuItem<String>(
           value: entry.value,
-          child: Row(
-            children: [
-
-                  Icon(Icons.circle, size: dropdownIconSize, color: dropdownIconColors?[entry.key],),
-                  const Padding(padding: EdgeInsets.only(right: 7)),
-                  //Container(width: 11, height: 11, margin: EdgeInsets.only(right: 7), decoration: BoxDecoration(color: dropdownItemColors?[entry.key], borderRadius : BorderRadius.circular(100)),),
-                  Text(
+          child: Column(children: <Widget>[
+            const SizedBox(height: 10, width: 160),
+            Row(
+              children: [
+                const Padding(padding: EdgeInsets.only(left: 17)),
+                Icon(
+                  Icons.circle,
+                  size: dropdownIconSize,
+                  color: dropdownIconColors?[entry.key],
+                ),
+                const Padding(padding: EdgeInsets.only(right: 7)),
+                Text(
                   entry.value,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
@@ -105,41 +111,46 @@ class SrDropdownBox extends StatelessWidget {
                     fontSize: 14,
                   ),
                 ),
-            ],
-          ),
+              ],
+            ),
+            const SizedBox(height: 11, width: 160),
+            Container(height: 1, width: 160, color: SrColors.gray,)
+          ],),
         ))
             .toList(),
         onChanged: onChanged,
         selectedItemBuilder: selectedItemBuilder,
-        icon: icon ?? SvgPicture.asset('assets/category_arrow.svg', width: 16, height: 16),
+        icon: icon ??
+            SvgPicture.asset('assets/category_arrow.svg',
+                width: 16, height: 16),
+        iconOnClick: icon ?? SvgPicture.asset('assets/arrow_up.svg', width: 16, height: 16),
         iconSize: iconSize ?? 16,
         iconEnabledColor: iconEnabledColor,
         iconDisabledColor: SrColors.gray2,
-        buttonHeight: 44,
-        buttonWidth: 160,
+        buttonHeight: buttonHeight ?? 44,
+        buttonWidth: buttonWidth ?? 160,
         buttonPadding:
         buttonPadding ?? const EdgeInsets.only(left: 19, right: 14),
         buttonDecoration: buttonDecoration ??
             BoxDecoration(
-              borderRadius: BorderRadius.circular(22),
+              borderRadius: const BorderRadius.all(Radius.circular(22)),
               border: Border.all(
-                width: 1, color: SrColors.gray1,
+                width: 1,
+                color: SrColors.gray1,
               ),
             ),
         buttonElevation: buttonElevation,
         itemHeight: 40,
-
-        itemPadding: itemPadding ?? const EdgeInsets.only(left: 17, right: 14),
+        itemPadding: itemPadding ?? EdgeInsets.zero,
         //Max height for the dropdown menu & becoming scrollable if there are more items. If you pass Null it will take max height possible for the items.
-        dropdownMaxHeight: 350,
+        dropdownMaxHeight: 310,
         dropdownWidth: 160,
-        dropdownPadding: dropdownPadding,
+        dropdownPadding: dropdownPadding ?? EdgeInsets.zero,
         dropdownDecoration: dropdownDecoration ??
             BoxDecoration(
-              border: Border.all(
-                color: SrColors.gray1
-              ),
-              borderRadius: BorderRadius.circular(22),
+              border: Border.all(color: SrColors.gray1),
+              borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(22), bottomRight:Radius.circular(22)),
             ),
         dropdownElevation: 0,
         scrollbarRadius: scrollbarRadius ?? const Radius.circular(40),
@@ -151,4 +162,6 @@ class SrDropdownBox extends StatelessWidget {
       ),
     );
   }
+
+  dropDownOpen() {}
 }
