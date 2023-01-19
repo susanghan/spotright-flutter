@@ -42,21 +42,11 @@ class _SrDropdownState extends State<SrDropdownButton>{
   bool isOpened = false;
   double openRadius = 22;
 
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        print("ㅇㅇ$isOpened");
-        setState(() {
-          if (isOpened) {
-            print("열림");
-            openRadius = 0;
-          } else {
-            print("닫힘");
-            openRadius = 22;
-          }
-          isOpened = !isOpened;
-        });
+      onDoubleTap: (){
       },
       child: DropdownButtonHideUnderline(
         child: DropdownButton2(
@@ -108,6 +98,16 @@ class _SrDropdownState extends State<SrDropdownButton>{
               .toList(),
           onChanged: widget.onChanged,
           selectedItemBuilder: widget.selectedItemBuilder,
+          onMenuStateChange: (isOpened){
+            setState(() {
+              if (isOpened) {
+                openRadius = 0;
+              } else {
+                openRadius = 22;
+              }
+              isOpened = !isOpened;
+            });
+          },
           icon: widget.icon ??
               SvgPicture.asset('assets/category_arrow.svg',
                   width: 16, height: 16),
@@ -119,8 +119,7 @@ class _SrDropdownState extends State<SrDropdownButton>{
           buttonWidth: widget.buttonWidth ?? 160,
           buttonPadding:
           widget.buttonPadding ?? const EdgeInsets.only(left: 19, right: 14),
-          buttonDecoration: widget.buttonDecoration ??
-              BoxDecoration( borderRadius: BorderRadius.circular(openRadius), color: Colors.white, border: Border.all(color: SrColors.gray1, width: 1) ),
+          buttonDecoration: BoxDecoration( borderRadius: BorderRadius.only(topRight: Radius.circular(22), topLeft: Radius.circular(22), bottomRight: Radius.circular(openRadius), bottomLeft: Radius.circular(openRadius)), color: Colors.white, border: Border.all(color: SrColors.gray1, width: 1) ),
           buttonElevation: widget.buttonElevation,
           itemHeight: 40,
           itemPadding: widget.itemPadding ?? EdgeInsets.zero,
@@ -139,11 +138,12 @@ class _SrDropdownState extends State<SrDropdownButton>{
           scrollbarThickness: widget.scrollbarThickness,
           scrollbarAlwaysShow: widget.scrollbarAlwaysShow,
           //Null or Offset(0, 0) will open just under the button. You can edit as you want.
-          offset: widget.offset,
+          offset: Offset(0,1),
           dropdownOverButton: false, //Default is false to show menu below button
         ),
       ),
     );
   }
 }
+
 
