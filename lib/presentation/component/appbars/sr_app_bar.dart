@@ -36,7 +36,7 @@ class SrAppBar extends StatefulWidget {
 }
 
 class _SrAppBarState extends State<SrAppBar> {
-  bool expended = true;
+  bool expanded = true;
   static const double _topContentSize = 96;
   double topContentSize = _topContentSize;
   double arrowAreaSize = 40;
@@ -47,15 +47,15 @@ class _SrAppBarState extends State<SrAppBar> {
       width: double.infinity,
       child: Column(
         children: [
-          _TopContent(expended),
+          _TopContent(expanded),
           _ExpandButton(),
-          expended ? SizedBox.shrink() : _Chips()
+          expanded ? SizedBox.shrink() : _Chips()
         ],
       ),
     );
   }
 
-  Widget _TopContent(bool expended) {
+  Widget _TopContent(bool expanded) {
     return AnimatedSize(
       duration: Duration(milliseconds: 500),
       curve: Curves.ease,
@@ -167,19 +167,19 @@ class _SrAppBarState extends State<SrAppBar> {
       decoration: BoxDecoration(
           color: SrColors.white,
           borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(12),
-              bottomRight: Radius.circular(12))),
+              bottomLeft: Radius.circular(15),
+              bottomRight: Radius.circular(15))),
       child: GestureDetector(
         child: SvgPicture.asset(
-          expended ? 'assets/arrow_up.svg' : 'assets/arrow_down.svg',
+          expanded ? 'assets/arrow_up.svg' : 'assets/arrow_down.svg',
           color: SrColors.primary,
           width: 24,
           height: 24,
         ),
         onTap: () {
           setState(() {
-            expended = !expended;
-            topContentSize = expended ? _topContentSize : 0;
+            expanded = !expanded;
+            topContentSize = expanded ? _topContentSize : 0;
           });
         },
       ),

@@ -87,7 +87,6 @@ class SrDropdownBox extends StatelessWidget {
             ),
           ),
         ),
-        underline:  Container(height: 1, width: 160, color: SrColors.gray,),
         items: dropdownItems.asMap().entries
             .map((entry) => DropdownMenuItem<String>(
           value: entry.value,
