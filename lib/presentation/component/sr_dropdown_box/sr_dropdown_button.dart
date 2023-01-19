@@ -43,8 +43,10 @@ class SrDropdownButton extends StatefulWidget {
 class _SrDropdownState extends State<SrDropdownButton>{
 
   bool isOpened = false;
+  bool isSelected = false;
   double openRadius = 22;
-  int? nowKey;
+  Color? nowColor;
+  String? nowString;
 
   @override
   Widget build(BuildContext context) {
@@ -54,20 +56,30 @@ class _SrDropdownState extends State<SrDropdownButton>{
         isDense: true,
         hint: Container(
           alignment: widget.hintAlignment,
-          child: Text.rich(
-            TextSpan(
-              style: const TextStyle( fontWeight: FontWeight.w500, fontSize: 15, color: SrColors.black,),
-              children: [
-                TextSpan( text: widget.hint),
-                TextSpan(text: widget.isRequired ? "(필수)" : "",  style: const TextStyle(color: SrColors.primary, fontSize: 15, fontWeight: FontWeight.w300))
-              ]
-            ),
+          child: Row(
+            children: [
+              Icon(
+                Icons.circle,
+                size: widget.hasIcon && isSelected ? 11 : 0,
+                color: nowColor,
+              ),
+              Padding(padding: EdgeInsets.only(right: widget.hasIcon && isSelected ? 7 : 0)),
+              Text.rich(
+              TextSpan(
+                  style: const TextStyle( fontWeight: FontWeight.w500, fontSize: 15, color: SrColors.black,),
+                  children: [
+                    TextSpan( text: nowString ?? widget.hint),
+                    TextSpan(text: widget.isRequired&&isSelected==false ? "(필수)" : "",  style: const TextStyle(color: SrColors.primary, fontSize: 15, fontWeight: FontWeight.w300))
+                  ]
+              ),
+            ),]
           ),
         ),
         items: widget.dropdownItems.asMap().entries
             .map((entry) => DropdownMenuItem<String>(
           onTap: (){
-            nowKey = entry.key;
+            nowColor = widget.dropdownIconColors?[entry.key];
+            nowString = entry.value;
           },
           value: entry.value,
           child: Column(children: <Widget>[
@@ -99,10 +111,7 @@ class _SrDropdownState extends State<SrDropdownButton>{
             .toList(),
         onChanged: (value){
           setState(() {
-
-            //Todo : 터치한 아이템 컬러 가져와서 넣어주기
-            widget.hint = value.toString();
-            widget.isRequired = false;
+            isSelected = true;
           });
         },
         selectedItemBuilder: widget.selectedItemBuilder,
