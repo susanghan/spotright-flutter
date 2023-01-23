@@ -6,7 +6,7 @@ class SrCheckBox extends StatefulWidget {
 
   double size;
   bool value;
-  Function(bool) onChanged;
+  Function(bool checked) onChanged;
 
   @override
   State<SrCheckBox> createState() => _SrCheckBoxState();

@@ -9,6 +9,7 @@ import 'package:location/location.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/appbars/sr_app_bar.dart';
+import 'package:spotright/presentation/component/dialog/report_dialog.dart';
 import 'package:spotright/presentation/component/dialog/sr_dialog.dart';
 import 'package:spotright/presentation/page/add_spot/add_spot.dart';
 
@@ -74,15 +75,7 @@ class _HomeState extends State<Home> {
           GestureDetector(
             onTap: () {
               Get.dialog(
-                SrDialog(
-                  icon: Icon(Icons.cancel_outlined),
-                  title: "제목",
-                  description: "설명",
-                  actions: [
-                    Text("버튼1"),
-                    Text("버튼2"),
-                  ],
-                )
+                ReportDialog()
               );
             },
             child: Container(

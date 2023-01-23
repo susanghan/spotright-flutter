@@ -48,7 +48,7 @@ class SrDialog extends StatelessWidget {
                     bottomRight: Radius.circular(20))),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [..._Actions()],
+              children: _Actions(),
             ),
           )
         ]),
