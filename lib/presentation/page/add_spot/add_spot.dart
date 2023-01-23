@@ -92,59 +92,81 @@ class _AddSpotState extends State<AddSpot> {
 
   List<Widget> _InputSpotName() {
     return [
-      const Text.rich(
-          TextSpan(style: TextStyle(color: SrColors.black), children: [
-        TextSpan(text: "장소명을 입력해주세요."),
-        TextSpan(text: "(필수)", style: TextStyle(color: SrColors.primary))
-      ])),
-      SrTextField(),
+      Padding(
+        padding: EdgeInsets.only(bottom: 4),
+        child: const Text.rich(
+            TextSpan(style: TextStyle(color: SrColors.black), children: [
+          TextSpan(text: "장소명을 입력해주세요."),
+          TextSpan(text: "(필수)", style: TextStyle(color: SrColors.primary))
+        ])),
+      ),
+      Padding(padding: EdgeInsets.only(bottom: 16), child: SrTextField()),
     ];
   }
 
   List<Widget> _InputSpotAddress() {
     return [
-      const Text.rich(
-          TextSpan(style: TextStyle(color: SrColors.black), children: [
-        TextSpan(text: "주소를 입력해주세요."),
-        TextSpan(text: "(필수)", style: TextStyle(color: SrColors.primary))
-      ])),
-      SrTextField(
-          suffixIcon: SvgPicture.asset('assets/address_marker.svg',
-              width: 24, height: 24)),
+      Padding(
+        padding: EdgeInsets.only(bottom: 4),
+        child: const Text.rich(
+            TextSpan(style: TextStyle(color: SrColors.black), children: [
+          TextSpan(text: "주소를 입력해주세요."),
+          TextSpan(text: "(필수)", style: TextStyle(color: SrColors.primary))
+        ])),
+      ),
+      Padding(
+        padding: EdgeInsets.only(bottom: 16),
+        child: SrTextField(
+            suffixIcon: SvgPicture.asset('assets/address_marker.svg',
+                width: 24, height: 24)),
+      ),
     ];
   }
 
   List<Widget> _SelectSpotCategory() {
     return [
-      Text("카테고리를 입력해주세요."),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          SrDropdownButton(
-            hasIcon: true,
-            isRequired: true,
-            dropdownItems: mainCategory,
-            hint: '대분류',
-            dropdownIconColors: mainCategoryColors,
-            onChanged: (String? value) {},
-          ),
-          SrDropdownButton(
-            hasIcon: false,
-            isRequired: false,
-            dropdownItems: subCategoryRestaurant,
-            hint: '소분류',
-            onChanged: (String? value) {},
-          ),
-        ],
+      Padding(
+          padding: EdgeInsets.only(bottom: 4), child: Text("카테고리를 입력해주세요.")),
+      Padding(
+        padding: EdgeInsets.only(bottom: 16),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SrDropdownButton(
+              hasIcon: true,
+              isRequired: true,
+              dropdownItems: mainCategory,
+              hint: '대분류',
+              dropdownIconColors: mainCategoryColors,
+              onChanged: (String? value) {},
+            ),
+            SrDropdownButton(
+              hasIcon: false,
+              isRequired: false,
+              dropdownItems: subCategoryRestaurant,
+              hint: '소분류',
+              onChanged: (String? value) {},
+            ),
+          ],
+        ),
       )
     ];
   }
 
   List<Widget> _InputMemo() {
     return [
-      Text("메모"),
-      SrTextField(),
-      Text("120/140"),
+      Padding(padding: EdgeInsets.only(bottom: 4), child: Text("메모")),
+      Padding(
+          padding: EdgeInsets.only(bottom: 6),
+          child: SrTextField(
+            maxLines: 7,
+            height: 152,
+          )),
+      Container(
+        margin: EdgeInsets.only(right: 6, bottom: 16),
+        child: Text("120/140"),
+        alignment: Alignment.centerRight,
+      ),
     ];
   }
 }
