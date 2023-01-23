@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/buttons/sr_cta_button.dart';
+import 'package:spotright/presentation/component/sr_check_box/sr_check_box.dart';
 import 'package:spotright/presentation/component/sr_text_field/sr_text_field.dart';
 
 import '../../component/sr_dropdown_box/sr_dropdown_button.dart';
@@ -73,11 +74,7 @@ class _AddSpotState extends State<AddSpot> {
                 ],
               ),
             ),
-            const Text.rich(
-                TextSpan(style: TextStyle(color: SrColors.black), children: [
-              TextSpan(text: "방문한 장소인가요?"),
-              TextSpan(text: "(필수)", style: TextStyle(color: SrColors.primary))
-            ])),
+            ..._InputVisitation(),
             Text("별점"),
             Text("사진 첨부"),
             SrCTAButton(
@@ -167,6 +164,38 @@ class _AddSpotState extends State<AddSpot> {
         child: Text("120/140"),
         alignment: Alignment.centerRight,
       ),
+    ];
+  }
+
+  List<Widget> _InputVisitation() {
+    return [
+      const Padding(
+        padding: EdgeInsets.only(left: 16, bottom: 12),
+        child: Text.rich(
+            TextSpan(style: TextStyle(color: SrColors.black), children: [
+          TextSpan(text: "방문한 장소인가요?"),
+          TextSpan(text: "(필수)", style: TextStyle(color: SrColors.primary))
+        ])),
+      ),
+      Padding(
+        padding: EdgeInsets.only(left: 16, bottom: 16, right: 16),
+        child: Row(
+          children: [
+            Flexible(
+              child: Row(children: [
+                Padding(padding: EdgeInsets.only(right: 12), child: Text("예")),
+                SrCheckBox(value: true, onChanged: (checked) {}),
+              ]),
+            ),
+            Flexible(
+              child: Row(children: [
+                Padding(padding: EdgeInsets.only(right: 12), child: Text("아니오")),
+                SrCheckBox(value: true, onChanged: (checked) {}),
+              ]),
+            ),
+          ],
+        ),
+      )
     ];
   }
 }
