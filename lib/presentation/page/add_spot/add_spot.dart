@@ -75,7 +75,7 @@ class _AddSpotState extends State<AddSpot> {
               ),
             ),
             ..._InputVisitation(),
-            Text("별점"),
+            ..._InputRating(),
             Text("사진 첨부"),
             SrCTAButton(
               text: "완료",
@@ -189,13 +189,58 @@ class _AddSpotState extends State<AddSpot> {
             ),
             Flexible(
               child: Row(children: [
-                Padding(padding: EdgeInsets.only(right: 12), child: Text("아니오")),
+                Padding(
+                    padding: EdgeInsets.only(right: 12), child: Text("아니오")),
                 SrCheckBox(value: true, onChanged: (checked) {}),
               ]),
             ),
           ],
         ),
       )
+    ];
+  }
+
+  List<Widget> _InputRating() {
+    return [
+      Padding(
+        padding: EdgeInsets.only(left: 16, bottom: 4),
+        child: Text("별점"),
+      ),
+      Padding(
+        padding: EdgeInsets.only(left: 16, bottom: 4),
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(bottom: 12),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(
+                    "assets/star.svg",
+                    color: SrColors.primary,
+                    width: 45,
+                  ),
+                  Padding(padding: EdgeInsets.only(right: 15)),
+                  SvgPicture.asset(
+                    "assets/star.svg",
+                    color: SrColors.gray3,
+                    width: 45,
+                  ),
+                  Padding(padding: EdgeInsets.only(right: 15)),
+                  SvgPicture.asset(
+                    "assets/star.svg",
+                    color: SrColors.gray3,
+                    width: 45,
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+                padding: EdgeInsets.only(bottom: 12),
+                child: Text("여러 번 가볼 만한 장소군요!")),
+          ],
+        ),
+      ),
     ];
   }
 }
