@@ -4,8 +4,6 @@ import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/buttons/sr_cta_button.dart';
 import 'package:spotright/presentation/component/sr_text_field/sr_text_field.dart';
-
-import '../../component/sr_dropdown_box/sr_dropdown_box.dart';
 import '../../component/sr_dropdown_box/sr_dropdown_button.dart';
 
 class AddSpot extends StatefulWidget {
@@ -14,6 +12,8 @@ class AddSpot extends StatefulWidget {
   @override
   State<AddSpot> createState() => _AddSpotState();
 }
+
+String? selectedString;
 
 final List<String> mainCategory = ["식당", "카페",  "관광지", "숙소", "쇼핑", "병원", "기타"];
 final List<Color> mainCategoryColors = [SrColors.restaurant, SrColors.cafe,  SrColors.tour, SrColors.accommodation, SrColors.shopping, SrColors.hospital, SrColors.etc];
@@ -52,7 +52,8 @@ class _AddSpotState extends State<AddSpot> {
                 )),
                 SrTextField(suffixIcon: SvgPicture.asset('assets/address_marker.svg', width: 24, height: 24)),
                 Text("카테고리를 입력해주세요."),
-                SrDropdownButton(dropdownItems: mainCategory, hint: '대분류', dropdownIconSize : 11, dropdownIconColors: mainCategoryColors, onChanged: (String? value) {  }, ),
+                SrDropdownButton(hasIcon : true, isRequired: true ,dropdownItems: mainCategory, hint: '대분류', dropdownIconColors: mainCategoryColors, onChanged: (String? value) {  },  ),
+                SrDropdownButton(hasIcon : false, isRequired: false ,dropdownItems: subCategoryRestaurant, hint: '소분류', onChanged: (String? value) {  },  ),
                 Text("메모"),
                 SrTextField(),
                 Text("120/140"),
