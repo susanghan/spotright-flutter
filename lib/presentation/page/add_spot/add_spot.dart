@@ -1,3 +1,4 @@
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spotright/presentation/common/colors.dart';
@@ -76,7 +77,7 @@ class _AddSpotState extends State<AddSpot> {
             ),
             ..._InputVisitation(),
             ..._InputRating(),
-            Text("사진 첨부"),
+            ..._Pictures(),
             SrCTAButton(
               text: "완료",
               action: () {},
@@ -241,6 +242,37 @@ class _AddSpotState extends State<AddSpot> {
           ],
         ),
       ),
+    ];
+  }
+
+  List<Widget> _Pictures() {
+    return [
+      Padding(
+          padding: EdgeInsets.only(left: 16, bottom: 16), child: Text("사진 첨부")),
+      Padding(
+        padding: EdgeInsets.only(left: 16, bottom: 40),
+        child: Row(
+          children: [
+            DottedBorder(
+              borderType: BorderType.RRect,
+              radius: Radius.circular(20),
+              dashPattern: [5, 5],
+              child: Container(
+                width: 92,
+                height: 92,
+                alignment: Alignment.center,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset("assets/camera.svg"),
+                    Text("5/5"),
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
+      )
     ];
   }
 }
