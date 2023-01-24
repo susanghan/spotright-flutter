@@ -4,10 +4,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/buttons/sr_cta_button.dart';
+import 'package:spotright/presentation/component/buttons/sr_rating_buttons.dart';
 import 'package:spotright/presentation/component/sr_check_box/sr_check_box.dart';
 import 'package:spotright/presentation/component/sr_text_field/sr_text_field.dart';
+import '../../component/buttons/sr_dropdown_button.dart';
 
-import '../../component/sr_dropdown_box/sr_dropdown_button.dart';
 
 class AddSpot extends StatefulWidget {
   const AddSpot({Key? key}) : super(key: key);
@@ -207,42 +208,9 @@ class _AddSpotState extends State<AddSpot> {
         padding: EdgeInsets.only(left: 16, bottom: 4),
         child: Text("별점"),
       ),
-      Padding(
-        padding: EdgeInsets.only(left: 16, bottom: 4),
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(bottom: 12),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(
-                    "assets/star.svg",
-                    color: SrColors.primary,
-                    width: 45,
-                  ),
-                  Padding(padding: EdgeInsets.only(right: 15)),
-                  SvgPicture.asset(
-                    "assets/star.svg",
-                    color: SrColors.gray3,
-                    width: 45,
-                  ),
-                  Padding(padding: EdgeInsets.only(right: 15)),
-                  SvgPicture.asset(
-                    "assets/star.svg",
-                    color: SrColors.gray3,
-                    width: 45,
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-                padding: EdgeInsets.only(bottom: 12),
-                child: Text("여러 번 가볼 만한 장소군요!")),
-          ],
-        ),
-      ),
+      SrRatingButton(),
     ];
+
   }
 
   List<Widget> _Pictures() {
