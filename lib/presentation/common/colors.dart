@@ -21,6 +21,8 @@ class SrColors {
   static const Color hospital = Color(0xff00beca);
   static const Color etc = Color(0xff3e3e3e);
 
+  static const Color kakao = Color(0xffFEE500);
+
   static const MaterialColor materialPrimary = MaterialColor(
     0xffFD4F18,
     <int, Color>{
