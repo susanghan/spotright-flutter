@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/component/sr_chip/sr_chip.dart';
-import 'package:spotright/presentation/component/sr_chip/sr_chip_model.dart';
 import 'package:spotright/presentation/page/following/following.dart';
 import 'package:spotright/presentation/page/my_page/my_page.dart';
 
@@ -210,15 +209,14 @@ class _SrAppBarState extends State<SrAppBar> {
             return Padding(
                 padding: EdgeInsets.only(right: 8),
                 child: SrChip(
-                    model: SrChipModel(
-                        name: chipNames[index],
-                        color: chipColors[index],
-                        selected: widget.selectedChips[index],
-                        onTab: (isSelected) {
-                          setState(() {
-                            widget.selectedChips[index] = isSelected;
-                          });
-                        })));
+                    name: chipNames[index],
+                    color: chipColors[index],
+                    selected: widget.selectedChips[index],
+                    onTab: (isSelected) {
+                      setState(() {
+                        widget.selectedChips[index] = isSelected;
+                      });
+                    }));
           }),
         ));
   }

@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:spotright/presentation/component/sr_chip/sr_chip_model.dart';
 
 import '../../common/colors.dart';
 
 class SrChip extends StatefulWidget {
-  const SrChip({Key? key, required this.model}) : super(key: key);
+  SrChip({
+    Key? key,
+    this.name = '',
+    this.color = const Color(0xffffffff),
+    this.selected = true,
+    this.onTab,
+  }) : super(key: key);
 
-  final SrChipModel model;
+  String name;
+  Color color;
+  bool selected;
+  Function(bool)? onTab;
 
   @override
   State<SrChip> createState() => _SrChipState();
@@ -22,26 +30,28 @@ class _SrChipState extends State<SrChip> {
         shape: RoundedRectangleBorder(
           side: BorderSide(
               width: 1.5,
-              color: widget.model.selected ? widget.model.color : SrColors.white
-          ),
+              color:
+                  widget.selected ? widget.color : SrColors.white),
           borderRadius: BorderRadius.circular(100),
-      ),
+        ),
         child: ActionChip(
-          avatar: Container(width: 11, height: 11,
-          decoration: BoxDecoration(
-            color: widget.model.color,
-            borderRadius: BorderRadius.circular(100)
-          ),),
+          avatar: Container(
+            width: 11,
+            height: 11,
+            decoration: BoxDecoration(
+                color: widget.color,
+                borderRadius: BorderRadius.circular(100)),
+          ),
           backgroundColor: SrColors.white,
           onPressed: () {
-            if(widget.model.onTab != null) widget.model.onTab!(!widget.model.selected);
+            if (widget.onTab != null)
+              widget.onTab!(!widget.selected);
           },
           label: Text(
-            widget.model.name,
+            widget.name,
           ),
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(100)
-          ),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
         ),
       ),
     );
