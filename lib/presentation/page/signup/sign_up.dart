@@ -202,9 +202,12 @@ class _SignUpState extends State<SignUp> {
         height: 44,
         child: OutlinedButton(
           onPressed: () {
-            Get.dialog(BirthdayDialog());
+            Get.dialog(BirthdayDialog(onChanged: (date) {
+              signUpController.changeBirthdate(date);
+            },
+            defaultDate: "2000-1-1",));
           },
-          child: Text("1998-05-12", style: TextStyle(color: SrColors.gray1),),
+          child: Text(signUpController.signUpState.birthdate.value, style: TextStyle(color: SrColors.gray1),),
           style: OutlinedButton.styleFrom(
               side: BorderSide(
                 width: 1,

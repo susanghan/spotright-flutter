@@ -22,6 +22,7 @@ class SignUpState {
   var nicknameMessageStatus = MessageStatus.defaultMessage.obs;
   String get idValidationMessage => _idMessageMap[idMessageStatus.value]!;
   String get nicknameValidationMessage => _nicknameMessageMap[nicknameMessageStatus.value]!;
+  RxString birthdate = "2000-01-01".obs;
   RxInt sex = 0.obs;
   RxBool privacyPolicy = false.obs;
 
@@ -55,6 +56,10 @@ class SignUpState {
     } else {
       nicknameMessageStatus.value = MessageStatus.defaultMessage;
     }
+  }
+
+  void changeBirthdate(String newBirthdate) {
+    birthdate.value = newBirthdate;
   }
 }
 

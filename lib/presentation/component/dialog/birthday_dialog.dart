@@ -3,8 +3,28 @@ import 'package:get/get.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/component/spinner/sr_spinner.dart';
 
-class BirthdayDialog extends StatelessWidget {
-  const BirthdayDialog({Key? key}) : super(key: key);
+class BirthdayDialog extends StatefulWidget {
+  BirthdayDialog({Key? key, required this.onChanged, required this.defaultDate}) : super(key: key);
+
+  final Function(String date) onChanged;
+  final String defaultDate;
+
+  @override
+  State<BirthdayDialog> createState() => _BirthdayDialogState();
+}
+
+class _BirthdayDialogState extends State<BirthdayDialog> {
+  String year = "2000";
+  String month = "1";
+  String day = "1";
+
+  @override
+  void initState() {
+    List<String> splitDate = widget.defaultDate.split("-");
+    year = splitDate[0];
+    month = splitDate[1];
+    day = splitDate[2];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +41,18 @@ class BirthdayDialog extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SrSpinner(list: ["1998", "1999", "2000"]),
-                SrSpinner(list: ["01", "02", "03"]),
-                SrSpinner(list: ["01", "02", "03"]),
+                SrSpinner(list: range(1950, 2023), onChanged: (value) {
+                  year = value;
+                  widget.onChanged("$year-$month-$day");
+                }),
+                SrSpinner(list: range(1, 13), onChanged: (value) {
+                  month = value;
+                  widget.onChanged("$year-$month-$day");
+                }),
+                SrSpinner(list: range(1, 32), onChanged: (value) {
+                  day = value;
+                  widget.onChanged("$year-$month-$day");
+                }),
               ],
             ),
           ),
@@ -49,5 +78,15 @@ class BirthdayDialog extends StatelessWidget {
         ]),
       ),
     );
+  }
+
+  List<String> range(begin, end) {
+    List<String> res = [];
+
+    for(int year = begin; year < end; year++) {
+      res.add(year.toString());
+    }
+
+    return res;
   }
 }

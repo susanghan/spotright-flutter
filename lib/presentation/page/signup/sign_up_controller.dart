@@ -21,4 +21,8 @@ class SignUpController extends GetxController {
   void changePrivacyPolicy() {
     signUpState.privacyPolicy.value = !signUpState.privacyPolicy.value;
   }
+
+  void changeBirthdate(String newBirthdate) {
+    signUpState.changeBirthdate(newBirthdate);
+  }
 }
