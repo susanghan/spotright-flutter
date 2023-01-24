@@ -47,7 +47,7 @@ class _State extends State<Spotright> {
         canvasColor: SrColors.white,
         fontFamily: 'Pretendard'
       ),
-      initialRoute: '/home',
+      initialRoute: '/signup',
       initialBinding: BindingsBuilder(() {
         Get.put(SignUpController(signUpState: SignUpState()));
         Get.put(FollowingController(followingState: FollowingState()));
