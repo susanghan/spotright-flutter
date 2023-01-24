@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/buttons/sr_cta_button.dart';
+import 'package:spotright/presentation/component/dialog/birthday_dialog.dart';
 import 'package:spotright/presentation/component/sr_check_box/sr_check_box.dart';
 import 'package:spotright/presentation/component/sr_text_field/sr_text_field.dart';
 import 'package:spotright/presentation/page/signup/sign_up_controller.dart';
@@ -35,9 +36,7 @@ class _SignUpState extends State<SignUp> {
                         ..._InputEmail(),
                         ..._InputId(),
                         ..._InputNickname(),
-                        Text('생년월일을 입력해주세요.'),
-                        Padding(padding: EdgeInsets.only(bottom: 6)),
-                        SrTextField(),
+                        ..._InputBirthday(),
                         Padding(padding: EdgeInsets.only(bottom: 16)),
                         Text("input_sex".tr),
                         _SexSelector(),
@@ -192,5 +191,30 @@ class _SignUpState extends State<SignUp> {
         ],
       ),
     );
+  }
+
+  List<Widget> _InputBirthday() {
+    return [
+      Padding(
+          padding: EdgeInsets.only(bottom: 6), child: Text('생년월일을 입력해주세요.')),
+      Container(
+        width: double.infinity,
+        height: 44,
+        child: OutlinedButton(
+          onPressed: () {
+            Get.dialog(BirthdayDialog());
+          },
+          child: Text("1998-05-12", style: TextStyle(color: SrColors.gray1),),
+          style: OutlinedButton.styleFrom(
+              side: BorderSide(
+                width: 1,
+                color: SrColors.gray1,
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(100),
+              )),
+        ),
+      ),
+    ];
   }
 }
