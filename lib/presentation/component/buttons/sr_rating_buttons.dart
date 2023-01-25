@@ -47,6 +47,7 @@ class _SrRatingButtonState extends State<SrRatingButton> {
           },
           updateOnDrag: true,
         ),
+        const SizedBox(height: 13,),
         Text(_ratingText[_rating.round()], style: const TextStyle(fontWeight: FontWeight.w500, color: SrColors.black),)
       ]
     );

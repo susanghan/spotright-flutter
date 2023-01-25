@@ -209,7 +209,10 @@ class _AddSpotState extends State<AddSpot> {
         padding: EdgeInsets.only(left: 16, bottom: 4),
         child: Text("별점"),
       ),
-      SrRatingButton(),
+      Container(
+        alignment: Alignment.center,
+        child: SrRatingButton(),
+      ),
     ];
 
   }
