@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/sr_chip/sr_chip.dart';
+import 'package:spotright/presentation/page/spot_list/spot_list_controller.dart';
 
 class SpotList extends StatefulWidget {
   const SpotList({Key? key}) : super(key: key);
@@ -24,6 +26,8 @@ class _SpotListState extends State<SpotList> {
     SrColors.etc
   ];
 
+  SpotListController _spotListController = Get.find();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -32,85 +36,178 @@ class _SpotListState extends State<SpotList> {
         title: '장소',
         hasBackButton: true,
       ),
-      body: Column(
-        children: [
-          _chips(),
-          Container(
-              margin: EdgeInsets.only(right: 16, top: 10, bottom: 4),
-              alignment: Alignment.centerRight,
-              child: Text("편집")),
-          Divider(
-            height: 2,
-            thickness: 1,
-            color: SrColors.gray3,
-          ),
-          Flexible(
-            child: ListView(
-              children: List.generate(10, (int index) {
-                return Column(children: [
-                  Container(
-                      height: 72,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                              alignment: Alignment.center,
-                              padding: EdgeInsets.only(right: 8),
-                              child: SvgPicture.asset(
-                                "assets/marker.svg",
-                                width: 26,
-                              )),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              RichText(
-                                overflow: TextOverflow.ellipsis,
-                                  text: TextSpan(
-                                      style: TextStyle(color: SrColors.black),
-                                      children: [
-                                    TextSpan(text: "미스터디유커피"),
-                                    TextSpan(
-                                        text: "카페",
-                                        style: TextStyle(color: SrColors.gray2))
-                                  ])),
-                              Text("인천 연수구 아카데미로 119"),
-                            ],
-                          ),
-                          Spacer(),
-                          Row(
-                            children: [
-                              SvgPicture.asset(
-                                "assets/star.svg",
-                                width: 16,
-                              ),
-                              Padding(padding: EdgeInsets.only(right: 2)),
-                              SvgPicture.asset(
-                                "assets/star.svg",
-                                width: 16,
-                              ),
-                              Padding(padding: EdgeInsets.only(right: 2)),
-                              SvgPicture.asset(
-                                "assets/star.svg",
-                                width: 16,
-                              ),
-                            ],
-                          )
-                        ],
-                      )),
-                  Divider(
-                    height: 2,
-                    thickness: 1,
-                    color: SrColors.gray3,
-                  )
-                ]);
-              }),
-            ),
-          )
-        ],
-      ),
+      body: _body()
     ));
+  }
+
+  Widget _body() {
+    return Obx(() => _spotListController.isEditMode.value ? _editBody() : _defaultBody());
+  }
+
+  Widget _defaultBody() {
+    return Column(
+      children: [
+        _chips(),
+        Container(
+            margin: EdgeInsets.only(right: 16, top: 10, bottom: 4),
+            alignment: Alignment.centerRight,
+            child: TextButton(onPressed: () {
+              _spotListController.changeMode();
+            }, child: Text("편집"),)),
+        Divider(
+          height: 2,
+          thickness: 1,
+          color: SrColors.gray3,
+        ),
+        Flexible(
+          child: ListView(
+            children: List.generate(10, (int index) {
+              return Column(children: [
+                Container(
+                    height: 72,
+                    padding:
+                    EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                            alignment: Alignment.center,
+                            padding: EdgeInsets.only(right: 8),
+                            child: SvgPicture.asset(
+                              "assets/marker.svg",
+                              width: 26,
+                            )),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            RichText(
+                                overflow: TextOverflow.ellipsis,
+                                text: TextSpan(
+                                    style: TextStyle(color: SrColors.black),
+                                    children: [
+                                      TextSpan(text: "미스터디유커피"),
+                                      TextSpan(
+                                          text: "카페",
+                                          style: TextStyle(color: SrColors.gray2))
+                                    ])),
+                            Text("인천 연수구 아카데미로 119"),
+                          ],
+                        ),
+                        Spacer(),
+                        Row(
+                          children: [
+                            SvgPicture.asset(
+                              "assets/star.svg",
+                              width: 16,
+                            ),
+                            Padding(padding: EdgeInsets.only(right: 2)),
+                            SvgPicture.asset(
+                              "assets/star.svg",
+                              width: 16,
+                            ),
+                            Padding(padding: EdgeInsets.only(right: 2)),
+                            SvgPicture.asset(
+                              "assets/star.svg",
+                              width: 16,
+                            ),
+                          ],
+                        )
+                      ],
+                    )),
+                Divider(
+                  height: 2,
+                  thickness: 1,
+                  color: SrColors.gray3,
+                )
+              ]);
+            }),
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget _editBody() {
+    return Column(
+      children: [
+        _chips(),
+        Container(
+            margin: EdgeInsets.only(right: 16, top: 10, bottom: 4),
+            alignment: Alignment.centerRight,
+            child: TextButton(onPressed: () {
+              _spotListController.changeMode();
+            }, child: Text("완료"),)),
+        Divider(
+          height: 2,
+          thickness: 1,
+          color: SrColors.gray3,
+        ),
+        Flexible(
+          child: ListView(
+            children: List.generate(10, (int index) {
+              return Column(children: [
+                Container(
+                    height: 72,
+                    padding:
+                    EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                            alignment: Alignment.center,
+                            padding: EdgeInsets.only(right: 8),
+                            child: SvgPicture.asset(
+                              "assets/marker.svg",
+                              width: 26,
+                            )),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            RichText(
+                                overflow: TextOverflow.ellipsis,
+                                text: TextSpan(
+                                    style: TextStyle(color: SrColors.black),
+                                    children: [
+                                      TextSpan(text: "미스터디유커피"),
+                                      TextSpan(
+                                          text: "카페",
+                                          style: TextStyle(color: SrColors.gray2))
+                                    ])),
+                            Text("인천 연수구 아카데미로 119"),
+                          ],
+                        ),
+                        Spacer(),
+                        Row(
+                          children: [
+                            SvgPicture.asset(
+                              "assets/star.svg",
+                              width: 16,
+                            ),
+                            Padding(padding: EdgeInsets.only(right: 2)),
+                            SvgPicture.asset(
+                              "assets/star.svg",
+                              width: 16,
+                            ),
+                            Padding(padding: EdgeInsets.only(right: 2)),
+                            SvgPicture.asset(
+                              "assets/star.svg",
+                              width: 16,
+                            ),
+                          ],
+                        )
+                      ],
+                    )),
+                Divider(
+                  height: 2,
+                  thickness: 1,
+                  color: SrColors.gray3,
+                )
+              ]);
+            }),
+          ),
+        )
+      ],
+    );
   }
 
   Widget _chips() {

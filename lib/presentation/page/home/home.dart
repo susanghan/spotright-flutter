@@ -13,6 +13,7 @@ import 'package:spotright/presentation/component/bottom_sheet/sr_bottom_sheet.da
 import 'package:spotright/presentation/component/dialog/report_dialog.dart';
 import 'package:spotright/presentation/component/dialog/sr_dialog.dart';
 import 'package:spotright/presentation/page/add_spot/add_spot.dart';
+import 'package:spotright/presentation/page/spot_list/spot_list.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -75,9 +76,7 @@ class _HomeState extends State<Home> {
           ),
           GestureDetector(
             onTap: () {
-              Get.bottomSheet(
-                SrBottomSheet()
-              );
+              Get.to(const SpotList());
             },
             child: Container(
               width: 112,
