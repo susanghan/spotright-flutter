@@ -1,6 +1,8 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+
 
 class SrAttachPiture extends StatefulWidget {
   const SrAttachPiture({Key? key}) : super(key: key);
@@ -10,12 +12,10 @@ class SrAttachPiture extends StatefulWidget {
 }
 
 class _SrAttachPitureState extends State<SrAttachPiture> {
+
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () async {
-        print("안녕");
-      },
+    return Container(
       child: Row(
         children: [
           DottedBorder(
@@ -34,9 +34,10 @@ class _SrAttachPitureState extends State<SrAttachPiture> {
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
+
     );
   }
 }

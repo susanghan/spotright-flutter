@@ -3,8 +3,11 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spotright/presentation/common/colors.dart';
 
+
+
 class SrRatingButton extends StatefulWidget {
-  const SrRatingButton({Key? key}) : super(key: key);
+  SrRatingButton({Key? key}) : super(key: key);
+
 
   @override
   _SrRatingButtonState createState() => _SrRatingButtonState();
@@ -21,7 +24,6 @@ class _SrRatingButtonState extends State<SrRatingButton> {
     super.initState();
     _rating = _initialRating;
   }
-
 
 
   @override

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
+import 'package:spotright/presentation/component/buttons/sr_attach_picture.dart';
 import 'package:spotright/presentation/component/buttons/sr_cta_button.dart';
 import 'package:spotright/presentation/component/buttons/sr_rating_buttons.dart';
 import 'package:spotright/presentation/component/sr_check_box/sr_check_box.dart';
@@ -204,7 +205,7 @@ class _AddSpotState extends State<AddSpot> {
 
   List<Widget> _InputRating() {
     return [
-      Padding(
+      const Padding(
         padding: EdgeInsets.only(left: 16, bottom: 4),
         child: Text("별점"),
       ),
@@ -219,27 +220,7 @@ class _AddSpotState extends State<AddSpot> {
           padding: EdgeInsets.only(left: 16, bottom: 16), child: Text("사진 첨부")),
       Padding(
         padding: EdgeInsets.only(left: 16, bottom: 40),
-        child: Row(
-          children: [
-            DottedBorder(
-              borderType: BorderType.RRect,
-              radius: Radius.circular(20),
-              dashPattern: [5, 5],
-              child: Container(
-                width: 92,
-                height: 92,
-                alignment: Alignment.center,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset("assets/camera.svg"),
-                    Text("5/5"),
-                  ],
-                ),
-              ),
-            )
-          ],
-        ),
+        child: SrAttachPiture(),
       )
     ];
   }
