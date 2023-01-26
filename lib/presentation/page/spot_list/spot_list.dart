@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
+import 'package:spotright/presentation/component/sr_check_box/sr_check_box.dart';
 import 'package:spotright/presentation/component/sr_chip/sr_chip.dart';
 import 'package:spotright/presentation/page/spot_list/spot_list_controller.dart';
 
@@ -32,16 +33,25 @@ class _SpotListState extends State<SpotList> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      appBar: DefaultAppBar(
-        title: '장소',
-        hasBackButton: true,
-      ),
-      body: _body()
-    ));
+            appBar: DefaultAppBar(
+              title: '장소',
+              hasBackButton: true,
+              actions: [
+                Obx(() => _spotListController.isEditMode.value
+                    ? TextButton(
+                        onPressed: () {
+                          _spotListController.changeMode();
+                        },
+                        child: Text("완료"))
+                    : SizedBox.shrink())
+              ],
+            ),
+            body: _body()));
   }
 
   Widget _body() {
-    return Obx(() => _spotListController.isEditMode.value ? _editBody() : _defaultBody());
+    return Obx(() =>
+        _spotListController.isEditMode.value ? _editBody() : _defaultBody());
   }
 
   Widget _defaultBody() {
@@ -51,9 +61,12 @@ class _SpotListState extends State<SpotList> {
         Container(
             margin: EdgeInsets.only(right: 16, top: 10, bottom: 4),
             alignment: Alignment.centerRight,
-            child: TextButton(onPressed: () {
-              _spotListController.changeMode();
-            }, child: Text("편집"),)),
+            child: TextButton(
+              onPressed: () {
+                _spotListController.changeMode();
+              },
+              child: Text("편집"),
+            )),
         Divider(
           height: 2,
           thickness: 1,
@@ -65,8 +78,7 @@ class _SpotListState extends State<SpotList> {
               return Column(children: [
                 Container(
                     height: 72,
-                    padding:
-                    EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -88,7 +100,8 @@ class _SpotListState extends State<SpotList> {
                                       TextSpan(text: "미스터디유커피"),
                                       TextSpan(
                                           text: "카페",
-                                          style: TextStyle(color: SrColors.gray2))
+                                          style:
+                                              TextStyle(color: SrColors.gray2))
                                     ])),
                             Text("인천 연수구 아카데미로 119"),
                           ],
@@ -129,14 +142,18 @@ class _SpotListState extends State<SpotList> {
 
   Widget _editBody() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _chips(),
-        Container(
-            margin: EdgeInsets.only(right: 16, top: 10, bottom: 4),
-            alignment: Alignment.centerRight,
-            child: TextButton(onPressed: () {
-              _spotListController.changeMode();
-            }, child: Text("완료"),)),
+        Row(children: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: SrCheckBox(
+              value: false,
+              onChanged: (bool checked) {},
+            ),
+          ),
+          Text("전체 선택")
+        ]),
         Divider(
           height: 2,
           thickness: 1,
@@ -148,11 +165,14 @@ class _SpotListState extends State<SpotList> {
               return Column(children: [
                 Container(
                     height: 72,
-                    padding:
-                    EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                     child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
+                        Padding(
+                            padding: EdgeInsets.only(right: 16),
+                            child: SrCheckBox(
+                                value: false, onChanged: (bool checked) {})),
                         Container(
                             alignment: Alignment.center,
                             padding: EdgeInsets.only(right: 8),
@@ -171,30 +191,12 @@ class _SpotListState extends State<SpotList> {
                                       TextSpan(text: "미스터디유커피"),
                                       TextSpan(
                                           text: "카페",
-                                          style: TextStyle(color: SrColors.gray2))
+                                          style:
+                                              TextStyle(color: SrColors.gray2))
                                     ])),
                             Text("인천 연수구 아카데미로 119"),
                           ],
                         ),
-                        Spacer(),
-                        Row(
-                          children: [
-                            SvgPicture.asset(
-                              "assets/star.svg",
-                              width: 16,
-                            ),
-                            Padding(padding: EdgeInsets.only(right: 2)),
-                            SvgPicture.asset(
-                              "assets/star.svg",
-                              width: 16,
-                            ),
-                            Padding(padding: EdgeInsets.only(right: 2)),
-                            SvgPicture.asset(
-                              "assets/star.svg",
-                              width: 16,
-                            ),
-                          ],
-                        )
                       ],
                     )),
                 Divider(
