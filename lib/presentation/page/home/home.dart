@@ -13,6 +13,7 @@ import 'package:spotright/presentation/component/bottom_sheet/sr_bottom_sheet.da
 import 'package:spotright/presentation/component/dialog/report_dialog.dart';
 import 'package:spotright/presentation/component/dialog/sr_dialog.dart';
 import 'package:spotright/presentation/page/add_spot/add_spot.dart';
+import 'package:spotright/presentation/page/search/search.dart';
 import 'package:spotright/presentation/page/spot_list/spot_list.dart';
 
 class Home extends StatefulWidget {
@@ -52,7 +53,22 @@ class _HomeState extends State<Home> {
       child: Scaffold(
         appBar: DefaultAppBar(
           title: 'lalakorea',
-          hasSearch: true,
+          actions: [
+            GestureDetector(
+              onTap: () {
+                Get.to(Search());
+              },
+              child: Padding(
+                padding: EdgeInsets.only(right: 20),
+                child: SvgPicture.asset(
+                  'assets/search.svg',
+                  color: SrColors.primary,
+                  width: 24,
+                  height: 24,
+                ),
+              ),
+            )
+          ]
         ),
         body: Stack(alignment: Alignment.bottomCenter, children: [
           GoogleMap(
