@@ -29,8 +29,6 @@ dependencies:
   permission_handler: ^10.0.0
   http: ^0.13.5
   logger: ^1.1.0
-  firebase_analytics: ^9.3.4
-  firebase_core: ^1.22.0
   shared_preferences: ^2.0.15
   google_maps_flutter: ^2.2.0
   location: ^4.4.0
@@ -40,6 +38,10 @@ dependencies:
   dotted_border: ^2.0.0+3
   flutter_rating_bar: ^4.0.1
   image_picker: ^0.8.6+1
+  google_sign_in: ^5.4.4
+  firebase_auth: ^4.2.5
+  firebase_core: ^2.4.1
+  firebase_analytics: ^10.1.0
 
 dev_dependencies:
   flutter_test:
