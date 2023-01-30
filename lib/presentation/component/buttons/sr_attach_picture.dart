@@ -118,7 +118,7 @@ class _SrAttachPitureState extends State<SrAttachPiture> {
       setState(() {
         _imageFileList = [...pickedFileList, ..._imageFileList];
         _imageFileList.length < 6
-            ? _imageFileList = _imageFileList
+            ? {_imageFileList = _imageFileList, _isImgaeFileClicked = List.filled(5, false)}
             : _imageFileList = _imageFileList.reversed.take(5).toList();
       });
     } catch (e) {
