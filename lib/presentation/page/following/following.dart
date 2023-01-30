@@ -54,15 +54,14 @@ class _FollowingState extends State<Following> {
 
   Widget _TabBar() {
     return Container(
-      height: 48,
-      padding: EdgeInsets.symmetric(horizontal: 8),
+      height: 44,
       child: TabBar(
         tabs: [
           Text(
             "팔로워",
-            style: TextStyle(color: SrColors.black),
+            style: TextStyle(fontSize : 17, fontWeight : FontWeight.w600, color: SrColors.black),
           ),
-          Text("팔로잉", style: TextStyle(color: SrColors.black)),
+          Text("팔로잉", style:  TextStyle(fontSize : 17, fontWeight : FontWeight.w600, color: SrColors.black)),
         ],
       ),
     );
@@ -75,7 +74,7 @@ class _FollowingState extends State<Following> {
         Container(
           width: 60,
           height: 60,
-          margin: EdgeInsets.only(right: 16),
+          margin: EdgeInsets.only(right: 12),
           child: CircleAvatar(
               radius: 100,
               backgroundImage: NetworkImage("https://picsum.photos/180")),
@@ -83,8 +82,9 @@ class _FollowingState extends State<Following> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("dkscjftn"),
-            Text("김철수"),
+            Text("dkscjftn", style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 15, color: Colors.black),),
+            SizedBox(height: 8),
+            Text("김철수", style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w300, color: SrColors.gray1),),
           ],
         ),
         Spacer(),
@@ -93,7 +93,7 @@ class _FollowingState extends State<Following> {
           height: 36,
           child: OutlinedButton(
             onPressed: () {},
-            child: isFollower ? Text("삭제") : Text("팔로잉"),
+            child: isFollower ? Text("삭제", style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 15)) : Text("팔로잉", style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 15),),
             style: OutlinedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(100)),
