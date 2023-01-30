@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:spotright/presentation/common/colors.dart';
 
 class SrDropdownButton extends StatefulWidget {
-  SrDropdownButton({Key? key, required this.hint, required this.dropdownItems, required this.onChanged, required this.hasIcon, this.dropdownIconColors, required this.isRequired}) : super(key: key);
+  SrDropdownButton({Key? key, required this.hint, required this.dropdownItems, required this.onChanged, required this.hasIcon, this.dropdownIconColors, required this.isRequired, this.buttonWidth}) : super(key: key);
   
   String hint; //카테고리 제몰
   final List<String> dropdownItems; //버튼 누르면 나오는 아이템들 List
@@ -83,7 +83,7 @@ class _SrDropdownState extends State<SrDropdownButton>{
           },
           value: entry.value,
           child: Column(children: <Widget>[
-            const SizedBox(height: 10, width: 160),
+            const SizedBox(height: 10),
             Row(
               children: [
                 const Padding(padding: EdgeInsets.only(left: 17)),
@@ -104,8 +104,8 @@ class _SrDropdownState extends State<SrDropdownButton>{
                 ),
               ],
             ),
-            const SizedBox(height: 11, width: 160),
-            Container(height: 1, width: 160, color: SrColors.gray,)
+            const SizedBox(height: 11),
+            Container(height: 1, width: widget.buttonWidth, color: SrColors.gray,)
           ],),
         ))
             .toList(),
@@ -126,14 +126,14 @@ class _SrDropdownState extends State<SrDropdownButton>{
           });
         },
         icon: widget.icon ??
-            SvgPicture.asset('assets/category_arrow.svg',
+            SvgPicture.asset('assets/category_arrow_down.svg',
                 width: 16, height: 16),
-        iconOnClick: widget.icon ?? SvgPicture.asset('assets/arrow_up.svg', width: 16, height: 16),
+        iconOnClick: widget.icon ?? SvgPicture.asset('assets/category_arrow_up.svg', width: 17, height: 17),
         iconSize: widget.iconSize ?? 16,
         iconEnabledColor: widget.iconEnabledColor,
         iconDisabledColor: SrColors.gray2,
-        buttonHeight: widget.buttonHeight ?? 44,
-        buttonWidth: widget.buttonWidth ?? 160,
+        buttonHeight: widget.buttonHeight ?? 45,
+        buttonWidth: widget.buttonWidth,
         buttonPadding:
         widget.buttonPadding ?? const EdgeInsets.only(left: 19, right: 14),
         buttonDecoration: BoxDecoration( borderRadius: BorderRadius.only(topRight: Radius.circular(22), topLeft: Radius.circular(22), bottomRight: Radius.circular(openRadius), bottomLeft: Radius.circular(openRadius)), color: Colors.white, border: Border.all(color: SrColors.gray1, width: 1) ),
@@ -142,7 +142,7 @@ class _SrDropdownState extends State<SrDropdownButton>{
         itemPadding: widget.itemPadding ?? EdgeInsets.zero,
         //Max height for the dropdown menu & becoming scrollable if there are more items. If you pass Null it will take max height possible for the items.
         dropdownMaxHeight: 500,
-        dropdownWidth: 160,
+        dropdownWidth: widget.buttonWidth,
         dropdownPadding: widget.dropdownPadding ?? EdgeInsets.zero,
         dropdownDecoration: widget.dropdownDecoration ??
             BoxDecoration(
