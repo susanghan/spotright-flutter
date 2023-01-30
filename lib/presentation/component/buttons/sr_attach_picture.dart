@@ -27,7 +27,6 @@ class _SrAttachPitureState extends State<SrAttachPiture> {
 
   List<XFile> _imageFileList = [];
   List<bool> _isImgaeFileClicked = List.filled(5, false);
-  bool _isClicked = false;
 
 
   @override
@@ -35,7 +34,7 @@ class _SrAttachPitureState extends State<SrAttachPiture> {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Container(
-        height: 100,
+        height: 92,
         child: Row(
           children: [
             GestureDetector(
@@ -47,8 +46,8 @@ class _SrAttachPitureState extends State<SrAttachPiture> {
                 radius: Radius.circular(20),
                 dashPattern: [5, 5],
                 child: Container(
-                  width: 92,
-                  height: 92,
+                  width: 90,
+                  height: 90,
                   alignment: Alignment.center,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -60,7 +59,6 @@ class _SrAttachPitureState extends State<SrAttachPiture> {
                 ),
               ),
             ),
-            Padding(padding: EdgeInsets.only(right: 10)),
             ...?_AttachPictures(),
           ],
         ),
@@ -70,7 +68,7 @@ class _SrAttachPitureState extends State<SrAttachPiture> {
 
   Widget _AttachPicture(int index, XFile imageFile) {
     return Row(children: [
-      const SizedBox(height: 92, width: 8,),
+      const SizedBox(height: 92, width: 6,),
       GestureDetector(
         onTap: (){
           setState(() {
