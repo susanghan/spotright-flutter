@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "846174137193",
+    "project_id": "spotright-372310",
+    "storage_bucket": "spotright-372310.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:846174137193:android:80256b51b0c326c13aebf8",
+        "android_client_info": {
+          "package_name": "com.susanghan.spotright"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "846174137193-1pt4m6609l3v544jh3s6n3eu9dnc0t14.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.susanghan.spotright",
+            "certificate_hash": "5877041bea29d15b731f345f61f0813b714b930b"
+          }
+        },
+        {
+          "client_id": "846174137193-k8et1vqa0btgdlunaoformcip276si8k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmKR2U18qaInsQzMXIma4uOEW0eqmmOls"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "846174137193-gi3tbk5sumj6eecp19fmgj7ienn9bui2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
