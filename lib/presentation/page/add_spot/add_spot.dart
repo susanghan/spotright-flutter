@@ -1,11 +1,12 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/buttons/sr_attach_picture.dart';
 import 'package:spotright/presentation/component/buttons/sr_cta_button.dart';
-import 'package:spotright/presentation/component/buttons/sr_rating_buttons.dart';
+import 'package:spotright/presentation/component/buttons/sr_rating_button.dart';
 import 'package:spotright/presentation/component/sr_check_box/sr_check_box.dart';
 import 'package:spotright/presentation/component/sr_text_field/sr_text_field.dart';
 import '../../component/buttons/sr_dropdown_button.dart';
@@ -89,30 +90,26 @@ class _AddSpotState extends State<AddSpot> {
     ));
   }
 
+  Widget _TextFieldLabel(String text, bool isRequired){
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Text.rich(TextSpan(children: <TextSpan>[
+        TextSpan(text: text, style: const TextStyle(color: SrColors.black, fontSize: 15, fontWeight: FontWeight.w500)),
+        TextSpan(text: isRequired ? " (필수)" : null, style: const TextStyle(color: SrColors.primary, fontSize: 15, fontWeight: FontWeight.w300,))
+      ])),
+    );
+  }
+
   List<Widget> _InputSpotName() {
     return [
-      Padding(
-        padding: EdgeInsets.only(bottom: 4),
-        child: const Text.rich(
-            TextSpan(style: TextStyle(color: SrColors.black), children: [
-          TextSpan(text: "장소명을 입력해주세요."),
-          TextSpan(text: "(필수)", style: TextStyle(color: SrColors.primary))
-        ])),
-      ),
-      Padding(padding: EdgeInsets.only(bottom: 16), child: SrTextField()),
+      _TextFieldLabel("장소명을 입력해 주세요.", true),
+      Padding(padding: const EdgeInsets.only(bottom: 16), child: SrTextField()),
     ];
-  }
+  } 
 
   List<Widget> _InputSpotAddress() {
     return [
-      Padding(
-        padding: EdgeInsets.only(bottom: 4),
-        child: const Text.rich(
-            TextSpan(style: TextStyle(color: SrColors.black), children: [
-          TextSpan(text: "주소를 입력해주세요."),
-          TextSpan(text: "(필수)", style: TextStyle(color: SrColors.primary))
-        ])),
-      ),
+      _TextFieldLabel("주소를 입력해 주세요.", true),
       Padding(
         padding: EdgeInsets.only(bottom: 16),
         child: SrTextField(
@@ -123,27 +120,33 @@ class _AddSpotState extends State<AddSpot> {
 
   List<Widget> _SelectSpotCategory() {
     return [
-      Padding(
-          padding: EdgeInsets.only(bottom: 4), child: Text("카테고리를 입력해주세요.")),
+      _TextFieldLabel("카테고리를 입력해 주세요.", false),
       Padding(
         padding: EdgeInsets.only(bottom: 16),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SrDropdownButton(
-              hasIcon: true,
-              isRequired: true,
-              dropdownItems: mainCategory,
-              hint: '대분류',
-              dropdownIconColors: mainCategoryColors,
-              onChanged: (String? value) {},
+            Flexible(
+              flex : 1,
+              child: SrDropdownButton(
+                hasIcon: true,
+                isRequired: true,
+                dropdownItems: mainCategory,
+                hint: '대분류',
+                dropdownIconColors: mainCategoryColors,
+                onChanged: (String? value) {},
+              ),
             ),
-            SrDropdownButton(
-              hasIcon: false,
-              isRequired: false,
-              dropdownItems: subCategoryRestaurant,
-              hint: '소분류',
-              onChanged: (String? value) {},
+            const SizedBox(width: 6,),
+            Flexible(
+              flex: 1,
+              child: SrDropdownButton(
+                hasIcon: false,
+                isRequired: false,
+                dropdownItems: subCategoryRestaurant,
+                hint: '소분류',
+                onChanged: (String? value) {},
+              ),
             ),
           ],
         ),
@@ -153,33 +156,27 @@ class _AddSpotState extends State<AddSpot> {
 
   List<Widget> _InputMemo() {
     return [
-      Padding(padding: EdgeInsets.only(bottom: 4), child: Text("메모")),
+      _TextFieldLabel("메모", false),
       Padding(
-          padding: EdgeInsets.only(bottom: 6),
+          padding: const EdgeInsets.only(bottom: 8),
           child: SrTextField(
             maxLines: 5,
-            height: 152,
+            height: 137,
           )),
       Container(
-        margin: EdgeInsets.only(right: 6, bottom: 16),
+        margin: const EdgeInsets.only(bottom: 16),
         child: Text("120/140"),
         alignment: Alignment.centerRight,
       ),
     ];
   }
 
+  //Todo: 여기는 라디오 버튼 쪽이라 그냥 안 건드렸어! _TextFieldLabel로 바꾼 거 빼구~,,여기 간격 넘 안 맞아서 그것도 안 해 뒀어,,,ㅠ
   List<Widget> _InputVisitation() {
     return [
-      const Padding(
-        padding: EdgeInsets.only(left: 16, bottom: 12),
-        child: Text.rich(
-            TextSpan(style: TextStyle(color: SrColors.black), children: [
-          TextSpan(text: "방문한 장소인가요?"),
-          TextSpan(text: "(필수)", style: TextStyle(color: SrColors.primary))
-        ])),
-      ),
+      _TextFieldLabel("방문한 장소인가요?", true),
       Padding(
-        padding: EdgeInsets.only(left: 16, bottom: 16, right: 16),
+        padding: const EdgeInsets.only(left: 16, bottom: 16, right: 16),
         child: Row(
           children: [
             Flexible(
@@ -203,11 +200,9 @@ class _AddSpotState extends State<AddSpot> {
 
   List<Widget> _InputRating() {
     return [
-      const Padding(
-        padding: EdgeInsets.only(left: 16, bottom: 4),
-        child: Text("별점"),
-      ),
+      _TextFieldLabel("별점", true),
       Container(
+        padding: const EdgeInsets.only(top: 18, bottom: 30),
         alignment: Alignment.center,
         child: SrRatingButton(),
       ),
@@ -216,12 +211,10 @@ class _AddSpotState extends State<AddSpot> {
 
   List<Widget> _Pictures() {
     return [
-      Padding(
-          padding: EdgeInsets.only(left: 16, bottom: 16), child: Text("사진 첨부")),
-      Padding(
-        padding: EdgeInsets.only(left: 16, bottom: 40),
-        child: SrAttachPiture(),
-      )
+      _TextFieldLabel("사진 첨부", false),
+      const Padding(padding: EdgeInsets.only(bottom: 8)),
+      SrAttachPiture(),
+      const Padding(padding: EdgeInsets.only(bottom: 40)),
     ];
   }
 }
