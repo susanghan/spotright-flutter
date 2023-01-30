@@ -37,7 +37,7 @@ class SrTextField extends StatelessWidget {
             //아마 suffix 아이콘 사라질 듯, 나중에 허자
             suffixIconConstraints: BoxConstraints(maxHeight: 19, maxWidth: 19, ),
             suffixIcon: suffixIcon,
-            //bottom 일부러 안 넣은 거임
+            //bottom 일부러 안 넣은 거임, line 여러 개일 때 이거 안 먹더라,,,참고해서 해결행~~~~
             contentPadding: const EdgeInsets.only(left: 16, right: 16, top: 15),
             //Todo: 색 정정 하고 에러일 때 추가함. 수정 필요하면 해주세요.
             border: OutlineInputBorder(
