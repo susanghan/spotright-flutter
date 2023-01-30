@@ -26,7 +26,7 @@ class _LoginState extends State<Login> {
             ),
             _signInButton("assets/google.svg", "구글 계정으로 로그인"),
             _signInButton("assets/apple.svg", "애플 계정으로 로그인"),
-            _signInButton("assets/marker.svg", "카카오 계정으로 로그인", isKakao: true),
+            _signInButton("assets/kakao.svg", "카카오 계정으로 로그인", isKakao: true),
           ],
         ),
       ),
