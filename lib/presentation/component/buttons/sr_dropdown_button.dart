@@ -45,8 +45,8 @@ class _SrDropdownState extends State<SrDropdownButton>{
   bool isOpened = false;
   bool isSelected = false;
   double openRadius = 22;
-  Color? nowColor;
-  String? nowString;
+  Color? selectedColor;
+  String? selectedString;
 
   @override
   Widget build(BuildContext context) {
@@ -61,14 +61,14 @@ class _SrDropdownState extends State<SrDropdownButton>{
               Icon(
                 Icons.circle,
                 size: widget.hasIcon && isSelected ? 11 : 0,
-                color: nowColor,
+                color: selectedColor,
               ),
               Padding(padding: EdgeInsets.only(right: widget.hasIcon && isSelected ? 7 : 0)),
               Text.rich(
               TextSpan(
                   style: const TextStyle( fontWeight: FontWeight.w500, fontSize: 15, color: SrColors.black,),
                   children: [
-                    TextSpan( text: nowString ?? widget.hint),
+                    TextSpan( text: selectedString ?? widget.hint),
                     TextSpan(text: widget.isRequired&&isSelected==false ? "(필수)" : "",  style: const TextStyle(color: SrColors.primary, fontSize: 15, fontWeight: FontWeight.w300))
                   ]
               ),
@@ -78,8 +78,8 @@ class _SrDropdownState extends State<SrDropdownButton>{
         items: widget.dropdownItems.asMap().entries
             .map((entry) => DropdownMenuItem<String>(
           onTap: (){
-            nowColor = widget.dropdownIconColors?[entry.key];
-            nowString = entry.value;
+            selectedColor = widget.dropdownIconColors?[entry.key];
+            selectedString = entry.value;
           },
           value: entry.value,
           child: Column(children: <Widget>[

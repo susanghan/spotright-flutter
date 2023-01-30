@@ -23,6 +23,8 @@ class SrColors {
 
   static const Color kakao = Color(0xffFEE500);
 
+  static const Color success = Color(0xff0066FF);
+
   static const MaterialColor materialPrimary = MaterialColor(
     0xffFD4F18,
     <int, Color>{

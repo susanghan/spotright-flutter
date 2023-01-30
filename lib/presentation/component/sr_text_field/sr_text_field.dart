@@ -5,6 +5,7 @@ class SrTextField extends StatelessWidget {
   SrTextField(
       {Key? key,
       this.suffixIcon,
+      this.cursorWidth = 1,
       this.hint = '',
       this.onChanged,
       this.maxLines = 1,
@@ -18,12 +19,15 @@ class SrTextField extends StatelessWidget {
   final int maxLines;
   final double height;
   final double borderRadius;
+  final double cursorWidth;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: height,
       child: TextField(
+        cursorColor: SrColors.success,
+        cursorWidth: cursorWidth,
         maxLines: maxLines,
         textAlign: TextAlign.start,
         textAlignVertical: TextAlignVertical.center,
@@ -33,10 +37,13 @@ class SrTextField extends StatelessWidget {
             contentPadding: const EdgeInsets.all(12),
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
-                borderSide: BorderSide(width: 1, color: SrColors.gray1)),
+                borderSide: const BorderSide(width: 1, color: SrColors.gray1)),
             focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
-                borderSide: BorderSide(width: 1, color: SrColors.primary)),
+                borderSide: const BorderSide(width: 1, color: SrColors.success)),
+            errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
+                borderSide: const BorderSide(width: 1, color: SrColors.primary)),
             hintText: hint),
       ),
     );
