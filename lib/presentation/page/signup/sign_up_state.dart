@@ -17,6 +17,7 @@ class SignUpState {
     MessageStatus.empty: '',
   };
 
+  RxString email = "".obs;
   var ctaActive = false.obs;
   var idMessageStatus = MessageStatus.defaultMessage.obs;
   var nicknameMessageStatus = MessageStatus.defaultMessage.obs;

@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:spotright/data/oauth/oauth_response.dart';
 import 'package:spotright/presentation/page/signup/sign_up_state.dart';
 
 class SignUpController extends GetxController {
@@ -24,5 +25,9 @@ class SignUpController extends GetxController {
 
   void changeBirthdate(String newBirthdate) {
     signUpState.changeBirthdate(newBirthdate);
+  }
+
+  void initOauthInfo(OAuthResponse oAuthResponse) {
+    signUpState.email.value = oAuthResponse.email ?? "";
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:spotright/data/oauth/oauth_repository.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/buttons/sr_cta_button.dart';
@@ -17,6 +18,12 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   SignUpController signUpController = Get.find();
+  OAuthRepository oAuthRepository = Get.find();
+
+  @override
+  void initState() {
+
+  }
 
   @override
   Widget build(BuildContext context) {
