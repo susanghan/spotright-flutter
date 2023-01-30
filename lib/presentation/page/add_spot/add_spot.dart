@@ -10,7 +10,6 @@ import 'package:spotright/presentation/component/sr_check_box/sr_check_box.dart'
 import 'package:spotright/presentation/component/sr_text_field/sr_text_field.dart';
 import '../../component/buttons/sr_dropdown_button.dart';
 
-
 class AddSpot extends StatefulWidget {
   const AddSpot({Key? key}) : super(key: key);
 
@@ -66,7 +65,7 @@ class _AddSpotState extends State<AddSpot> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 36),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -74,16 +73,16 @@ class _AddSpotState extends State<AddSpot> {
                   ..._InputSpotAddress(),
                   ..._SelectSpotCategory(),
                   ..._InputMemo(),
+                  ..._InputVisitation(),
+                  ..._InputRating(),
+                  ..._Pictures(),
+                  SrCTAButton(
+                    text: "완료",
+                    action: () {},
+                  )
                 ],
               ),
             ),
-            ..._InputVisitation(),
-            ..._InputRating(),
-            ..._Pictures(),
-            SrCTAButton(
-              text: "완료",
-              action: () {},
-            )
           ],
         ),
       ),
@@ -117,8 +116,7 @@ class _AddSpotState extends State<AddSpot> {
       Padding(
         padding: EdgeInsets.only(bottom: 16),
         child: SrTextField(
-            suffixIcon: SvgPicture.asset('assets/address_marker.svg',
-                width: 24, height: 24)),
+            suffixIcon: SvgPicture.asset('assets/address_marker.svg')),
       ),
     ];
   }
@@ -159,7 +157,7 @@ class _AddSpotState extends State<AddSpot> {
       Padding(
           padding: EdgeInsets.only(bottom: 6),
           child: SrTextField(
-            maxLines: 7,
+            maxLines: 5,
             height: 152,
           )),
       Container(
@@ -214,7 +212,6 @@ class _AddSpotState extends State<AddSpot> {
         child: SrRatingButton(),
       ),
     ];
-
   }
 
   List<Widget> _Pictures() {
