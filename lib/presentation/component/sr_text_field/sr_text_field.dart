@@ -9,7 +9,8 @@ class SrTextField extends StatelessWidget {
       this.onChanged,
       this.maxLines = 1,
       this.height = 44,
-      this.borderRadius = 22})
+      this.borderRadius = 22,
+      this.controller})
       : super(key: key);
 
   final String hint;
@@ -18,12 +19,14 @@ class SrTextField extends StatelessWidget {
   final int maxLines;
   final double height;
   final double borderRadius;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: height,
       child: TextField(
+        controller: controller ?? TextEditingController(),
         maxLines: maxLines,
         textAlign: TextAlign.start,
         textAlignVertical: TextAlignVertical.center,

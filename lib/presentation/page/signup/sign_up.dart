@@ -22,7 +22,12 @@ class _SignUpState extends State<SignUp> {
 
   @override
   void initState() {
+    // todo: 에러 처리
+    if(oAuthRepository.oauthResponse == null) {
+      return;
+    }
 
+    signUpController.initOauthInfo(oAuthRepository.oauthResponse!);
   }
 
   @override
@@ -92,6 +97,10 @@ class _SignUpState extends State<SignUp> {
       Padding(
         padding: EdgeInsets.only(bottom: 24),
         child: SrTextField(
+          controller: signUpController.emailController,
+          onChanged: (text) {
+            signUpController.signUpState.email.value = text;
+          },
           hint: 'example@gmail.com',
           suffixIcon: Padding(
             padding: EdgeInsets.all(4),
