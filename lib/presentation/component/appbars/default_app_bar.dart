@@ -23,6 +23,7 @@ class DefaultAppBar extends StatelessWidget with PreferredSizeWidget {
               icon: Icon(
                 Icons.arrow_back_ios,
                 color: SrColors.black,
+                size: 20,
               ),
               onPressed: () {
                 Get.back();
@@ -32,7 +33,7 @@ class DefaultAppBar extends StatelessWidget with PreferredSizeWidget {
       backgroundColor: SrColors.white,
       title: Text(
         title,
-        style: TextStyle(color: SrColors.black),
+        style: const TextStyle(color: SrColors.black, fontSize: 20, fontWeight: FontWeight.w500),
       ),
       centerTitle: true,
       elevation: 0,
@@ -41,5 +42,5 @@ class DefaultAppBar extends StatelessWidget with PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(40);
+  Size get preferredSize => Size.fromHeight(60);
 }

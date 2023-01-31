@@ -38,7 +38,7 @@ class _SrRatingButtonState extends State<SrRatingButton> {
           itemCount: 3,
           itemSize: 45,
           glowColor: SrColors.white,
-          itemPadding: const EdgeInsets.only(right: 15),
+          itemPadding: const EdgeInsets.only(right: 16),
           itemBuilder: (context, _) => SvgPicture.asset('assets/star.svg', width: 45, height: 45, color: SrColors.primary,),
           onRatingUpdate: (rating){
             setState(() {

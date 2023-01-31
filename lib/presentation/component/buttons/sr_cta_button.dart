@@ -9,21 +9,22 @@ class SrCTAButton extends StatelessWidget {
 
   final String text;
   final bool isEnabled;
-  final Function() action;
-
+  final Function() action
+  ;
+  //Todo : 내가 아예 Material button으로 바꿨어. 내 생각에는 이상 없을 거 같은디 pull 받기 전에 한 번 봐 줭
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: action,
-      child: Container(
-        alignment: Alignment.topCenter,
-        width: double.infinity,
-        height: 88,
-        padding: EdgeInsets.only(top: 20),
+    return Container(
+      width: double.infinity,
+      height: 60,
+      child: MaterialButton(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+        onPressed: action,
         color: isEnabled ? SrColors.primary : SrColors.gray,
-        child: Text(
+        highlightColor: SrColors.primary,
+        child:Text(
           text,
-          style: const TextStyle(color: SrColors.white),
+          style: const TextStyle(color: SrColors.white, fontWeight: FontWeight.w600, fontSize: 20),
         ),
       ),
     );

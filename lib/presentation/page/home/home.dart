@@ -73,6 +73,7 @@ class _HomeState extends State<Home> {
         body: Stack(alignment: Alignment.bottomCenter, children: [
           GoogleMap(
             zoomControlsEnabled: false,
+            myLocationButtonEnabled: false,
             myLocationEnabled: true,
             mapType: MapType.normal,
             initialCameraPosition: CameraPosition(

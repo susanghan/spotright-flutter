@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:spotright/data/google_sign_in_api.dart';
 import 'package:spotright/data/oauth/oauth_repository.dart';
 import 'package:spotright/presentation/common/colors.dart';
-import 'package:spotright/presentation/page/signup/sign_up.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -32,7 +30,7 @@ class _LoginState extends State<Login> {
             ),
             _signInButton("assets/google.svg", "구글 계정으로 로그인", oAuthRepository.signUpWithGoogle),
             _signInButton("assets/apple.svg", "애플 계정으로 로그인", () {}),
-            _signInButton("assets/marker.svg", "카카오 계정으로 로그인", () {}, isKakao: true),
+            _signInButton("assets/kakao.svg", "카카오 계정으로 로그인", () {}, isKakao: true),
           ],
         ),
       ),
@@ -46,10 +44,7 @@ class _LoginState extends State<Login> {
       width: double.infinity,
       height: 45,
       child: OutlinedButton(
-        onPressed: () async {
-          await action();
-          Get.to(SignUp());
-        },
+        onPressed: () {},
         style: OutlinedButton.styleFrom(
             backgroundColor: isKakao ? SrColors.kakao : SrColors.white,
             shape: RoundedRectangleBorder(
