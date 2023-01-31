@@ -103,7 +103,7 @@ class _AddSpotState extends State<AddSpot> {
   List<Widget> _InputSpotName() {
     return [
       _TextFieldLabel("장소명을 입력해 주세요.", true),
-      Padding(padding: const EdgeInsets.only(bottom: 16), child: SrTextField()),
+      Padding(padding: const EdgeInsets.only(bottom: 0), child: SrTextField()),
     ];
   } 
 
@@ -176,7 +176,7 @@ class _AddSpotState extends State<AddSpot> {
     return [
       _TextFieldLabel("방문한 장소인가요?", true),
       Padding(
-        padding: const EdgeInsets.only(left: 16, bottom: 16, right: 16),
+        padding: const EdgeInsets.only(top: 8,left: 16, bottom: 16, right: 16),
         child: Row(
           children: [
             Flexible(
@@ -202,7 +202,7 @@ class _AddSpotState extends State<AddSpot> {
     return [
       _TextFieldLabel("별점", true),
       Container(
-        padding: const EdgeInsets.only(top: 18, bottom: 30),
+        padding: const EdgeInsets.only(top: 8, bottom: 30),
         alignment: Alignment.center,
         child: SrRatingButton(),
       ),
