@@ -90,12 +90,23 @@ class _AddSpotState extends State<AddSpot> {
     ));
   }
 
-  Widget _TextFieldLabel(String text, bool isRequired){
+  Widget _TextFieldLabel(String text, bool isRequired) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: Text.rich(TextSpan(children: <TextSpan>[
-        TextSpan(text: text, style: const TextStyle(color: SrColors.black, fontSize: 15, fontWeight: FontWeight.w500)),
-        TextSpan(text: isRequired ? " (필수)" : null, style: const TextStyle(color: SrColors.primary, fontSize: 15, fontWeight: FontWeight.w300,))
+        TextSpan(
+            text: text,
+            style: const TextStyle(
+                color: SrColors.black,
+                fontSize: 15,
+                fontWeight: FontWeight.w500)),
+        TextSpan(
+            text: isRequired ? " (필수)" : null,
+            style: const TextStyle(
+              color: SrColors.primary,
+              fontSize: 15,
+              fontWeight: FontWeight.w300,
+            ))
       ])),
     );
   }
@@ -103,9 +114,9 @@ class _AddSpotState extends State<AddSpot> {
   List<Widget> _InputSpotName() {
     return [
       _TextFieldLabel("장소명을 입력해 주세요.", true),
-      Padding(padding: const EdgeInsets.only(bottom: 0), child: SrTextField()),
+      Padding(padding: const EdgeInsets.only(bottom: 16), child: SrTextField()),
     ];
-  } 
+  }
 
   List<Widget> _InputSpotAddress() {
     return [
@@ -127,7 +138,7 @@ class _AddSpotState extends State<AddSpot> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Flexible(
-              flex : 1,
+              flex: 1,
               child: SrDropdownButton(
                 hasIcon: true,
                 isRequired: true,
@@ -137,7 +148,9 @@ class _AddSpotState extends State<AddSpot> {
                 onChanged: (String? value) {},
               ),
             ),
-            const SizedBox(width: 6,),
+            const SizedBox(
+              width: 6,
+            ),
             Flexible(
               flex: 1,
               child: SrDropdownButton(
@@ -176,7 +189,7 @@ class _AddSpotState extends State<AddSpot> {
     return [
       _TextFieldLabel("방문한 장소인가요?", true),
       Padding(
-        padding: const EdgeInsets.only(top: 8,left: 16, bottom: 16, right: 16),
+        padding: const EdgeInsets.only(top: 8, left: 16, bottom: 16, right: 16),
         child: Row(
           children: [
             Flexible(
