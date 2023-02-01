@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/buttons/sr_cta_button.dart';
@@ -18,6 +19,9 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
+
+  bool _hasUserPicture = true;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -30,7 +34,7 @@ class _EditProfileState extends State<EditProfile> {
         padding: const EdgeInsets.fromLTRB(16, 12, 16, 36),
         child: Column(
           children: [
-            ..._UserProfile(false),
+            ..._UserProfile(),
             ..._UserNickName("감자튀김"),
             const Spacer(),
             SrCTAButton(
@@ -44,7 +48,7 @@ class _EditProfileState extends State<EditProfile> {
     ));
   }
 
-  List<Widget> _UserProfile(bool hasUserPicture) {
+  List<Widget> _UserProfile() {
     return [
       Column(
         children: [
@@ -59,14 +63,20 @@ class _EditProfileState extends State<EditProfile> {
                   height: 180,
                   child: CircleAvatar(
                     radius: 100,
-                    backgroundImage: hasUserPicture
+                    backgroundImage: _hasUserPicture
                         ? null
                         : const AssetImage('assets/user_profile_none_large.png'),
                   ),
                 ),
                 Positioned(
                   top: 12,
-                  child: SvgPicture.asset("assets/delete_button_primary.svg", width: 34, height: 34,),
+                  child: GestureDetector(
+                    onTap: (){
+                      setState(() {
+                        _hasUserPicture = false;
+                      });
+                    },
+                      child: SvgPicture.asset("assets/delete_button_primary.svg", width: 34, height: 34,)),
                 )
               ]
             ),
