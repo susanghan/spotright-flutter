@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/page/edit_profile/efit_profile.dart';
-import 'package:spotright/presentation/page/following/following.dart';
 import '../../common/colors.dart';
 
 class MyPage extends StatefulWidget {
@@ -26,7 +25,7 @@ class _MyPageState extends State<MyPage> {
           padding: const EdgeInsets.only(bottom: 30),
           child: Column(
             children: [
-              ..._Profile(false),
+              ..._UserProfile(false),
               ..._Divider(2),
               ..._MypageList("개인정보관리"),
               ..._MypageList("차단사용자관리"),
@@ -56,7 +55,7 @@ class _MyPageState extends State<MyPage> {
     ];
   }
 
-  List<Widget> _Profile(bool hasUserPicture) {
+  List<Widget> _UserProfile(bool hasUserPicture) {
     return [
       Padding(
           padding: EdgeInsets.only(top: 12, bottom: 18),
@@ -74,29 +73,32 @@ class _MyPageState extends State<MyPage> {
                     //backgroundImage : AssetImage('assets/user_profile_none_small.png')
                 ),
               ),
-              Container(
-                padding: const EdgeInsets.only(top: 8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const SizedBox(width: 18, height: 18,),
-                    Text(
-                      "지혜원",
-                      style: const TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w600,
-                          color: SrColors.black),
-                    ),
-                    IconButton(
-                      icon: SvgPicture.asset("assets/edit.svg"),
-                      onPressed: () {
-                        Get.to(EditProfile());
-                      },
-                      iconSize: 18,
-                      padding: const EdgeInsets.only(left: 3),
-                      constraints: const BoxConstraints(),
-                    )
-                  ],
+              GestureDetector(
+                onTap: (){
+                  Get.to(EditProfile());
+                },
+                child: Container(
+                  padding: const EdgeInsets.only(top: 8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(width: 18, height: 18,),
+                      Text(
+                        "지혜원",
+                        style: const TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                            color: SrColors.black),
+                      ),
+                      IconButton(
+                        icon: SvgPicture.asset("assets/edit.svg"),
+                        onPressed: () {Get.to(EditProfile());},
+                        iconSize: 18,
+                        padding: const EdgeInsets.only(left: 3),
+                        constraints: const BoxConstraints(),
+                      )
+                    ],
+                  ),
                 ),
               )
             ],

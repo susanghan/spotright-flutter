@@ -42,6 +42,7 @@ final List<String> subCategoryRestaurant = [
   "건강식",
   "기타"
 ];
+
 final List<String> subCategoryAccommodation = [
   "호텔 & 리조트",
   "모텔",
