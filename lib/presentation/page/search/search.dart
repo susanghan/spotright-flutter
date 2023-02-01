@@ -70,7 +70,7 @@ class _SearchState extends State<Search> {
           ],
         ),
         Spacer(),
-        SvgPicture.asset("assets/remove.svg", color: SrColors.gray1,)
+        SvgPicture.asset("assets/delete.svg", color: SrColors.gray1,)
       ]),
     );
   }
