@@ -21,6 +21,7 @@ class SrCTAButton extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
         onPressed: action,
         color: isEnabled ? SrColors.primary : SrColors.gray,
+        splashColor: SrColors.primary,
         highlightColor: SrColors.primary,
         child:Text(
           text,
