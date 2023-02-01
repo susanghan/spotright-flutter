@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/buttons/sr_cta_button.dart';
@@ -31,9 +32,10 @@ class _EditProfileState extends State<EditProfile> {
           children: [
             ..._UserProfile(false),
             ..._UserNickName("감자튀김"),
-            Spacer(),
+            const Spacer(),
             SrCTAButton(
               text: "완료",
+              isEnabled: false,
               action: () {},
             )
           ],
@@ -46,19 +48,29 @@ class _EditProfileState extends State<EditProfile> {
     return [
       Column(
         children: [
-          Stack(children: [
-            Container(
-              alignment: Alignment.center,
-              width: 180,
-              height: 180,
-              child: CircleAvatar(
-                radius: 100,
-                backgroundImage: hasUserPicture
-                    ? null
-                    : const AssetImage('assets/user_profile_none_large.png'),
-              ),
+          Container(
+            width: 180,
+            height: 180,
+            child: Stack(
+              alignment: Alignment.topRight,
+                children: [
+                Container(
+                  width: 180,
+                  height: 180,
+                  child: CircleAvatar(
+                    radius: 100,
+                    backgroundImage: hasUserPicture
+                        ? null
+                        : const AssetImage('assets/user_profile_none_large.png'),
+                  ),
+                ),
+                Positioned(
+                  top: 12,
+                  child: SvgPicture.asset("assets/delete_button_primary.svg", width: 34, height: 34,),
+                )
+              ]
             ),
-          ]),
+          ),
           Padding(
               padding: const EdgeInsets.only(top: 16, bottom: 28),
               child: Text(
