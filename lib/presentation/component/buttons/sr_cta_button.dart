@@ -9,8 +9,8 @@ class SrCTAButton extends StatelessWidget {
 
   final String text;
   final bool isEnabled;
-  final Function() action
-  ;
+  final Function() action;
+
   //Todo : 내가 아예 Material button으로 바꿨어. 내 생각에는 이상 없을 거 같은디 pull 받기 전에 한 번 봐 줭
   @override
   Widget build(BuildContext context) {

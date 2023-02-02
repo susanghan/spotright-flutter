@@ -27,7 +27,6 @@ class _EditProfileState extends State<EditProfile> {
 
 
   final ImageProvider _defaultImage = const AssetImage('assets/user_profile_default_large.png');
-
   final ImagePicker _picker = ImagePicker();
 
   ImageProvider? _userProfile;

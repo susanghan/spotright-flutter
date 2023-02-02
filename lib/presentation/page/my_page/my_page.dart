@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
+import 'package:spotright/presentation/page/deactivate_account/deactivate_account_pre.dart';
 import 'package:spotright/presentation/page/edit_profile/edit_profile.dart';
 import '../../common/colors.dart';
 
@@ -38,7 +39,11 @@ class _MyPageState extends State<MyPage> {
               ..._MypageList("로그아웃"),
               ..._Divider(1),
               const Spacer(),
-              const Text("계정 삭제", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w300, color: SrColors.gray1),)
+             InkWell(
+               onTap: (){
+                 Get.to(DeactivateAccountPre());
+               },
+                 child: Text("계정 삭제", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w300, color: SrColors.gray1),))
             ],
           ),
         ),
