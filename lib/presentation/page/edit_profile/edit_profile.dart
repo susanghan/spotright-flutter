@@ -1,16 +1,19 @@
 import 'dart:io';
-
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/buttons/sr_cta_button.dart';
+import 'package:spotright/presentation/page/edit_profile/edit_profile_controller.dart';
 import '../../component/sr_text_field/sr_text_field.dart';
 import 'package:image_picker/image_picker.dart';
 
+//Todo : 일단 넘어가고 나중에 내가 다 갈아 엎을게,,,실제 서버랑 연결할 때
 //Todo : 프로필 사진, 닉네임 중 하나이상 수정해야 완료 버튼이 활성화됩니다
 //Todo : 각각 '프로필 사진 수정 버튼'과 '닉네임타이핑칸'을 누르면 해당 항목을 변경할 수 있습니다
 //Todo : 기존 닉네임과 같은 닉네임을 입력했을 때는 완료 버튼이 활성화되지 않습니다
+//Todo : 프로필 사진이 없으면 x버튼이 사라지게
 
 class EditProfile extends StatefulWidget {
   const EditProfile({Key? key}) : super(key: key);
@@ -20,22 +23,21 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
+  EditProfileController editProfileController = Get.find();
 
-  //첨에 서버에서 가져온 user profile path, 없으면 empty로 받을 거 같음. 아마?
-  String _userProfilePath = 'ss';
-  ImageProvider? _userProfile;
 
-  bool _editFlag = false;
+  final ImageProvider _defaultImage = const AssetImage('assets/user_profile_default_large.png');
 
   final ImagePicker _picker = ImagePicker();
+
+  ImageProvider? _userProfile;
   dynamic _pickImageError;
-  
-  //AssetImage(_pickedFile!.path) 갤러리에서 가져온 이미지
 
   @override
   void initState(){
+    editProfileController.editProfileState.isEdited.value = false;
     //서버에서 가져온 _userProfilePath이 비지 않았으면 이미지 반환해 주기.
-    _userProfile = _userProfilePath.isNotEmpty ? null : const AssetImage('assets/user_profile_none_large.png');
+    _userProfile = editProfileController.userProfilePath.isNotEmpty ? null : _defaultImage;
   }
 
   @override
@@ -55,7 +57,7 @@ class _EditProfileState extends State<EditProfile> {
             const Spacer(),
             SrCTAButton(
               text: "완료",
-              isEnabled: _editFlag,
+              isEnabled: editProfileController.editProfileState.isEdited.value,
               action: () {},
             )
           ],
@@ -80,7 +82,6 @@ class _EditProfileState extends State<EditProfile> {
                   child: CircleAvatar(
                     radius: 100,
                     backgroundImage: _userProfile
-                    //_editProfileFlag ? AssetImage(_pickedFile!.path) : _userProfile.isNotEmpty  ? AssetImage(_pickedFile!.path) : const AssetImage('assets/user_profile_none_large.png'),
                   ),
                 ),
                 Positioned(
@@ -89,11 +90,13 @@ class _EditProfileState extends State<EditProfile> {
                   child: GestureDetector(
                     onTap: (){
                       setState(() {
-                        _editFlag = true;
-                        _userProfile = const AssetImage('assets/user_profile_none_large.png');
+                        editProfileController.editProfileState.isEdited.value = true;
+                        _userProfile = _defaultImage;
                       });
                     },
-                      child: SvgPicture.asset("assets/delete_button_primary.svg", width: 34, height: 34,)),
+                      child: Visibility(
+                        visible: _userProfile == _defaultImage ? false : true,
+                          child: SvgPicture.asset("assets/delete_button_primary.svg", width: 34, height: 34,))),
                 )
               ]
             ),
@@ -104,7 +107,7 @@ class _EditProfileState extends State<EditProfile> {
                 onTap: (){
                   _onEditButtonPressed(ImageSource.gallery);
                 },
-                child: Text(
+                child: const Text(
                   "프로필 사진 수정",
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
@@ -134,15 +137,17 @@ class _EditProfileState extends State<EditProfile> {
               )),
           Padding(
               padding: const EdgeInsets.only(bottom: 6),
-              child: SrTextField(hint: userNickname ?? '', maxLines: 1)),
+              child: SrTextField(hint: userNickname ?? '', maxLines: 1, onChanged: editProfileController.onNicknameChanged)),
           Padding(
               padding: const EdgeInsets.only(left: 16),
-              child: Text(
-                "닉네임 규정 캡션입니다",
-                style: TextStyle(
-                    fontWeight: FontWeight.w300,
-                    fontSize: 15,
-                    color: SrColors.gray2),
+              child: Obx(
+                () => Text(
+                  editProfileController.editProfileState.nicknameValidationMessage,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.w300,
+                      fontSize: 15,
+                      color: SrColors.gray2),
+                ),
               ))
         ],
       )
@@ -157,7 +162,7 @@ class _EditProfileState extends State<EditProfile> {
       );
       setState(() {
         _userProfile = Image.file(File(pickedFile!.path)).image;
-        _editFlag = true;
+        editProfileController.editProfileState.isEdited.value = true;
       });
     } catch (e) {
       setState(() {

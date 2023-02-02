@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
-import 'package:spotright/presentation/page/edit_profile/efit_profile.dart';
+import 'package:spotright/presentation/page/edit_profile/edit_profile.dart';
 import '../../common/colors.dart';
 
 class MyPage extends StatefulWidget {
@@ -67,7 +67,7 @@ class _MyPageState extends State<MyPage> {
                 height: 80,
                 child: CircleAvatar(
                     radius: 100,
-                    backgroundImage: hasUserPicture ? null : const AssetImage('assets/user_profile_none_small.png'),
+                    backgroundImage: hasUserPicture ? null : const AssetImage('assets/user_profile_default_small.png'),
                     //Todo: 아래 각각은 되는데 합치면 안 됨. why?
                     //backgroundImage: NetworkImage('https://picsum.photos/200')
                     //backgroundImage : AssetImage('assets/user_profile_none_small.png')
