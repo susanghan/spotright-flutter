@@ -1,15 +1,16 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/buttons/sr_cta_button.dart';
-
 import '../../component/sr_text_field/sr_text_field.dart';
+import 'package:image_picker/image_picker.dart';
 
-//프로필 사진, 닉네임 중 하나이상 수정해야 완료 버튼이 활성화됩니다
-// 각각 '프로필 사진 수정 버튼'과 '닉네임타이핑칸'을 누르면 해당 항목을 변경할 수 있습니다
-// 기존 닉네임과 같은 닉네임을 입력했을 때는 완료 버튼이 활성화되지 않습니다
+//Todo : 프로필 사진, 닉네임 중 하나이상 수정해야 완료 버튼이 활성화됩니다
+//Todo : 각각 '프로필 사진 수정 버튼'과 '닉네임타이핑칸'을 누르면 해당 항목을 변경할 수 있습니다
+//Todo : 기존 닉네임과 같은 닉네임을 입력했을 때는 완료 버튼이 활성화되지 않습니다
 
 class EditProfile extends StatefulWidget {
   const EditProfile({Key? key}) : super(key: key);
@@ -20,7 +21,22 @@ class EditProfile extends StatefulWidget {
 
 class _EditProfileState extends State<EditProfile> {
 
-  bool _hasUserPicture = true;
+  //첨에 서버에서 가져온 user profile path, 없으면 empty로 받을 거 같음. 아마?
+  String _userProfilePath = 'ss';
+  ImageProvider? _userProfile;
+
+  bool _editFlag = false;
+
+  final ImagePicker _picker = ImagePicker();
+  dynamic _pickImageError;
+  
+  //AssetImage(_pickedFile!.path) 갤러리에서 가져온 이미지
+
+  @override
+  void initState(){
+    //서버에서 가져온 _userProfilePath이 비지 않았으면 이미지 반환해 주기.
+    _userProfile = _userProfilePath.isNotEmpty ? null : const AssetImage('assets/user_profile_none_large.png');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +55,7 @@ class _EditProfileState extends State<EditProfile> {
             const Spacer(),
             SrCTAButton(
               text: "완료",
-              isEnabled: false,
+              isEnabled: _editFlag,
               action: () {},
             )
           ],
@@ -63,17 +79,18 @@ class _EditProfileState extends State<EditProfile> {
                   height: 180,
                   child: CircleAvatar(
                     radius: 100,
-                    backgroundImage: _hasUserPicture
-                        ? null
-                        : const AssetImage('assets/user_profile_none_large.png'),
+                    backgroundImage: _userProfile
+                    //_editProfileFlag ? AssetImage(_pickedFile!.path) : _userProfile.isNotEmpty  ? AssetImage(_pickedFile!.path) : const AssetImage('assets/user_profile_none_large.png'),
                   ),
                 ),
                 Positioned(
+                  //삭제 버튼입니다.
                   top: 12,
                   child: GestureDetector(
                     onTap: (){
                       setState(() {
-                        _hasUserPicture = false;
+                        _editFlag = true;
+                        _userProfile = const AssetImage('assets/user_profile_none_large.png');
                       });
                     },
                       child: SvgPicture.asset("assets/delete_button_primary.svg", width: 34, height: 34,)),
@@ -83,12 +100,17 @@ class _EditProfileState extends State<EditProfile> {
           ),
           Padding(
               padding: const EdgeInsets.only(top: 16, bottom: 28),
-              child: Text(
-                "프로필 사진 수정",
-                style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 15,
-                    color: SrColors.gray1),
+              child: InkWell(
+                onTap: (){
+                  _onEditButtonPressed(ImageSource.gallery);
+                },
+                child: Text(
+                  "프로필 사진 수정",
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 15,
+                      color: SrColors.gray1),
+                ),
               ))
         ],
       )
@@ -126,4 +148,22 @@ class _EditProfileState extends State<EditProfile> {
       )
     ];
   }
+
+  Future<void> _onEditButtonPressed(ImageSource source,
+      {BuildContext? context}) async {
+    try {
+      final XFile? pickedFile = await _picker.pickImage(
+        source: source,
+      );
+      setState(() {
+        _userProfile = Image.file(File(pickedFile!.path)).image;
+        _editFlag = true;
+      });
+    } catch (e) {
+      setState(() {
+        _pickImageError = e;
+      });
+    }
+  }
+
 }

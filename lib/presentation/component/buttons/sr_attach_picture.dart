@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
@@ -39,7 +38,7 @@ class _SrAttachPitureState extends State<SrAttachPiture> {
           children: [
             GestureDetector(
               onTap: () async {
-                _onImageButtonPressed(ImageSource.gallery, context: context);
+                _onAttachButtonPressed(ImageSource.gallery, context: context);
               },
               child: DottedBorder(
                 borderType: BorderType.RRect,
@@ -79,7 +78,7 @@ class _SrAttachPitureState extends State<SrAttachPiture> {
           alignment: Alignment.center,
           children:[
             ClipRRect(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(100),
                 child: Image.file(
                   File(imageFile.path),
                   width: 92,
@@ -109,7 +108,7 @@ class _SrAttachPitureState extends State<SrAttachPiture> {
     return _imageFileList.asMap().entries.map((e) => _AttachPicture(e.key, e.value)).toList();
   }
 
-  Future<void> _onImageButtonPressed(ImageSource source,
+  Future<void> _onAttachButtonPressed(ImageSource source,
       {BuildContext? context}) async {
     try {
       final List<XFile> pickedFileList = await _picker.pickMultiImage();
