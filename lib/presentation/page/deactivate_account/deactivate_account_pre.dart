@@ -20,7 +20,7 @@ class DeactivateAccountPre extends StatelessWidget {
           body: Container(
             height: double.infinity,
             width: double.infinity,
-            padding: const EdgeInsets.only(bottom : 100),
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 36),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -29,11 +29,12 @@ class DeactivateAccountPre extends StatelessWidget {
                   padding: EdgeInsets.only(bottom: 70),
                     child: Text("\u{1F61F}", style: TextStyle(fontSize: 100),)),
                 const Text("정말 탈퇴하실 건가요? \n 이대로 간다니 아쉬워요", style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: SrColors.gray2 ),),
+                Spacer(),
                 SrCTAButton(
                   text: "계정 삭제",
                   isEnabled: false,
                   action: (){Get.to(DeactivateAccount());},
-                )
+                ),
 
               ],
             ),

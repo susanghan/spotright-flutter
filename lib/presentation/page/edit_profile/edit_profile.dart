@@ -1,13 +1,12 @@
-import 'dart:io';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/buttons/sr_cta_button.dart';
 import 'package:spotright/presentation/page/edit_profile/edit_profile_controller.dart';
 import '../../component/sr_text_field/sr_text_field.dart';
-import 'package:image_picker/image_picker.dart';
 
 //Todo : 일단 넘어가고 나중에 내가 다 갈아 엎을게,,,실제 서버랑 연결할 때
 //Todo : 프로필 사진, 닉네임 중 하나이상 수정해야 완료 버튼이 활성화됩니다
@@ -26,17 +25,10 @@ class _EditProfileState extends State<EditProfile> {
   EditProfileController editProfileController = Get.find();
 
 
-  final ImageProvider _defaultImage = const AssetImage('assets/user_profile_default_large.png');
-  final ImagePicker _picker = ImagePicker();
-
-  ImageProvider? _userProfile;
-  dynamic _pickImageError;
-
   @override
   void initState(){
-    editProfileController.editProfileState.isEdited.value = false;
-    //서버에서 가져온 _userProfilePath이 비지 않았으면 이미지 반환해 주기.
-    _userProfile = editProfileController.userProfilePath.isNotEmpty ? null : _defaultImage;
+    //처움 불러올 때는 서버에서 무조건 가져와야 하고, userProfilePath도 다 초기화 해야 함
+    //editProfileController.userProfilePath = ''.obs;
   }
 
   @override
@@ -56,7 +48,7 @@ class _EditProfileState extends State<EditProfile> {
             const Spacer(),
             SrCTAButton(
               text: "완료",
-              isEnabled: editProfileController.editProfileState.isEdited.value,
+              isEnabled: false,
               action: () {},
             )
           ],
@@ -78,9 +70,10 @@ class _EditProfileState extends State<EditProfile> {
                 Container(
                   width: 180,
                   height: 180,
-                  child: CircleAvatar(
-                    radius: 100,
-                    backgroundImage: _userProfile
+                  child: Obx(()=> CircleAvatar(
+                      radius: 100,
+                      backgroundImage: editProfileController.imageProvider
+                    ),
                   ),
                 ),
                 Positioned(
@@ -89,12 +82,10 @@ class _EditProfileState extends State<EditProfile> {
                   child: GestureDetector(
                     onTap: (){
                       setState(() {
-                        editProfileController.editProfileState.isEdited.value = true;
-                        _userProfile = _defaultImage;
                       });
                     },
                       child: Visibility(
-                        visible: _userProfile == _defaultImage ? false : true,
+                        visible: true,
                           child: SvgPicture.asset("assets/delete_button_primary.svg", width: 34, height: 34,))),
                 )
               ]
@@ -104,7 +95,7 @@ class _EditProfileState extends State<EditProfile> {
               padding: const EdgeInsets.only(top: 16, bottom: 28),
               child: InkWell(
                 onTap: (){
-                  _onEditButtonPressed(ImageSource.gallery);
+                  editProfileController.onEditButtonPressed(ImageSource.gallery, context: context);
                 },
                 child: const Text(
                   "프로필 사진 수정",
@@ -136,7 +127,7 @@ class _EditProfileState extends State<EditProfile> {
               )),
           Padding(
               padding: const EdgeInsets.only(bottom: 6),
-              child: SrTextField(hint: userNickname ?? '', maxLines: 1, onChanged: editProfileController.onNicknameChanged)),
+              child: SrTextField(hint: editProfileController.severNickName ?? '', maxLines: 1, onChanged: editProfileController.onNicknameChanged)),
           Padding(
               padding: const EdgeInsets.only(left: 16),
               child: Obx(
@@ -153,21 +144,6 @@ class _EditProfileState extends State<EditProfile> {
     ];
   }
 
-  Future<void> _onEditButtonPressed(ImageSource source,
-      {BuildContext? context}) async {
-    try {
-      final XFile? pickedFile = await _picker.pickImage(
-        source: source,
-      );
-      setState(() {
-        _userProfile = Image.file(File(pickedFile!.path)).image;
-        editProfileController.editProfileState.isEdited.value = true;
-      });
-    } catch (e) {
-      setState(() {
-        _pickImageError = e;
-      });
-    }
-  }
+
 
 }

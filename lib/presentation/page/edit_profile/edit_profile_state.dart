@@ -9,7 +9,6 @@ class EditProfileState {
     MessageStatus.empty: '',
   };
 
-  RxBool isEdited = false.obs;
   var nicknameMessageStatus = MessageStatus.defaultMessage.obs;
   String get nicknameValidationMessage => _nicknameMessageMap[nicknameMessageStatus.value]!;
 
@@ -37,4 +36,3 @@ enum MessageStatus {
   enabled,
   empty
 }
-
