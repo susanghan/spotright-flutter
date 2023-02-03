@@ -24,11 +24,13 @@ class EditProfile extends StatefulWidget {
 class _EditProfileState extends State<EditProfile> {
   EditProfileController editProfileController = Get.find();
 
-
   @override
   void initState(){
     //처움 불러올 때는 서버에서 무조건 가져와야 하고, userProfilePath도 다 초기화 해야 함
-    //editProfileController.userProfilePath = ''.obs;
+    editProfileController.userProfileState.value = UserProfileState.serverState;
+    editProfileController.userProfilePath = ''.obs;
+    editProfileController.userNickName = ''.obs;
+    print("안녕${editProfileController.isEdited}");
   }
 
   @override
@@ -41,18 +43,18 @@ class _EditProfileState extends State<EditProfile> {
       ),
       body: Container(
         padding: const EdgeInsets.fromLTRB(16, 12, 16, 36),
-        child: Column(
+        child: Obx(() =>Column(
           children: [
             ..._UserProfile(),
             ..._UserNickName("감자튀김"),
             const Spacer(),
             SrCTAButton(
               text: "완료",
-              isEnabled: false,
+              isEnabled: editProfileController.isEdited.value,
               action: () {},
             )
           ],
-        ),
+        ), )
       ),
     ));
   }
@@ -81,12 +83,11 @@ class _EditProfileState extends State<EditProfile> {
                   top: 12,
                   child: GestureDetector(
                     onTap: (){
-                      setState(() {
-                      });
+                      editProfileController.onDeleteButtonPressed;
                     },
-                      child: Visibility(
-                        visible: true,
-                          child: SvgPicture.asset("assets/delete_button_primary.svg", width: 34, height: 34,))),
+                      child: Obx(() => Visibility(
+                      visible: editProfileController.userProfileState.value != UserProfileState.defaultState,
+                          child: SvgPicture.asset("assets/delete_button_primary.svg", width: 34, height: 34,)))),
                 )
               ]
             ),
