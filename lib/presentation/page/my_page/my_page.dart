@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/page/deactivate_account/deactivate_account_pre.dart';
 import 'package:spotright/presentation/page/edit_profile/edit_profile.dart';
+import 'package:spotright/presentation/page/manage_user_info/manage_user_info_list.dart';
 import '../../common/colors.dart';
 
 class MyPage extends StatefulWidget {
@@ -113,14 +114,19 @@ class _MyPageState extends State<MyPage> {
 
   List<Widget> _MypageList(String listText) {
     return [
-      Container(
-        height: 51,
-        padding: const EdgeInsets.only(left: 32),
-        alignment: Alignment.centerLeft,
-        child: Text(
-          listText,
-          style: const TextStyle(
-              fontWeight: FontWeight.w300, fontSize: 15, color: Colors.black),
+      InkWell(
+        onTap: (){
+          Get.to(ManageUserInfoList());
+        },
+        child: Container(
+          height: 51,
+          padding: const EdgeInsets.only(left: 32),
+          alignment: Alignment.centerLeft,
+          child: Text(
+            listText,
+            style: const TextStyle(
+                fontWeight: FontWeight.w300, fontSize: 15, color: Colors.black),
+          ),
         ),
       )
     ];
