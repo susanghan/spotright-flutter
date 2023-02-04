@@ -4,8 +4,10 @@ import 'package:get/get.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/page/deactivate_account/deactivate_account_pre.dart';
 import 'package:spotright/presentation/page/edit_profile/edit_profile.dart';
+import 'package:spotright/presentation/page/manage_user_info/change_user_language.dart';
 import 'package:spotright/presentation/page/manage_user_info/manage_user_info_list.dart';
 import '../../common/colors.dart';
+import '../../component/divider/sr_divider.dart';
 
 class MyPage extends StatefulWidget {
   const MyPage({Key? key}) : super(key: key);
@@ -28,17 +30,17 @@ class _MyPageState extends State<MyPage> {
           child: Column(
             children: [
               ..._UserProfile(false),
-              ..._Divider(2),
-              ..._MypageList(listText: "개인정보관리", action: () {Get.to(ManageUserInfoList()); }),
-              ..._MypageList(listText: "차단사용자관리"),
-              ..._MypageList(listText: "언어설정"),
-              ..._Divider(1),
-              ..._MypageList(listText: "오픈소스라이센스"),
-              ..._MypageList(listText: "개인정보 처리방침"),
-              ..._MypageList(listText: "버전정보 1.00 (128)"),
-              ..._Divider(1),
-              ..._MypageList(listText: "로그아웃"),
-              ..._Divider(1),
+              SrDivider(height: 4,),
+              ..._ListText(listText: "개인정보관리", action: () {Get.to(ManageUserInfoList()); }),
+              ..._ListText(listText: "차단사용자관리"),
+              ..._ListText(listText: "언어설정", action: () { Get.to(ChangeUserLanguage());}),
+              SrDivider(),
+              ..._ListText(listText: "오픈소스라이센스"),
+              ..._ListText(listText: "개인정보 처리방침"),
+              ..._ListText(listText: "버전정보 1.00 (128)"),
+              SrDivider(),
+              ..._ListText(listText: "로그아웃"),
+              SrDivider(),
               const Spacer(),
              InkWell(
                onTap: (){
@@ -50,15 +52,6 @@ class _MyPageState extends State<MyPage> {
         ),
       ),
     );
-  }
-
-  List<Widget> _Divider(double thickness) {
-    return [
-      Divider(
-        thickness: thickness,
-        color: SrColors.gray3,
-      )
-    ];
   }
 
   List<Widget> _UserProfile(bool hasUserPicture) {
@@ -112,7 +105,7 @@ class _MyPageState extends State<MyPage> {
     ];
   }
 
-  List<Widget> _MypageList({required String listText, Function()? action}) {
+  List<Widget> _ListText({required String listText, Function()? action}) {
     return [
       InkWell(
         onTap: action,

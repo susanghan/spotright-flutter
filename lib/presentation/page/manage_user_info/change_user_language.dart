@@ -1,45 +1,33 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
-import 'package:spotright/presentation/page/manage_user_info/change_user_birth.dart';
-import 'package:spotright/presentation/page/manage_user_info/change_user_id.dart';
+
 import '../../common/colors.dart';
+import '../../component/appbars/default_app_bar.dart';
 import '../../component/divider/sr_divider.dart';
 
-class ManageUserInfoList extends StatelessWidget {
-  const ManageUserInfoList({Key? key}) : super(key: key);
+class ChangeUserLanguage extends StatelessWidget {
+  const ChangeUserLanguage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
       appBar: const DefaultAppBar(
-        title: "개인 정보 관리",
+        title: "언어 설정",
         hasBackButton: true,
       ),
       body: Column(
         children: [
           SrDivider(),
-          ..._ListText(
-              listText: "아이디 변경",
-              action: () {
-                Get.to(ChangeUserId());
-              }),
+          ..._ListText(listText: "한국어", action: () {}),
           SrDivider(),
-          ..._ListText(
-              listText: "생년월일 변경",
-              action: () {
-                Get.to(ChangeUserBirth());
-              }),
+          ..._ListText(listText: "English", action: () {}),
           SrDivider(),
         ],
       ),
     ));
   }
-
-
 
   List<Widget> _ListText(
       {required String listText, required Function() action}) {
