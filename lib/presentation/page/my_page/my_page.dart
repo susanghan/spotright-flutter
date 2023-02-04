@@ -64,7 +64,9 @@ class _MyPageState extends State<MyPage> {
                 alignment: Alignment.center,
                 width: 80,
                 height: 80,
+                //color: SrColors.white,
                 child: CircleAvatar(
+                  backgroundColor: SrColors.white,
                     radius: 100,
                     backgroundImage: hasUserPicture ? null : const AssetImage('assets/user_profile_default_small.png'),
                     //Todo: 아래 각각은 되는데 합치면 안 됨. why?

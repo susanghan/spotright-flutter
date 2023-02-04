@@ -76,6 +76,7 @@ class _SrAppBarState extends State<SrAppBar> {
                     height: 64,
                     margin: EdgeInsets.only(bottom: 4),
                     child: CircleAvatar(
+                      backgroundColor: SrColors.white,
                         radius: 100,
                         backgroundImage:
                             NetworkImage('https://picsum.photos/200')),

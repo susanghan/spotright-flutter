@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 
 class BlockList extends StatefulWidget {
   const BlockList({Key? key}) : super(key: key);
@@ -10,6 +11,8 @@ class BlockList extends StatefulWidget {
 class _BlockListState extends State<BlockList> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return SafeArea(child: Scaffold(
+      appBar: DefaultAppBar(title: "차단 사용자 목록", hasBackButton: true,),
+    ),);
   }
 }

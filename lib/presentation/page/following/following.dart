@@ -76,6 +76,7 @@ class _FollowingState extends State<Following> {
           height: 60,
           margin: EdgeInsets.only(right: 12),
           child: CircleAvatar(
+            backgroundColor: SrColors.white,
               radius: 100,
               backgroundImage: NetworkImage("https://picsum.photos/180")),
         ),

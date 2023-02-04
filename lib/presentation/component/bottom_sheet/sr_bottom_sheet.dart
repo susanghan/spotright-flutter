@@ -96,6 +96,7 @@ class SrBottomSheet extends StatelessWidget {
                     width: 76,
                     height: 76,
                     child: CircleAvatar(
+                        backgroundColor: SrColors.white,
                         radius: 100,
                         backgroundImage: NetworkImage(e.photoUrl ?? "")),
                   )
