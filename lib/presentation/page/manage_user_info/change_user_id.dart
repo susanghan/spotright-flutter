@@ -6,6 +6,8 @@ import '../../component/appbars/default_app_bar.dart';
 import '../../component/buttons/sr_cta_button.dart';
 import '../../component/sr_text_field/sr_text_field.dart';
 
+//Todo : 중복확인을 통과 - 캡션(사용가능한 아이디입니다), 완료버튼 활성화
+
 class ChangeUserId extends StatefulWidget {
   const ChangeUserId({Key? key}) : super(key: key);
 
