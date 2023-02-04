@@ -28,38 +28,54 @@ class _DeactivateAccountState extends State<DeactivateAccount> {
         hasBackButton: true,
       ),
       body: Padding(
-          padding: EdgeInsets.fromLTRB(16, 0, 16, 36),
-      child:  Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          //ui구현하기 위해서 집어 넣은 의미 없는 것~
-          const SizedBox(
-            width: double.infinity,
-            height: 0,
-          ),
-          Column(
-            children: [
-              const Padding(
-                padding: EdgeInsets.only(bottom: 8),
-                child: Text(
-                  "계정을 삭제하시려면 아이디를 입력해주세요",
-                  style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500,
-                      color: SrColors.black),
-                ),
-              ),
-              SrTextField(),
-            ],
-          ),
-          SrCTAButton(
-            text: "계정 삭제",
-            isEnabled: false,
-            action: () { },
-          ),
-        ],
-      ),
+        padding: EdgeInsets.fromLTRB(16, 0, 16, 36),
+        child: Column(
+          children: [
+            Expanded(
+                child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ..._CenterFactor("계정을 삭제하시려면 아이디를 입력해주세요"),
+                ..._AssistBox(170),
+              ],
+            )),
+            SrCTAButton(
+              text: "계정 삭제",
+              isEnabled: false,
+              action: () {},
+            ),
+          ],
+        ),
       ),
     ));
+  }
+
+  List<Widget> _AssistBox(double boxHeight) {
+    return [
+      SizedBox(
+        width: double.infinity,
+        height: boxHeight,
+      ),
+    ];
+  }
+
+  List<Widget> _CenterFactor(String labelText) {
+    return [
+      Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.only(bottom: 8),
+            child: Text(
+              labelText,
+              style: const TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500,
+                  color: SrColors.black),
+            ),
+          ),
+          SrTextField(),
+        ],
+      )
+    ];
   }
 }

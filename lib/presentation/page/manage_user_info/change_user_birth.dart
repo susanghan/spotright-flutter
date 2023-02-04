@@ -27,12 +27,17 @@ class _ChangeUserBirthState extends State<ChangeUserBirth> {
       body: Padding(
         padding: const EdgeInsets.fromLTRB(16, 0, 16, 36),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            //ui구현하기 위해서 집어 넣은 의미 없는 것~
-            ..._AssistBox(0),
-            ..._CenterFactor("생년월일을 입력해 주세요"),
-            ..._AssistBox(0),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ..._CenterFactor("생년월일을 입력해 주세요"),
+                  ..._AssistBox(170),
+                ],
+              ),
+            ),
             SrCTAButton(
               text: "완료",
               isEnabled: false,

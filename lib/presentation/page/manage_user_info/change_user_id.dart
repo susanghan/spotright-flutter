@@ -19,37 +19,38 @@ class _ChangeUserIdState extends State<ChangeUserId> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-      appBar: const DefaultAppBar(
-        title: "아이디 변경",
-        hasBackButton: true,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 0, 16, 36),
-          child:
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ..._AssistBox(0),
-                ..._CenterFactor("새로운 아이디를 입력해 주세요", "아이디 제한 캡션입니다"),
-                ..._AssistBox(0),
-                SrCTAButton(
-                  text: "완료",
-                  isEnabled: false,
-                  action: () {},
+      child: Scaffold(
+        appBar: const DefaultAppBar(
+          title: "아이디 변경",
+          hasBackButton: true,
+        ),
+        body: Padding(
+          padding: const EdgeInsets.fromLTRB(16, 0, 16, 36),
+          child: Column(
+            children: [
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ..._CenterFactor("새로운 아이디를 입력해 주세요", "아이디 제한 캡션입니다"),
+                    ..._AssistBox(190)
+                  ],
                 ),
-                
-              ],
-            ),
-
+              ),
+              SrCTAButton(
+                text: "완료",
+                isEnabled: false,
+                action: () {},
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
   //ui를 위한 보조적인 박스.
-  //_CenterFactor의 위아래에 있으면 mainAxisAlignment: MainAxisAlignment.spaceBetween가 적용되어 _CenterFactor가 자연스럽게 중앙의 상단 쪽에 위치한다.
   List<Widget> _AssistBox(double boxHeight) {
     return [
       SizedBox(
@@ -59,7 +60,7 @@ class _ChangeUserIdState extends State<ChangeUserId> {
     ];
   }
 
-  List<Widget> _CenterFactor(String labelText, String captionText) {
+  List<Column> _CenterFactor(String labelText, String captionText) {
     return [
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,7 +70,9 @@ class _ChangeUserIdState extends State<ChangeUserId> {
             child: Text(
               labelText,
               style: const TextStyle(
-                  fontSize: 15, fontWeight: FontWeight.w500, color: SrColors.black),
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500,
+                  color: SrColors.black),
             ),
           ),
           Padding(
@@ -100,12 +103,13 @@ class _ChangeUserIdState extends State<ChangeUserId> {
             child: Text(
               captionText,
               style: const TextStyle(
-                  fontSize: 15, fontWeight: FontWeight.w300, color: SrColors.gray1),
+                  fontSize: 15,
+                  fontWeight: FontWeight.w300,
+                  color: SrColors.gray1),
             ),
           ),
         ],
       )
-
     ];
   }
 }
