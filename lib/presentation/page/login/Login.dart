@@ -30,7 +30,7 @@ class _LoginState extends State<Login> {
             ),
             _signInButton("assets/google.svg", "구글 계정으로 로그인", oAuthRepository.signUpWithGoogle),
             _signInButton("assets/apple.svg", "애플 계정으로 로그인", oAuthRepository.signInWithApple),
-            _signInButton("assets/kakao.svg", "카카오 계정으로 로그인", () {}, isKakao: true),
+            _signInButton("assets/kakao.svg", "카카오 계정으로 로그인", oAuthRepository.signInWithKakao, isKakao: true),
           ],
         ),
       ),
@@ -44,7 +44,7 @@ class _LoginState extends State<Login> {
       width: double.infinity,
       height: 45,
       child: OutlinedButton(
-        onPressed: () {},
+        onPressed: action,
         style: OutlinedButton.styleFrom(
             backgroundColor: isKakao ? SrColors.kakao : SrColors.white,
             shape: RoundedRectangleBorder(
