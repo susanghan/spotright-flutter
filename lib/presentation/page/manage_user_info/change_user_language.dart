@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
-
 import '../../common/colors.dart';
 import '../../component/appbars/default_app_bar.dart';
 import '../../component/divider/sr_divider.dart';
+
+//Todo: 버튼 선택시 적용 ->이전 페이지로 돌아감
 
 class ChangeUserLanguage extends StatelessWidget {
   const ChangeUserLanguage({Key? key}) : super(key: key);

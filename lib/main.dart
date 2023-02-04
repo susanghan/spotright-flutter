@@ -8,7 +8,10 @@ import 'package:spotright/presentation/common/language.dart';
 import 'package:spotright/presentation/page/block_list/block_list.dart';
 import 'package:spotright/presentation/page/congratulation/congratulation.dart';
 import 'package:spotright/presentation/page/detail/detail.dart';
+import 'package:spotright/presentation/page/detail/detail_controller.dart';
 import 'package:spotright/presentation/page/edit_profile/edit_profile.dart';
+import 'package:spotright/presentation/page/edit_profile/edit_profile_controller.dart';
+import 'package:spotright/presentation/page/edit_profile/edit_profile_state.dart';
 import 'package:spotright/presentation/page/following/following_controller.dart';
 import 'package:spotright/presentation/page/following/following_state.dart';
 import 'package:spotright/presentation/page/home/home.dart';
@@ -52,12 +55,14 @@ class _State extends State<Spotright> {
         canvasColor: SrColors.white,
         fontFamily: 'Pretendard'
       ),
-      initialRoute: '/login',
+      initialRoute: '/home',
       initialBinding: BindingsBuilder(() {
         Get.put(SignUpController(signUpState: SignUpState()));
         Get.put(FollowingController(followingState: FollowingState()));
         Get.put(SpotListController());
         Get.put(OAuthRepository());
+        Get.put(EditProfileController(editProfileState: EditProfileState()));
+        Get.put(DetailController());
       }),
       locale: Get.locale,
       fallbackLocale: const Locale('en', 'US'),

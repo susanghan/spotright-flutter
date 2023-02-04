@@ -31,7 +31,6 @@ class _EditProfileState extends State<EditProfile> {
     editProfileController.userProfileState.value = UserProfileState.serverState;
     editProfileController.userProfilePath = ''.obs;
     editProfileController.userNickName = ''.obs;
-    print("안녕${editProfileController.isEdited}");
   }
 
   @override
