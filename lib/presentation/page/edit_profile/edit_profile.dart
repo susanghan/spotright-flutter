@@ -80,6 +80,7 @@ class _EditProfileState extends State<EditProfile> {
                   width: 180,
                   height: 180,
                   child: Obx(()=> CircleAvatar(
+                    backgroundColor: SrColors.white,
                       radius: 100,
                       backgroundImage: editProfileController.imageProvider
                     ),

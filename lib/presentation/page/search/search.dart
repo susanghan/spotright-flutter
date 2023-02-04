@@ -59,6 +59,7 @@ class _SearchState extends State<Search> {
           height: 60,
           margin: EdgeInsets.only(right: 16),
           child: CircleAvatar(
+              backgroundColor: SrColors.white,
               radius: 100,
               backgroundImage: NetworkImage("https://picsum.photos/180")),
         ),
