@@ -48,7 +48,7 @@ class _SrChipState extends State<SrChip> {
               widget.onTab!(!widget.selected);
           },
           label: Text(
-            widget.name,
+            widget.name, style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 14, color: SrColors.black),
           ),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
