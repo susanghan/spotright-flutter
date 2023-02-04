@@ -4,7 +4,10 @@ import 'package:get/get.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/page/deactivate_account/deactivate_account_pre.dart';
 import 'package:spotright/presentation/page/edit_profile/edit_profile.dart';
+import 'package:spotright/presentation/page/manage_user_info/change_user_language.dart';
+import 'package:spotright/presentation/page/manage_user_info/manage_user_info_list.dart';
 import '../../common/colors.dart';
+import '../../component/divider/sr_divider.dart';
 
 class MyPage extends StatefulWidget {
   const MyPage({Key? key}) : super(key: key);
@@ -27,37 +30,28 @@ class _MyPageState extends State<MyPage> {
           child: Column(
             children: [
               ..._UserProfile(false),
-              ..._Divider(2),
-              ..._MypageList("개인정보관리"),
-              ..._MypageList("차단사용자관리"),
-              ..._MypageList("언어설정"),
-              ..._Divider(1),
-              ..._MypageList("오픈소스라이센스"),
-              ..._MypageList("개인정보 처리방침"),
-              ..._MypageList("버전정보 1.00 (128)"),
-              ..._Divider(1),
-              ..._MypageList("로그아웃"),
-              ..._Divider(1),
+              SrDivider(height: 4,),
+              ..._ListText(listText: "개인정보관리", action: () {Get.to(ManageUserInfoList()); }),
+              ..._ListText(listText: "차단사용자관리"),
+              ..._ListText(listText: "언어설정", action: () { Get.to(ChangeUserLanguage());}),
+              SrDivider(),
+              ..._ListText(listText: "오픈소스라이센스"),
+              ..._ListText(listText: "개인정보 처리방침"),
+              ..._ListText(listText: "버전정보 1.00 (128)"),
+              SrDivider(),
+              ..._ListText(listText: "로그아웃"),
+              SrDivider(),
               const Spacer(),
              InkWell(
                onTap: (){
                  Get.to(DeactivateAccountPre());
                },
-                 child: Text("계정 삭제", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w300, color: SrColors.gray1),))
+                 child: const Text("계정 삭제", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w300, color: SrColors.gray1),))
             ],
           ),
         ),
       ),
     );
-  }
-
-  List<Widget> _Divider(double thickness) {
-    return [
-      Divider(
-        thickness: thickness,
-        color: SrColors.gray3,
-      )
-    ];
   }
 
   List<Widget> _UserProfile(bool hasUserPicture) {
@@ -111,16 +105,19 @@ class _MyPageState extends State<MyPage> {
     ];
   }
 
-  List<Widget> _MypageList(String listText) {
+  List<Widget> _ListText({required String listText, Function()? action}) {
     return [
-      Container(
-        height: 51,
-        padding: const EdgeInsets.only(left: 32),
-        alignment: Alignment.centerLeft,
-        child: Text(
-          listText,
-          style: const TextStyle(
-              fontWeight: FontWeight.w300, fontSize: 15, color: Colors.black),
+      InkWell(
+        onTap: action,
+        child: Container(
+          height: 51,
+          padding: const EdgeInsets.only(left: 32),
+          alignment: Alignment.centerLeft,
+          child: Text(
+            listText,
+            style: const TextStyle(
+                fontWeight: FontWeight.w300, fontSize: 15, color: Colors.black),
+          ),
         ),
       )
     ];

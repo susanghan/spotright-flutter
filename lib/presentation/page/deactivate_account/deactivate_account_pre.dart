@@ -14,41 +14,58 @@ class DeactivateAccountPre extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-            appBar: const DefaultAppBar(
-              title: "계정 삭제",
-              hasBackButton: true,
+      appBar: const DefaultAppBar(
+        title: "계정 삭제",
+        hasBackButton: true,
+      ),
+      body: Padding(
+        padding: EdgeInsets.fromLTRB(16, 0, 16, 36),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            ..._AssistBox(0),
+            ..._CenterFactor("정말 탈퇴하실 건가요? \n 이대로 간다니 아쉬워요"),
+            SrCTAButton(
+              text: "계정 삭제",
+              isEnabled: true,
+              action: () {
+                Get.to(DeactivateAccount());
+              },
             ),
-          body: Padding(
-            padding: EdgeInsets.fromLTRB(16, 0, 16, 36),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                //ui구현하기 위해서 집어 넣은 의미 없는 것~
-                const SizedBox(width: double.infinity, height: 60, ),
-                Column(
-                  children: [
-                    Padding(
-                        padding: const EdgeInsets.only(bottom: 24),
-                        child: SvgPicture.asset("assets/deactivate_emoji.svg")),
-                    const Text(
-                      "정말 탈퇴하실 건가요? \n 이대로 간다니 아쉬워요",
-                      style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
-                          color: SrColors.gray2),
-                    ),
-                  ],
-                ),
-                SrCTAButton(
-                  text: "계정 삭제",
-                  isEnabled: true,
-                  action: () {
-                    Get.to(DeactivateAccount());
-                  },
-                ),
-              ],
-            ),
-          ),
+          ],
+        ),
+      ),
     ));
   }
+
+  //ui를 위한 보조적인 박스.
+  //_CenterFactor의 위아래에 있으면 mainAxisAlignment: MainAxisAlignment.spaceBetween가 적용되어 _CenterFactor가 자연스럽게 중앙의 상단 쪽에 위치한다.
+  List<Widget> _AssistBox(double boxHeight) {
+    return [
+      SizedBox(
+        width: double.infinity,
+        height: boxHeight,
+      ),
+    ];
+  }
+
+  List<Widget> _CenterFactor(String labelText) {
+    return [
+      Column(
+        children: [
+          Padding(
+              padding: const EdgeInsets.only(bottom: 24),
+              child: SvgPicture.asset("assets/deactivate_emoji.svg")),
+          Text(
+            labelText,
+            style: const TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w500,
+                color: SrColors.black),
+          ),
+        ],
+      ),
+    ];
+  }
+
 }
