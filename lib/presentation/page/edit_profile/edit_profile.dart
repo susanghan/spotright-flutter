@@ -13,6 +13,7 @@ import '../../component/sr_text_field/sr_text_field.dart';
 //Todo : 각각 '프로필 사진 수정 버튼'과 '닉네임타이핑칸'을 누르면 해당 항목을 변경할 수 있습니다
 //Todo : 기존 닉네임과 같은 닉네임을 입력했을 때는 완료 버튼이 활성화되지 않습니다
 //Todo : 프로필 사진이 없으면 x버튼이 사라지게
+//Todo : Spacer 쓰면 안 됨!!
 
 class EditProfile extends StatefulWidget {
   const EditProfile({Key? key}) : super(key: key);
@@ -41,22 +42,28 @@ class _EditProfileState extends State<EditProfile> {
         title: "프로필 수정",
         hasBackButton: true,
       ),
-      body: Container(
+      body: Padding(
         padding: const EdgeInsets.fromLTRB(16, 12, 16, 36),
-        child: Obx(() =>Column(
-          children: [
-            ..._UserProfile(),
-            ..._UserNickName("감자튀김"),
-            const Spacer(),
-            SrCTAButton(
+        child: Column(
+          children:[Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  ..._UserProfile(),
+                  ..._UserNickName("감자튀김")
+                ],
+              ),
+            ),
+          ),
+            Obx(() => SrCTAButton(
               text: "완료",
               isEnabled: editProfileController.isEdited.value,
               action: () {},
-            )
-          ],
+            ))
+          ]
         ), )
       ),
-    ));
+    );
   }
 
   List<Widget> _UserProfile() {
