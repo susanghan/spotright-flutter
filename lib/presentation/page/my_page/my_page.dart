@@ -29,22 +29,22 @@ class _MyPageState extends State<MyPage> {
             children: [
               ..._UserProfile(false),
               ..._Divider(2),
-              ..._MypageList("개인정보관리"),
-              ..._MypageList("차단사용자관리"),
-              ..._MypageList("언어설정"),
+              ..._MypageList(listText: "개인정보관리", action: () {Get.to(ManageUserInfoList()); }),
+              ..._MypageList(listText: "차단사용자관리"),
+              ..._MypageList(listText: "언어설정"),
               ..._Divider(1),
-              ..._MypageList("오픈소스라이센스"),
-              ..._MypageList("개인정보 처리방침"),
-              ..._MypageList("버전정보 1.00 (128)"),
+              ..._MypageList(listText: "오픈소스라이센스"),
+              ..._MypageList(listText: "개인정보 처리방침"),
+              ..._MypageList(listText: "버전정보 1.00 (128)"),
               ..._Divider(1),
-              ..._MypageList("로그아웃"),
+              ..._MypageList(listText: "로그아웃"),
               ..._Divider(1),
               const Spacer(),
              InkWell(
                onTap: (){
                  Get.to(DeactivateAccountPre());
                },
-                 child: Text("계정 삭제", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w300, color: SrColors.gray1),))
+                 child: const Text("계정 삭제", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w300, color: SrColors.gray1),))
             ],
           ),
         ),
@@ -112,12 +112,10 @@ class _MyPageState extends State<MyPage> {
     ];
   }
 
-  List<Widget> _MypageList(String listText) {
+  List<Widget> _MypageList({required String listText, Function()? action}) {
     return [
       InkWell(
-        onTap: (){
-          Get.to(ManageUserInfoList());
-        },
+        onTap: action,
         child: Container(
           height: 51,
           padding: const EdgeInsets.only(left: 32),

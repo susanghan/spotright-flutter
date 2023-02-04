@@ -20,59 +20,58 @@ class _ChangeUserBirthState extends State<ChangeUserBirth> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          appBar: const DefaultAppBar(
-            title: "생년월일 변경",
-            hasBackButton: true,
-          ),
-          body: Padding(
-            padding: const EdgeInsets.fromLTRB(16, 0, 16, 36),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                //ui구현하기 위해서 집어 넣은 의미 없는 것~
-                ..._AssistBox(),
-                ..._labelText("생년월일을 입력해 주세요"),
-                SrCTAButton(
-                  text: "완료",
-                  isEnabled: false,
-                  action: () {},
-                ),
-              ],
+      appBar: const DefaultAppBar(
+        title: "생년월일 변경",
+        hasBackButton: true,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(16, 0, 16, 36),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            //ui구현하기 위해서 집어 넣은 의미 없는 것~
+            ..._AssistBox(0),
+            ..._CenterFactor("생년월일을 입력해 주세요"),
+            ..._AssistBox(0),
+            SrCTAButton(
+              text: "완료",
+              isEnabled: false,
+              action: () {},
             ),
-          ),
-        ));
+          ],
+        ),
+      ),
+    ));
   }
 
-  List<Widget> _AssistBox(){
-    return[
-      const SizedBox(
+  //ui를 위한 보조적인 박스.
+  //_CenterFactor의 위아래에 있으면 mainAxisAlignment: MainAxisAlignment.spaceBetween가 적용되어 _CenterFactor가 자연스럽게 중앙의 상단 쪽에 위치한다.
+  List<Widget> _AssistBox(double boxHeight) {
+    return [
+      SizedBox(
         width: double.infinity,
-        height: 0,
+        height: boxHeight,
       ),
     ];
   }
 
-  List<Widget> _labelText(String labelText){
-    return[
-      Padding(
-        //중간 상단으로 옮기기 위한 padding. 값은 대략 (100 + 중앙 ui의 height)로 한다.
-        padding: const EdgeInsets.only(bottom: 170),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 8),
-              child: Text(
-                labelText,
-                style: const TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w500,
-                    color: SrColors.black),
-              ),
+  List<Widget> _CenterFactor(String labelText) {
+    return [
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8),
+            child: Text(
+              labelText,
+              style: const TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500,
+                  color: SrColors.black),
             ),
-            SrTextField( ),
-          ],
-        ),
+          ),
+          SrTextField(),
+        ],
       ),
     ];
   }

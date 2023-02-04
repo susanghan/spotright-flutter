@@ -26,67 +26,86 @@ class _ChangeUserIdState extends State<ChangeUserId> {
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(16, 0, 16, 36),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            //ui구현하기 위해서 집어 넣은 의미 없는 것~
-            const SizedBox(
-              width: double.infinity,
-              height: 0,
-            ),
+          child:
             Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Padding(
-                  padding: EdgeInsets.only(bottom: 8),
-                  child: Text(
-                    "새로운 아이디를 입력해 주세요",
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
-                        color: SrColors.black),
-                  ),
+                ..._AssistBox(0),
+                ..._CenterFactor("새로운 아이디를 입력해 주세요", "아이디 제한 캡션입니다"),
+                ..._AssistBox(0),
+                SrCTAButton(
+                  text: "완료",
+                  isEnabled: false,
+                  action: () {},
                 ),
-                Padding(
-                    padding: const EdgeInsets.only(bottom: 6),
-                    child: SrTextField(
-                      height: 45,
-                      suffixIcon: Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 4, 6, 4),
-                        child: OutlinedButton(
-                          onPressed: () {},
-                          style: OutlinedButton.styleFrom(
-                              backgroundColor: SrColors.primary,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(100))),
-                          child: const Text(
-                            "중복확인",
-                            style: TextStyle(color: SrColors.white, fontSize: 14, fontWeight: FontWeight.w500),
-                          ),
-                        ),
-                      ),
-                    ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(left: 14),
-                  child: Text(
-                    "아이디 제한 캡션입니다",
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w300,
-                        color: SrColors.gray1),
-                  ),
-                ),
+                
               ],
             ),
-            SrCTAButton(
-              text: "완료",
-              isEnabled: false,
-              action: () {},
-            ),
-          ],
+
         ),
       ),
-    ));
+    );
+  }
+
+  //ui를 위한 보조적인 박스.
+  //_CenterFactor의 위아래에 있으면 mainAxisAlignment: MainAxisAlignment.spaceBetween가 적용되어 _CenterFactor가 자연스럽게 중앙의 상단 쪽에 위치한다.
+  List<Widget> _AssistBox(double boxHeight) {
+    return [
+      SizedBox(
+        width: double.infinity,
+        height: boxHeight,
+      ),
+    ];
+  }
+
+  List<Widget> _CenterFactor(String labelText, String captionText) {
+    return [
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8),
+            child: Text(
+              labelText,
+              style: const TextStyle(
+                  fontSize: 15, fontWeight: FontWeight.w500, color: SrColors.black),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 6),
+            child: SrTextField(
+              height: 45,
+              suffixIcon: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 4, 6, 4),
+                child: OutlinedButton(
+                  onPressed: () {},
+                  style: OutlinedButton.styleFrom(
+                      backgroundColor: SrColors.primary,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(100))),
+                  child: const Text(
+                    "중복확인",
+                    style: TextStyle(
+                        color: SrColors.white,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 14),
+            child: Text(
+              captionText,
+              style: const TextStyle(
+                  fontSize: 15, fontWeight: FontWeight.w300, color: SrColors.gray1),
+            ),
+          ),
+        ],
+      )
+
+    ];
   }
 }
