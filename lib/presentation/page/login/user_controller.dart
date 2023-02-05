@@ -7,10 +7,11 @@ class UserController extends GetxController {
   UserRepository userRepository = Get.find();
   RxBool isLoggedIn = false.obs;
 
-  void loginWithCache() async {
+  void loginWithCache(Function() movePage) async {
     await userRepository.loginWithLocalToken();
     if (userRepository.accessToken != null) {
       isLoggedIn.value = true;
+      movePage();
     }
   }
 

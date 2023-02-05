@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:spotright/presentation/common/colors.dart';
+import 'package:spotright/presentation/page/home/home.dart';
 import 'package:spotright/presentation/page/login/user_controller.dart';
 
 class Login extends StatefulWidget {
@@ -17,7 +18,9 @@ class _LoginState extends State<Login> {
   @override
   void initState() {
     super.initState();
-    userController.loginWithCache();
+    userController.loginWithCache(() {
+      Get.to(const Home());
+    });
   }
 
   @override
@@ -50,7 +53,7 @@ class _LoginState extends State<Login> {
       width: double.infinity,
       height: 45,
       child: OutlinedButton(
-        onPressed: () => userController.loginWithCache(),
+        onPressed: action,
         style: OutlinedButton.styleFrom(
             backgroundColor: isKakao ? SrColors.kakao : SrColors.white,
             shape: RoundedRectangleBorder(
