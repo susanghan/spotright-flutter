@@ -12,4 +12,10 @@ class LocalRepository {
 
     return prefs.getString(key) ?? "";
   }
+
+  Future<void> clear(String key) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    prefs.setString(key, "");
+  }
 }

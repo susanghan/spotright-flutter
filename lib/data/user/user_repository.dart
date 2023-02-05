@@ -26,6 +26,11 @@ class UserRepository {
     await fetchMyInfo();
   }
 
+  Future<void> logout() async {
+    await localRepository.clear(refreshTokenKey);
+    await localRepository.clear(memberIdKey);
+  }
+
   Future<void> fetchRefreshTokenFromLocal() async {
     String savedRefreshToken = await localRepository.fetch(refreshTokenKey);
     refreshToken = savedRefreshToken;

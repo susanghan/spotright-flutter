@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:spotright/data/user/user_repository.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/page/deactivate_account/deactivate_account_pre.dart';
 import 'package:spotright/presentation/page/edit_profile/edit_profile.dart';
+import 'package:spotright/presentation/page/login/Login.dart';
 import 'package:spotright/presentation/page/manage_user_info/change_user_language.dart';
 import 'package:spotright/presentation/page/manage_user_info/manage_user_info_list.dart';
+import 'package:spotright/presentation/page/my_page/my_page_controller.dart';
 import '../../common/colors.dart';
 import '../../component/divider/sr_divider.dart';
 
@@ -17,6 +20,15 @@ class MyPage extends StatefulWidget {
 }
 
 class _MyPageState extends State<MyPage> {
+  MyPageController myPageController = Get.put(MyPageController());
+  UserRepository userRepository = Get.find();
+
+
+  @override
+  void initState() {
+    myPageController.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -39,7 +51,10 @@ class _MyPageState extends State<MyPage> {
               ..._ListText(listText: "개인정보 처리방침"),
               ..._ListText(listText: "버전정보 1.00 (128)"),
               SrDivider(),
-              ..._ListText(listText: "로그아웃"),
+              ..._ListText(listText: "로그아웃", action: () async {
+                await userRepository.logout();
+                Get.to(Login());
+              }),
               SrDivider(),
               const Spacer(),
              InkWell(
@@ -85,7 +100,7 @@ class _MyPageState extends State<MyPage> {
                     children: [
                       const SizedBox(width: 18, height: 18,),
                       Text(
-                        "지혜원",
+                        myPageController.userResponse.value.nickname ?? "UnKnown",
                         style: const TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w600,
