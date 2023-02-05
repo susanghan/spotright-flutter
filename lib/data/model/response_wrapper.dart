@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class ResponseWrapper {
   String? responseCode;
   String? responseMessage;
@@ -15,4 +17,10 @@ class ResponseWrapper {
 class ResponseConverter {
   ResponseConverter.fromJson(Map<String, dynamic> json);
   Map<String, dynamic> toJson() => {};
+}
+
+extension StringExtension on String {
+  Map<String, dynamic>? get jsonMap {
+    return ResponseWrapper.fromJson(jsonDecode(this)).data;
+  }
 }

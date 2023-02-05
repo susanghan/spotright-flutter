@@ -23,8 +23,7 @@ class UserRepository {
     await verifyAndRefreshToken();
     Map<String, String> requestHeader = {"authorization": accessToken!};
     var res = await networkClient.request(path: "$getUserInfoPath/${userResponse!.memberId}", headers: requestHeader);
-    ResponseWrapper responseWrapper = ResponseWrapper.fromJson(jsonDecode(res.body));
-    UserResponse newUserResponse = UserResponse.fromJson(responseWrapper.data!);
+    UserResponse newUserResponse = UserResponse.fromJson(res.body.jsonMap!);
     userResponse = newUserResponse;
   }
 
