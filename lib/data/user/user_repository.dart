@@ -67,7 +67,7 @@ class UserRepository {
     // todo : 실패 케이스 처리
     if(auth == null) return;
 
-    List<String> splitTokens = auth.substring(1, auth.length - 2).split(",");
+    List<String> splitTokens = auth.substring(1, auth.length - 1).split(",");
     String newAccessToken = splitTokens[0].split(":")[1].replaceAll(" ", "");
     String newRefreshToken = splitTokens[1].split(":")[1].replaceAll(" ", "");
     accessToken = "Bearer $newAccessToken";
