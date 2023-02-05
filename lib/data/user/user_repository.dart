@@ -11,6 +11,10 @@ class UserRepository {
   String? accessToken;
   String? refreshToken;
 
+  Future<void> verifyAndRefreshToken() async {
+    if(isValidToken(afterMinutes: 10)) await refreshLogin();
+  }
+
   bool isValidToken({int afterMinutes = 0}) {
     if(accessToken == null) return false;
 
@@ -23,7 +27,7 @@ class UserRepository {
     return targetTime.isAfter(expiryDate);
   }
 
-  void refreshLogin() async {
+  Future<void> refreshLogin() async {
     if(refreshToken == null) return;
 
     Map<String, String> requestHeader = {"Authorization": refreshToken!};
