@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
+import 'package:logger/logger.dart';
+import 'package:spotright/common/network_client.dart';
 import 'package:spotright/data/oauth/oauth_repository.dart';
+import 'package:spotright/data/user/user_repository.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/common/language.dart';
 import 'package:spotright/presentation/page/block_list/block_list.dart';
@@ -55,12 +58,19 @@ class _State extends State<Spotright> {
         canvasColor: SrColors.white,
         fontFamily: 'Pretendard'
       ),
-      initialRoute: '/home',
+      initialRoute: '/login',
       initialBinding: BindingsBuilder(() {
+        // 순서 중요
+        Get.put(Logger());
+
+        Get.put(NetworkClient());
+
+        Get.put(UserRepository());
+        Get.put(OAuthRepository());
+
         Get.put(SignUpController(signUpState: SignUpState()));
         Get.put(FollowingController(followingState: FollowingState()));
         Get.put(SpotListController());
-        Get.put(OAuthRepository());
         Get.put(EditProfileController(editProfileState: EditProfileState()));
         Get.put(DetailController());
       }),
@@ -73,6 +83,5 @@ class _State extends State<Spotright> {
   @override
   void initState() {
     super.initState();
-    Get.locale = const Locale('en', 'US');
   }
 }
