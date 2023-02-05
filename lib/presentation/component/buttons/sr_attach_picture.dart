@@ -67,7 +67,7 @@ class _SrAttachPitureState extends State<SrAttachPiture> {
 
   Widget _AttachPicture(int index, XFile imageFile) {
     return Row(children: [
-      const SizedBox(height: 92, width: 6,),
+      const SizedBox(height: 92, width: 8,),
       GestureDetector(
         onTap: (){
           setState(() {

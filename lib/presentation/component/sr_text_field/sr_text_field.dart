@@ -50,7 +50,7 @@ class SrTextField extends StatelessWidget {
             //Todo: 색 정정 하고 에러일 때 추가함. 수정 필요하면 해주세요.
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
-                borderSide: const BorderSide(width: 1, color: SrColors.gray1)),
+                borderSide: const BorderSide(width: 1, color: SrColors.gray3)),
             focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
                 borderSide: const BorderSide(width: 1, color: SrColors.success)),
