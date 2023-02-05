@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:spotright/data/oauth/oauth_repository.dart';
 import 'package:spotright/presentation/common/colors.dart';
+import 'package:spotright/presentation/page/login/user_controller.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -12,7 +12,13 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  OAuthRepository oAuthRepository = Get.find();
+  UserController userController = Get.find();
+
+  @override
+  void initState() {
+    super.initState();
+    userController.loginWithCache();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +34,9 @@ class _LoginState extends State<Login> {
               height: 180,
               color: SrColors.gray3,
             ),
-            _signInButton("assets/google.svg", "구글 계정으로 로그인", oAuthRepository.signUpWithGoogle),
-            _signInButton("assets/apple.svg", "애플 계정으로 로그인", oAuthRepository.signInWithApple),
-            _signInButton("assets/kakao.svg", "카카오 계정으로 로그인", oAuthRepository.signInWithKakao, isKakao: true),
+            _signInButton("assets/google.svg", "구글 계정으로 로그인", userController.signUpWithGoogle),
+            _signInButton("assets/apple.svg", "애플 계정으로 로그인", userController.signInWithApple),
+            _signInButton("assets/kakao.svg", "카카오 계정으로 로그인", userController.signInWithKakao, isKakao: true),
           ],
         ),
       ),
@@ -44,7 +50,7 @@ class _LoginState extends State<Login> {
       width: double.infinity,
       height: 45,
       child: OutlinedButton(
-        onPressed: action,
+        onPressed: () => userController.loginWithCache(),
         style: OutlinedButton.styleFrom(
             backgroundColor: isKakao ? SrColors.kakao : SrColors.white,
             shape: RoundedRectangleBorder(

@@ -5,6 +5,7 @@ import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:logger/logger.dart';
 import 'package:spotright/common/network_client.dart';
 import 'package:spotright/data/oauth/oauth_repository.dart';
+import 'package:spotright/data/repository/local_repository.dart';
 import 'package:spotright/data/user/user_repository.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/common/language.dart';
@@ -19,6 +20,7 @@ import 'package:spotright/presentation/page/following/following_controller.dart'
 import 'package:spotright/presentation/page/following/following_state.dart';
 import 'package:spotright/presentation/page/home/home.dart';
 import 'package:spotright/presentation/page/login/Login.dart';
+import 'package:spotright/presentation/page/login/user_controller.dart';
 import 'package:spotright/presentation/page/signup/sign_up.dart';
 import 'package:spotright/presentation/page/signup/sign_up_controller.dart';
 import 'package:spotright/presentation/page/signup/sign_up_state.dart';
@@ -65,6 +67,7 @@ class _State extends State<Spotright> {
 
         Get.put(NetworkClient());
 
+        Get.put(LocalRepository());
         Get.put(UserRepository());
         Get.put(OAuthRepository());
 
@@ -73,6 +76,7 @@ class _State extends State<Spotright> {
         Get.put(SpotListController());
         Get.put(EditProfileController(editProfileState: EditProfileState()));
         Get.put(DetailController());
+        Get.put(UserController());
       }),
       locale: Get.locale,
       fallbackLocale: const Locale('en', 'US'),
