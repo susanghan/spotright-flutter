@@ -8,6 +8,7 @@ import 'package:spotright/data/user/user_response.dart';
 
 class UserRepository {
   final String refreshTokenKey = "refreshToken";
+  final String memberIdKey = "memberId";
   final String refreshTokenPath = "/member/token/renew";
   final String getUserInfoPath = "/member";
 
@@ -31,11 +32,12 @@ class UserRepository {
   }
 
   Future<void> fetchMyInfo() async {
-    if(userResponse == null) return;
+    if(accessToken == null) return;
 
     await verifyAndRefreshToken();
     Map<String, String> requestHeader = {"authorization": accessToken!};
-    var res = await networkClient.request(path: "$getUserInfoPath/${userResponse!.memberId}", headers: requestHeader);
+    String memberId = await localRepository.fetch(memberIdKey);
+    var res = await networkClient.request(path: "$getUserInfoPath/$memberId", headers: requestHeader);
     UserResponse newUserResponse = UserResponse.fromJson(res.jsonMap!);
     userResponse = newUserResponse;
   }
