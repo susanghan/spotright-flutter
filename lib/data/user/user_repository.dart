@@ -5,17 +5,32 @@ import 'package:jwt_decode/jwt_decode.dart';
 import 'package:logger/logger.dart';
 import 'package:spotright/common/network_client.dart';
 import 'package:spotright/data/model/response_wrapper.dart';
+import 'package:spotright/data/repository/local_repository.dart';
 import 'package:spotright/data/user/user_response.dart';
 
 class UserRepository {
+  final String refreshTokenKey = "refreshToken";
   final String refreshTokenPath = "/member/token/renew";
   final String getUserInfoPath = "/member";
 
   NetworkClient networkClient = Get.find();
+  LocalRepository localRepository = Get.find();
+
   Logger logger = Get.find();
   UserResponse? userResponse;
   String? accessToken;
   String? refreshToken;
+
+  Future<void> loginWithLocalToken() async {
+    await fetchRefreshTokenFromLocal();
+    await refreshLogin();
+    await fetchMyInfo();
+  }
+
+  Future<void> fetchRefreshTokenFromLocal() async {
+    String savedRefreshToken = await localRepository.fetch(refreshTokenKey);
+    refreshToken = savedRefreshToken;
+  }
 
   Future<void> fetchMyInfo() async {
     if(userResponse == null) return;
@@ -44,7 +59,7 @@ class UserRepository {
   }
 
   Future<void> refreshLogin() async {
-    if(refreshToken == null) return;
+    if(refreshToken == null && refreshToken!.isEmpty) return;
 
     Map<String, String> requestHeader = {"authorization": refreshToken!};
     var res = await networkClient.request(path: refreshTokenPath, headers: requestHeader);
@@ -59,5 +74,7 @@ class UserRepository {
     String newRefreshToken = splitTokens[1].split(":")[1].replaceAll(" ", "");
     accessToken = "Bearer $newAccessToken";
     refreshToken = "Bearer $newRefreshToken";
+
+    localRepository.save(refreshTokenKey, refreshToken ?? "");
   }
 }
