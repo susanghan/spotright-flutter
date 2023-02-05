@@ -4,6 +4,7 @@ import 'package:logger/logger.dart';
 class NetworkClient {
   Logger logger = Logger();
   String baseUrl = "spotright-dev.nogamsung.com";
+  String prefix = "/api/v1";
 
   /**
    * 사용 예시 : networkClient.request(method: Http.get, path: "member/article?page=1")
@@ -14,6 +15,8 @@ class NetworkClient {
     Map<String, String>? headers,
     String? body,
   }) async {
+    path = prefix + path;
+
     var url = Uri.https(baseUrl, path);
     Function func = method.function;
 
@@ -23,7 +26,7 @@ class NetworkClient {
         ? await func.call(url, headers: headers)
         : await func.call(url, headers: headers, body: body);
     logger.log(Level.debug,
-        "$method : $method >>> headers : ${response.headers} >>> body : ${response.body}");
+        "$method : $path \x1B[33m${response.statusCode}\x1B[0m >>> headers : ${response.headers} >>> body : ${response.body}");
 
     return response;
   }
