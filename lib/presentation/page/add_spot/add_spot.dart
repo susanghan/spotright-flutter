@@ -218,7 +218,7 @@ class _AddSpotState extends State<AddSpot> {
       Container(
         padding: const EdgeInsets.only(top: 8, bottom: 30),
         alignment: Alignment.center,
-        child: SrRatingButton(),
+        child: SrRatingButton(ratingMode: RatingMode.interactive,),
       ),
     ];
   }
