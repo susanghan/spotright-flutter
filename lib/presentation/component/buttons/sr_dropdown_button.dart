@@ -3,10 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:spotright/presentation/common/colors.dart';
+import 'package:spotright/presentation/page/add_spot/add_spot.dart';
 
 class SrDropdownButton extends StatefulWidget {
-  SrDropdownButton({Key? key, required this.hint, required this.dropdownItems, required this.onChanged, required this.hasIcon, this.dropdownIconColors, required this.isRequired, this.buttonWidth}) : super(key: key);
-  
+  SrDropdownButton(
+      {Key? key,
+      required this.hint,
+      required this.dropdownItems,
+      required this.onChanged,
+      required this.hasIcon,
+      this.dropdownIconColors,
+      required this.isRequired,
+      this.buttonWidth})
+      : super(key: key);
+
   String hint; //카테고리 제몰
   final List<String> dropdownItems; //버튼 누르면 나오는 아이템들 List
   final ValueChanged<String?>? onChanged; //아이템 선택했을 때 실행되는 함수
@@ -40,12 +50,13 @@ class SrDropdownButton extends StatefulWidget {
   _SrDropdownState createState() => _SrDropdownState();
 }
 
-class _SrDropdownState extends State<SrDropdownButton>{
+class _SrDropdownState extends State<SrDropdownButton> {
 
-  bool isOpened = false;
+
+  bool isActive = false;
+  Color activeButtonColor = SrColors.gray2;
+
   bool isSelected = false;
-  double openRadius = 22;
-  Color? selectedColor;
   String? selectedString;
 
   @override
@@ -55,90 +66,112 @@ class _SrDropdownState extends State<SrDropdownButton>{
         isExpanded: true,
         isDense: true,
         hint: Container(
-          alignment: widget.hintAlignment,
-          child: Row(
-            children: [
-              Icon(
-                Icons.circle,
-                size: widget.hasIcon && isSelected ? 11 : 0,
-                color: selectedColor,
-              ),
-              Padding(padding: EdgeInsets.only(right: widget.hasIcon && isSelected ? 7 : 0)),
-              Text.rich(
-              TextSpan(
-                  style: const TextStyle( fontWeight: FontWeight.w500, fontSize: 15, color: SrColors.black,),
-                  children: [
-                    TextSpan( text: selectedString ?? widget.hint),
-                    TextSpan(text: widget.isRequired&&isSelected==false ? "(필수)" : "",  style: const TextStyle(color: SrColors.primary, fontSize: 15, fontWeight: FontWeight.w300))
-                  ]
-              ),
-            ),]
+          alignment: Alignment.centerLeft,
+          child: Text.rich(
+            TextSpan(
+                style: const TextStyle(
+                  fontWeight: FontWeight.w300,
+                  fontSize: 15,
+                  color: SrColors.black,
+                ),
+                children: [
+                  TextSpan(text: widget.hint),
+                  TextSpan(
+                      text: widget.isRequired ? " *" : "",
+                      style: const TextStyle(
+                          color: SrColors.primary,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w300))
+                ]),
           ),
         ),
-        items: widget.dropdownItems.asMap().entries
+        items: widget.dropdownItems
+            .asMap()
+            .entries
             .map((entry) => DropdownMenuItem<String>(
-          onTap: (){
-            selectedColor = widget.dropdownIconColors?[entry.key];
-            selectedString = entry.value;
-          },
-          value: entry.value,
-          child: Column(children: <Widget>[
-            const SizedBox(height: 10),
-            Row(
-              children: [
-                const Padding(padding: EdgeInsets.only(left: 17)),
-                Icon(
-                  Icons.circle,
-                  size: widget.hasIcon ? 11 : 0,
-                  color: widget.dropdownIconColors?[entry.key],
-                ),
-                Padding(padding: EdgeInsets.only(right: widget.hasIcon ? 7 : 0)),
-                Text(
-                  entry.value,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w300,
-                    fontSize: 14,
+                  value: entry.value,
+                  child: Column(
+                    children: <Widget>[
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      Row(
+                        children: [
+                          const Padding(padding: EdgeInsets.only(left: 16)),
+                          Icon(
+                            Icons.circle,
+                            size: widget.hasIcon ? 15 : 0,
+                            color: widget.dropdownIconColors?[entry.key],
+                          ),
+                          Padding(
+                              padding: EdgeInsets.only(
+                                  right: widget.hasIcon ? 10 : 0)),
+                          Text(
+                            entry.value,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w300,
+                                fontSize: 15,
+                                color: SrColors.gray1),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                    ],
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 11),
-            Container(height: 1, width: widget.buttonWidth, color: SrColors.gray,)
-          ],),
-        ))
+                ))
             .toList(),
-        onChanged: (value){
+
+        onChanged: (value) {
           setState(() {
             isSelected = true;
+            selectedString = value as String?;
           });
         },
+        value: selectedString,
         selectedItemBuilder: widget.selectedItemBuilder,
-        onMenuStateChange: (isOpened){
+        onMenuStateChange: (isOpened) {
           setState(() {
             if (isOpened) {
-              openRadius = 0;
+              activeButtonColor = SrColors.gray1;
             } else {
-              openRadius = 22;
+              activeButtonColor = SrColors.gray2;
             }
             isOpened = !isOpened;
           });
         },
         icon: widget.icon ??
-            SvgPicture.asset('assets/category_arrow_down.svg',
-                width: 16, height: 16),
-        iconOnClick: widget.icon ?? SvgPicture.asset('assets/category_arrow_up.svg', width: 17, height: 17),
+            SvgPicture.asset(
+              'assets/category_arrow_down.svg',
+              width: 16,
+              height: 16,
+              color: activeButtonColor,
+            ),
+        iconOnClick: widget.icon ??
+            SvgPicture.asset(
+              'assets/category_arrow_up.svg',
+              width: 17,
+              height: 17,
+              color: activeButtonColor,
+            ),
         iconSize: widget.iconSize ?? 16,
         iconEnabledColor: widget.iconEnabledColor,
         iconDisabledColor: SrColors.gray2,
-        buttonHeight: widget.buttonHeight ?? 45,
+        buttonHeight: widget.buttonHeight ?? 46,
         buttonWidth: widget.buttonWidth,
-        buttonPadding:
-        widget.buttonPadding ?? const EdgeInsets.only(left: 19, right: 14),
-        buttonDecoration: BoxDecoration( borderRadius: BorderRadius.only(topRight: Radius.circular(22), topLeft: Radius.circular(22), bottomRight: Radius.circular(openRadius), bottomLeft: Radius.circular(openRadius)), color: Colors.white, border: Border.all(color: SrColors.gray1, width: 1) ),
+        buttonPadding: isSelected
+            ? const EdgeInsets.only(left: 0, right: 16)
+            : const EdgeInsets.symmetric(horizontal: 16),
+        //widget.buttonPadding ,
+        buttonDecoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(22)),
+            color: Colors.white,
+            border: Border.all(color: activeButtonColor, width: 1)),
         buttonElevation: widget.buttonElevation,
-        itemHeight: 40,
+        itemHeight: 45,
         itemPadding: widget.itemPadding ?? EdgeInsets.zero,
         //Max height for the dropdown menu & becoming scrollable if there are more items. If you pass Null it will take max height possible for the items.
         dropdownMaxHeight: 500,
@@ -146,20 +179,23 @@ class _SrDropdownState extends State<SrDropdownButton>{
         dropdownPadding: widget.dropdownPadding ?? EdgeInsets.zero,
         dropdownDecoration: widget.dropdownDecoration ??
             BoxDecoration(
-              border: Border.all(color: SrColors.gray1),
-              borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(22), bottomRight:Radius.circular(22)),
+              boxShadow: [
+                BoxShadow(
+                  color: SrColors.gray3.withOpacity(0.7),
+                  blurRadius: 5.0,
+                  spreadRadius: 0.0,
+                  offset: const Offset(0, 7),
+                )
+              ],
+              border: Border.all(color: SrColors.gray3),
+              borderRadius: const BorderRadius.all(Radius.circular(22)),
             ),
         dropdownElevation: 0,
         scrollbarRadius: widget.scrollbarRadius ?? const Radius.circular(40),
         scrollbarThickness: widget.scrollbarThickness,
         scrollbarAlwaysShow: widget.scrollbarAlwaysShow,
-        //Null or Offset(0, 0) will open just under the button. You can edit as you want.
-        offset: Offset(0,1),
-        dropdownOverButton: false, //Default is false to show menu below button
+        offset: Offset(0, -4),
       ),
     );
   }
 }
-
-

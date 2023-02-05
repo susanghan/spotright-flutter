@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spotright/presentation/common/colors.dart';
 
+//Todo : SrTextFiled) 본문 행간=글자크기 *1.4 ,글자크기:12, 행간:16.8, 본문 영역: 68*296, 상하 여백: 14, 좌우 여백: 16
+
 class SrTextField extends StatelessWidget {
   SrTextField(
       {Key? key,
@@ -48,7 +50,7 @@ class SrTextField extends StatelessWidget {
             //Todo: 색 정정 하고 에러일 때 추가함. 수정 필요하면 해주세요.
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
-                borderSide: const BorderSide(width: 1, color: SrColors.gray1)),
+                borderSide: const BorderSide(width: 1, color: SrColors.gray3)),
             focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
                 borderSide: const BorderSide(width: 1, color: SrColors.success)),

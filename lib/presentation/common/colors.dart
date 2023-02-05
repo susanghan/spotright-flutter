@@ -13,13 +13,13 @@ class SrColors {
   static const Color darkGray = Color(0xff6C6C6C);
   static const Color white = Color(0xffffffff);
 
-  static const Color restaurant = Color(0xffffb800);
-  static const Color cafe = Color(0xfff122c4);
-  static const Color tour = Color(0xff53bd00);
-  static const Color accommodation = Color(0xff0038ff);
-  static const Color shopping = Color(0xff8a00f6);
-  static const Color hospital = Color(0xff00beca);
-  static const Color etc = Color(0xff3e3e3e);
+  static const Color restaurant = Color(0xffFFD771);
+  static const Color cafe = Color(0xffFF83E4);
+  static const Color tour = Color(0xffA0DE6F);
+  static const Color accommodation = Color(0xff5D7BE4);
+  static const Color shopping = Color(0xff9F52DC);
+  static const Color hospital = Color(0xff72CFD4);
+  static const Color etc = Color(0xff828080);
 
   static const Color kakao = Color(0xffFEE500);
 

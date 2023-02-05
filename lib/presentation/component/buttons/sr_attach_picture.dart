@@ -67,7 +67,7 @@ class _SrAttachPitureState extends State<SrAttachPiture> {
 
   Widget _AttachPicture(int index, XFile imageFile) {
     return Row(children: [
-      const SizedBox(height: 92, width: 6,),
+      const SizedBox(height: 92, width: 8,),
       GestureDetector(
         onTap: (){
           setState(() {
@@ -78,7 +78,7 @@ class _SrAttachPitureState extends State<SrAttachPiture> {
           alignment: Alignment.center,
           children:[
             ClipRRect(
-                borderRadius: BorderRadius.circular(100),
+                borderRadius: BorderRadius.circular(20),
                 child: Image.file(
                   File(imageFile.path),
                   width: 92,

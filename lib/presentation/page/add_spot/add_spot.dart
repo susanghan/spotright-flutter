@@ -1,4 +1,3 @@
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -20,6 +19,7 @@ class AddSpot extends StatefulWidget {
 
 String? selectedString;
 
+//final GlobalKey categoryKey = GlobalKey();
 final List<String> mainCategory = ["식당", "카페", "관광지", "숙소", "쇼핑", "병원", "기타"];
 final List<Color> mainCategoryColors = [
   SrColors.restaurant,
@@ -71,13 +71,17 @@ class _AddSpotState extends State<AddSpot> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  ..._SearchLocation(),
+                  ..._SpotLabel(),
                   ..._InputSpotName(),
+                  ..._InputSpotProvince(),
+                  ..._InputSpotCity(),
                   ..._InputSpotAddress(),
                   ..._SelectSpotCategory(),
-                  ..._InputMemo(),
                   ..._InputVisitation(),
                   ..._InputRating(),
                   ..._Pictures(),
+                  ..._InputMemo(),
                   SrCTAButton(
                     text: "완료",
                     action: () {},
@@ -93,6 +97,7 @@ class _AddSpotState extends State<AddSpot> {
 
   Widget _TextFieldLabel(String text, bool isRequired) {
     return Padding(
+      //key : categoryKey,
       padding: const EdgeInsets.only(bottom: 8),
       child: Text.rich(TextSpan(children: <TextSpan>[
         TextSpan(
@@ -102,7 +107,7 @@ class _AddSpotState extends State<AddSpot> {
                 fontSize: 15,
                 fontWeight: FontWeight.w500)),
         TextSpan(
-            text: isRequired ? " (필수)" : null,
+            text: isRequired ? " *" : null,
             style: const TextStyle(
               color: SrColors.primary,
               fontSize: 15,
@@ -112,57 +117,146 @@ class _AddSpotState extends State<AddSpot> {
     );
   }
 
+  List<Widget> _SearchLocation() {
+    return [
+      Padding(
+        padding: EdgeInsets.fromLTRB(16, 0, 16, 12),
+        child: SizedBox(
+          width: double.infinity,
+          height: 38,
+          child: MaterialButton(
+            elevation: 3,
+            highlightElevation: 0,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+            onPressed: () {},
+            color: SrColors.primary,
+            splashColor: SrColors.primary,
+            highlightColor: SrColors.primary,
+            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              SvgPicture.asset(
+                "assets/marker.svg",
+                width: 14,
+                height: 14,
+                color: SrColors.white,
+              ),
+              const SizedBox(
+                width: 8,
+              ),
+              const Text(
+                "지도에서 위치를 검색하세요",
+                style: TextStyle(
+                    color: SrColors.white,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14),
+              ),
+            ]),
+          ),
+        ),
+      )
+    ];
+  }
+
+  List<Widget> _SpotLabel() {
+    return [
+      Padding(
+        padding: const EdgeInsets.only(bottom: 16, right: 16),
+        child: Row(mainAxisAlignment: MainAxisAlignment.end, children: const [
+          Text.rich(TextSpan(children: <TextSpan>[
+            TextSpan(
+                text: "* ",
+                style: TextStyle(
+                  color: SrColors.primary,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w300,
+                )),
+            TextSpan(
+                text: "는 필수입력 사항입니다",
+                style: TextStyle(
+                    color: SrColors.black,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w300)),
+          ])),
+        ]),
+      )
+    ];
+  }
+
   List<Widget> _InputSpotName() {
     return [
-      _TextFieldLabel("장소명을 입력해 주세요.", true),
+      _TextFieldLabel("장소명을 입력해 주세요", true),
       Padding(padding: const EdgeInsets.only(bottom: 16), child: SrTextField()),
+    ];
+  }
+
+  List<Widget> _InputSpotProvince() {
+    return [
+      _TextFieldLabel("시/도를 입력해주세요", true),
+      Padding(
+        padding: EdgeInsets.only(bottom: 16),
+        child: SrTextField(),
+      ),
+    ];
+  }
+
+  List<Widget> _InputSpotCity() {
+    return [
+      _TextFieldLabel("시/군/구를 입력해주세요", true),
+      Padding(
+        padding: EdgeInsets.only(bottom: 16),
+        child: SrTextField(),
+      ),
     ];
   }
 
   List<Widget> _InputSpotAddress() {
     return [
-      _TextFieldLabel("주소를 입력해 주세요.", true),
+      _TextFieldLabel("상세주소를 입력해주세요", true),
       Padding(
         padding: EdgeInsets.only(bottom: 16),
-        child: SrTextField(
-            suffixIcon: SvgPicture.asset('assets/address_marker.svg')),
+        child: SrTextField(),
       ),
     ];
   }
 
   List<Widget> _SelectSpotCategory() {
     return [
-      _TextFieldLabel("카테고리를 입력해 주세요.", false),
-      Padding(
-        padding: EdgeInsets.only(bottom: 16),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Flexible(
-              flex: 1,
-              child: SrDropdownButton(
-                hasIcon: true,
-                isRequired: true,
-                dropdownItems: mainCategory,
-                hint: '대분류',
-                dropdownIconColors: mainCategoryColors,
-                onChanged: (String? value) {},
+      _TextFieldLabel("카테고리를 입력해 주세요", false,),
+      GestureDetector(
+        onTap: (){
+
+        },
+        child: Padding(
+          padding: EdgeInsets.only(bottom: 16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                flex: 1,
+                child: SrDropdownButton(
+                  hasIcon: true,
+                  isRequired: true,
+                  dropdownItems: mainCategory,
+                  hint: '대분류',
+                  dropdownIconColors: mainCategoryColors,
+                  onChanged: (String? value) {},
+                ),
               ),
-            ),
-            const SizedBox(
-              width: 6,
-            ),
-            Flexible(
-              flex: 1,
-              child: SrDropdownButton(
-                hasIcon: false,
-                isRequired: false,
-                dropdownItems: subCategoryRestaurant,
-                hint: '소분류',
-                onChanged: (String? value) {},
+              const SizedBox(
+                width: 6,
               ),
-            ),
-          ],
+              Flexible(
+                flex: 1,
+                child: SrDropdownButton(
+                  hasIcon: false,
+                  isRequired: false,
+                  dropdownItems: subCategoryRestaurant,
+                  hint: '소분류',
+                  onChanged: (String? value) {},
+                ),
+              ),
+            ],
+          ),
         ),
       )
     ];
@@ -216,9 +310,11 @@ class _AddSpotState extends State<AddSpot> {
     return [
       _TextFieldLabel("별점", true),
       Container(
-        padding: const EdgeInsets.only(top: 8, bottom: 30),
+        padding: const EdgeInsets.only(top: 4, bottom: 16),
         alignment: Alignment.center,
-        child: SrRatingButton(),
+        child: SrRatingButton(
+          ratingMode: RatingMode.interactive,
+        ),
       ),
     ];
   }
@@ -226,9 +322,9 @@ class _AddSpotState extends State<AddSpot> {
   List<Widget> _Pictures() {
     return [
       _TextFieldLabel("사진 첨부", false),
-      const Padding(padding: EdgeInsets.only(bottom: 8)),
-      SrAttachPiture(),
-      const Padding(padding: EdgeInsets.only(bottom: 40)),
+      Padding(
+        padding: EdgeInsets.only(top: 8, bottom: 16),
+          child: SrAttachPiture()),
     ];
   }
 }
