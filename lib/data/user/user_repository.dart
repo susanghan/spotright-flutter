@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:jwt_decode/jwt_decode.dart';
 import 'package:logger/logger.dart';
 import 'package:spotright/common/network_client.dart';
 import 'package:spotright/data/user/user_response.dart';
@@ -9,6 +10,18 @@ class UserRepository {
   UserResponse? userResponse;
   String? accessToken;
   String? refreshToken;
+
+  bool isValidToken({int afterMinutes = 0}) {
+    if(accessToken == null) return false;
+
+    DateTime? expiryDate = Jwt.getExpiryDate(accessToken!.split(" ")[1]);
+    DateTime now = DateTime.now();
+    DateTime targetTime = now.add(Duration(minutes: afterMinutes));
+
+    if(expiryDate == null) return false;
+
+    return targetTime.isAfter(expiryDate);
+  }
 
   void refreshLogin() async {
     if(refreshToken == null) return;
