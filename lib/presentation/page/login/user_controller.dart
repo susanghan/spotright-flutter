@@ -11,6 +11,7 @@ class UserController extends GetxController {
     await userRepository.loginWithLocalToken();
     if (userRepository.accessToken != null) {
       isLoggedIn.value = true;
+      await userRepository.fetchMyInfo();
       movePage();
     }
   }

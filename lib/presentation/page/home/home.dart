@@ -6,13 +6,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:spotright/data/user/user_repository.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/appbars/sr_app_bar.dart';
-import 'package:spotright/presentation/component/bottom_sheet/sr_bottom_sheet.dart';
-import 'package:spotright/presentation/component/dialog/report_dialog.dart';
-import 'package:spotright/presentation/component/dialog/sr_dialog.dart';
 import 'package:spotright/presentation/page/add_spot/add_spot.dart';
+import 'package:spotright/presentation/page/home/home_controller.dart';
 import 'package:spotright/presentation/page/search/search.dart';
 import 'package:spotright/presentation/page/spot_list/spot_list.dart';
 
@@ -25,6 +24,14 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   Completer<GoogleMapController> _mapController = Completer();
+  UserRepository userRepository = Get.find();
+  HomeController homeController = Get.find();
+
+  @override
+  void initState() {
+    super.initState();
+    homeController.initState();
+  }
 
   Future<LatLng> _currentLocation() async {
     final GoogleMapController controller = await _mapController.future;
@@ -37,7 +44,6 @@ class _HomeState extends State<Home> {
         bearing: 0,
         target: LatLng(currentLocation.latitude!, currentLocation.longitude!),
         zoom: 17.0,
-
       )));
       return LatLng(currentLocation.latitude!, currentLocation.longitude!);
     } on Exception {
@@ -52,7 +58,7 @@ class _HomeState extends State<Home> {
     return SafeArea(
       child: Scaffold(
         appBar: DefaultAppBar(
-          title: 'lalakorea',
+          title: homeController.userInfo?.value.spotrightId ?? "",
           actions: [
             GestureDetector(
               onTap: () {
@@ -86,10 +92,10 @@ class _HomeState extends State<Home> {
             },
           ),
           SrAppBar(
-            userName: '김라라',
-            spots: 20,
-            followers: 100,
-            followings: 100,
+            userName: homeController.userInfo?.value.nickname ?? "",
+            spots: homeController.userInfo?.value.memberSpotsCnt ?? 0,
+            followers: homeController.userInfo?.value.followersCnt ?? 0,
+            followings: homeController.userInfo?.value.followingsCnt ?? 0,
           ),
           GestureDetector(
             onTap: () {

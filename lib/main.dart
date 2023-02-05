@@ -19,6 +19,7 @@ import 'package:spotright/presentation/page/edit_profile/edit_profile_state.dart
 import 'package:spotright/presentation/page/following/following_controller.dart';
 import 'package:spotright/presentation/page/following/following_state.dart';
 import 'package:spotright/presentation/page/home/home.dart';
+import 'package:spotright/presentation/page/home/home_controller.dart';
 import 'package:spotright/presentation/page/login/Login.dart';
 import 'package:spotright/presentation/page/login/user_controller.dart';
 import 'package:spotright/presentation/page/signup/sign_up.dart';
@@ -77,6 +78,7 @@ class _State extends State<Spotright> {
         Get.put(EditProfileController(editProfileState: EditProfileState()));
         Get.put(DetailController());
         Get.put(UserController());
+        Get.put(HomeController());
       }),
       locale: Get.locale,
       fallbackLocale: const Locale('en', 'US'),
