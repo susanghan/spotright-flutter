@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:http/http.dart';
 import 'package:logger/logger.dart';
 
@@ -26,7 +28,7 @@ class NetworkClient {
         ? await func.call(url, headers: headers)
         : await func.call(url, headers: headers, body: body);
     logger.log(Level.debug,
-        "$method : $path \x1B[33m${response.statusCode}\x1B[0m >>> headers : ${response.headers} >>> body : ${response.body}");
+        "$method : $path \x1B[33m${response.statusCode}\x1B[0m >>> headers : ${response.headers} >>> body : ${jsonDecode(utf8.decode(response.bodyBytes))}");
 
     return response;
   }

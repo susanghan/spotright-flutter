@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:get/get.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 import 'package:logger/logger.dart';
@@ -38,7 +36,7 @@ class UserRepository {
     await verifyAndRefreshToken();
     Map<String, String> requestHeader = {"authorization": accessToken!};
     var res = await networkClient.request(path: "$getUserInfoPath/${userResponse!.memberId}", headers: requestHeader);
-    UserResponse newUserResponse = UserResponse.fromJson(res.body.jsonMap!);
+    UserResponse newUserResponse = UserResponse.fromJson(res.jsonMap!);
     userResponse = newUserResponse;
   }
 
