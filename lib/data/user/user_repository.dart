@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'package:jwt_decode/jwt_decode.dart';
 import 'package:logger/logger.dart';
 import 'package:spotright/common/network_client.dart';
+import 'package:spotright/common/token_util.dart';
 import 'package:spotright/data/model/response_wrapper.dart';
 import 'package:spotright/data/repository/local_repository.dart';
 import 'package:spotright/data/user/user_response.dart';
@@ -48,19 +48,9 @@ class UserRepository {
   }
 
   Future<void> verifyAndRefreshToken() async {
-    if(!isValidToken(afterMinutes: 10)) await refreshLogin();
-  }
+    TokenUtil tokenUtil = TokenUtil();
 
-  bool isValidToken({int afterMinutes = 0}) {
-    if(accessToken == null) return false;
-
-    DateTime? expiryDate = Jwt.getExpiryDate(accessToken!.split(" ")[1]);
-    DateTime now = DateTime.now();
-    DateTime targetTime = now.add(Duration(minutes: afterMinutes));
-
-    if(expiryDate == null) return false;
-
-    return targetTime.isAfter(expiryDate);
+    if(!tokenUtil.isValidToken(token: accessToken, afterMinutes: 10)) await refreshLogin();
   }
 
   Future<void> refreshLogin() async {
@@ -74,12 +64,11 @@ class UserRepository {
     // todo : 실패 케이스 처리
     if(auth == null) return;
 
-    List<String> splitTokens = auth.substring(1, auth.length - 1).split(",");
-    String newAccessToken = splitTokens[0].split(":")[1].replaceAll(" ", "");
-    String newRefreshToken = splitTokens[1].split(":")[1].replaceAll(" ", "");
-    accessToken = "Bearer $newAccessToken";
-    refreshToken = "Bearer $newRefreshToken";
+    TokenUtil tokenUtil = TokenUtil();
+    List<String> tokens = tokenUtil.getTokens(auth);
+    accessToken = tokens[0];
+    refreshToken = tokens[1];
 
-    localRepository.save(refreshTokenKey, refreshToken ?? "");
+    localRepository.save(refreshTokenKey, refreshToken!);
   }
 }
