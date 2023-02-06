@@ -1,14 +1,20 @@
 import 'dart:convert';
 
+import 'package:get/get.dart' as getx;
 import 'package:http/http.dart';
 import 'package:logger/logger.dart';
+import 'package:spotright/common/token_util.dart';
+import 'package:spotright/data/repository/local_repository.dart';
 
 class NetworkClient {
-  Logger logger = Logger();
+  Logger logger = getx.Get.find();
+  LocalRepository localRepository = LocalRepository();
   String baseUrl = "spotright-dev.nogamsung.com";
   String prefix = "/api/v1";
   String? accessToken;
   String? refreshToken;
+  final String refreshTokenKey = "refreshToken";
+  final String refreshTokenPath = "/member/token/renew";
 
   /**
    * 사용 예시 : networkClient.request(method: Http.get, path: "member/article?page=1")
@@ -33,6 +39,31 @@ class NetworkClient {
         "$method : $path \x1B[33m${response.statusCode}\x1B[0m >>> headers : ${response.headers} >>> body : ${jsonDecode(utf8.decode(response.bodyBytes))}");
 
     return response;
+  }
+
+  Future<void> refreshLogin() async {
+    if(refreshToken == null && refreshToken!.isEmpty) return;
+
+    Map<String, String> requestHeader = {"authorization": refreshToken!};
+    var res = await request(path: refreshTokenPath, headers: requestHeader);
+    Map<String, String>? headers = res.headers;
+    String? auth = headers["authorization"];
+
+    // todo : 실패 케이스 처리
+    if(auth == null) return;
+
+    TokenUtil tokenUtil = TokenUtil();
+    List<String> tokens = tokenUtil.getTokens(auth);
+    accessToken = tokens[0];
+    refreshToken = tokens[1];
+
+    localRepository.save(refreshTokenKey, refreshToken!);
+  }
+
+  Future<void> verifyAndRefreshToken() async {
+    TokenUtil tokenUtil = TokenUtil();
+
+    if(!tokenUtil.isValidToken(token: accessToken)) await refreshLogin();
   }
 }
 
