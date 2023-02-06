@@ -36,10 +36,8 @@ class UserRepository {
   Future<void> fetchMyInfo() async {
     if(networkClient.accessToken == null) return;
 
-    await networkClient.verifyAndRefreshToken();
-    Map<String, String> requestHeader = {"authorization": networkClient.accessToken!};
     String memberId = await localRepository.fetch(memberIdKey);
-    var res = await networkClient.request(path: "$getUserInfoPath/$memberId", headers: requestHeader);
+    var res = await networkClient.request(path: "$getUserInfoPath/$memberId");
     UserResponse newUserResponse = UserResponse.fromJson(res.jsonMap!);
     userResponse = newUserResponse;
   }

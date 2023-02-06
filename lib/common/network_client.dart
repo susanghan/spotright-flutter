@@ -23,6 +23,20 @@ class NetworkClient {
     Http method = Http.get,
     required String path,
     Map<String, String>? headers,
+    String? body
+  }) async {
+    await verifyAndRefreshToken();
+
+    headers ??= {};
+    headers["authorization"] = accessToken ?? "";
+
+    return _requestWithLog(method: method, path: path, headers: headers, body: body);
+  }
+
+  Future<Response> _requestWithLog({
+    Http method = Http.get,
+    required String path,
+    Map<String, String>? headers,
     String? body,
   }) async {
     path = prefix + path;
@@ -36,7 +50,7 @@ class NetworkClient {
         ? await func.call(url, headers: headers)
         : await func.call(url, headers: headers, body: body);
     logger.log(Level.debug,
-        "$method : $path \x1B[33m${response.statusCode}\x1B[0m >>> headers : ${response.headers} >>> body : ${jsonDecode(utf8.decode(response.bodyBytes))}");
+    "$method : $path \x1B[33m${response.statusCode}\x1B[0m >>> headers : ${response.headers} >>> body : ${jsonDecode(utf8.decode(response.bodyBytes))}");
 
     return response;
   }
@@ -45,7 +59,7 @@ class NetworkClient {
     if(refreshToken == null && refreshToken!.isEmpty) return;
 
     Map<String, String> requestHeader = {"authorization": refreshToken!};
-    var res = await request(path: refreshTokenPath, headers: requestHeader);
+    var res = await _requestWithLog(path: refreshTokenPath, headers: requestHeader);
     Map<String, String>? headers = res.headers;
     String? auth = headers["authorization"];
 
