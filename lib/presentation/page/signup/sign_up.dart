@@ -23,7 +23,7 @@ class _SignUpState extends State<SignUp> {
   @override
   void initState() {
     // todo: 에러 처리
-    if(oAuthRepository.oauthResponse == null) {
+    if (oAuthRepository.oauthResponse == null) {
       return;
     }
 
@@ -39,7 +39,8 @@ class _SignUpState extends State<SignUp> {
           hasBackButton: true,
         ),
         body: Stack(alignment: Alignment.topCenter, children: [
-          Obx(() => Padding(
+          Obx(() =>
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 child: SingleChildScrollView(
                   child: Column(
@@ -49,32 +50,16 @@ class _SignUpState extends State<SignUp> {
                         ..._InputId(),
                         ..._InputNickname(),
                         ..._InputBirthday(),
-                        Padding(padding: EdgeInsets.only(bottom: 16)),
-                        Text("input_sex".tr),
-                        _SexSelector(),
-                        Padding(padding: EdgeInsets.only(bottom: 18)),
-                        Row(
-                          children: [
-                            SrCheckBox(
-                                value: signUpController
-                                    .signUpState.privacyPolicy.value,
-                                onChanged: (checked) =>
-                                    signUpController.changePrivacyPolicy()),
-                            Padding(padding: EdgeInsets.only(right: 12)),
-                            Text(
-                              "개인정보 수집 및 이용동의(필수)".tr,
-                              style: TextStyle(
-                                  decoration: TextDecoration.underline),
-                            ),
-                          ],
-                        ),
+                        ..._InputSex(),
+                        ..._InputPrivacyPolicy(),
                         Padding(padding: EdgeInsets.only(bottom: 40 + 88)),
                       ]),
                 ),
               )),
           Column(children: [
             Expanded(child: SizedBox.shrink()),
-            Obx(() => SrCTAButton(
+            Obx(() =>
+                SrCTAButton(
                   text: '완료',
                   isEnabled: signUpController.signUpState.ctaActive.value,
                   action: () {},
@@ -151,7 +136,7 @@ class _SignUpState extends State<SignUp> {
       Padding(
         padding: EdgeInsets.only(left: 12, bottom: 16),
         child:
-            Obx(() => Text(signUpController.signUpState.idValidationMessage)),
+        Obx(() => Text(signUpController.signUpState.idValidationMessage)),
       ),
     ];
   }
@@ -170,8 +155,47 @@ class _SignUpState extends State<SignUp> {
       Padding(
         padding: EdgeInsets.only(left: 12, bottom: 20),
         child: Obx(
-            () => Text(signUpController.signUpState.nicknameValidationMessage)),
+                () =>
+                Text(signUpController.signUpState.nicknameValidationMessage)),
       ),
+    ];
+  }
+
+  List<Widget> _InputBirthday() {
+    return [
+      Padding(
+          padding: EdgeInsets.only(bottom: 6), child: Text('생년월일을 입력해주세요.')),
+      Container(
+        width: double.infinity,
+        height: 44,
+        margin: EdgeInsets.only(bottom: 16),
+        child: OutlinedButton(
+          onPressed: () {
+            Get.dialog(BirthdayDialog(onChanged: (date) {
+              signUpController.changeBirthdate(date);
+            },
+              defaultDate: "2000-1-1",));
+          },
+          child: Text(signUpController.signUpState.birthdate.value,
+            style: TextStyle(color: SrColors.gray1),),
+          style: OutlinedButton.styleFrom(
+              side: BorderSide(
+                width: 1,
+                color: SrColors.gray1,
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(100),
+              )),
+        ),
+      ),
+    ];
+  }
+
+  List<Widget> _InputSex() {
+    return [
+      Text("input_sex".tr),
+      _SexSelector(),
+      Padding(padding: EdgeInsets.only(bottom: 18)),
     ];
   }
 
@@ -209,30 +233,27 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
-  List<Widget> _InputBirthday() {
+  List<Widget> _InputPrivacyPolicy() {
     return [
-      Padding(
-          padding: EdgeInsets.only(bottom: 6), child: Text('생년월일을 입력해주세요.')),
-      Container(
-        width: double.infinity,
-        height: 44,
-        child: OutlinedButton(
-          onPressed: () {
-            Get.dialog(BirthdayDialog(onChanged: (date) {
-              signUpController.changeBirthdate(date);
-            },
-            defaultDate: "2000-1-1",));
-          },
-          child: Text(signUpController.signUpState.birthdate.value, style: TextStyle(color: SrColors.gray1),),
-          style: OutlinedButton.styleFrom(
-              side: BorderSide(
-                width: 1,
-                color: SrColors.gray1,
-              ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(100),
-              )),
-        ),
+      Row(
+        children: [
+          SizedBox(
+            width: 16,
+            height: 16,
+            child: SrCheckBox(
+                isRectangle: true,
+                value: signUpController
+                    .signUpState.privacyPolicy.value,
+                onChanged: (checked) =>
+                    signUpController.changePrivacyPolicy()),
+          ),
+          Padding(padding: EdgeInsets.only(right: 12)),
+          Text(
+            "개인정보 수집 및 이용동의(필수)".tr,
+            style: TextStyle(
+                decoration: TextDecoration.underline),
+          ),
+        ],
       ),
     ];
   }
