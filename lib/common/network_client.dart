@@ -7,6 +7,8 @@ class NetworkClient {
   Logger logger = Logger();
   String baseUrl = "spotright-dev.nogamsung.com";
   String prefix = "/api/v1";
+  String? accessToken;
+  String? refreshToken;
 
   /**
    * 사용 예시 : networkClient.request(method: Http.get, path: "member/article?page=1")

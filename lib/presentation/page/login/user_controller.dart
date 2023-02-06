@@ -5,12 +5,10 @@ import 'package:spotright/data/user/user_repository.dart';
 class UserController extends GetxController {
   OAuthRepository oAuthRepository = Get.find();
   UserRepository userRepository = Get.find();
-  RxBool isLoggedIn = false.obs;
 
   void loginWithCache(Function() movePage) async {
     await userRepository.loginWithLocalToken();
-    if (userRepository.accessToken != null) {
-      isLoggedIn.value = true;
+    if (userRepository.isLoggedIn) {
       await userRepository.fetchMyInfo();
       movePage();
     }
