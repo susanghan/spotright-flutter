@@ -80,14 +80,9 @@ class _State extends State<Spotright> {
         Get.put(UserController());
         Get.put(HomeController());
       }),
-      locale: Get.locale,
+      locale: Get.deviceLocale,
       fallbackLocale: const Locale('en', 'US'),
       translations: Languages(),
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
   }
 }
