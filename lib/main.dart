@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -29,6 +30,7 @@ import 'package:spotright/presentation/page/spot_list/spot_list.dart';
 import 'package:spotright/presentation/page/spot_list/spot_list_controller.dart';
 
 void main() {
+  Firebase.initializeApp();
   KakaoSdk.init(nativeAppKey: "6141df4779382304859d905edc750579");
   runApp(Spotright());
 }

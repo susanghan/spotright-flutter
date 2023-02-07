@@ -1,41 +1,41 @@
 {
   "project_info": {
-    "project_number": "846174137193",
-    "project_id": "spotright-372310",
-    "storage_bucket": "spotright-372310.appspot.com"
+    "project_number": "463173421384",
+    "project_id": "spotright-f0c5c",
+    "storage_bucket": "spotright-f0c5c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:846174137193:android:80256b51b0c326c13aebf8",
+        "mobilesdk_app_id": "1:463173421384:android:4b8fa38701dc3a56d2cb7d",
         "android_client_info": {
           "package_name": "com.susanghan.spotright"
         }
       },
       "oauth_client": [
         {
-          "client_id": "846174137193-1pt4m6609l3v544jh3s6n3eu9dnc0t14.apps.googleusercontent.com",
+          "client_id": "463173421384-20a23ckvi26eggo9rprs0nnqotqa1l3u.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.susanghan.spotright",
-            "certificate_hash": "5877041bea29d15b731f345f61f0813b714b930b"
+            "certificate_hash": "fe9fc220b622ffed0b58d22e4bdc7f1649ac29ad"
           }
         },
         {
-          "client_id": "846174137193-k8et1vqa0btgdlunaoformcip276si8k.apps.googleusercontent.com",
+          "client_id": "463173421384-ekvo30q1th7q0tuadvcadsnfu8o2cttk.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCmKR2U18qaInsQzMXIma4uOEW0eqmmOls"
+          "current_key": "AIzaSyBvX2d7C1Xvj3MK0n6OYvnGTVgLxAbfxug"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "846174137193-gi3tbk5sumj6eecp19fmgj7ienn9bui2.apps.googleusercontent.com",
+              "client_id": "463173421384-ekvo30q1th7q0tuadvcadsnfu8o2cttk.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -15,6 +15,9 @@ class OAuthRepository {
     logger.d("구글로 로그인");
     GoogleSignInAccount? googleSignInAccount = await GoogleSignInApi.login();
     oauthResponse = OAuthResponse.fromGoogle(googleSignInAccount!);
+    var auth = await googleSignInAccount.authentication;
+    logger.d("아이디: ${auth.idToken}");
+    logger.d("토큰: ${auth.accessToken}");
   }
 
   void signInWithApple() async {
