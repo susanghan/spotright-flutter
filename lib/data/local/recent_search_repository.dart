@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:spotright/data/repository/local_repository.dart';
+import 'package:spotright/data/local/local_repository.dart';
 
 class RecentSearchRepository {
   final String key = "recentSearch";

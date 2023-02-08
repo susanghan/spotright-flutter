@@ -6,7 +6,7 @@ import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:logger/logger.dart';
 import 'package:spotright/common/network_client.dart';
 import 'package:spotright/data/oauth/oauth_repository.dart';
-import 'package:spotright/data/repository/local_repository.dart';
+import 'package:spotright/data/local/local_repository.dart';
 import 'package:spotright/data/user/user_repository.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/common/language.dart';

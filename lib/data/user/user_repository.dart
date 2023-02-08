@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:spotright/common/network_client.dart';
 import 'package:spotright/data/model/response_wrapper.dart';
-import 'package:spotright/data/repository/local_repository.dart';
+import 'package:spotright/data/local/local_repository.dart';
 import 'package:spotright/data/user/user_response.dart';
 
 class UserRepository {
