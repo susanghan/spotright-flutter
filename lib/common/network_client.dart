@@ -4,7 +4,7 @@ import 'package:get/get.dart' as getx;
 import 'package:http/http.dart';
 import 'package:logger/logger.dart';
 import 'package:spotright/common/token_util.dart';
-import 'package:spotright/data/repository/local_repository.dart';
+import 'package:spotright/data/local/local_repository.dart';
 
 class NetworkClient {
   Logger logger = getx.Get.find();

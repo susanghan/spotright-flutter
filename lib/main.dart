@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -5,7 +6,7 @@ import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:logger/logger.dart';
 import 'package:spotright/common/network_client.dart';
 import 'package:spotright/data/oauth/oauth_repository.dart';
-import 'package:spotright/data/repository/local_repository.dart';
+import 'package:spotright/data/local/local_repository.dart';
 import 'package:spotright/data/user/user_repository.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/common/language.dart';
@@ -31,6 +32,7 @@ import 'package:spotright/presentation/page/spot_list/spot_list.dart';
 import 'package:spotright/presentation/page/spot_list/spot_list_controller.dart';
 
 void main() {
+  Firebase.initializeApp();
   KakaoSdk.init(nativeAppKey: "6141df4779382304859d905edc750579");
   runApp(Spotright());
 }
