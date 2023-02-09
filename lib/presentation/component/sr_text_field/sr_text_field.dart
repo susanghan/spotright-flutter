@@ -21,7 +21,8 @@ class SrTextField extends StatelessWidget {
       this.backgroundColor,
       this.inputBorder,
       this.focusInputBorder,
-      this.errorInputBorder})
+      this.errorInputBorder,
+      this.prefixIconConstraints})
       : super(key: key);
 
   final String hint;
@@ -36,6 +37,7 @@ class SrTextField extends StatelessWidget {
   double? suffixIconHeight, suffixIconWidth;
   Color? backgroundColor;
   InputBorder? inputBorder, focusInputBorder, errorInputBorder;
+  BoxConstraints? prefixIconConstraints;
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +56,7 @@ class SrTextField extends StatelessWidget {
             fillColor: backgroundColor,
             suffixIcon: suffixIcon,
             prefixIcon: prefixIcon,
+            prefixIconConstraints: prefixIconConstraints,
             //bottom 일부러 안 넣은 거임, line 여러 개일 때 이거 안 먹더라,,,참고해서 해결행~~~~
             contentPadding: const EdgeInsets.only(left: 16, right: 16, top: 15),
             //Todo: 색 정정 하고 에러일 때 추가함. 수정 필요하면 해주세요.
