@@ -41,9 +41,10 @@ class _State extends State<SrLocationTabBar> {
                         _addressIsSelected = true;
                       });
                     },
-                    child: Container(
+                    child: AnimatedContainer(
                       width: 44,
                       height: 24,
+                      duration: const Duration(milliseconds: 200),
                       decoration: BoxDecoration(color: _addressIsSelected ? SrColors.primary : SrColors.white, borderRadius: BorderRadius.circular(15),),
                       child: Center(child: Text("주소", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: _addressIsSelected ? SrColors.white : SrColors.primary),)),
                     ),
@@ -54,10 +55,11 @@ class _State extends State<SrLocationTabBar> {
                         _addressIsSelected = false;
                       });
                     },
-                    child: Container(
+                    child: AnimatedContainer(
                       width: 44,
                       height: 24,
                       decoration: BoxDecoration(color: !_addressIsSelected ? SrColors.primary : SrColors.white, borderRadius: BorderRadius.circular(15),),
+                      duration: const Duration(milliseconds: 200),
                       child: Center(child: Text("장소", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: !_addressIsSelected ? SrColors.white : SrColors.primary),)),
                     ),
                   ),
