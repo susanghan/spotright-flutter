@@ -24,6 +24,7 @@ class Detail extends StatefulWidget {
 
 class _DetailState extends State<Detail> {
   DetailController detailController = Get.find();
+
   List<String> images = [
     'https://picsum.photos/200',
     'https://picsum.photos/200',

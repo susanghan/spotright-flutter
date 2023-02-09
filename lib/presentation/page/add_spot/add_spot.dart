@@ -8,6 +8,7 @@ import 'package:spotright/presentation/component/buttons/sr_cta_button.dart';
 import 'package:spotright/presentation/component/buttons/sr_rating_button.dart';
 import 'package:spotright/presentation/component/sr_check_box/sr_check_box.dart';
 import 'package:spotright/presentation/component/sr_text_field/sr_text_field.dart';
+import 'package:spotright/presentation/page/search_location/search_location.dart';
 import '../../component/buttons/sr_dropdown_button.dart';
 
 class AddSpot extends StatefulWidget {
@@ -19,7 +20,7 @@ class AddSpot extends StatefulWidget {
 
 String? selectedString;
 
-//final GlobalKey categoryKey = GlobalKey();
+
 final List<String> mainCategory = ["식당", "카페", "관광지", "숙소", "쇼핑", "병원", "기타"];
 final List<Color> mainCategoryColors = [
   SrColors.restaurant,
@@ -97,7 +98,6 @@ class _AddSpotState extends State<AddSpot> {
 
   Widget _TextFieldLabel(String text, bool isRequired) {
     return Padding(
-      //key : categoryKey,
       padding: const EdgeInsets.only(bottom: 8),
       child: Text.rich(TextSpan(children: <TextSpan>[
         TextSpan(
@@ -129,7 +129,7 @@ class _AddSpotState extends State<AddSpot> {
             highlightElevation: 0,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-            onPressed: () {},
+            onPressed: () { Get.to(SearchLocation());},
             color: SrColors.primary,
             splashColor: SrColors.primary,
             highlightColor: SrColors.primary,
