@@ -9,6 +9,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/buttons/sr_cta_button.dart';
+import 'package:spotright/presentation/component/sr_text_field/sr_text_field.dart';
 import 'package:spotright/presentation/page/search_location/search_location_controller.dart';
 
 import '../../common/colors.dart';
@@ -60,6 +61,10 @@ class _SearchLocationState extends State<SearchLocation> {
             child: Column(
               children: [
                 SrLocationTabBar(),
+                //Todo : prefix 아이콘부터
+                SrTextField(height: 36, borderRadius: 20, hint: "공씨네 도시락", backgroundColor: SrColors.white, focusInputBorder: const OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    borderSide: BorderSide(width: 1, color: SrColors.white)),),
                 Align(
                     child: _UserLocation(), alignment: Alignment.centerRight,),
                 SrCTAButton(
