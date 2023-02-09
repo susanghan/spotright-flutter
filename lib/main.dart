@@ -22,6 +22,8 @@ import 'package:spotright/presentation/page/home/home.dart';
 import 'package:spotright/presentation/page/home/home_controller.dart';
 import 'package:spotright/presentation/page/login/Login.dart';
 import 'package:spotright/presentation/page/login/user_controller.dart';
+import 'package:spotright/presentation/page/search_location/search_location.dart';
+import 'package:spotright/presentation/page/search_location/search_location_controller.dart';
 import 'package:spotright/presentation/page/signup/sign_up.dart';
 import 'package:spotright/presentation/page/signup/sign_up_controller.dart';
 import 'package:spotright/presentation/page/signup/sign_up_state.dart';
@@ -55,6 +57,7 @@ class _State extends State<Spotright> {
         '/spot_list': (context) => const SpotList(),
         '/login': (context) => const Login(),
         '/congratulation': (context) => const Congratulation(),
+        '/searchLocation': (context) => const SearchLocation(),
       },
       theme: ThemeData(
         primarySwatch: SrColors.materialPrimary,
@@ -79,6 +82,7 @@ class _State extends State<Spotright> {
         Get.put(DetailController());
         Get.put(UserController());
         Get.put(HomeController());
+        Get.put(SearchLocationController());
       }),
       locale: Get.deviceLocale,
       fallbackLocale: const Locale('en', 'US'),
