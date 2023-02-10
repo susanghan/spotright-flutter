@@ -35,7 +35,11 @@ extension Uint8ListExtension on Uint8List {
 }
 
 extension ResponseExtension on Response {
+  ResponseWrapper get responseWrapper {
+    return ResponseWrapper.fromJson(jsonDecode(utf8.decode(bodyBytes)));
+  }
+
   Map<String, dynamic>? get jsonMap {
-    return ResponseWrapper.fromJson(jsonDecode(utf8.decode(bodyBytes))).data;
+    return responseWrapper.data;
   }
 }
