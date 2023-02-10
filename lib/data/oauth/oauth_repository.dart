@@ -14,13 +14,13 @@ class OAuthRepository {
   OAuthResponse? oAuthResponse;
   UserRepository userRepository = Get.find();
 
-  void signUpWithGoogle() async {
+  Future<bool> signUpWithGoogle() async {
     logger.d("구글로 로그인");
     GoogleSignInAccount? googleSignInAccount = await GoogleSignInApi.login();
     GoogleSignInAuthentication? auth = await googleSignInAccount?.authentication;
     oAuthResponse = OAuthResponse.fromGoogle(googleSignInAccount!, auth!);
 
-    userRepository.login("google", oAuthResponse!.token);
+    return userRepository.login("google", oAuthResponse!.token);
   }
 
   void signInWithApple() async {

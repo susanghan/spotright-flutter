@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/page/home/home.dart';
 import 'package:spotright/presentation/page/login/user_controller.dart';
+import 'package:spotright/presentation/page/signup/sign_up.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -53,7 +54,12 @@ class _LoginState extends State<Login> {
       width: double.infinity,
       height: 45,
       child: OutlinedButton(
-        onPressed: action,
+        onPressed: () async {
+          bool isSuccessful = await action();
+          if(isSuccessful) return;
+
+          Get.to(SignUp());
+        },
         style: OutlinedButton.styleFrom(
             backgroundColor: isKakao ? SrColors.kakao : SrColors.white,
             shape: RoundedRectangleBorder(
