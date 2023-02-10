@@ -28,7 +28,7 @@ class NetworkClient {
     await verifyAndRefreshToken();
 
     headers ??= {};
-    headers["authorization"] = accessToken ?? "";
+    headers["authorization"] = headers["authorization"] ?? "";
 
     return _requestWithLog(method: method, path: path, headers: headers, body: body);
   }
