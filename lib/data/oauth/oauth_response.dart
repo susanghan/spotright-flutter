@@ -5,15 +5,14 @@ import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 class OAuthResponse {
   OAuthResponse({this.email, required this.token});
 
-  OAuthResponse.fromGoogle(GoogleSignInAccount info)
+  OAuthResponse.fromGoogle(
+      GoogleSignInAccount info, GoogleSignInAuthentication auth)
       : email = info.email,
-        token = info.id;
+        token = auth.accessToken!;
 
-  OAuthResponse.fromApple(OAuthCredential info)
-    : token = info.accessToken!;
+  OAuthResponse.fromApple(OAuthCredential info) : token = info.accessToken!;
 
-  OAuthResponse.fromKakao(OAuthToken info)
-        :token = info.accessToken;
+  OAuthResponse.fromKakao(OAuthToken info) : token = info.accessToken;
 
   String? email;
   String token;

@@ -23,11 +23,11 @@ class _SignUpState extends State<SignUp> {
   @override
   void initState() {
     // todo: 에러 처리
-    if (oAuthRepository.oauthResponse == null) {
+    if (oAuthRepository.oAuthResponse == null) {
       return;
     }
 
-    signUpController.initOauthInfo(oAuthRepository.oauthResponse!);
+    signUpController.initOauthInfo(oAuthRepository.oAuthResponse!);
   }
 
   @override

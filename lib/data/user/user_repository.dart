@@ -10,6 +10,7 @@ class UserRepository {
   final String memberIdKey = "memberId";
   final String getUserInfoPath = "/member";
   final String signUpPath = "/member";
+  final String loginPath = "/member/register-or-login";
   final String getMemberInfoPath = "/member";
   final String updateBirthDatePath = "/member/birthdate";
   final String blockPath = "/member/block";
@@ -32,6 +33,18 @@ class UserRepository {
     await fetchRefreshTokenFromLocal();
     await networkClient.refreshLogin();
     await fetchMyInfo();
+  }
+
+  /**
+   * @return 로그인 성공 여부 반환.
+   */
+  Future<bool> login(String oAuthProvider, String accessToken) async {
+    var res = await networkClient.request(method: Http.post, path: "$loginPath/$oAuthProvider", headers: {"authorization": "Bearer $accessToken"});
+
+    if(res.jsonMap == null) return false;
+    userResponse = UserResponse.fromJson(res.jsonMap!);
+
+    return true;
   }
 
   Future<void> logout() async {

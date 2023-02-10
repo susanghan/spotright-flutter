@@ -14,7 +14,7 @@ class UserController extends GetxController {
     }
   }
 
-  void signUpWithGoogle() {
+  void signInWithGoogle() {
     oAuthRepository.signUpWithGoogle();
   }
 

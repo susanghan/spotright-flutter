@@ -37,7 +37,7 @@ class _LoginState extends State<Login> {
               height: 180,
               color: SrColors.gray3,
             ),
-            _signInButton("assets/google.svg", "구글 계정으로 로그인", userController.signUpWithGoogle),
+            _signInButton("assets/google.svg", "구글 계정으로 로그인", userController.signInWithGoogle),
             _signInButton("assets/apple.svg", "애플 계정으로 로그인", userController.signInWithApple),
             _signInButton("assets/kakao.svg", "카카오 계정으로 로그인", userController.signInWithKakao, isKakao: true),
           ],
