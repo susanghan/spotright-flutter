@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart' as getx;
 import 'package:http/http.dart';
 import 'package:logger/logger.dart';
@@ -49,8 +50,10 @@ class NetworkClient {
     Response response = (body == null)
         ? await func.call(url, headers: headers)
         : await func.call(url, headers: headers, body: body);
-    logger.log(Level.debug,
-    "$method : $path \x1B[33m${response.statusCode}\x1B[0m >>> headers : ${response.headers} >>> body : ${jsonDecode(utf8.decode(response.bodyBytes))}");
+    debugPrint("$method : $path \x1B[33m${response.statusCode}\x1B[0m "
+        ">>> headers : ${response.headers} "
+        ">>> body : ${jsonDecode(utf8.decode(response.bodyBytes))}"
+        , wrapWidth: 1024);
 
     return response;
   }
