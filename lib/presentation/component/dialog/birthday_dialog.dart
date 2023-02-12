@@ -83,8 +83,9 @@ class _BirthdayDialogState extends State<BirthdayDialog> {
   List<String> range(begin, end) {
     List<String> res = [];
 
-    for(int year = begin; year < end; year++) {
-      res.add(year.toString());
+    for(int number = begin; number < end; number++) {
+      String numberString = number.toString().padLeft(2, "0");
+      res.add(numberString);
     }
 
     return res;

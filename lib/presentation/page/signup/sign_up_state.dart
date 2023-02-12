@@ -22,6 +22,7 @@ class SignUpState {
   RxBool checkedEmail = true.obs;
   RxString id = "".obs;
   RxBool checkedIdDuplication = false.obs;
+  RxString nickname = "".obs;
   var idMessageStatus = MessageStatus.defaultMessage.obs;
   var nicknameMessageStatus = MessageStatus.defaultMessage.obs;
 
@@ -30,7 +31,7 @@ class SignUpState {
   String get nicknameValidationMessage =>
       _nicknameMessageMap[nicknameMessageStatus.value]!;
   RxString birthdate = "2000-01-01".obs;
-  RxInt sex = 0.obs;
+  RxInt sex = 0.obs; // 0: 남자, 1: 여자
   RxBool privacyPolicy = false.obs;
 
   bool get _ctaActive =>

@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:spotright/common/network_client.dart';
 import 'package:spotright/common/network_exception.dart';
 import 'package:spotright/data/model/response_wrapper.dart';
 import 'package:spotright/data/local/local_repository.dart';
+import 'package:spotright/data/user/sign_up_request.dart';
 import 'package:spotright/data/user/user_response.dart';
 
 class UserRepository {
@@ -67,8 +70,9 @@ class UserRepository {
     userResponse = newUserResponse;
   }
 
-  Future<void> signUp() async {
-    await networkClient.request(method: Http.post, path: signUpPath);
+  Future<void> signUp(SignUpRequest body) async {
+    var res = await networkClient.request(method: Http.post, path: signUpPath, body: jsonEncode(body.toJson()));
+    userResponse = UserResponse.fromJson(res.jsonMap!);
   }
 
   Future<void> getMemberInfo(int memberId) async {

@@ -5,7 +5,7 @@ class UserResponse implements ResponseConverter {
   int? followingsCnt;
   int? followersCnt;
   int? blockedsCnt;
-  Null? memberPhoto;
+  String? memberPhoto;
   int? memberSpotsCnt;
   String? spotrightId;
   String? email;

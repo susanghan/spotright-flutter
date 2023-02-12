@@ -7,6 +7,7 @@ import 'package:spotright/presentation/component/buttons/sr_cta_button.dart';
 import 'package:spotright/presentation/component/dialog/birthday_dialog.dart';
 import 'package:spotright/presentation/component/sr_check_box/sr_check_box.dart';
 import 'package:spotright/presentation/component/sr_text_field/sr_text_field.dart';
+import 'package:spotright/presentation/page/home/home.dart';
 import 'package:spotright/presentation/page/signup/sign_up_controller.dart';
 
 class SignUp extends StatefulWidget {
@@ -57,12 +58,18 @@ class _SignUpState extends State<SignUp> {
                 ),
               )),
           Column(children: [
-            Expanded(child: SizedBox.shrink()),
+            const Expanded(child: SizedBox.shrink()),
             Obx(() =>
-                SrCTAButton(
-                  text: '완료',
-                  isEnabled: signUpController.signUpState.ctaActive.value,
-                  action: () {},
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 36, horizontal: 16),
+                  child: SrCTAButton(
+                    text: '완료',
+                    isEnabled: signUpController.signUpState.ctaActive.value,
+                    action: () async {
+                      await signUpController.signup();
+                      Get.to(() => const Home());
+                    },
+                  ),
                 )),
           ]),
         ]),
