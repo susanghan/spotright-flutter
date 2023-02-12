@@ -12,12 +12,14 @@ class SignUpState {
   final Map<MessageStatus, String> _nicknameMessageMap = {
     MessageStatus.defaultMessage: "한글 혹은 영문자를 사용해 10자 이내로 입력해 주세요.",
     MessageStatus.checkLength: '닉네임은 10자 이내여야 합니다.',
-    MessageStatus.checkDuplicate: '한글 혹은 영문자만 입력해 주세요.',
+    MessageStatus.checkSpecialCharacter: '한글 혹은 영문자만 입력해 주세요.',
     MessageStatus.enabled: '사용 가능한 닉네임입니다.',
     MessageStatus.empty: '',
   };
 
   RxString email = "".obs;
+  RxString id = "".obs;
+  RxBool checkedIdDuplication = false.obs;
   var ctaActive = false.obs;
   var idMessageStatus = MessageStatus.defaultMessage.obs;
   var nicknameMessageStatus = MessageStatus.defaultMessage.obs;

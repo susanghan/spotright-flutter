@@ -90,8 +90,11 @@ class UserRepository {
     await networkClient.request(method: Http.post, path: "$followPath/$memberId");
   }
 
-  Future<void> verifyDuplicatedId(String spotrightId) async {
-    await networkClient.request(path: "$verifyDuplicatedIdPath/$spotrightId");
+  Future<bool> verifyDuplicatedId(String spotrightId) async {
+    var res = await networkClient.request(path: "$verifyDuplicatedIdPath/$spotrightId");
+
+    print("중복 검사 호출 $spotrightId ${res.statusCode}");
+    return res.statusCode == 200;
   }
 
   Future<void> updateId(String spotrightId) async {

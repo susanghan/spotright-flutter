@@ -120,7 +120,7 @@ class _SignUpState extends State<SignUp> {
           suffixIcon: Padding(
             padding: EdgeInsets.all(4),
             child: OutlinedButton(
-              onPressed: () {},
+              onPressed: signUpController.verifyDuplicateId,
               child: Text(
                 "중복",
                 style: TextStyle(color: SrColors.white),
