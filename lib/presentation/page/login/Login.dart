@@ -56,9 +56,12 @@ class _LoginState extends State<Login> {
       child: OutlinedButton(
         onPressed: () async {
           bool isSuccessful = await action();
-          if(isSuccessful) return;
+          if(isSuccessful) {
+            Get.to(() => const Home());
+            return;
+          }
 
-          Get.to(SignUp());
+          Get.to(const SignUp());
         },
         style: OutlinedButton.styleFrom(
             backgroundColor: isKakao ? SrColors.kakao : SrColors.white,

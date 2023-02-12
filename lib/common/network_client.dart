@@ -12,7 +12,7 @@ class NetworkClient {
   LocalRepository localRepository = LocalRepository();
   String baseUrl = "spotright-dev.nogamsung.com";
   String prefix = "/api/v1";
-  String? accessToken;
+  String accessToken = "";
   String? refreshToken;
   final String refreshTokenKey = "refreshToken";
   final String refreshTokenPath = "/member/token/renew";
@@ -29,7 +29,7 @@ class NetworkClient {
     await verifyAndRefreshToken();
 
     headers ??= {};
-    headers["authorization"] = headers["authorization"] ?? "";
+    headers["authorization"] = headers["authorization"] ?? accessToken;
 
     return _requestWithLog(method: method, path: path, headers: headers, body: body);
   }
@@ -58,12 +58,29 @@ class NetworkClient {
     return response;
   }
 
+  Future<Response> login({
+    Http method = Http.get,
+    required String path,
+    required Map<String, String> headers,
+  }) async {
+
+    var res = await _requestWithLog(method: method, path: path, headers: headers);
+    Map<String, String>? resHeaders = res.headers;
+    saveRefreshToken(resHeaders);
+
+    return res;
+  }
+
   Future<void> refreshLogin() async {
     if(refreshToken == null && refreshToken!.isEmpty) return;
 
     Map<String, String> requestHeader = {"authorization": refreshToken!};
     var res = await _requestWithLog(path: refreshTokenPath, headers: requestHeader);
-    Map<String, String>? headers = res.headers;
+    Map<String, String> headers = res.headers;
+    saveRefreshToken(headers);
+  }
+
+  void saveRefreshToken(Map<String, String> headers) {
     String? auth = headers["authorization"];
 
     // todo : 실패 케이스 처리

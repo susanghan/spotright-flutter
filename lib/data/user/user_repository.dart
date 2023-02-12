@@ -43,7 +43,7 @@ class UserRepository {
    * @return 로그인 성공 여부 반환.
    */
   Future<bool> login(String oAuthProvider, String accessToken) async {
-    var res = await networkClient.request(method: Http.post, path: "$loginPath/$oAuthProvider", headers: {"authorization": "Bearer $accessToken"});
+    var res = await networkClient.login(method: Http.post, path: "$loginPath/$oAuthProvider", headers: {"authorization": "Bearer $accessToken"});
 
     if(res.jsonMap == null) return false;
     userResponse = UserResponse.fromJson(res.jsonMap!);
