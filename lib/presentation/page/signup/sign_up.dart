@@ -83,6 +83,7 @@ class _SignUpState extends State<SignUp> {
         padding: EdgeInsets.only(bottom: 24),
         child: SrTextField(
           controller: signUpController.emailController,
+          enabled: signUpController.signUpState.emailInputEnabled.value,
           onChanged: (text) {
             signUpController.signUpState.email.value = text;
           },
@@ -96,7 +97,7 @@ class _SignUpState extends State<SignUp> {
                 style: TextStyle(color: SrColors.white),
               ),
               style: OutlinedButton.styleFrom(
-                  backgroundColor: SrColors.primary,
+                  backgroundColor: SrColors.gray9e,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(100))),
             ),

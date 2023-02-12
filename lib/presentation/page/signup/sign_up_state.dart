@@ -18,6 +18,7 @@ class SignUpState {
   };
 
   RxString email = "".obs;
+  RxBool emailInputEnabled = true.obs;
   RxBool checkedEmail = true.obs;
   RxString id = "".obs;
   RxBool checkedIdDuplication = false.obs;

@@ -22,7 +22,9 @@ class SrTextField extends StatelessWidget {
       this.inputBorder,
       this.focusInputBorder,
       this.errorInputBorder,
-      this.prefixIconConstraints})
+      this.prefixIconConstraints,
+      this.enabled = true,
+      })
       : super(key: key);
 
   final String hint;
@@ -34,6 +36,7 @@ class SrTextField extends StatelessWidget {
   final double borderRadius;
   final TextEditingController? controller;
   final double cursorWidth;
+  final bool enabled;
   double? suffixIconHeight, suffixIconWidth;
   Color? backgroundColor;
   InputBorder? inputBorder, focusInputBorder, errorInputBorder;
@@ -51,6 +54,7 @@ class SrTextField extends StatelessWidget {
         textAlign: TextAlign.start,
         textAlignVertical: TextAlignVertical.center,
         onChanged: onChanged,
+        enabled: enabled,
         decoration: InputDecoration(
             filled: backgroundColor==null ? false : true,
             fillColor: backgroundColor,
