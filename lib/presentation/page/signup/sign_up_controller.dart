@@ -20,6 +20,7 @@ class SignUpController extends GetxController {
 
   void onNicknameChanged(String nickname) {
     signUpState.validateNickname(nickname);
+    signUpState.onChangeCtaState();
   }
 
   void selectSex(int sex) {
@@ -28,6 +29,7 @@ class SignUpController extends GetxController {
 
   void changePrivacyPolicy() {
     signUpState.privacyPolicy.value = !signUpState.privacyPolicy.value;
+    signUpState.onChangeCtaState();
   }
 
   void changeBirthdate(String newBirthdate) {
@@ -37,12 +39,20 @@ class SignUpController extends GetxController {
   void initOauthInfo(OAuthResponse oAuthResponse) {
     signUpState.email.value = oAuthResponse.email ?? "";
     emailController.text = signUpState.email.value;
+    signUpState.onChangeCtaState();
   }
 
   void verifyDuplicateId() async {
     bool isUsable = await userRepository.verifyDuplicatedId(signUpState.id.value);
 
     signUpState.checkedIdDuplication.value = isUsable;
-    if(!isUsable) signUpState.idMessageStatus.value = MessageStatus.checkDuplicate;
+
+    if(isUsable) {
+      signUpState.validateIdDuplication(true);
+    } else {
+      signUpState.validateIdDuplication(false);
+      signUpState.idMessageStatus.value = MessageStatus.checkDuplicate;
+    }
+    signUpState.onChangeCtaState();
   }
 }

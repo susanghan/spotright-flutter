@@ -116,6 +116,7 @@ class _SignUpState extends State<SignUp> {
         padding: EdgeInsets.only(bottom: 6),
         child: SrTextField(
           hint: '아이디',
+          controller: TextEditingController(),
           onChanged: signUpController.onIdChanged,
           suffixIcon: Padding(
             padding: EdgeInsets.all(4),

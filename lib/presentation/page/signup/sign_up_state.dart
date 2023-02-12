@@ -18,16 +18,37 @@ class SignUpState {
   };
 
   RxString email = "".obs;
+  RxBool checkedEmail = true.obs;
   RxString id = "".obs;
   RxBool checkedIdDuplication = false.obs;
-  var ctaActive = false.obs;
   var idMessageStatus = MessageStatus.defaultMessage.obs;
   var nicknameMessageStatus = MessageStatus.defaultMessage.obs;
+
   String get idValidationMessage => _idMessageMap[idMessageStatus.value]!;
-  String get nicknameValidationMessage => _nicknameMessageMap[nicknameMessageStatus.value]!;
+
+  String get nicknameValidationMessage =>
+      _nicknameMessageMap[nicknameMessageStatus.value]!;
   RxString birthdate = "2000-01-01".obs;
   RxInt sex = 0.obs;
   RxBool privacyPolicy = false.obs;
+
+  bool get _ctaActive =>
+      checkedEmail.value &&
+      checkedIdDuplication.value &&
+      (nicknameMessageStatus.value == MessageStatus.enabled) &&
+      privacyPolicy.value;
+
+  RxBool ctaActive = false.obs;
+
+  void onChangeCtaState() {
+    print("onChange CTA ${checkedEmail.value} ${checkedIdDuplication.value} ${nicknameMessageStatus.value} ${privacyPolicy.value}");
+
+    ctaActive.value = _ctaActive;
+  }
+
+  void validateIdDuplication(bool checked) {
+    checkedIdDuplication.value = checked;
+  }
 
   void validateId(String id) {
     final regex = RegExp(r'^([0-9a-zA-Z-_]{6,16})$');
