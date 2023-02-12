@@ -1,6 +1,5 @@
-import 'dart:ffi';
-
 import 'package:flutter/widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:spotright/data/oauth/oauth_response.dart';
 import 'package:spotright/data/user/user_repository.dart';
@@ -16,6 +15,8 @@ class SignUpController extends GetxController {
   void onIdChanged(String id) {
     signUpState.id.value = id;
     signUpState.validateId(id);
+    signUpState.checkedIdDuplication.value = false;
+    signUpState.onChangeCtaState();
   }
 
   void onNicknameChanged(String nickname) {
@@ -44,11 +45,15 @@ class SignUpController extends GetxController {
   }
 
   void verifyDuplicateId() async {
-    bool isUsable = await userRepository.verifyDuplicatedId(signUpState.id.value);
+    bool isUsable = await userRepository
+        .verifyDuplicatedId(signUpState.id.value)
+        .catchError((err) {
+          Fluttertoast.showToast(msg: err.toString());
+    });
 
     signUpState.checkedIdDuplication.value = isUsable;
 
-    if(isUsable) {
+    if (isUsable) {
       signUpState.validateIdDuplication(true);
     } else {
       signUpState.validateIdDuplication(false);

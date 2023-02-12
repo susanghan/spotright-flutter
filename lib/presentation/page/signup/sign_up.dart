@@ -117,18 +117,17 @@ class _SignUpState extends State<SignUp> {
         padding: EdgeInsets.only(bottom: 6),
         child: SrTextField(
           hint: '아이디',
-          controller: TextEditingController(),
           onChanged: signUpController.onIdChanged,
           suffixIcon: Padding(
             padding: EdgeInsets.all(4),
             child: OutlinedButton(
               onPressed: signUpController.verifyDuplicateId,
               child: Text(
-                "중복",
+                signUpController.signUpState.checkedIdDuplication.value ? "확인완료" : "중복확인",
                 style: TextStyle(color: SrColors.white),
               ),
               style: OutlinedButton.styleFrom(
-                  backgroundColor: SrColors.primary,
+                  backgroundColor: signUpController.signUpState.checkedIdDuplication.value ? SrColors.gray9e : SrColors.primary,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(100))),
             ),
