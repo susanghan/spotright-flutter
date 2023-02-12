@@ -175,7 +175,7 @@ class _SignUpState extends State<SignUp> {
             Get.dialog(BirthdayDialog(onChanged: (date) {
               signUpController.changeBirthdate(date);
             },
-              defaultDate: "2000-1-1",));
+              defaultDate: signUpController.signUpState.birthdate.value,));
           },
           child: Text(signUpController.signUpState.birthdate.value,
             style: TextStyle(color: SrColors.gray1),),

@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:spotright/presentation/common/colors.dart';
 
 class SrSpinner extends StatelessWidget {
-  const SrSpinner({Key? key, required this.list, required this.onChanged}) : super(key: key);
+  SrSpinner({Key? key, required this.defaultValue, required this.list, required this.onChanged}) : super(key: key);
 
   final List<String> list;
   final Function(String current) onChanged;
+  String defaultValue;
 
   @override
   Widget build(BuildContext context) {
+    PageController controller = PageController(initialPage: list.indexOf(defaultValue), viewportFraction: 0.3);
+
     return Container(
       height: 80,
       width: 54,
@@ -18,7 +21,7 @@ class SrSpinner extends StatelessWidget {
         PageView.builder(
           scrollDirection: Axis.vertical,
           itemCount: list.length,
-          controller: PageController(viewportFraction: 0.3),
+          controller: controller,
           itemBuilder: (_, i) => _buildItem(list[i]),
           onPageChanged: (page) {
             onChanged(list[page]);

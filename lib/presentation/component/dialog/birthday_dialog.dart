@@ -44,15 +44,15 @@ class _BirthdayDialogState extends State<BirthdayDialog> {
                 SrSpinner(list: range(1950, 2023), onChanged: (value) {
                   year = value;
                   widget.onChanged("$year-$month-$day");
-                }),
+                }, defaultValue: year,),
                 SrSpinner(list: range(1, 13), onChanged: (value) {
                   month = value;
                   widget.onChanged("$year-$month-$day");
-                }),
+                }, defaultValue: month),
                 SrSpinner(list: range(1, 32), onChanged: (value) {
                   day = value;
                   widget.onChanged("$year-$month-$day");
-                }),
+                }, defaultValue: day),
               ],
             ),
           ),
