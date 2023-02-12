@@ -47,7 +47,7 @@ class SrTextField extends StatelessWidget {
     return Container(
       height: height,
       child: TextField(
-        controller: controller ?? TextEditingController(),
+        controller: controller,
         cursorColor: SrColors.success,
         cursorWidth: cursorWidth,
         maxLines: maxLines,

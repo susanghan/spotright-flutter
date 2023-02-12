@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:spotright/common/network_client.dart';
+import 'package:spotright/common/network_exception.dart';
 import 'package:spotright/data/model/response_wrapper.dart';
 import 'package:spotright/data/local/local_repository.dart';
 import 'package:spotright/data/user/user_response.dart';
@@ -93,7 +94,7 @@ class UserRepository {
   Future<bool> verifyDuplicatedId(String spotrightId) async {
     var res = await networkClient.request(path: "$verifyDuplicatedIdPath/$spotrightId");
 
-    print("중복 검사 호출 $spotrightId ${res.statusCode}");
+    throw NetworkException("네트워크 요청 중 에러가 발생했습니다. error code 1");
     return res.statusCode == 200;
   }
 
