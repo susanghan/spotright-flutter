@@ -141,7 +141,7 @@ class _SearchLocationState extends State<SearchLocation> {
       prefixIcon: Padding(
         padding: const EdgeInsets.only(left: 16, right: 12),
         child: SvgPicture.asset(
-          'assets/location.svg',
+          'assets/flag_korea.svg',
           width: 20,
           height: 20,
         ),
