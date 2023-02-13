@@ -120,7 +120,9 @@ class UserRepository {
     await networkClient.request(method: Http.delete, path: "$unfollowPath/$memberId");
   }
 
-  Future<void> searchMembersById(String spotrightId) async {
-    await networkClient.request(path: "$searchMembersByIdPath/$spotrightId");
+  Future<List<UserResponse>> searchMembersById(String spotrightId) async {
+    var res = await networkClient.request(path: "$searchMembersByIdPath/$spotrightId");
+    var users = res.list?.map((e) => UserResponse.fromJson(e)).toList();
+    return users ?? [];
   }
 }
