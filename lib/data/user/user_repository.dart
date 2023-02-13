@@ -24,6 +24,7 @@ class UserRepository {
   final String updateIdPath = "/member/spotright-id/update";
   final String unblockPath = "/member/unblock";
   final String unfollowPath = "/member/unfollow";
+  final String searchMembersByIdPath = "/member/spotright-id";
 
   bool get isLoggedIn => networkClient.accessToken != null;
 
@@ -49,6 +50,7 @@ class UserRepository {
 
     if(res.jsonMap == null) return false;
     userResponse = UserResponse.fromJson(res.jsonMap!);
+    localRepository.save(memberIdKey, userResponse!.memberId.toString());
 
     return true;
   }
@@ -76,6 +78,7 @@ class UserRepository {
   Future<void> signUp(SignUpRequest body, String accessToken) async {
     var res = await networkClient.request(method: Http.post, path: signUpPath, body: jsonEncode(body.toJson()), headers: {"authorization": accessToken});
     userResponse = UserResponse.fromJson(res.jsonMap!);
+    localRepository.save(memberIdKey, userResponse!.memberId.toString());
   }
 
   Future<void> getMemberInfo(int memberId) async {
@@ -115,5 +118,9 @@ class UserRepository {
 
   Future<void> unfollow(int memberId) async {
     await networkClient.request(method: Http.delete, path: "$unfollowPath/$memberId");
+  }
+
+  Future<void> searchMembersById(String spotrightId) async {
+    await networkClient.request(path: "$searchMembersByIdPath/$spotrightId");
   }
 }
