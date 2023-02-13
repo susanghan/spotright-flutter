@@ -6,6 +6,7 @@ import 'package:http/http.dart';
 import 'package:logger/logger.dart';
 import 'package:spotright/common/token_util.dart';
 import 'package:spotright/data/local/local_repository.dart';
+import 'package:spotright/data/model/response_wrapper.dart';
 
 class NetworkClient {
   Logger logger = getx.Get.find();
@@ -66,7 +67,9 @@ class NetworkClient {
 
     var res = await _requestWithLog(method: method, path: path, headers: headers);
     Map<String, String>? resHeaders = res.headers;
-    saveRefreshToken(resHeaders);
+
+    print("왜지 ${res.responseWrapper.responseCode}");
+    if(res.responseWrapper.responseCode == "MEMBER_LOGIN") saveRefreshToken(resHeaders);
 
     return res;
   }
