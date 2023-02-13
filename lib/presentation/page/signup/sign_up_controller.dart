@@ -53,6 +53,7 @@ class SignUpController extends GetxController {
         .verifyDuplicatedId(signUpState.id.value)
         .catchError((err) {
       Fluttertoast.showToast(msg: err.toString());
+      return false;
     });
 
     signUpState.checkedIdDuplication.value = isUsable;

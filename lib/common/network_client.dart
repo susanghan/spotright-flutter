@@ -27,7 +27,7 @@ class NetworkClient {
     Map<String, String>? headers,
     String? body
   }) async {
-    if(refreshToken?.isNotEmpty ?? false) await verifyAndRefreshToken();
+    if((refreshToken?.isNotEmpty ?? false) && accessToken.isNotEmpty) await verifyAndRefreshToken();
 
     headers ??= {};
     headers["content-type"] = "application/json";
