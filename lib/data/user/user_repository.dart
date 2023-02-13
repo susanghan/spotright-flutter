@@ -34,9 +34,11 @@ class UserRepository {
   UserResponse? userResponse;
 
   Future<void> loginWithLocalToken() async {
-    await fetchRefreshTokenFromLocal();
-    await networkClient.refreshLogin();
-    await fetchMyInfo();
+    bool hasToken = await fetchRefreshTokenFromLocal();
+    if(hasToken) {
+      await networkClient.refreshLogin();
+      await fetchMyInfo();
+    }
   }
 
   /**
@@ -56,9 +58,10 @@ class UserRepository {
     await localRepository.clear(memberIdKey);
   }
 
-  Future<void> fetchRefreshTokenFromLocal() async {
+  Future<bool> fetchRefreshTokenFromLocal() async {
     String savedRefreshToken = await localRepository.fetch(refreshTokenKey);
     networkClient.refreshToken = savedRefreshToken;
+    return networkClient.refreshToken?.isNotEmpty ?? false;
   }
 
   Future<void> fetchMyInfo() async {
@@ -70,8 +73,8 @@ class UserRepository {
     userResponse = newUserResponse;
   }
 
-  Future<void> signUp(SignUpRequest body) async {
-    var res = await networkClient.request(method: Http.post, path: signUpPath, body: jsonEncode(body.toJson()));
+  Future<void> signUp(SignUpRequest body, String accessToken) async {
+    var res = await networkClient.request(method: Http.post, path: signUpPath, body: jsonEncode(body.toJson()), headers: {"authorization": accessToken});
     userResponse = UserResponse.fromJson(res.jsonMap!);
   }
 

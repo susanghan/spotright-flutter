@@ -30,6 +30,8 @@ class NetworkClient {
     if(refreshToken?.isNotEmpty ?? false) await verifyAndRefreshToken();
 
     headers ??= {};
+    headers["content-type"] = "application/json";
+    headers["accept"] = "*/*";
     headers["authorization"] = headers["authorization"] ?? accessToken;
 
     return _requestWithLog(method: method, path: path, headers: headers, body: body);
@@ -68,7 +70,6 @@ class NetworkClient {
     var res = await _requestWithLog(method: method, path: path, headers: headers);
     Map<String, String>? resHeaders = res.headers;
 
-    print("왜지 ${res.responseWrapper.responseCode}");
     if(res.responseWrapper.responseCode == "MEMBER_LOGIN") saveRefreshToken(resHeaders);
 
     return res;

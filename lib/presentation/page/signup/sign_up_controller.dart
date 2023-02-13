@@ -12,7 +12,7 @@ class SignUpController extends GetxController {
   final UserRepository userRepository = Get.find();
   final SignUpState signUpState;
   final TextEditingController emailController = TextEditingController();
-  String? authProvider;
+  OAuthResponse? oAuthResponse;
 
   void onIdChanged(String id) {
     signUpState.id.value = id;
@@ -41,11 +41,11 @@ class SignUpController extends GetxController {
   }
 
   void initOauthInfo(OAuthResponse oAuthResponse) {
+    this.oAuthResponse = oAuthResponse;
     signUpState.email.value = oAuthResponse.email ?? "";
     emailController.text = signUpState.email.value;
     signUpState.onChangeCtaState();
     signUpState.emailInputEnabled.value = false;
-    authProvider = oAuthResponse.authProvider;
   }
 
   void verifyDuplicateId() async {
@@ -68,13 +68,13 @@ class SignUpController extends GetxController {
 
   Future<void> signup() async {
     SignUpRequest req = SignUpRequest(
-      authProvider: authProvider,
+      authProvider: oAuthResponse!.authProvider,
       birthdate: signUpState.birthdate.value,
       email: signUpState.email.value,
       gender: signUpState.sex.value == 0 ? "MALE" : "FEMALE",
       nickname: signUpState.nickname.value,
       spotrightId: signUpState.id.value,
     );
-    userRepository.signUp(req);
+    await userRepository.signUp(req, "Bearer ${oAuthResponse!.token}");
   }
 }
