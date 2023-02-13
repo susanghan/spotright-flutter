@@ -32,8 +32,6 @@ import 'package:spotright/presentation/page/spot_list/spot_list.dart';
 import 'package:spotright/presentation/page/spot_list/spot_list_controller.dart';
 
 void main() {
-  Firebase.initializeApp();
-  KakaoSdk.init(nativeAppKey: "6141df4779382304859d905edc750579");
   runApp(Spotright());
 }
 
@@ -66,7 +64,7 @@ class _State extends State<Spotright> {
         canvasColor: SrColors.white,
         fontFamily: 'Pretendard'
       ),
-      initialRoute: '/searchLocation',
+      initialRoute: '/login',
       initialBinding: BindingsBuilder(() {
         // 순서 중요
         Get.put(Logger());
@@ -90,5 +88,11 @@ class _State extends State<Spotright> {
       fallbackLocale: const Locale('en', 'US'),
       translations: Languages(),
     );
+  }
+
+  @override
+  void initState() {
+    Firebase.initializeApp();
+    KakaoSdk.init(nativeAppKey: "6141df4779382304859d905edc750579");
   }
 }
