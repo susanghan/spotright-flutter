@@ -27,7 +27,7 @@ class NetworkClient {
     Map<String, String>? headers,
     String? body
   }) async {
-    await verifyAndRefreshToken();
+    if(refreshToken?.isNotEmpty ?? false) await verifyAndRefreshToken();
 
     headers ??= {};
     headers["authorization"] = headers["authorization"] ?? accessToken;
