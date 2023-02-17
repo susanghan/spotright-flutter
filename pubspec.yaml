@@ -47,13 +47,13 @@ dependencies:
   carousel_slider: ^4.2.1
   jwt_decode: ^0.3.1
   fluttertoast: 8.0.8 # 최신버전 8.1.3이 flutter 3.7이상인 버전에서만 정상 동작.
+  flutter_native_splash: ^2.2.9
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^2.0.0
-  flutter_native_splash: ^2.2.9
 
 flutter:
   uses-material-design: true
@@ -85,5 +85,9 @@ flutter:
 flutter_native_splash:
   color: "#FD4F18"
   image: assets/splash.png
+  android_12:
+    icon_background_color: "#FD4F18"
+    image: assets/splash122.png
+
 
 

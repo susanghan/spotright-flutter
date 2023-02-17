@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -43,6 +45,7 @@ class Spotright extends StatefulWidget {
 }
 
 class _State extends State<Spotright> {
+
 
   @override
   Widget build(BuildContext context) {
@@ -92,6 +95,12 @@ class _State extends State<Spotright> {
 
   @override
   void initState() {
+    // Timer(Duration(milliseconds: 1500), () {
+    //   Navigator.push(context, MaterialPageRoute(
+    //       builder: (context) => const Login()
+    //   )
+    //   );
+    // });
     Firebase.initializeApp();
     KakaoSdk.init(nativeAppKey: "6141df4779382304859d905edc750579");
   }
