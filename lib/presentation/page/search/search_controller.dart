@@ -4,7 +4,7 @@ import 'package:spotright/data/user/user_response.dart';
 
 class SearchController extends GetxController {
   UserRepository userRepository = Get.find();
-  RxString searchText = "admin".obs;
+  RxString searchText = "".obs;
   Rx<List<UserResponse>> users = Rx<List<UserResponse>>([]);
 
   void onChangeSearchText(String newSearchText) {
