@@ -31,9 +31,11 @@ class _AddSpotState extends State<AddSpot> {
   void initState() {
     addSpotController.subCategory.value = [];
 
+    addSpotController.selectedMainIndex.value = 0;
     addSpotController.mainIsSelected.value = false;
     addSpotController.selectedMainString.value = null;
 
+    addSpotController.selectedSubIndex.value = 0;
     addSpotController.subIsSelected.value = false;
     addSpotController.selectedSubString.value = null;
   }
@@ -229,6 +231,8 @@ class _AddSpotState extends State<AddSpot> {
                       addSpotController.selectedMainString.value = value;
                       addSpotController.selectedMainIndex.value = Category.mainCategory.indexOf(value!) + 1;
 
+                      addSpotController.subIsSelected.value = false;
+                      addSpotController.selectedSubString.value = null;
                       addSpotController.subCategory.value = Category.subCategories[addSpotController.selectedMainIndex.value]!;
 
                       },
