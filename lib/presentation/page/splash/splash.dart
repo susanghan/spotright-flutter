@@ -4,8 +4,19 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../common/colors.dart';
 
+
+// Timer(Duration(milliseconds: 1500), () {
+//   Navigator.push(context, MaterialPageRoute(
+//       builder: (context) => const Login()
+//   )
+//   );
+// });
+
+//Todo: 그냥 가운데로만 하면 됨. 조정 안 필요함.
 class Splash extends StatelessWidget {
   const Splash({Key? key}) : super(key: key);
+
+
 
   @override
   Widget build(BuildContext context) {
