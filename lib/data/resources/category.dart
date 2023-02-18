@@ -16,4 +16,12 @@ class Category{
     6: ["선택 없음"]
   };
 
+  //subCategory 사용 방법
+  //List<String>? subCategory = category[1]; => 대분류에 의해 선택된 소분류 리스트
+  //String selected = subCategory![3]; => 실제로 선택된 소분류 => 들어온 코드의 [1,3] 자리 수 사용
+  //"대분류 selectedIndex" + "소분류 selectedIndex" .toInt() => 서버한테 줄 때
+
+
+
+
 }
