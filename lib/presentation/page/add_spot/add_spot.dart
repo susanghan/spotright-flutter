@@ -250,6 +250,8 @@ class _AddSpotState extends State<AddSpot> {
                     onChanged: (value) {
                       addSpotController.subIsSelected.value = true;
                       addSpotController.selectedSubString.value = value;
+                      //Todo : 선택 없음과 기타는 코드가 앞임을 주의!! 따로 함수 만들어서 하든가 하기
+                      addSpotController.selectedSubIndex.value = addSpotController.subCategory.value.indexOf(value!);
                     },
                     isSelected: addSpotController.subIsSelected.value,
                     selectedString: addSpotController.selectedSubString.value),
