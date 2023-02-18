@@ -63,7 +63,7 @@ class _SearchState extends State<Search> {
     );
   }
 
-  Widget _Profile(UserResponse user) {
+  Widget _Profile(UserResponse user, {bool isRecentSearch = false}) {
     return Container(
       margin: EdgeInsets.only(bottom: 30),
       child: Row(children: [
@@ -81,13 +81,13 @@ class _SearchState extends State<Search> {
           ],
         ),
         Spacer(),
-        SvgPicture.asset("assets/delete.svg", color: SrColors.gray1,)
+        if(isRecentSearch) SvgPicture.asset("assets/delete.svg", color: SrColors.gray1,)
       ]),
     );
   }
 
   Widget ProfilePhoto(String? photoUrl) {
-    if(photoUrl == null) return Container(color: SrColors.gray3,);
+    if(photoUrl == null) return Image(image: AssetImage("assets/user_profile_default_small.png"));
 
     return CircleAvatar(
         backgroundColor: SrColors.white,
