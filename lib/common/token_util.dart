@@ -11,7 +11,7 @@ class TokenUtil {
 
     if(expiryDate == null) return false;
 
-    return targetTime.isAfter(expiryDate);
+    return targetTime.isBefore(expiryDate);
   }
 
   List<String> getTokens(String authorization) {

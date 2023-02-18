@@ -5,7 +5,7 @@ import 'package:spotright/data/user/user_response.dart';
 class MyPageController extends GetxController {
   UserRepository userRepository = Get.find();
 
-  Rx<UserResponse> userResponse = Rx<UserResponse>(UserResponse());
+  Rx<UserResponse> userResponse = Rx<UserResponse>(UserResponse(memberId: 0));
 
   void initState() {
     userResponse.value = userRepository.userResponse!;

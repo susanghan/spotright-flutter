@@ -7,18 +7,26 @@ import 'package:spotright/presentation/page/following/following.dart';
 import 'package:spotright/presentation/page/my_page/my_page.dart';
 
 class SrAppBar extends StatefulWidget {
-  SrAppBar(
-      {Key? key,
-      this.userName = '',
-      this.spots = 0,
-      this.followers = 0,
-      this.followings = 0})
-      : super(key: key);
+  SrAppBar({
+    Key? key,
+    this.userName = '',
+    this.spots = 0,
+    this.followers = 0,
+    this.followings = 0,
+    this.isMyPage = true,
+    this.follow,
+    this.unfollow,
+    this.isFollow = false,
+  }) : super(key: key);
 
   String userName;
   int spots;
   int followers;
   int followings;
+  bool isFollow;
+  bool isMyPage;
+  Function()? follow;
+  Function()? unfollow;
   List<bool> selectedChips = [
     true,
     false,
@@ -76,7 +84,7 @@ class _SrAppBarState extends State<SrAppBar> {
                     height: 64,
                     margin: EdgeInsets.only(bottom: 4),
                     child: CircleAvatar(
-                      backgroundColor: SrColors.white,
+                        backgroundColor: SrColors.white,
                         radius: 100,
                         backgroundImage:
                             NetworkImage('https://picsum.photos/200')),
@@ -127,34 +135,74 @@ class _SrAppBarState extends State<SrAppBar> {
                       ],
                     ),
                     Padding(padding: EdgeInsets.only(bottom: 8)),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 26,
-                      child: TextButton(
-                        onPressed: () {
-                          Get.to(MyPage());
-                        },
-                        child: Text(
-                          '마이페이지',
-                          style: TextStyle(
-                            color: SrColors.gray1,
-                          ),
-                        ),
-                        style: TextButton.styleFrom(
-                            padding: EdgeInsets.zero,
-                            backgroundColor: SrColors.gray3,
-                            minimumSize: Size.fromHeight(24),
-                            fixedSize: Size.fromHeight(24),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(100))),
-                      ),
-                    ),
+                    widget.isMyPage ? _MyPage() : _ProfileMenus(),
                   ],
                 ),
               ),
             )
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _MyPage() {
+    return SizedBox(
+      width: double.infinity,
+      height: 26,
+      child: TextButton(
+        onPressed: () {
+          Get.to(MyPage());
+        },
+        child: Text(
+          '마이페이지',
+          style: TextStyle(
+            color: SrColors.gray1,
+          ),
+        ),
+        style: TextButton.styleFrom(
+            padding: EdgeInsets.zero,
+            backgroundColor: SrColors.gray3,
+            minimumSize: Size.fromHeight(24),
+            fixedSize: Size.fromHeight(24),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(100))),
+      ),
+    );
+  }
+
+  Widget _ProfileMenus() {
+    return SizedBox(
+      height: 26,
+      child: Row(
+        children: [
+          Expanded(
+              child: Padding(
+            padding: EdgeInsets.only(right: 8),
+            child: OutlinedButton(
+              onPressed: widget.isFollow ? widget.unfollow : widget.follow,
+              child: Text(widget.isFollow ? "팔로잉" : "팔로우",
+              style: TextStyle(
+                color: widget.isFollow ? SrColors.primary : SrColors.white
+              ),),
+              style: OutlinedButton.styleFrom(
+                backgroundColor: widget.isFollow ? SrColors.white : SrColors.primary,
+                  side: BorderSide(
+                    color: SrColors.primary,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(100),
+                  )),
+            ),
+          )),
+          GestureDetector(
+            onTap: () {},
+              child: SvgPicture.asset(
+            "assets/report.svg",
+            color: SrColors.gray2,
+            width: 24,
+          ))
+        ],
       ),
     );
   }

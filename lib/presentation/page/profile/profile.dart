@@ -5,29 +5,31 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:spotright/data/user/user_response.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/appbars/sr_app_bar.dart';
-import 'package:spotright/presentation/page/add_spot/add_spot.dart';
-import 'package:spotright/presentation/page/home/home_controller.dart';
+import 'package:spotright/presentation/page/profile/profile_controller.dart';
 import 'package:spotright/presentation/page/search/search.dart';
 import 'package:spotright/presentation/page/spot_list/spot_list.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class Profile extends StatefulWidget {
+  Profile({Key? key, required this.user}) : super(key: key);
+
+  UserResponse user;
 
   @override
-  State<Home> createState() => _HomeState();
+  State<Profile> createState() => _ProfileState();
 }
 
-class _HomeState extends State<Home> {
+class _ProfileState extends State<Profile> {
   Completer<GoogleMapController> _mapController = Completer();
-  HomeController homeController = Get.find();
+  late ProfileController? profileController;
 
   @override
   void initState() {
     super.initState();
-    homeController.initState();
+    profileController = Get.put(ProfileController(user: widget.user));
   }
 
   Future<LatLng> _currentLocation() async {
@@ -55,23 +57,24 @@ class _HomeState extends State<Home> {
     return SafeArea(
       child: Scaffold(
         appBar: DefaultAppBar(
-          title: homeController.userInfo?.value.spotrightId ?? "",
-          actions: [
-            GestureDetector(
-              onTap: () {
-                Get.to(Search());
-              },
-              child: Padding(
-                padding: EdgeInsets.only(right: 20),
-                child: SvgPicture.asset(
-                  'assets/search.svg',
-                  color: SrColors.primary,
-                  width: 24,
-                  height: 24,
+            title: profileController?.user.spotrightId ?? "",
+            hasBackButton: true,
+            actions: [
+              GestureDetector(
+                onTap: () {
+                  Get.to(Search());
+                },
+                child: Padding(
+                  padding: EdgeInsets.only(right: 20),
+                  child: SvgPicture.asset(
+                    'assets/search.svg',
+                    color: SrColors.primary,
+                    width: 24,
+                    height: 24,
+                  ),
                 ),
-              ),
-            )
-          ]
+              )
+            ]
         ),
         body: Stack(alignment: Alignment.bottomCenter, children: [
           GoogleMap(
@@ -89,10 +92,14 @@ class _HomeState extends State<Home> {
             },
           ),
           SrAppBar(
-            userName: homeController.userInfo?.value.nickname ?? "",
-            spots: homeController.userInfo?.value.memberSpotsCnt ?? 0,
-            followers: homeController.userInfo?.value.followersCnt ?? 0,
-            followings: homeController.userInfo?.value.followingsCnt ?? 0,
+            userName: profileController?.user.nickname ?? "",
+            spots: profileController?.user.memberSpotsCnt ?? 0,
+            followers: profileController?.user.followersCnt ?? 0,
+            followings: profileController?.user.followingsCnt ?? 0,
+            isMyPage: false,
+            follow: profileController?.follow,
+            unfollow: profileController?.unFollow,
+            isFollow: true,
           ),
           GestureDetector(
             onTap: () {
@@ -107,7 +114,7 @@ class _HomeState extends State<Home> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(100)),
                 child:
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   Padding(
                       padding: EdgeInsets.only(right: 4),
                       child: Icon(Icons.menu)),
@@ -121,29 +128,11 @@ class _HomeState extends State<Home> {
           ),
           Container(
             alignment: Alignment.bottomRight,
-            height: 172,
-            margin: EdgeInsets.only(right: 16),
+            margin: EdgeInsets.only(right: 16, bottom: 72),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                GestureDetector(
-                  onTap: () {
-                    Get.to(AddSpot());
-                  },
-                  child: Container(
-                    width: 44,
-                    height: 44,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(100),
-                        color: SrColors.primary),
-                    child: SvgPicture.asset(
-                      "assets/plus.svg",
-                      color: SrColors.white,
-                      fit: BoxFit.scaleDown,
-                    ),
-                    margin: EdgeInsets.only(bottom: 12),
-                  ),
-                ),
+                Spacer(),
                 GestureDetector(
                   onTap: () {
                     _currentLocation();
