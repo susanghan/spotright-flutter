@@ -7,6 +7,7 @@ import '../../../data/resources/category.dart';
 
 class AddSpotController extends GetxController{
 
+  //_SelectSpotCategory
   final List<String> mainCategory = Category.mainCategory;
   final List<Color> mainCategoryColors = Category.mainCategoryColors;
   RxList<String> subCategory = [""].obs;
@@ -19,7 +20,8 @@ class AddSpotController extends GetxController{
   RxBool subIsSelected = false.obs;
   Rxn<String> selectedSubString = Rxn<String>();
 
-
+  //_InputVisitation
+  RxBool isVisited = false.obs;
 
 
 }

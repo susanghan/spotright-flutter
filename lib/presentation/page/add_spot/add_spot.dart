@@ -38,6 +38,8 @@ class _AddSpotState extends State<AddSpot> {
     addSpotController.selectedSubIndex.value = 0;
     addSpotController.subIsSelected.value = false;
     addSpotController.selectedSubString.value = null;
+
+    addSpotController.isVisited.value = false;
   }
 
   @override
@@ -289,21 +291,31 @@ class _AddSpotState extends State<AddSpot> {
     return [
       _TextFieldLabel("방문한 장소인가요?", true),
       Padding(
-        padding: const EdgeInsets.only(top: 8, left: 16, bottom: 16, right: 16),
+        padding: const EdgeInsets.only(top: 8, left: 16, bottom: 17, right: 16),
         child: Row(
           children: [
             Flexible(
-              child: Row(children: [
-                Padding(padding: EdgeInsets.only(right: 12), child: Text("예")),
-                SrCheckBox(value: true, onChanged: (checked) {}),
-              ]),
+              child: Obx(()=>GestureDetector(
+                onTap: (){
+                  addSpotController.isVisited.value = true;
+                },
+                child: Row(children: [
+                  const Padding(padding: EdgeInsets.only(right: 8), child: Text("예")),
+                  SrCheckBox(value: addSpotController.isVisited.value, onChanged: (checked) { }),
+                ]),
+              ),)
             ),
             Flexible(
-              child: Row(children: [
-                Padding(
-                    padding: EdgeInsets.only(right: 12), child: Text("아니오")),
-                SrCheckBox(value: true, onChanged: (checked) {}),
-              ]),
+              child: Obx(()=>GestureDetector(
+                onTap: (){
+                  addSpotController.isVisited.value = false;
+                },
+                child: Row(children: [
+                  const Padding(
+                      padding: EdgeInsets.only(right: 8), child: Text("아니오")),
+                  SrCheckBox(value: !addSpotController.isVisited.value, onChanged: (checked) { }),
+                ]),
+              ),)
             ),
           ],
         ),
