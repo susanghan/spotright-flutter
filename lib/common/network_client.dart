@@ -53,9 +53,9 @@ class NetworkClient {
     Response response = (body == null)
         ? await func.call(url, headers: headers)
         : await func.call(url, headers: headers, body: body);
-    debugPrint("$method : $path \x1B[33m${response.statusCode}\x1B[0m "
-        ">>> headers : ${response.headers} "
-        ">>> body : ${jsonDecode(utf8.decode(response.bodyBytes))}"
+    logger.d("$method : $path \x1B[33m${response.statusCode}\x1B[0m "
+        ">>> headers : ${response.headers} ");
+    if(response.body.isNotEmpty) debugPrint(">>> body : ${jsonDecode(utf8.decode(response.bodyBytes))}"
         , wrapWidth: 1024);
 
     return response;
