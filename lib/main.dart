@@ -12,6 +12,8 @@ import 'package:spotright/data/local/local_repository.dart';
 import 'package:spotright/data/user/user_repository.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/common/language.dart';
+import 'package:spotright/presentation/page/add_spot/add_spot.dart';
+import 'package:spotright/presentation/page/add_spot/add_spot_controller.dart';
 import 'package:spotright/presentation/page/block_list/block_list.dart';
 import 'package:spotright/presentation/page/congratulation/congratulation.dart';
 import 'package:spotright/presentation/page/detail/detail.dart';
@@ -61,6 +63,7 @@ class _State extends State<Spotright> {
         '/login': (context) => const Login(),
         '/congratulation': (context) => const Congratulation(),
         '/searchLocation': (context) => const SearchLocation(),
+        '/addSpot': (context) => const AddSpot(),
       },
       theme: ThemeData(
         primarySwatch: SrColors.materialPrimary,
@@ -86,6 +89,7 @@ class _State extends State<Spotright> {
         Get.put(UserController());
         Get.put(HomeController());
         Get.put(SearchLocationController());
+        Get.put(AddSpotController());
       }),
       locale: Get.deviceLocale,
       fallbackLocale: const Locale('en', 'US'),
@@ -95,12 +99,7 @@ class _State extends State<Spotright> {
 
   @override
   void initState() {
-    // Timer(Duration(milliseconds: 1500), () {
-    //   Navigator.push(context, MaterialPageRoute(
-    //       builder: (context) => const Login()
-    //   )
-    //   );
-    // });
+    LocalRepository().save("memberId", "2");
     Firebase.initializeApp();
     KakaoSdk.init(nativeAppKey: "6141df4779382304859d905edc750579");
   }

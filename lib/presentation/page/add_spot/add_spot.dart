@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:spotright/data/resources/category.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/buttons/sr_attach_picture.dart';
@@ -8,6 +9,7 @@ import 'package:spotright/presentation/component/buttons/sr_cta_button.dart';
 import 'package:spotright/presentation/component/buttons/sr_rating_button.dart';
 import 'package:spotright/presentation/component/sr_check_box/sr_check_box.dart';
 import 'package:spotright/presentation/component/sr_text_field/sr_text_field.dart';
+import 'package:spotright/presentation/page/add_spot/add_spot_controller.dart';
 import 'package:spotright/presentation/page/search_location/search_location.dart';
 import '../../component/buttons/sr_dropdown_button.dart';
 
@@ -18,43 +20,24 @@ class AddSpot extends StatefulWidget {
   State<AddSpot> createState() => _AddSpotState();
 }
 
-String? selectedString;
+AddSpotController addSpotController = Get.find();
 
-
-final List<String> mainCategory = ["식당", "카페", "관광지", "숙소", "쇼핑", "병원", "기타"];
-final List<Color> mainCategoryColors = [
-  SrColors.restaurant,
-  SrColors.cafe,
-  SrColors.tour,
-  SrColors.accommodation,
-  SrColors.shopping,
-  SrColors.hospital,
-  SrColors.etc
-];
-final List<String> subCategoryRestaurant = [
-  "아시안",
-  "패스트푸드",
-  "양식",
-  "조식",
-  "멕시칸",
-  "중식",
-  "일식",
-  "한식",
-  "건강식",
-  "기타"
-];
-
-final List<String> subCategoryAccommodation = [
-  "호텔 & 리조트",
-  "모텔",
-  "펜션&풀빌라",
-  "에어비앤비",
-  "캠핑&글램핑",
-  "게스트하우스",
-  "기타"
-];
+final List<String> mainCategory = addSpotController.mainCategory;
+final List<Color> mainCategoryColors = addSpotController.mainCategoryColors;
+//List<String> subCategory = [];
 
 class _AddSpotState extends State<AddSpot> {
+  @override
+  void initState() {
+    addSpotController.subCategory.value = [];
+
+    addSpotController.mainIsSelected.value = false;
+    addSpotController.selectedMainString.value = null;
+
+    addSpotController.subIsSelected.value = false;
+    addSpotController.selectedSubString.value = null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -129,7 +112,9 @@ class _AddSpotState extends State<AddSpot> {
             highlightElevation: 0,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-            onPressed: () { Get.to(SearchLocation());},
+            onPressed: () {
+              Get.to(SearchLocation());
+            },
             color: SrColors.primary,
             splashColor: SrColors.primary,
             highlightColor: SrColors.primary,
@@ -221,42 +206,56 @@ class _AddSpotState extends State<AddSpot> {
 
   List<Widget> _SelectSpotCategory() {
     return [
-      _TextFieldLabel("카테고리를 입력해 주세요", false,),
-      GestureDetector(
-        onTap: (){
+      _TextFieldLabel(
+        "카테고리를 입력해 주세요",
+        false,
+      ),
+      Padding(
+        padding: EdgeInsets.only(bottom: 16),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Flexible(
+              flex: 1,
+              child: Obx(
+                () => SrDropdownButton(
+                    hasIcon: true,
+                    isRequired: true,
+                    dropdownItems: mainCategory,
+                    hint: '대분류',
+                    dropdownIconColors: mainCategoryColors,
+                    onChanged: (value) {
+                      addSpotController.mainIsSelected.value = true;
+                      addSpotController.selectedMainString.value = value;
+                      addSpotController.selectedMainIndex.value = Category.mainCategory.indexOf(value!) + 1;
 
-        },
-        child: Padding(
-          padding: EdgeInsets.only(bottom: 16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Flexible(
-                flex: 1,
-                child: SrDropdownButton(
-                  hasIcon: true,
-                  isRequired: true,
-                  dropdownItems: mainCategory,
-                  hint: '대분류',
-                  dropdownIconColors: mainCategoryColors,
-                  onChanged: (String? value) {},
-                ),
+                      addSpotController.subCategory.value = Category.subCategories[addSpotController.selectedMainIndex.value]!;
+
+                      },
+                    isSelected: addSpotController.mainIsSelected.value,
+                    selectedString: addSpotController.selectedMainString.value),
               ),
-              const SizedBox(
-                width: 6,
+            ),
+            const SizedBox(
+              width: 6,
+            ),
+            Flexible(
+              flex: 1,
+              child: Obx(
+                    () => SrDropdownButton(
+                    hasIcon: false,
+                    isRequired: false,
+                    dropdownItems: addSpotController.subCategory.value,
+                    hint: '소분류',
+                    onChanged: (value) {
+                      addSpotController.subIsSelected.value = true;
+                      addSpotController.selectedSubString.value = value;
+                    },
+                    isSelected: addSpotController.subIsSelected.value,
+                    selectedString: addSpotController.selectedSubString.value),
               ),
-              Flexible(
-                flex: 1,
-                child: SrDropdownButton(
-                  hasIcon: false,
-                  isRequired: false,
-                  dropdownItems: subCategoryRestaurant,
-                  hint: '소분류',
-                  onChanged: (String? value) {},
-                ),
-              ),
+            ),
             ],
-          ),
         ),
       )
     ];
@@ -323,7 +322,7 @@ class _AddSpotState extends State<AddSpot> {
     return [
       _TextFieldLabel("사진 첨부", false),
       Padding(
-        padding: EdgeInsets.only(top: 8, bottom: 16),
+          padding: EdgeInsets.only(top: 8, bottom: 16),
           child: SrAttachPiture()),
     ];
   }

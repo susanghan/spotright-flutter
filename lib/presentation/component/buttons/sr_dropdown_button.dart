@@ -14,7 +14,9 @@ class SrDropdownButton extends StatefulWidget {
       required this.hasIcon,
       this.dropdownIconColors,
       required this.isRequired,
-      this.buttonWidth})
+      this.buttonWidth,
+      required this.isSelected,
+      this.selectedString})
       : super(key: key);
 
   String hint; //카테고리 제몰
@@ -23,6 +25,9 @@ class SrDropdownButton extends StatefulWidget {
   final bool hasIcon; //드롭다운 아이템이 앞에 아이콘을 갖고 있는지
   bool isRequired; //필수 항목인지(글자 표시됨)
   List<Color>? dropdownIconColors; //드롭다운 아이템이 갖고 있는 아이콘의 색들
+
+  bool isSelected = false;
+  String? selectedString;
 
   DropdownButtonBuilder? selectedItemBuilder;
   Alignment? hintAlignment;
@@ -56,8 +61,6 @@ class _SrDropdownState extends State<SrDropdownButton> {
   bool isActive = false;
   Color activeButtonColor = SrColors.gray2;
 
-  bool isSelected = false;
-  String? selectedString;
 
   @override
   Widget build(BuildContext context) {
@@ -125,13 +128,8 @@ class _SrDropdownState extends State<SrDropdownButton> {
                 ))
             .toList(),
 
-        onChanged: (value) {
-          setState(() {
-            isSelected = true;
-            selectedString = value as String?;
-          });
-        },
-        value: selectedString,
+        onChanged: widget.onChanged,
+        value: widget.selectedString,
         selectedItemBuilder: widget.selectedItemBuilder,
         onMenuStateChange: (isOpened) {
           setState(() {
@@ -162,7 +160,7 @@ class _SrDropdownState extends State<SrDropdownButton> {
         iconDisabledColor: SrColors.gray2,
         buttonHeight: widget.buttonHeight ?? 46,
         buttonWidth: widget.buttonWidth,
-        buttonPadding: isSelected
+        buttonPadding: widget.isSelected
             ? const EdgeInsets.only(left: 0, right: 16)
             : const EdgeInsets.symmetric(horizontal: 16),
         //widget.buttonPadding ,
