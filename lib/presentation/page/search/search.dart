@@ -5,6 +5,7 @@ import 'package:spotright/data/user/user_response.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/sr_text_field/sr_text_field.dart';
+import 'package:spotright/presentation/page/profile/profile.dart';
 import 'package:spotright/presentation/page/search/search_controller.dart';
 
 class Search extends StatefulWidget {
@@ -64,25 +65,28 @@ class _SearchState extends State<Search> {
   }
 
   Widget _Profile(UserResponse user, {bool isRecentSearch = false}) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 30),
-      child: Row(children: [
-        Container(
-          width: 60,
-          height: 60,
-          margin: EdgeInsets.only(right: 16),
-          child: ProfilePhoto(user.memberPhoto?.photoUrl),
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(user.spotrightId ?? "UNKNOWN"),
-            Text(user.nickname ?? "UNKNOWN"),
-          ],
-        ),
-        Spacer(),
-        if(isRecentSearch) SvgPicture.asset("assets/delete.svg", color: SrColors.gray1,)
-      ]),
+    return GestureDetector(
+      onTap: () => {Get.to(Profile(user: user))},
+      child: Container(
+        margin: EdgeInsets.only(bottom: 30),
+        child: Row(children: [
+          Container(
+            width: 60,
+            height: 60,
+            margin: EdgeInsets.only(right: 16),
+            child: ProfilePhoto(user.memberPhoto?.photoUrl),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(user.spotrightId ?? "UNKNOWN"),
+              Text(user.nickname ?? "UNKNOWN"),
+            ],
+          ),
+          Spacer(),
+          if(isRecentSearch) SvgPicture.asset("assets/delete.svg", color: SrColors.gray1,)
+        ]),
+      ),
     );
   }
 
