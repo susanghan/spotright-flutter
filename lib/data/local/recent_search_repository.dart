@@ -1,29 +1,32 @@
 import 'dart:convert';
 
+import 'package:get/get.dart';
 import 'package:spotright/data/local/local_repository.dart';
+import 'package:spotright/data/model/response_wrapper.dart';
+import 'package:spotright/data/user/user_response.dart';
 
 class RecentSearchRepository {
   final String key = "recentSearch";
   final LocalRepository localRepository = LocalRepository();
   final numberOfData = 20;
 
-  // todo : 나중에 String이 아니라 data model로 바뀌어야 함.
-  void saveSearch(String searchData) async {
-    List<String> savedData = await getRecentSearch();
+  void saveSearch(UserResponse searchData) async {
+    List<UserResponse> savedData = await getRecentSearch();
 
     // 중복 제거
-    savedData.remove(searchData);
+    savedData.remove(savedData
+        .firstWhereOrNull((user) => user.memberId == searchData.memberId));
     savedData.insert(0, searchData);
 
-    if(savedData.length > numberOfData) {
+    if (savedData.length > numberOfData) {
       savedData.removeLast();
     }
 
-    localRepository.save(key, savedData.toString());
+    localRepository.save(key, jsonEncode(savedData));
   }
 
-  Future<List<String>> getRecentSearch() async {
+  Future<List<UserResponse>> getRecentSearch() async {
     String jsonString = await localRepository.fetch(key);
-    return (jsonDecode(jsonString) as List<dynamic>).cast<String>();
+    return (jsonDecode(jsonString) as List<dynamic>).map((e) => UserResponse.fromJson(e)).toList();
   }
 }

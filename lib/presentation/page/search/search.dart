@@ -66,7 +66,10 @@ class _SearchState extends State<Search> {
 
   Widget _Profile(UserResponse user, {bool isRecentSearch = false}) {
     return GestureDetector(
-      onTap: () => {Get.to(Profile(user: user))},
+      onTap: () {
+        Get.to(Profile(user: user));
+        searchController.saveRecentSearch(user);
+      },
       child: Container(
         margin: EdgeInsets.only(bottom: 30),
         child: Row(children: [
