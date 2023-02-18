@@ -24,13 +24,13 @@ class ResponseConverter {
 
 extension StringExtension on String {
   Map<String, dynamic>? get jsonMap {
-    return ResponseWrapper.fromJson(jsonDecode(this)).data as Map<String, dynamic>;
+    return ResponseWrapper.fromJson(jsonDecode(this)).data as Map<String, dynamic>?;
   }
 }
 
 extension Uint8ListExtension on Uint8List {
   Map<String, dynamic>? get jsonMap {
-    return ResponseWrapper.fromJson(jsonDecode(utf8.decode(this))).data as Map<String, dynamic>;
+    return ResponseWrapper.fromJson(jsonDecode(utf8.decode(this))).data as Map<String, dynamic>?;
   }
 }
 
@@ -40,10 +40,10 @@ extension ResponseExtension on Response {
   }
 
   Map<String, dynamic>? get jsonMap {
-    return responseWrapper.data as Map<String, dynamic>;
+    return responseWrapper.data as Map<String, dynamic>?;
   }
 
   List<dynamic>? get list {
-    return responseWrapper.data as List<dynamic>;
+    return responseWrapper.data as List<dynamic>?;
   }
 }
