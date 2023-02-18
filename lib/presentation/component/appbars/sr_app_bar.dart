@@ -14,13 +14,19 @@ class SrAppBar extends StatefulWidget {
     this.followers = 0,
     this.followings = 0,
     this.isMyPage = true,
+    this.follow,
+    this.unfollow,
+    this.isFollow = false,
   }) : super(key: key);
 
   String userName;
   int spots;
   int followers;
   int followings;
+  bool isFollow;
   bool isMyPage;
+  Function()? follow;
+  Function()? unfollow;
   List<bool> selectedChips = [
     true,
     false,
@@ -174,9 +180,13 @@ class _SrAppBarState extends State<SrAppBar> {
               child: Padding(
             padding: EdgeInsets.only(right: 8),
             child: OutlinedButton(
-              onPressed: () {},
-              child: Text("팔로잉"),
+              onPressed: widget.isFollow ? widget.unfollow : widget.follow,
+              child: Text(widget.isFollow ? "팔로잉" : "팔로우",
+              style: TextStyle(
+                color: widget.isFollow ? SrColors.primary : SrColors.white
+              ),),
               style: OutlinedButton.styleFrom(
+                backgroundColor: widget.isFollow ? SrColors.white : SrColors.primary,
                   side: BorderSide(
                     color: SrColors.primary,
                   ),

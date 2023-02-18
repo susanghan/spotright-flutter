@@ -24,7 +24,7 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   Completer<GoogleMapController> _mapController = Completer();
-  ProfileController? profileController;
+  late ProfileController? profileController;
 
   @override
   void initState() {
@@ -97,6 +97,9 @@ class _ProfileState extends State<Profile> {
             followers: profileController?.user.followersCnt ?? 0,
             followings: profileController?.user.followingsCnt ?? 0,
             isMyPage: false,
+            follow: profileController?.follow,
+            unfollow: profileController?.unFollow,
+            isFollow: true,
           ),
           GestureDetector(
             onTap: () {
