@@ -80,9 +80,13 @@ class _ReportDialogState extends State<ReportDialog> {
               .map((entry) => Row(children: [
             SrCheckBox(
               size: 24,
-              value: true,
+              value: entry.key == selectedKey,
               onChanged: (bool checked) {
-
+                if(checked) {
+                  setState(() {
+                    selectedKey = entry.key;
+                  });
+                }
               },
             ),
             Padding(padding: EdgeInsets.only(right: 12)),

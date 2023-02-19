@@ -230,7 +230,10 @@ class _SrAppBarState extends State<SrAppBar> {
                 ReportDialog(
                   title: "사용자 신고사유",
                   options: ReportOptions.options,
-                  onFinish: widget.report,
+                  onFinish: (String type, String reason) {
+                    Get.back();
+                    widget.report?.call(type, reason);
+                  },
                 )
               );
             },
