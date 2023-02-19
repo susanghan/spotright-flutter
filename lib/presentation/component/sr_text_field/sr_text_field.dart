@@ -20,6 +20,7 @@ class SrTextField extends StatelessWidget {
       this.controller,
       this.backgroundColor,
       this.inputBorder,
+      this.enableBorder,
       this.focusInputBorder,
       this.errorInputBorder,
       this.prefixIconConstraints,
@@ -39,7 +40,7 @@ class SrTextField extends StatelessWidget {
   final bool enabled;
   double? suffixIconHeight, suffixIconWidth;
   Color? backgroundColor;
-  InputBorder? inputBorder, focusInputBorder, errorInputBorder;
+  InputBorder? inputBorder, enableBorder, focusInputBorder, errorInputBorder;
   BoxConstraints? prefixIconConstraints;
 
   @override
@@ -67,6 +68,7 @@ class SrTextField extends StatelessWidget {
             border: inputBorder ?? OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
                 borderSide: const BorderSide(width: 1, color: SrColors.gray3)),
+            enabledBorder: enableBorder,
             focusedBorder: focusInputBorder ?? OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
                 borderSide: const BorderSide(width: 1, color: SrColors.success)),

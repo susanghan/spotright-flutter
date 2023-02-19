@@ -27,6 +27,7 @@ class _SearchLocationState extends State<SearchLocation> {
   Completer<GoogleMapController> _mapController = Completer();
   SearchLocationController searchLocationController = Get.find();
 
+
   Future<LatLng> _currentLocation() async {
     final GoogleMapController controller = await _mapController.future;
     LocationData? currentLocation;
@@ -47,12 +48,19 @@ class _SearchLocationState extends State<SearchLocation> {
     }
   }
 
+
+  @override
+  void initState() {
+    searchLocationController.initState();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: DefaultAppBar(
-          title: "${searchLocationController.userInfo?.value.memberId}",
+          title: searchLocationController.userInfo?.value.spotrightId ?? "",
           hasBackButton: true,
         ),
         body: Stack(children: [
@@ -67,10 +75,10 @@ class _SearchLocationState extends State<SearchLocation> {
                 //Todo : prefix 아이콘 상태에 따라서 가능하게 컨트롤러 만들어서 컨트롤, 지금은 정적 화면만
                 _SearchField(),
                 const Padding(padding: EdgeInsets.only(bottom: 4)),
-                Align(
-                  child: _ResultList(),
-                  alignment: Alignment.centerLeft,
-                ),
+                // Align(
+                //   child: _ResultList(),
+                //   alignment: Alignment.centerLeft,
+                // ),
                 Spacer(),
                 Align(
                   child: _UserLocation(),
@@ -90,7 +98,7 @@ class _SearchLocationState extends State<SearchLocation> {
   }
 
   Widget _GoogleMap() {
-    return GoogleMap(
+    return Obx(() => GoogleMap(
       zoomControlsEnabled: false,
       myLocationButtonEnabled: false,
       myLocationEnabled: true,
@@ -103,7 +111,15 @@ class _SearchLocationState extends State<SearchLocation> {
         _mapController.complete(controller);
         _currentLocation();
       },
-    );
+      markers: {
+        Marker(
+          markerId: const MarkerId("marker1"),
+          position: const LatLng(37.510181246, 127.043505829),
+          draggable: true,
+          icon: searchLocationController.getMarkerImage(),
+        ),
+      },
+    ));
   }
 
   Widget _UserLocation() {
@@ -127,27 +143,141 @@ class _SearchLocationState extends State<SearchLocation> {
   }
 
   Widget _SearchField() {
-    return SrTextField(
-      height: 36,
-      borderRadius: 20,
-      hint: "공씨네 도시락",
-      backgroundColor: SrColors.white,
-      inputBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          borderSide: BorderSide(width: 1, color: SrColors.white)),
-      focusInputBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          borderSide: BorderSide(width: 1, color: SrColors.white)),
-      prefixIcon: Padding(
-        padding: const EdgeInsets.only(left: 16, right: 12),
-        child: SvgPicture.asset(
-          'assets/flag_korea.svg',
-          width: 20,
-          height: 20,
+    return Material(
+      elevation: 4,
+      borderRadius: BorderRadius.circular(20),
+      child: SrTextField(
+        height: 36,
+        borderRadius: 20,
+        hint: "",
+        backgroundColor: SrColors.white,
+        enableBorder: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+            borderSide: BorderSide(width: 1, color: SrColors.white)),
+        focusInputBorder: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+            borderSide: BorderSide(width: 1, color: SrColors.white)),
+        prefixIcon: Padding(
+          padding: const EdgeInsets.only(left: 16, right: 12),
+          child: GestureDetector(
+            onTap: () {
+              _changeCountry(context);
+            },
+            child: SvgPicture.asset(
+              searchLocationController.countryImage,
+              width: 20,
+              height: 20,
+            ),
+          ),
         ),
+        prefixIconConstraints: const BoxConstraints(
+            maxWidth: 48, maxHeight: 20, minHeight: 20, minWidth: 48),
       ),
-      prefixIconConstraints: const BoxConstraints(maxWidth: 48, maxHeight: 20, minHeight: 20, minWidth: 48 ),
     );
+  }
+
+  Future<void> _changeCountry(BuildContext context) async {
+    double screenWidth = MediaQuery.of(context).size.width;
+
+    return showDialog<void>(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 30),
+            child:
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.end, children: [
+              GestureDetector(
+                onTap: (){
+                  Navigator.of(context).pop();
+                },
+                child: SvgPicture.asset(
+                  'assets/delete.svg',
+                  color: SrColors.white,
+                  width: 28,
+                  height: 28,
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: (){
+                            searchLocationController.countryState.value = CountryState.SOUTH_KOREA;
+                            Navigator.of(context).pop();
+                          },
+                          child: SvgPicture.asset(
+                            'assets/flag_korea.svg',
+                            width: screenWidth * 0.21,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Text("한국",
+                            style: TextStyle(
+                                decoration: TextDecoration.none,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                color: SrColors.white))
+                      ]),
+                  Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: (){
+                            searchLocationController.countryState.value = CountryState.UNITED_STATES;
+                            Navigator.of(context).pop();
+                          },
+                          child: SvgPicture.asset(
+                            'assets/flag_usa.svg',
+                            width: screenWidth * 0.21,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Text("미국",
+                            style: TextStyle(
+                                decoration: TextDecoration.none,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                color: SrColors.white))
+                      ]),
+                  Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: (){
+                            searchLocationController.countryState.value = CountryState.CANADA;
+                            Navigator.of(context).pop();
+                          },
+                          child: SvgPicture.asset(
+                            'assets/flag_canada.svg',
+                            width: screenWidth * 0.21,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Text("캐나다",
+                            style: TextStyle(
+                                decoration: TextDecoration.none,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                color: SrColors.white))
+                      ]),
+                ],
+              ),
+              const SizedBox(height: 28,)
+            ]),
+          );
+        });
   }
 
   Widget _Result() {
@@ -158,9 +288,21 @@ class _SearchLocationState extends State<SearchLocation> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text("공씨네 도시락", style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14, color: SrColors.black),),
+          Text(
+            "공씨네 도시락",
+            style: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 14,
+                color: SrColors.black),
+          ),
           Padding(padding: EdgeInsets.only(bottom: 4)),
-          Text("인천시 연수구 아카데미로 119 인천대학교", style: TextStyle(fontWeight: FontWeight.w300, fontSize: 12, color: SrColors.gray1),),
+          Text(
+            "인천시 연수구 아카데미로 119 인천대학교",
+            style: TextStyle(
+                fontWeight: FontWeight.w300,
+                fontSize: 12,
+                color: SrColors.gray1),
+          ),
         ],
       ),
     );
@@ -178,19 +320,23 @@ class _SearchLocationState extends State<SearchLocation> {
       //trackBorderColor: SrColors.success,
       interactive: true,
       fadeDuration: Duration(seconds: 1),
-      timeToFade : Duration(seconds: 1),
+      timeToFade: Duration(seconds: 1),
       mainAxisMargin: 10,
       crossAxisMargin: 16,
       child: Container(
         height: 352,
         width: double.infinity,
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: SrColors.white),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20), color: SrColors.white),
         padding: EdgeInsets.symmetric(vertical: 2),
         child: ListView.separated(
             itemCount: 10,
             itemBuilder: (BuildContext context, int index) {
-          return _Result();
-        }, separatorBuilder: (BuildContext context, int index) => SrDivider(height: 1,)),
+              return _Result();
+            },
+            separatorBuilder: (BuildContext context, int index) => SrDivider(
+                  height: 1,
+                )),
       ),
     );
   }
