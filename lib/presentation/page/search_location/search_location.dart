@@ -11,6 +11,7 @@ import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/buttons/sr_cta_button.dart';
 import 'package:spotright/presentation/component/divider/sr_divider.dart';
 import 'package:spotright/presentation/component/sr_text_field/sr_text_field.dart';
+import 'package:spotright/presentation/page/add_spot/add_spot.dart';
 import 'package:spotright/presentation/page/search_location/search_location_controller.dart';
 
 import '../../common/colors.dart';
@@ -65,6 +66,12 @@ class _SearchLocationState extends State<SearchLocation> {
         ),
         body: Stack(children: [
           _GoogleMap(),
+          Align(
+            alignment: Alignment.center,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 50),
+                child: SvgPicture.asset("assets/marker_location.svg", width: 50, height: 50,)),
+          ),
           Padding(
             padding:
                 const EdgeInsets.only(left: 16, top: 12, right: 16, bottom: 36),
@@ -111,16 +118,22 @@ class _SearchLocationState extends State<SearchLocation> {
         _mapController.complete(controller);
         _currentLocation();
       },
+      onCameraMove: (CameraPosition position){
+        searchLocationController.markerPosition.value = position.target;
+        print("${searchLocationController.markerPosition.value}");
+      },
       markers: {
         Marker(
-          markerId: const MarkerId("marker1"),
-          position: const LatLng(37.510181246, 127.043505829),
-          draggable: true,
+          markerId: const MarkerId("marker"),
+          visible: false,
+          position: searchLocationController.markerPosition.value,
           icon: searchLocationController.getMarkerImage(),
         ),
       },
     ));
   }
+
+
 
   Widget _UserLocation() {
     return GestureDetector(

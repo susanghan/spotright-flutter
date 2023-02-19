@@ -1,6 +1,7 @@
 import 'dart:ffi';
 import 'dart:typed_data';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -28,6 +29,7 @@ class SearchLocationController extends GetxController{
   }
 
   //마커 설정
+  //Todo: png 방법이 이상 없으면 날려 버릴 것임.
   Uint8List? markerImageBytes;
   RxBool isLoadedMarkerImage = false.obs;
   double pixelRatio = 2.625;
@@ -51,7 +53,7 @@ class SearchLocationController extends GetxController{
     return (await fi.image.toByteData(format: ui.ImageByteFormat.png))!.buffer.asUint8List();
   }
 
-
+  Rx<LatLng> markerPosition = LatLng(37.510181246, 127.043505829).obs;
 
 }
 
