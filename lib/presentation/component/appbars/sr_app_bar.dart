@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:spotright/presentation/common/colors.dart';
+import 'package:spotright/presentation/common/typography.dart';
+import 'package:spotright/presentation/component/dialog/sr_dialog.dart';
 import 'package:spotright/presentation/component/sr_chip/sr_chip.dart';
 import 'package:spotright/presentation/page/following/following.dart';
 import 'package:spotright/presentation/page/my_page/my_page.dart';
@@ -196,7 +198,19 @@ class _SrAppBarState extends State<SrAppBar> {
             ),
           )),
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Get.dialog(
+                SrDialog(
+                  icon: SvgPicture.asset("assets/triangle.svg"),
+                  title: "부적절한 사용자",
+                  description: "사용자를 더이상 보고 싶지 않나요?",
+                  actions: [
+                    TextButton(onPressed: () {}, child: Text("신고하기", style: SrTypography.body2semi.copy(color: SrColors.white),)),
+                    TextButton(onPressed: () {}, child: Text("차단하기", style: SrTypography.body2semi.copy(color: SrColors.white))),
+                  ],
+                )
+              );
+            },
               child: SvgPicture.asset(
             "assets/report.svg",
             color: SrColors.gray2,

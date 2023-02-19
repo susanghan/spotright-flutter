@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spotright/presentation/common/colors.dart';
+import 'package:spotright/presentation/common/typography.dart';
 
 /**
  * icon: 모달 상단에 표시된 아이콘
@@ -28,15 +29,16 @@ class SrDialog extends StatelessWidget {
       child: Container(
         width: double.infinity,
         height: 290,
-        padding: EdgeInsets.only(top: 32),
+        padding: EdgeInsets.only(top: 30),
         child: Column(children: [
           Container(
               alignment: Alignment.center,
-              width: 64,
-              height: 64,
-              margin: EdgeInsets.only(bottom: 12),
+              width: 80,
+              height: 80,
+              margin: EdgeInsets.only(bottom: 2),
               child: icon ?? Container()),
-          Padding(padding: EdgeInsets.only(bottom: 12), child: Text(title)),
+          Padding(padding: EdgeInsets.only(bottom: 12), child: Text(title,
+          style: SrTypography.body2semi)),
           Text(description),
           Spacer(),
           Container(
