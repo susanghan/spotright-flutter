@@ -25,7 +25,7 @@ class NetworkClient {
     Http method = Http.get,
     required String path,
     Map<String, String>? headers,
-    String? body
+    Map<String, dynamic>? body
   }) async {
     if((refreshToken?.isNotEmpty ?? false) && accessToken.isNotEmpty) await verifyAndRefreshToken();
 
@@ -34,7 +34,7 @@ class NetworkClient {
     headers["accept"] = "*/*";
     headers["authorization"] = headers["authorization"] ?? accessToken;
 
-    return _requestWithLog(method: method, path: path, headers: headers, body: body);
+    return _requestWithLog(method: method, path: path, headers: headers, body: jsonEncode(body));
   }
 
   Future<Response> _requestWithLog({

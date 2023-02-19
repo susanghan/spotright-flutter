@@ -76,7 +76,7 @@ class UserRepository {
   }
 
   Future<void> signUp(SignUpRequest body, String accessToken) async {
-    var res = await networkClient.request(method: Http.post, path: signUpPath, body: jsonEncode(body.toJson()), headers: {"authorization": accessToken});
+    var res = await networkClient.request(method: Http.post, path: signUpPath, body: body.toJson(), headers: {"authorization": accessToken});
     userResponse = UserResponse.fromJson(res.jsonMap!);
     localRepository.save(memberIdKey, userResponse!.memberId.toString());
   }
@@ -116,8 +116,8 @@ class UserRepository {
     await networkClient.request(method: Http.delete, path: "$unblockPath/$memberId");
   }
 
-  Future<void> unfollow(int memberId) async {
-    await networkClient.request(method: Http.delete, path: "$unfollowPath/$memberId");
+  Future<void> unfollow(int memberId, int requestMemberId) async {
+    await networkClient.request(method: Http.delete, path: "$unfollowPath/$memberId", body: {"isFollowing" : true});
   }
 
   Future<List<UserResponse>> searchMembersById(String spotrightId) async {
