@@ -29,4 +29,15 @@ class RecentSearchRepository {
     String jsonString = await localRepository.fetch(key);
     return (jsonDecode(jsonString) as List<dynamic>).map((e) => UserResponse.fromJson(e)).toList();
   }
+
+  Future<List<UserResponse>> removeRecent(UserResponse user) async {
+    List<UserResponse> savedData = await getRecentSearch();
+
+    savedData.remove(savedData
+        .firstWhereOrNull((savedUser) => savedUser.memberId == user.memberId));
+
+    localRepository.save(key, jsonEncode(savedData));
+
+    return await getRecentSearch();
+  }
 }

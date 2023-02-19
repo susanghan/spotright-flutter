@@ -28,6 +28,12 @@ class SearchController extends GetxController {
     recentSearchRepository.saveSearch(user);
   }
 
+  void removeRecentSearch(UserResponse user) async {
+    List<UserResponse> res = await recentSearchRepository.removeRecent(user);
+
+    recentUsers.value = res;
+  }
+
   Future<void> search() async {
     users.value = await userRepository.searchMembersById(searchText.value);
   }

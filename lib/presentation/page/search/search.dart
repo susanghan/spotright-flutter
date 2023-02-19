@@ -48,14 +48,18 @@ class _SearchState extends State<Search> {
                   ),
                 ),
                 Obx(() => Column(
-                  children: searchController.users.value.map((user) => _Profile(user)).toList(),
-                )),
-                // todo : 최근 검색어
-                // Padding(
-                //     padding: EdgeInsets.only(left: 10, bottom: 14), child: Text("최근 검색어")),
-                // Column(
-                //   children: [1, 2, 3].map((e) => _Profile()).toList(),
-                // )
+                      children: searchController.users.value
+                          .map((user) => _Profile(user))
+                          .toList(),
+                    )),
+                Padding(
+                    padding: EdgeInsets.only(left: 10, bottom: 14),
+                    child: Text("최근 검색어")),
+                Obx(() => Column(
+                  children: searchController.recentUsers.value
+                      .map((user) => _Profile(user, isRecentSearch: true))
+                      .toList(),
+                ))
               ],
             ),
           ),
@@ -87,19 +91,28 @@ class _SearchState extends State<Search> {
             ],
           ),
           Spacer(),
-          if(isRecentSearch) SvgPicture.asset("assets/delete.svg", color: SrColors.gray1,)
+          if (isRecentSearch)
+            GestureDetector(
+              onTap: () {
+                searchController.removeRecentSearch(user);
+              },
+              child: SvgPicture.asset(
+                "assets/delete.svg",
+                color: SrColors.gray1,
+              ),
+            )
         ]),
       ),
     );
   }
 
   Widget ProfilePhoto(String? photoUrl) {
-    if(photoUrl == null) return Image(image: AssetImage("assets/user_profile_default_small.png"));
+    if (photoUrl == null)
+      return Image(image: AssetImage("assets/user_profile_default_small.png"));
 
     return CircleAvatar(
         backgroundColor: SrColors.white,
         radius: 100,
-        backgroundImage: NetworkImage(photoUrl)
-    );
+        backgroundImage: NetworkImage(photoUrl));
   }
 }
