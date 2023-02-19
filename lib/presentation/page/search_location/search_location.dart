@@ -149,15 +149,102 @@ class _SearchLocationState extends State<SearchLocation> {
             borderSide: BorderSide(width: 1, color: SrColors.white)),
         prefixIcon: Padding(
           padding: const EdgeInsets.only(left: 16, right: 12),
-          child: SvgPicture.asset(
-            'assets/flag_korea.svg',
-            width: 20,
-            height: 20,
+          child: GestureDetector(
+            onTap: () {
+              _changeCountry(context);
+            },
+            child: SvgPicture.asset(
+              'assets/flag_korea.svg',
+              width: 20,
+              height: 20,
+            ),
           ),
         ),
-        prefixIconConstraints: const BoxConstraints(maxWidth: 48, maxHeight: 20, minHeight: 20, minWidth: 48 ),
+        prefixIconConstraints: const BoxConstraints(
+            maxWidth: 48, maxHeight: 20, minHeight: 20, minWidth: 48),
       ),
     );
+  }
+
+  Future<void> _changeCountry(BuildContext context) async {
+    double screenWidth = MediaQuery.of(context).size.width;
+
+    return showDialog<void>(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 30),
+            child:
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.end, children: [
+              SvgPicture.asset(
+                'assets/delete.svg',
+                color: SrColors.white,
+                width: 28,
+                height: 28,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset(
+                          'assets/flag_korea.svg',
+                          width: screenWidth * 0.21,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Text("한국",
+                            style: TextStyle(
+                                decoration: TextDecoration.none,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                color: SrColors.white))
+                      ]),
+                  Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset(
+                          'assets/flag_usa.svg',
+                          width: screenWidth * 0.21,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Text("미국",
+                            style: TextStyle(
+                                decoration: TextDecoration.none,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                color: SrColors.white))
+                      ]),
+                  Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset(
+                          'assets/flag_canada.svg',
+                          width: screenWidth * 0.21,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Text("캐나다",
+                            style: TextStyle(
+                                decoration: TextDecoration.none,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                color: SrColors.white))
+                      ]),
+                ],
+              ),
+              const SizedBox(height: 28,)
+            ]),
+          );
+        });
   }
 
   Widget _Result() {
@@ -168,9 +255,21 @@ class _SearchLocationState extends State<SearchLocation> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text("공씨네 도시락", style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14, color: SrColors.black),),
+          Text(
+            "공씨네 도시락",
+            style: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 14,
+                color: SrColors.black),
+          ),
           Padding(padding: EdgeInsets.only(bottom: 4)),
-          Text("인천시 연수구 아카데미로 119 인천대학교", style: TextStyle(fontWeight: FontWeight.w300, fontSize: 12, color: SrColors.gray1),),
+          Text(
+            "인천시 연수구 아카데미로 119 인천대학교",
+            style: TextStyle(
+                fontWeight: FontWeight.w300,
+                fontSize: 12,
+                color: SrColors.gray1),
+          ),
         ],
       ),
     );
@@ -188,19 +287,23 @@ class _SearchLocationState extends State<SearchLocation> {
       //trackBorderColor: SrColors.success,
       interactive: true,
       fadeDuration: Duration(seconds: 1),
-      timeToFade : Duration(seconds: 1),
+      timeToFade: Duration(seconds: 1),
       mainAxisMargin: 10,
       crossAxisMargin: 16,
       child: Container(
         height: 352,
         width: double.infinity,
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: SrColors.white),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20), color: SrColors.white),
         padding: EdgeInsets.symmetric(vertical: 2),
         child: ListView.separated(
             itemCount: 10,
             itemBuilder: (BuildContext context, int index) {
-          return _Result();
-        }, separatorBuilder: (BuildContext context, int index) => SrDivider(height: 1,)),
+              return _Result();
+            },
+            separatorBuilder: (BuildContext context, int index) => SrDivider(
+                  height: 1,
+                )),
       ),
     );
   }

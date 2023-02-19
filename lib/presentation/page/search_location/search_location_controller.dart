@@ -10,4 +10,20 @@ class SearchLocationController extends GetxController{
   void initState() {
     userInfo = Rx<UserResponse>(userRepository.userResponse!);
   }
+
+  var countryState = CountryState.SOUTH_KOREA.obs;
+
+
+}
+
+enum CountryState{
+  CANADA,
+  SOUTH_KOREA,
+  UNITED_STATES
+}
+
+enum QueryTypeState{
+  ADDRESS,
+  COORDINATE,
+  KEYWORD
 }
