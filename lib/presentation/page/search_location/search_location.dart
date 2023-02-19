@@ -27,6 +27,7 @@ class _SearchLocationState extends State<SearchLocation> {
   Completer<GoogleMapController> _mapController = Completer();
   SearchLocationController searchLocationController = Get.find();
 
+
   Future<LatLng> _currentLocation() async {
     final GoogleMapController controller = await _mapController.future;
     LocationData? currentLocation;
@@ -47,10 +48,11 @@ class _SearchLocationState extends State<SearchLocation> {
     }
   }
 
+
   @override
   void initState() {
-    super.initState();
     searchLocationController.initState();
+    super.initState();
   }
 
   @override
@@ -96,7 +98,7 @@ class _SearchLocationState extends State<SearchLocation> {
   }
 
   Widget _GoogleMap() {
-    return GoogleMap(
+    return Obx(() => GoogleMap(
       zoomControlsEnabled: false,
       myLocationButtonEnabled: false,
       myLocationEnabled: true,
@@ -109,7 +111,15 @@ class _SearchLocationState extends State<SearchLocation> {
         _mapController.complete(controller);
         _currentLocation();
       },
-    );
+      markers: {
+        Marker(
+          markerId: const MarkerId("marker1"),
+          position: const LatLng(37.510181246, 127.043505829),
+          draggable: true,
+          icon: searchLocationController.getMarkerImage(),
+        ),
+      },
+    ));
   }
 
   Widget _UserLocation() {
