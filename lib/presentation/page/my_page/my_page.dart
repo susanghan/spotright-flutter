@@ -23,7 +23,6 @@ class _MyPageState extends State<MyPage> {
   MyPageController myPageController = Get.put(MyPageController());
   UserRepository userRepository = Get.find();
 
-
   @override
   void initState() {
     myPageController.initState();
@@ -39,7 +38,7 @@ class _MyPageState extends State<MyPage> {
         ),
         body: Container(
           padding: const EdgeInsets.only(bottom: 30),
-          child: Column(
+          child: Obx(() => Column(
             children: [
               ..._UserProfile(false),
               SrDivider(height: 4,),
@@ -49,7 +48,7 @@ class _MyPageState extends State<MyPage> {
               SrDivider(),
               _ListText(listText: "오픈소스라이센스"),
               _ListText(listText: "개인정보 처리방침"),
-              _ListText(listText: "버전정보 1.00 (128)"),
+              _ListText(listText: "버전정보 ${myPageController.versionName} (${myPageController.buildNumber})"),
               SrDivider(),
               _ListText(listText: "로그아웃", action: () async {
                 await userRepository.logout();
@@ -57,13 +56,13 @@ class _MyPageState extends State<MyPage> {
               }),
               SrDivider(),
               const Spacer(),
-             InkWell(
-               onTap: (){
-                 Get.to(DeactivateAccountPre());
-               },
-                 child: const Text("계정 삭제", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w300, color: SrColors.gray1),))
+              InkWell(
+                  onTap: (){
+                    Get.to(DeactivateAccountPre());
+                  },
+                  child: const Text("계정 삭제", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w300, color: SrColors.gray1),))
             ],
-          ),
+          )),
         ),
       ),
     );
