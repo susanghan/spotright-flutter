@@ -34,14 +34,14 @@ class NetworkClient {
     headers["accept"] = "*/*";
     headers["authorization"] = headers["authorization"] ?? accessToken;
 
-    return _requestWithLog(method: method, path: path, headers: headers, body: jsonEncode(body));
+    return _requestWithLog(method: method, path: path, headers: headers, body: body);
   }
 
   Future<Response> _requestWithLog({
     Http method = Http.get,
     required String path,
     Map<String, String>? headers,
-    String? body,
+    Map<String, dynamic>? body,
   }) async {
     path = prefix + path;
 
@@ -52,7 +52,7 @@ class NetworkClient {
         Level.debug, "$method : $path <<< headers : $headers <<< body : $body");
     Response response = (body == null)
         ? await func.call(url, headers: headers)
-        : await func.call(url, headers: headers, body: body);
+        : await func.call(url, headers: headers, body: jsonEncode(body));
     logger.d("$method : $path \x1B[33m${response.statusCode}\x1B[0m "
         ">>> headers : ${response.headers} ");
     if(response.body.isNotEmpty) debugPrint(">>> body : ${jsonDecode(utf8.decode(response.bodyBytes))}"
