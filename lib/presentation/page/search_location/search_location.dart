@@ -179,11 +179,16 @@ class _SearchLocationState extends State<SearchLocation> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.end, children: [
-              SvgPicture.asset(
-                'assets/delete.svg',
-                color: SrColors.white,
-                width: 28,
-                height: 28,
+              GestureDetector(
+                onTap: (){
+                  Navigator.of(context).pop();
+                },
+                child: SvgPicture.asset(
+                  'assets/delete.svg',
+                  color: SrColors.white,
+                  width: 28,
+                  height: 28,
+                ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
