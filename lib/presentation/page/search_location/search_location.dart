@@ -48,11 +48,17 @@ class _SearchLocationState extends State<SearchLocation> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    searchLocationController.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: DefaultAppBar(
-          title: "${searchLocationController.userInfo?.value.memberId}",
+          title: searchLocationController.userInfo?.value.spotrightId ?? "",
           hasBackButton: true,
         ),
         body: Stack(children: [
@@ -67,10 +73,10 @@ class _SearchLocationState extends State<SearchLocation> {
                 //Todo : prefix 아이콘 상태에 따라서 가능하게 컨트롤러 만들어서 컨트롤, 지금은 정적 화면만
                 _SearchField(),
                 const Padding(padding: EdgeInsets.only(bottom: 4)),
-                Align(
-                  child: _ResultList(),
-                  alignment: Alignment.centerLeft,
-                ),
+                // Align(
+                //   child: _ResultList(),
+                //   alignment: Alignment.centerLeft,
+                // ),
                 Spacer(),
                 Align(
                   child: _UserLocation(),
@@ -127,26 +133,30 @@ class _SearchLocationState extends State<SearchLocation> {
   }
 
   Widget _SearchField() {
-    return SrTextField(
-      height: 36,
-      borderRadius: 20,
-      hint: "공씨네 도시락",
-      backgroundColor: SrColors.white,
-      inputBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          borderSide: BorderSide(width: 1, color: SrColors.white)),
-      focusInputBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          borderSide: BorderSide(width: 1, color: SrColors.white)),
-      prefixIcon: Padding(
-        padding: const EdgeInsets.only(left: 16, right: 12),
-        child: SvgPicture.asset(
-          'assets/flag_korea.svg',
-          width: 20,
-          height: 20,
+    return Material(
+      elevation: 4,
+      borderRadius: BorderRadius.circular(20),
+      child: SrTextField(
+        height: 36,
+        borderRadius: 20,
+        hint: "",
+        backgroundColor: SrColors.white,
+        enableBorder: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+            borderSide: BorderSide(width: 1, color: SrColors.white)),
+        focusInputBorder: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+            borderSide: BorderSide(width: 1, color: SrColors.white)),
+        prefixIcon: Padding(
+          padding: const EdgeInsets.only(left: 16, right: 12),
+          child: SvgPicture.asset(
+            'assets/flag_korea.svg',
+            width: 20,
+            height: 20,
+          ),
         ),
+        prefixIconConstraints: const BoxConstraints(maxWidth: 48, maxHeight: 20, minHeight: 20, minWidth: 48 ),
       ),
-      prefixIconConstraints: const BoxConstraints(maxWidth: 48, maxHeight: 20, minHeight: 20, minWidth: 48 ),
     );
   }
 
