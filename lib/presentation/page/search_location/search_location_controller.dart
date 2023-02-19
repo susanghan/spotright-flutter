@@ -13,6 +13,12 @@ class SearchLocationController extends GetxController{
 
   var countryState = CountryState.SOUTH_KOREA.obs;
 
+  String get countryImage {
+    if(countryState.value == CountryState.SOUTH_KOREA) return 'assets/flag_korea.svg';
+    if(countryState.value == CountryState.UNITED_STATES) return 'assets/flag_usa.svg';
+    if(countryState.value == CountryState.CANADA) return 'assets/flag_canada.svg';
+    return 'assets/flag_korea.svg';
+  }
 
 }
 

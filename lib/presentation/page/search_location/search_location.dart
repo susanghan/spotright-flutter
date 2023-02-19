@@ -154,7 +154,7 @@ class _SearchLocationState extends State<SearchLocation> {
               _changeCountry(context);
             },
             child: SvgPicture.asset(
-              'assets/flag_korea.svg',
+              searchLocationController.countryImage,
               width: 20,
               height: 20,
             ),
@@ -191,9 +191,15 @@ class _SearchLocationState extends State<SearchLocation> {
                   Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SvgPicture.asset(
-                          'assets/flag_korea.svg',
-                          width: screenWidth * 0.21,
+                        GestureDetector(
+                          onTap: (){
+                            searchLocationController.countryState.value = CountryState.SOUTH_KOREA;
+                            Navigator.of(context).pop();
+                          },
+                          child: SvgPicture.asset(
+                            'assets/flag_korea.svg',
+                            width: screenWidth * 0.21,
+                          ),
                         ),
                         const SizedBox(
                           height: 10,
@@ -208,9 +214,15 @@ class _SearchLocationState extends State<SearchLocation> {
                   Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SvgPicture.asset(
-                          'assets/flag_usa.svg',
-                          width: screenWidth * 0.21,
+                        GestureDetector(
+                          onTap: (){
+                            searchLocationController.countryState.value = CountryState.UNITED_STATES;
+                            Navigator.of(context).pop();
+                          },
+                          child: SvgPicture.asset(
+                            'assets/flag_usa.svg',
+                            width: screenWidth * 0.21,
+                          ),
                         ),
                         const SizedBox(
                           height: 10,
@@ -225,9 +237,15 @@ class _SearchLocationState extends State<SearchLocation> {
                   Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SvgPicture.asset(
-                          'assets/flag_canada.svg',
-                          width: screenWidth * 0.21,
+                        GestureDetector(
+                          onTap: (){
+                            searchLocationController.countryState.value = CountryState.CANADA;
+                            Navigator.of(context).pop();
+                          },
+                          child: SvgPicture.asset(
+                            'assets/flag_canada.svg',
+                            width: screenWidth * 0.21,
+                          ),
                         ),
                         const SizedBox(
                           height: 10,
