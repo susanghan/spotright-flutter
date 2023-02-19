@@ -28,7 +28,7 @@ class SrDialog extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Container(
         width: double.infinity,
-        height: 290,
+        height: 240,
         padding: EdgeInsets.only(top: 30),
         child: Column(children: [
           Container(
@@ -37,12 +37,12 @@ class SrDialog extends StatelessWidget {
               height: 80,
               margin: EdgeInsets.only(bottom: 2),
               child: icon ?? Container()),
-          Padding(padding: EdgeInsets.only(bottom: 12), child: Text(title,
+          Padding(padding: EdgeInsets.only(bottom: 8), child: Text(title,
           style: SrTypography.body2semi)),
-          Text(description),
+          Text(description, style: SrTypography.body3semi.copy(color: SrColors.gray1)),
           Spacer(),
           Container(
-            height: 60,
+            height: 64,
             decoration: BoxDecoration(
                 color: SrColors.primary,
                 borderRadius: BorderRadius.only(

@@ -6,6 +6,12 @@ class SrTypography {
     fontSize: 15.0,
     fontWeight: FontWeight.w600,
   );
+
+  static const TextStyle body3semi = TextStyle(
+    color: Colors.black,
+    fontSize: 14.0,
+    fontWeight: FontWeight.w600,
+  );
 }
 
 extension TextStyleExtension on TextStyle {
