@@ -15,4 +15,8 @@ class ProfileController extends GetxController {
   void unFollow() {
     userRepository.unfollow(user.memberId, userRepository.userResponse!.memberId);
   }
+
+  void block() {
+    userRepository.block(user.memberId);
+  }
 }

@@ -19,6 +19,7 @@ class SrAppBar extends StatefulWidget {
     this.follow,
     this.unfollow,
     this.isFollow = false,
+    this.block
   }) : super(key: key);
 
   String userName;
@@ -29,6 +30,7 @@ class SrAppBar extends StatefulWidget {
   bool isMyPage;
   Function()? follow;
   Function()? unfollow;
+  Function()? block;
   List<bool> selectedChips = [
     true,
     false,
@@ -226,6 +228,7 @@ class _SrAppBarState extends State<SrAppBar> {
             )),
         TextButton(
             onPressed: () {
+              widget.block?.call();
               Get.back();
               _showBlockDialog();
             },

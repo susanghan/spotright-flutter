@@ -100,6 +100,7 @@ class _ProfileState extends State<Profile> {
             follow: profileController?.follow,
             unfollow: profileController?.unFollow,
             isFollow: true,
+            block: profileController?.block,
           ),
           GestureDetector(
             onTap: () {
