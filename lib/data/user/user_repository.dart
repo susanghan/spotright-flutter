@@ -77,6 +77,8 @@ class UserRepository {
 
   Future<void> signUp(SignUpRequest body, String accessToken) async {
     var res = await networkClient.request(method: Http.post, path: signUpPath, body: body.toJson(), headers: {"authorization": accessToken});
+    Map<String, String> headers = res.headers;
+    networkClient.saveRefreshToken(headers);
     userResponse = UserResponse.fromJson(res.jsonMap!);
     localRepository.save(memberIdKey, userResponse!.memberId.toString());
   }
