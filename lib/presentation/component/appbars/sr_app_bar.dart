@@ -3,6 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/common/typography.dart';
+import 'package:spotright/presentation/component/appbars/report_options.dart';
+import 'package:spotright/presentation/component/dialog/report_dialog.dart';
 import 'package:spotright/presentation/component/dialog/sr_dialog.dart';
 import 'package:spotright/presentation/component/sr_chip/sr_chip.dart';
 import 'package:spotright/presentation/page/following/following.dart';
@@ -19,7 +21,8 @@ class SrAppBar extends StatefulWidget {
     this.follow,
     this.unfollow,
     this.isFollow = false,
-    this.block
+    this.block,
+    this.report,
   }) : super(key: key);
 
   String userName;
@@ -31,6 +34,7 @@ class SrAppBar extends StatefulWidget {
   Function()? follow;
   Function()? unfollow;
   Function()? block;
+  Function(String, String)? report;
   List<bool> selectedChips = [
     true,
     false,
@@ -220,7 +224,16 @@ class _SrAppBarState extends State<SrAppBar> {
       description: "사용자를 더이상 보고 싶지 않나요?",
       actions: [
         TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.back();
+              Get.dialog(
+                ReportDialog(
+                  title: "사용자 신고사유",
+                  options: ReportOptions.options,
+                  onFinish: widget.report,
+                )
+              );
+            },
             child: Text(
               "신고하기",
               style: SrTypography.body2semi

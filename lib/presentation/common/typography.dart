@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 
 class SrTypography {
+  static const TextStyle body1semi = TextStyle(
+    color: Colors.black,
+    fontSize: 20.0,
+    fontWeight: FontWeight.w600,
+  );
+
   static const TextStyle body2semi = TextStyle(
     color: Colors.black,
     fontSize: 15.0,
