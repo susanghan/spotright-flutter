@@ -183,12 +183,14 @@ class _SrAppBarState extends State<SrAppBar> {
             padding: EdgeInsets.only(right: 8),
             child: OutlinedButton(
               onPressed: widget.isFollow ? widget.unfollow : widget.follow,
-              child: Text(widget.isFollow ? "팔로잉" : "팔로우",
-              style: TextStyle(
-                color: widget.isFollow ? SrColors.primary : SrColors.white
-              ),),
+              child: Text(
+                widget.isFollow ? "팔로잉" : "팔로우",
+                style: TextStyle(
+                    color: widget.isFollow ? SrColors.primary : SrColors.white),
+              ),
               style: OutlinedButton.styleFrom(
-                backgroundColor: widget.isFollow ? SrColors.white : SrColors.primary,
+                  backgroundColor:
+                      widget.isFollow ? SrColors.white : SrColors.primary,
                   side: BorderSide(
                     color: SrColors.primary,
                   ),
@@ -198,27 +200,62 @@ class _SrAppBarState extends State<SrAppBar> {
             ),
           )),
           GestureDetector(
-            onTap: () {
-              Get.dialog(
-                SrDialog(
-                  icon: SvgPicture.asset("assets/triangle.svg"),
-                  title: "부적절한 사용자",
-                  description: "사용자를 더이상 보고 싶지 않나요?",
-                  actions: [
-                    TextButton(onPressed: () {}, child: Text("신고하기", style: SrTypography.body2semi.copy(color: SrColors.white),)),
-                    TextButton(onPressed: () {}, child: Text("차단하기", style: SrTypography.body2semi.copy(color: SrColors.white))),
-                  ],
-                )
-              );
-            },
+              onTap: _showReportDialog,
               child: SvgPicture.asset(
-            "assets/report.svg",
-            color: SrColors.gray2,
-            width: 24,
-          ))
+                "assets/report.svg",
+                color: SrColors.gray2,
+                width: 24,
+              ))
         ],
       ),
     );
+  }
+
+  void _showReportDialog() {
+    Get.dialog(SrDialog(
+      icon: SvgPicture.asset("assets/triangle.svg"),
+      title: "부적절한 사용자",
+      description: "사용자를 더이상 보고 싶지 않나요?",
+      actions: [
+        TextButton(
+            onPressed: () {},
+            child: Text(
+              "신고하기",
+              style: SrTypography.body2semi
+                  .copy(color: SrColors.white),
+            )),
+        TextButton(
+            onPressed: () {
+              Get.back();
+              _showBlockDialog();
+            },
+            child: Text("차단하기",
+                style: SrTypography.body2semi
+                    .copy(color: SrColors.white))),
+      ],
+    ));
+  }
+
+  void _showBlockDialog() {
+    Get.dialog(SrDialog(
+      icon: SvgPicture.asset(
+        "assets/check_large.svg",
+        width: 80,
+        height: 80,
+      ),
+      title: "차단이 완료되었습니다",
+      description: "마이페이지-차단 사용자 관리에서\n확인할 수 있습니다",
+      actions: [
+        TextButton(
+            onPressed: () {
+              Get.back();
+            },
+            child: Text(
+              "완료",
+              style: SrTypography.body2semi.copy(color: SrColors.white),
+            ))
+      ],
+    ));
   }
 
   Widget _ExpandButton() {
