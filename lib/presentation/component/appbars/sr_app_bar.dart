@@ -23,6 +23,7 @@ class SrAppBar extends StatefulWidget {
     this.isFollow = false,
     this.block,
     this.report,
+    this.fetchRegionSpots,
   }) : super(key: key);
 
   String userName;
@@ -35,6 +36,8 @@ class SrAppBar extends StatefulWidget {
   Function()? unfollow;
   Function()? block;
   Function(String, String)? report;
+  bool shouldRefresh = false;
+  Function()? fetchRegionSpots;
   List<bool> selectedChips = [
     true,
     false,
@@ -64,7 +67,34 @@ class _SrAppBarState extends State<SrAppBar> {
         children: [
           _TopContent(expanded),
           _ExpandButton(),
-          expanded ? SizedBox.shrink() : _Chips()
+          expanded ? SizedBox.shrink() : _Chips(),
+          if (widget.shouldRefresh || true)
+            TextButton(
+                onPressed: widget.fetchRegionSpots,
+                child: Container(
+                  height: 30,
+                  width: 168,
+                  child: Material(
+                    elevation: 4,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                              padding: EdgeInsets.only(right: 8),
+                              child: SvgPicture.asset(
+                                "assets/refresh.svg",
+                                width: 16,
+                              )),
+                          Text(
+                            "이 지역에서 검색하기",
+                            style: SrTypography.body3medium,
+                          ),
+                        ]),
+                  ),
+                ))
         ],
       ),
     );
@@ -226,21 +256,18 @@ class _SrAppBarState extends State<SrAppBar> {
         TextButton(
             onPressed: () {
               Get.back();
-              Get.dialog(
-                ReportDialog(
-                  title: "사용자 신고사유",
-                  options: ReportOptions.options,
-                  onFinish: (String type, String reason) {
-                    Get.back();
-                    widget.report?.call(type, reason);
-                  },
-                )
-              );
+              Get.dialog(ReportDialog(
+                title: "사용자 신고사유",
+                options: ReportOptions.options,
+                onFinish: (String type, String reason) {
+                  Get.back();
+                  widget.report?.call(type, reason);
+                },
+              ));
             },
             child: Text(
               "신고하기",
-              style: SrTypography.body2semi
-                  .copy(color: SrColors.white),
+              style: SrTypography.body2semi.copy(color: SrColors.white),
             )),
         TextButton(
             onPressed: () {
@@ -249,8 +276,7 @@ class _SrAppBarState extends State<SrAppBar> {
               _showBlockDialog();
             },
             child: Text("차단하기",
-                style: SrTypography.body2semi
-                    .copy(color: SrColors.white))),
+                style: SrTypography.body2semi.copy(color: SrColors.white))),
       ],
     ));
   }

@@ -18,6 +18,12 @@ class SrTypography {
     fontSize: 14.0,
     fontWeight: FontWeight.w600,
   );
+
+  static const TextStyle body3medium = TextStyle(
+    color: Colors.black,
+    fontSize: 14.0,
+    fontWeight: FontWeight.w500,
+  );
 }
 
 extension TextStyleExtension on TextStyle {
