@@ -23,6 +23,7 @@ class SrAppBar extends StatefulWidget {
     this.isFollow = false,
     this.block,
     this.report,
+    this.shouldRefresh = false,
     this.fetchRegionSpots,
   }) : super(key: key);
 
@@ -61,6 +62,8 @@ class _SrAppBarState extends State<SrAppBar> {
 
   @override
   Widget build(BuildContext context) {
+    print("렌더링!!");
+
     return Container(
       width: double.infinity,
       child: Column(
@@ -68,7 +71,7 @@ class _SrAppBarState extends State<SrAppBar> {
           _TopContent(expanded),
           _ExpandButton(),
           expanded ? SizedBox.shrink() : _Chips(),
-          if (widget.shouldRefresh || true)
+          if (widget.shouldRefresh)
             TextButton(
                 onPressed: widget.fetchRegionSpots,
                 child: Container(

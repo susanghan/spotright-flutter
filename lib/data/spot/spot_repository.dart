@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:spotright/common/network_client.dart';
+import 'package:spotright/data/model/response_wrapper.dart';
+import 'package:spotright/data/spot/spot_response.dart';
 
 class SpotRepository {
   final String findOneSpotPath = "/member";
@@ -16,8 +18,13 @@ class SpotRepository {
     await networkClient.request(path: "$findOneSpotPath/$memberId/spot/$memberSpotId");
   }
 
-  Future<void> getSpotsFromCoordinate(int memberId, double topLongitude, double topLatitude, double bottomLongitude, double bottomLatitude) async {
-    await networkClient.request(path: "$getSpotsByCoordinatePath/$memberId/spots/$topLongitude/$topLatitude/$bottomLongitude/$bottomLatitude");
+  /**
+   * 위도 : latitude, 경도 : longitude
+   * 아마도 전체 범위 : top (90, 0) - bottom (0, 180)
+   */
+  Future<List<SpotResponse>> getSpotsFromCoordinate(int memberId, {double topLongitude = 0, double topLatitude = 90, double bottomLongitude = 180, double bottomLatitude = 0}) async {
+    var res = await networkClient.request(path: "$getSpotsByCoordinatePath/$memberId/spots/$topLongitude/$topLatitude/$bottomLongitude/$bottomLatitude");
+    return res.list?.map((spot) => SpotResponse.fromJson(spot)).toList() ?? [];
   }
 
   Future<void> saveSpot() async {

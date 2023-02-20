@@ -28,6 +28,13 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     homeController.initState();
+    _fetchRegionSpots();
+  }
+
+  void _fetchRegionSpots() async {
+    final GoogleMapController controller = await _mapController.future;
+    var region = await controller.getVisibleRegion();
+    homeController.fetchSpots(region);
   }
 
   Future<LatLng> _currentLocation() async {
@@ -40,6 +47,7 @@ class _HomeState extends State<Home> {
       controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
         bearing: 0,
         target: LatLng(currentLocation.latitude!, currentLocation.longitude!),
+        // target: LatLng(37.510181246, 127.043505829),
         zoom: 17.0,
       )));
       return LatLng(currentLocation.latitude!, currentLocation.longitude!);
@@ -55,7 +63,7 @@ class _HomeState extends State<Home> {
     return SafeArea(
       child: Scaffold(
         appBar: DefaultAppBar(
-          title: homeController.userInfo?.value.spotrightId ?? "",
+          title: homeController.userInfo.value.spotrightId ?? "",
           actions: [
             GestureDetector(
               onTap: () {
@@ -79,6 +87,7 @@ class _HomeState extends State<Home> {
             myLocationButtonEnabled: false,
             myLocationEnabled: true,
             mapType: MapType.normal,
+            onCameraIdle: homeController.onCameraMoved,
             initialCameraPosition: CameraPosition(
               target: LatLng(37.510181246, 127.043505829),
               zoom: 14.4746,
@@ -88,12 +97,14 @@ class _HomeState extends State<Home> {
               _currentLocation();
             },
           ),
-          SrAppBar(
-            userName: homeController.userInfo?.value.nickname ?? "",
-            spots: homeController.userInfo?.value.memberSpotsCnt ?? 0,
-            followers: homeController.userInfo?.value.followersCnt ?? 0,
-            followings: homeController.userInfo?.value.followingsCnt ?? 0,
-          ),
+          Obx(() => SrAppBar(
+            userName: homeController.userInfo.value.nickname ?? "",
+            spots: homeController.userInfo.value.memberSpotsCnt ?? 0,
+            followers: homeController.userInfo.value.followersCnt ?? 0,
+            followings: homeController.userInfo.value.followingsCnt ?? 0,
+            fetchRegionSpots: _fetchRegionSpots,
+            shouldRefresh: homeController.shouldSpotsRefresh.value,
+          )),
           GestureDetector(
             onTap: () {
               Get.to(const SpotList());

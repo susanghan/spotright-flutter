@@ -10,6 +10,7 @@ import 'package:spotright/common/network_client.dart';
 import 'package:spotright/data/oauth/oauth_repository.dart';
 import 'package:spotright/data/local/local_repository.dart';
 import 'package:spotright/data/report/report_repository.dart';
+import 'package:spotright/data/spot/spot_repository.dart';
 import 'package:spotright/data/user/user_repository.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/common/language.dart';
@@ -81,6 +82,8 @@ class _State extends State<Spotright> {
         Get.put(LocalRepository());
         Get.put(UserRepository());
         Get.put(OAuthRepository());
+        Get.put(SpotRepository());
+        Get.put(ReportRepository());
 
         Get.put(SignUpController(signUpState: SignUpState()));
         Get.put(FollowingController(followingState: FollowingState()));
@@ -91,7 +94,6 @@ class _State extends State<Spotright> {
         Get.put(HomeController());
         Get.put(SearchLocationController());
         Get.put(AddSpotController());
-        Get.put(ReportRepository());
       }),
       locale: Get.deviceLocale,
       fallbackLocale: const Locale('en', 'US'),
