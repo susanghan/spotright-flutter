@@ -295,28 +295,29 @@ class _AddSpotState extends State<AddSpot> {
         child: Row(
           children: [
             Flexible(
-              child: Obx(()=>GestureDetector(
+              child: GestureDetector(
                 onTap: (){
                   addSpotController.isVisited.value = true;
                 },
-                child: Row(children: [
+                child: Obx(()=>Row(children: [
                   const Padding(padding: EdgeInsets.only(right: 8), child: Text("예")),
-                  SrCheckBox(value: addSpotController.isVisited.value, onChanged: (checked) { }),
-                ]),
+                  SrCheckBox(value: addSpotController.isVisited.value, onChanged: (checked) {
+                    addSpotController.isVisited.value = true; }),
+                ])),
               ),)
-            ),
+            ,
             Flexible(
-              child: Obx(()=>GestureDetector(
+              child: GestureDetector(
                 onTap: (){
                   addSpotController.isVisited.value = false;
                 },
-                child: Row(children: [
+                child: Obx(()=>Row(children: [
                   const Padding(
                       padding: EdgeInsets.only(right: 8), child: Text("아니오")),
-                  SrCheckBox(value: !addSpotController.isVisited.value, onChanged: (checked) { }),
-                ]),
-              ),)
-            ),
+                  SrCheckBox(value: !addSpotController.isVisited.value, onChanged: (checked) {
+                    addSpotController.isVisited.value = false; }),
+                ])),
+              ),),
           ],
         ),
       )
