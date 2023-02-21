@@ -13,7 +13,7 @@ class ChangeUserLanguage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      appBar: const DefaultAppBar(
+      appBar: DefaultAppBar(
         title: "언어 설정",
         hasBackButton: true,
       ),

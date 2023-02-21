@@ -15,7 +15,7 @@ class ManageUserInfoList extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      appBar: const DefaultAppBar(
+      appBar: DefaultAppBar(
         title: "개인 정보 관리",
         hasBackButton: true,
       ),

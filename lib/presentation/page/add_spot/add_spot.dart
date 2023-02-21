@@ -46,7 +46,7 @@ class _AddSpotState extends State<AddSpot> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      appBar: const DefaultAppBar(
+      appBar: DefaultAppBar(
         title: "장소추가",
         hasBackButton: true,
       ),

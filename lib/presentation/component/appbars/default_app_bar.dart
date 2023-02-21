@@ -4,16 +4,19 @@ import 'package:get/get.dart';
 import '../../common/colors.dart';
 
 class DefaultAppBar extends StatelessWidget with PreferredSizeWidget {
-  const DefaultAppBar(
+  DefaultAppBar(
       {Key? key,
-      required this.title,
+      this.title = "",
       this.hasBackButton = false,
-      this.actions = const []})
+      this.actions = const [],
+        this.titleWidget,
+      })
       : super(key: key);
 
   final String title;
   final bool hasBackButton;
   final List<Widget> actions;
+  Widget? titleWidget;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +34,7 @@ class DefaultAppBar extends StatelessWidget with PreferredSizeWidget {
             )
           : SizedBox.shrink(),
       backgroundColor: SrColors.white,
-      title: Text(
+      title: titleWidget ?? Text(
         title,
         style: const TextStyle(color: SrColors.black, fontSize: 20, fontWeight: FontWeight.w500),
       ),

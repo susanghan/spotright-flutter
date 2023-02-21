@@ -32,7 +32,7 @@ class _MyPageState extends State<MyPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: const DefaultAppBar(
+        appBar: DefaultAppBar(
           title: "마이페이지",
           hasBackButton: true,
         ),

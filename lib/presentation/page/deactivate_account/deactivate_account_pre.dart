@@ -14,7 +14,7 @@ class DeactivateAccountPre extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      appBar: const DefaultAppBar(
+      appBar: DefaultAppBar(
         title: "계정 삭제",
         hasBackButton: true,
       ),

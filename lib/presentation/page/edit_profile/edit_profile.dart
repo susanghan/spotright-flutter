@@ -37,7 +37,7 @@ class _EditProfileState extends State<EditProfile> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      appBar: const DefaultAppBar(
+      appBar: DefaultAppBar(
         title: "프로필 수정",
         hasBackButton: true,
       ),

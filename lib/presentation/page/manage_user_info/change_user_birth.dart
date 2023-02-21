@@ -20,7 +20,7 @@ class _ChangeUserBirthState extends State<ChangeUserBirth> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      appBar: const DefaultAppBar(
+      appBar: DefaultAppBar(
         title: "생년월일 변경",
         hasBackButton: true,
       ),

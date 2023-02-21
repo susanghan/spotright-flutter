@@ -20,7 +20,7 @@ class _ChangeUserIdState extends State<ChangeUserId> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: const DefaultAppBar(
+        appBar: DefaultAppBar(
           title: "아이디 변경",
           hasBackButton: true,
         ),
