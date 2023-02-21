@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:spotright/data/user/user_response.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/common/typography.dart';
 import 'package:spotright/presentation/component/appbars/report_options.dart';
@@ -14,9 +15,6 @@ class SrAppBar extends StatefulWidget {
   SrAppBar({
     Key? key,
     this.userName = '',
-    this.spots = 0,
-    this.followers = 0,
-    this.followings = 0,
     this.isMyPage = true,
     this.follow,
     this.unfollow,
@@ -25,12 +23,11 @@ class SrAppBar extends StatefulWidget {
     this.report,
     this.shouldRefresh = false,
     this.fetchRegionSpots,
+    required this.user,
   }) : super(key: key);
 
+  UserResponse user;
   String userName;
-  int spots;
-  int followers;
-  int followings;
   bool isFollow;
   bool isMyPage;
   Function()? follow;
@@ -145,28 +142,28 @@ class _SrAppBarState extends State<SrAppBar> {
                       children: [
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [Text(widget.spots.toString()), Text('장소')],
+                          children: [Text(widget.user.memberSpotsCnt.toString()), Text('장소')],
                         ),
                         GestureDetector(
                           onTap: () {
-                            Get.to(Following(tabIndex: 0));
+                            Get.to(Following(tabIndex: 0, userId: widget.user.memberId,));
                           },
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text(widget.followers.toString()),
+                              Text(widget.user.followersCnt.toString()),
                               Text('팔로워')
                             ],
                           ),
                         ),
                         GestureDetector(
                           onTap: () {
-                            Get.to(Following(tabIndex: 1));
+                            Get.to(Following(tabIndex: 1, userId: widget.user.memberId,));
                           },
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text(widget.followings.toString()),
+                              Text(widget.user.followingsCnt.toString()),
                               Text('팔로잉')
                             ],
                           ),
