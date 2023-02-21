@@ -25,13 +25,7 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   Completer<GoogleMapController> _mapController = Completer();
-  late ProfileController? profileController;
-
-  @override
-  void initState() {
-    super.initState();
-    profileController = Get.put(ProfileController(widget.user.memberId));
-  }
+  late ProfileController profileController = Get.put(ProfileController(widget.user.memberId));
 
   Future<LatLng> _currentLocation() async {
     final GoogleMapController controller = await _mapController.future;
@@ -58,7 +52,7 @@ class _ProfileState extends State<Profile> {
     return SafeArea(
       child: Scaffold(
         appBar: DefaultAppBar(
-            titleWidget: Obx(() => AppbarTitle(title: profileController?.user.value.spotrightId ?? "")),
+            titleWidget: Obx(() => AppbarTitle(title: profileController.user.value.spotrightId ?? "")),
             hasBackButton: true,
             actions: [
               GestureDetector(
@@ -93,16 +87,17 @@ class _ProfileState extends State<Profile> {
             },
           ),
           Obx(() => SrAppBar(
-            userName: profileController?.user.value.nickname ?? "",
-            spots: profileController?.user.value.memberSpotsCnt ?? 0,
-            followers: profileController?.user.value.followersCnt ?? 0,
-            followings: profileController?.user.value.followingsCnt ?? 0,
+            userName: profileController.user.value.nickname ?? "",
+            spots: profileController.user.value.memberSpotsCnt ?? 0,
+            followers: profileController.user.value.followersCnt ?? 0,
+            followings: profileController.user.value.followingsCnt ?? 0,
             isMyPage: false,
-            follow: profileController?.follow,
-            unfollow: profileController?.unFollow,
+            follow: profileController.follow,
+            unfollow: profileController.unFollow,
             isFollow: false,
-            block: profileController?.block,
-            report: profileController?.report,
+            block: profileController.block,
+            report: profileController.report,
+            user: profileController.user.value,
           )),
           GestureDetector(
             onTap: () {
