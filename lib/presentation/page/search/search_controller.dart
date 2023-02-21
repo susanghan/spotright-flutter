@@ -35,6 +35,6 @@ class SearchController extends GetxController {
   }
 
   Future<void> search() async {
-    users.value = await userRepository.searchMembersById(searchText.value);
+    users.value = await userRepository.searchMembersById(searchText.value, 0, 100);
   }
 }
