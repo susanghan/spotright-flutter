@@ -5,16 +5,23 @@ import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/page/following/following_controller.dart';
 
 class Following extends StatefulWidget {
-  const Following({Key? key, required this.tabIndex}) : super(key: key);
+  const Following({Key? key, required this.tabIndex, required this.userId}) : super(key: key);
 
   final int tabIndex;
+  final int userId;
 
   @override
   State<Following> createState() => _FollowingState();
 }
 
 class _FollowingState extends State<Following> {
-  FollowingController followingController = Get.find();
+  FollowingController followingController = Get.put(FollowingController());
+
+  @override
+  void initState() {
+    super.initState();
+    followingController.initState(widget.tabIndex, widget.userId);
+  }
 
   @override
   Widget build(BuildContext context) {

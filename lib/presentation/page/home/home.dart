@@ -99,11 +99,9 @@ class _HomeState extends State<Home> {
           ),
           Obx(() => SrAppBar(
             userName: homeController.userInfo.value.nickname ?? "",
-            spots: homeController.userInfo.value.memberSpotsCnt ?? 0,
-            followers: homeController.userInfo.value.followersCnt ?? 0,
-            followings: homeController.userInfo.value.followingsCnt ?? 0,
             fetchRegionSpots: _fetchRegionSpots,
             shouldRefresh: homeController.shouldSpotsRefresh.value,
+            user: homeController.userInfo.value,
           )),
           GestureDetector(
             onTap: () {

@@ -1,13 +1,25 @@
 import 'package:get/get.dart';
-import 'package:spotright/presentation/page/following/following_state.dart';
+import 'package:spotright/data/user/user_repository.dart';
+import 'package:spotright/data/user/user_response.dart';
 
 class FollowingController extends GetxController {
+  UserRepository userRepository = Get.find();
+  int userId = 0;
+  RxInt tabIndex = 0.obs;
+  RxList<UserResponse> followers = <UserResponse>[].obs;
 
-  FollowingController({required this.followingState});
+  FollowingController();
 
-  final FollowingState followingState;
+  void initState(int index, userId) {
+    userId = userId;
+    tabIndex.value = index;
+  }
 
   void changeTab(int index) {
-    followingState.tabIndex.value = index;
+    tabIndex.value = index;
+  }
+
+  void fetchFollowers() async {
+    followers.value = await userRepository.getFollowersById(userId);
   }
 }

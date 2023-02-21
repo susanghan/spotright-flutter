@@ -25,7 +25,13 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   Completer<GoogleMapController> _mapController = Completer();
-  late ProfileController profileController = Get.put(ProfileController(widget.user.memberId));
+  late ProfileController profileController = Get.put(ProfileController());
+
+  @override
+  void initState() {
+    super.initState();
+    profileController.fetchProfileInfo(widget.user.memberId);
+  }
 
   Future<LatLng> _currentLocation() async {
     final GoogleMapController controller = await _mapController.future;
@@ -88,9 +94,6 @@ class _ProfileState extends State<Profile> {
           ),
           Obx(() => SrAppBar(
             userName: profileController.user.value.nickname ?? "",
-            spots: profileController.user.value.memberSpotsCnt ?? 0,
-            followers: profileController.user.value.followersCnt ?? 0,
-            followings: profileController.user.value.followingsCnt ?? 0,
             isMyPage: false,
             follow: profileController.follow,
             unfollow: profileController.unFollow,

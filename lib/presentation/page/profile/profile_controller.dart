@@ -10,9 +10,7 @@ class ProfileController extends GetxController {
   Rx<UserResponse> user = UserResponse(memberId: 0).obs;
   final String reportType =  "MEMBER";
 
-  ProfileController(int userId) {
-    fetchProfileInfo(userId);
-  }
+  ProfileController();
 
   void fetchProfileInfo(int userId) async {
     UserResponse userInfo = await userRepository.getMemberInfo(userId);
