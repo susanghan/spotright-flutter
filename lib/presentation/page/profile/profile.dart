@@ -7,6 +7,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:spotright/data/user/user_response.dart';
 import 'package:spotright/presentation/common/colors.dart';
+import 'package:spotright/presentation/component/appbars/appbar_title.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/appbars/sr_app_bar.dart';
 import 'package:spotright/presentation/page/profile/profile_controller.dart';
@@ -29,7 +30,7 @@ class _ProfileState extends State<Profile> {
   @override
   void initState() {
     super.initState();
-    profileController = Get.put(ProfileController(user: widget.user));
+    profileController = Get.put(ProfileController(widget.user.memberId));
   }
 
   Future<LatLng> _currentLocation() async {
@@ -57,7 +58,7 @@ class _ProfileState extends State<Profile> {
     return SafeArea(
       child: Scaffold(
         appBar: DefaultAppBar(
-            title: profileController?.user.spotrightId ?? "",
+            titleWidget: Obx(() => AppbarTitle(title: profileController?.user.value.spotrightId ?? "")),
             hasBackButton: true,
             actions: [
               GestureDetector(
@@ -91,18 +92,18 @@ class _ProfileState extends State<Profile> {
               _currentLocation();
             },
           ),
-          SrAppBar(
-            userName: profileController?.user.nickname ?? "",
-            spots: profileController?.user.memberSpotsCnt ?? 0,
-            followers: profileController?.user.followersCnt ?? 0,
-            followings: profileController?.user.followingsCnt ?? 0,
+          Obx(() => SrAppBar(
+            userName: profileController?.user.value.nickname ?? "",
+            spots: profileController?.user.value.memberSpotsCnt ?? 0,
+            followers: profileController?.user.value.followersCnt ?? 0,
+            followings: profileController?.user.value.followingsCnt ?? 0,
             isMyPage: false,
             follow: profileController?.follow,
             unfollow: profileController?.unFollow,
-            isFollow: true,
+            isFollow: false,
             block: profileController?.block,
             report: profileController?.report,
-          ),
+          )),
           GestureDetector(
             onTap: () {
               Get.to(const SpotList());

@@ -62,8 +62,6 @@ class _SrAppBarState extends State<SrAppBar> {
 
   @override
   Widget build(BuildContext context) {
-    print("렌더링!!");
-
     return Container(
       width: double.infinity,
       child: Column(

@@ -83,8 +83,9 @@ class UserRepository {
     localRepository.save(memberIdKey, userResponse!.memberId.toString());
   }
 
-  Future<void> getMemberInfo(int memberId) async {
-    await networkClient.request(path: "$getMemberInfoPath/$memberId");
+  Future<UserResponse> getMemberInfo(int memberId) async {
+    var res = await networkClient.request(path: "$getMemberInfoPath/$memberId");
+    return UserResponse.fromJson(res.jsonMap!);
   }
 
   Future<void> updateBirthDate() async {
