@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:spotright/data/user/user_response.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/page/following/following_controller.dart';
 
 class Following extends StatefulWidget {
-  const Following({Key? key, required this.tabIndex, required this.userId}) : super(key: key);
+  const Following({Key? key, required this.tabIndex, required this.user}) : super(key: key);
 
   final int tabIndex;
-  final int userId;
+  final UserResponse user;
 
   @override
   State<Following> createState() => _FollowingState();
@@ -20,7 +21,7 @@ class _FollowingState extends State<Following> {
   @override
   void initState() {
     super.initState();
-    followingController.initState(widget.tabIndex, widget.userId);
+    followingController.initState(widget.tabIndex, widget.user);
   }
 
   @override
@@ -40,20 +41,20 @@ class _FollowingState extends State<Following> {
               child: _TabBar(),
             ),
             Expanded(
-              child: TabBarView(children: [
+              child: Obx(() => TabBarView(children: [
                 ListView.builder(
                     padding: EdgeInsets.only(top: 20),
-                    itemCount: 10,
+                    itemCount: followingController.followers.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return _Profile(true);
+                      return _Profile(followingController.followers[index], true);
                     }),
                 ListView.builder(
-                  padding: EdgeInsets.only(top: 20),
-                    itemCount: 10,
+                    padding: EdgeInsets.only(top: 20),
+                    itemCount: followingController.followings.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return _Profile(false);
+                      return _Profile(followingController.followings[index], false);
                     })
-              ]),
+              ])),
             )
           ])),
     ));
@@ -74,7 +75,7 @@ class _FollowingState extends State<Following> {
     );
   }
 
-  Widget _Profile(bool isFollower) {
+  Widget _Profile(UserResponse user, bool isFollower) {
     return Container(
       margin: EdgeInsets.fromLTRB(16, 0, 16, 30),
       child: Row(children: [
@@ -90,9 +91,9 @@ class _FollowingState extends State<Following> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("dkscjftn", style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 15, color: Colors.black),),
+            Text(user.spotrightId ?? "", style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 15, color: Colors.black),),
             SizedBox(height: 8),
-            Text("김철수", style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w300, color: SrColors.gray1),),
+            Text(user.nickname ?? "", style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w300, color: SrColors.gray1),),
           ],
         ),
         Spacer(),

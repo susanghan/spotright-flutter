@@ -134,13 +134,19 @@ class UserRepository {
     return users ?? [];
   }
 
-  Future<List<UserResponse>> getFollowersById(int memberId) async {
-    var res = await networkClient.request(path: "$getFollowersByIdPath/$memberId/followers");
+  Future<List<UserResponse>> getFollowersById(int memberId, int page, int pageSize) async {
+    var res = await networkClient.request(path: "$getFollowersByIdPath/$memberId/followers", queryParameters: {
+      "pageFrom" : page.toString(),
+      "pageNum": pageSize.toString(),
+    });
     return res.list?.map((userJson) => UserResponse.fromJson(userJson)).toList() ?? [];
   }
 
-  Future<List<UserResponse>> getFollowingsById(int memberId) async {
-    var res = await networkClient.request(path: "$getFollowersByIdPath/$memberId/followings");
+  Future<List<UserResponse>> getFollowingsById(int memberId, int page, int pageSize) async {
+    var res = await networkClient.request(path: "$getFollowersByIdPath/$memberId/followings", queryParameters: {
+      "pageFrom" : page.toString(),
+      "pageNum": pageSize.toString(),
+    });
     return res.list?.map((userJson) => UserResponse.fromJson(userJson)).toList() ?? [];
   }
 }

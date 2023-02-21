@@ -146,7 +146,7 @@ class _SrAppBarState extends State<SrAppBar> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            Get.to(Following(tabIndex: 0, userId: widget.user.memberId,));
+                            Get.to(Following(tabIndex: 0, user: widget.user,));
                           },
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -158,7 +158,7 @@ class _SrAppBarState extends State<SrAppBar> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            Get.to(Following(tabIndex: 1, userId: widget.user.memberId,));
+                            Get.to(Following(tabIndex: 1, user: widget.user,));
                           },
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
