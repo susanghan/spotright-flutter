@@ -25,7 +25,8 @@ class NetworkClient {
     Http method = Http.get,
     required String path,
     Map<String, String>? headers,
-    Map<String, dynamic>? body
+    Map<String, dynamic>? body,
+    Map<String, dynamic>? queryParameters,
   }) async {
     if((refreshToken?.isNotEmpty ?? false) && accessToken.isNotEmpty) await verifyAndRefreshToken();
 
@@ -34,7 +35,7 @@ class NetworkClient {
     headers["accept"] = "*/*";
     headers["authorization"] = headers["authorization"] ?? accessToken;
 
-    return _requestWithLog(method: method, path: path, headers: headers, body: body);
+    return _requestWithLog(method: method, path: path, headers: headers, body: body, queryParameters: queryParameters);
   }
 
   Future<Response> _requestWithLog({
@@ -42,14 +43,15 @@ class NetworkClient {
     required String path,
     Map<String, String>? headers,
     Map<String, dynamic>? body,
+    Map<String, dynamic>? queryParameters,
   }) async {
     path = prefix + path;
 
-    var url = Uri.https(baseUrl, path);
+    var url = Uri.https(baseUrl, path, queryParameters);
     Function func = method.function;
 
     logger.log(
-        Level.debug, "$method : $path <<< headers : $headers <<< body : $body");
+        Level.debug, "$method : $path <<< headers : $headers <<< parameters : $queryParameters <<< body : $body");
     Response response = (body == null)
         ? await func.call(url, headers: headers)
         : await func.call(url, headers: headers, body: jsonEncode(body));
