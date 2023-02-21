@@ -25,6 +25,8 @@ class UserRepository {
   final String unblockPath = "/member/unblock";
   final String unfollowPath = "/member/unfollow";
   final String searchMembersByIdPath = "/member/spotright-id";
+  final String getFollowersByIdPath = "/member";
+  final String getFollowingsByIdPath = "/member";
 
   bool get isLoggedIn => networkClient.accessToken != null;
 
@@ -130,5 +132,15 @@ class UserRepository {
     });
     var users = res.list?.map((e) => UserResponse.fromJson(e)).toList();
     return users ?? [];
+  }
+
+  Future<List<UserResponse>> getFollowersById(int memberId) async {
+    var res = await networkClient.request(path: "$getFollowersByIdPath/$memberId/followers");
+    return res.list?.map((userJson) => UserResponse.fromJson(userJson)).toList() ?? [];
+  }
+
+  Future<List<UserResponse>> getFollowingsById(int memberId) async {
+    var res = await networkClient.request(path: "$getFollowersByIdPath/$memberId/followings");
+    return res.list?.map((userJson) => UserResponse.fromJson(userJson)).toList() ?? [];
   }
 }
