@@ -18,7 +18,6 @@ class HomeController {
   }
 
   void onCameraMoved() {
-    print("호출");
     shouldSpotsRefresh.value = true;
   }
 
