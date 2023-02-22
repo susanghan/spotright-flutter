@@ -20,7 +20,7 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home> with WidgetsBindingObserver {
   Completer<GoogleMapController> _mapController = Completer();
   HomeController homeController = Get.find();
 
@@ -60,6 +60,8 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    homeController.pixelRatio.value = MediaQuery.of(context).devicePixelRatio;
+
     return SafeArea(
       child: Scaffold(
         appBar: DefaultAppBar(
@@ -82,10 +84,11 @@ class _HomeState extends State<Home> {
           ]
         ),
         body: Stack(alignment: Alignment.bottomCenter, children: [
-          GoogleMap(
+          Obx(() => GoogleMap(
             zoomControlsEnabled: false,
             myLocationButtonEnabled: false,
             myLocationEnabled: true,
+            markers: homeController.spots,
             mapType: MapType.normal,
             onCameraIdle: homeController.onCameraMoved,
             initialCameraPosition: CameraPosition(
@@ -96,7 +99,7 @@ class _HomeState extends State<Home> {
               _mapController.complete(controller);
               _currentLocation();
             },
-          ),
+          )),
           Obx(() => SrAppBar(
             userName: homeController.userInfo.value.nickname ?? "",
             fetchRegionSpots: _fetchRegionSpots,
