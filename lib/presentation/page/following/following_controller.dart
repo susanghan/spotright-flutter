@@ -30,4 +30,12 @@ class FollowingController extends GetxController {
   void fetchFollowings() async {
     followings.value = await userRepository.getFollowingsById(user.value.memberId, 0, 100);
   }
+
+  Function() unfollow(int userId) {
+    return () => userRepository.unfollow(userId, userRepository.userResponse!.memberId);
+  }
+
+  Function() removeFollower(int removingFollowerId) {
+    return () => userRepository.unfollow(removingFollowerId, userRepository.userResponse!.memberId, isUnfollowing: false);
+  }
 }

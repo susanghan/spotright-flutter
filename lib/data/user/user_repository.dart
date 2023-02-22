@@ -121,8 +121,8 @@ class UserRepository {
     await networkClient.request(method: Http.delete, path: "$_unblockPath/$memberId");
   }
 
-  Future<void> unfollow(int memberId, int requestMemberId) async {
-    await networkClient.request(method: Http.delete, path: "$_unfollowPath/$memberId", body: {"isFollowing" : true});
+  Future<void> unfollow(int memberId, int requestMemberId, {bool isUnfollowing = true}) async {
+    await networkClient.request(method: Http.delete, path: "$_unfollowPath/$memberId", body: {"isFollowing" : isUnfollowing});
   }
 
   Future<List<UserResponse>> searchMembersById(String spotrightId, int page, int pageSize) async {

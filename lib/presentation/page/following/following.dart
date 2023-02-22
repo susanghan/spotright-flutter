@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spotright/data/user/user_response.dart';
 import 'package:spotright/presentation/common/colors.dart';
+import 'package:spotright/presentation/common/typography.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/page/following/following_controller.dart';
 
@@ -101,8 +102,8 @@ class _FollowingState extends State<Following> {
           width: 108,
           height: 36,
           child: OutlinedButton(
-            onPressed: () {},
-            child: isFollower ? Text("삭제", style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 15)) : Text("팔로잉", style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 15),),
+            onPressed: isFollower ? followingController.removeFollower(user.memberId) : followingController.unfollow(user.memberId),
+            child: Text(isFollower ? "삭제" : "팔로잉", style: SrTypography.body2semi.copy(color: SrColors.primary),),
             style: OutlinedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(100)),
