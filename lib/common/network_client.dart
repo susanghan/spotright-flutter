@@ -12,7 +12,7 @@ class NetworkClient {
   Logger logger = getx.Get.find();
   LocalRepository localRepository = LocalRepository();
   String baseUrl = "spotright-dev.nogamsung.com";
-  String prefix = "/api/v1";
+  String prefix = "/api";
   String accessToken = "";
   String? refreshToken;
   final String refreshTokenKey = "refreshToken";

@@ -14,7 +14,7 @@ class UserRepository {
   final String _memberIdKey = "memberId";
   final String _getUserInfoPath = "/member";
   final String _signUpPath = "/member";
-  final String _loginPath = "/member/register-or-login";
+  final String _loginPath = "/member/oauth";
   final String _getMemberInfoPath = "/member";
   final String _updateBirthDatePath = "/member/birthdate";
   final String _blockPath = "/member/block";
