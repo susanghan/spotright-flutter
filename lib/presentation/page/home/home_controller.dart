@@ -1,8 +1,10 @@
+import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:spotright/data/resources/marker.dart';
 import 'package:spotright/data/spot/spot_repository.dart';
 import 'package:spotright/data/spot/spot_response.dart';
 import 'package:spotright/data/user/user_repository.dart';
@@ -13,14 +15,18 @@ class HomeController {
   UserRepository userRepository = Get.find();
   SpotRepository spotRepository = Get.find();
   Uint8List? markerImageBytes;
+  List<Uint8List> markerImageBytesList = [];
+  List<Uint8List> pinImageBytesList = [];
   RxDouble pixelRatio = 2.625.obs;
+  final int markerSize = 50;
+  final int pinSize = 24;
 
   Rx<UserResponse> userInfo = UserResponse(memberId: 0).obs;
   final RxList<SpotResponse> _spots = <SpotResponse>[].obs;
   RxSet<Marker> get spots => _spots.map((spot) => Marker(
       markerId: MarkerId(spot.memberSpotId.toString()),
     position: LatLng(spot.latitude!, spot.longitude!),
-    icon: BitmapDescriptor.fromBytes(markerImageBytes!),
+    icon: BitmapDescriptor.fromBytes(markerImageBytesList[((spot.category! / 100).toInt() + 6) % 7]),
   ),).toSet().obs;
   RxBool shouldSpotsRefresh = false.obs;
 
@@ -34,7 +40,13 @@ class HomeController {
   }
 
   Future<void> _setCustomMarker() async {
-    markerImageBytes = await getBytesFromAsset("assets/marker_with_border.png", (50 * 2.625).toInt());
+    markerImageBytes = await getBytesFromAsset("assets/marker_with_border.png", (50 * pixelRatio.value).toInt());
+    markerImageBytesList = await Future.wait(SrMarker.markerAssets.map((it) async {
+      return await getBytesFromAsset(it, (markerSize * pixelRatio.value).toInt());
+    }).toList());
+    pinImageBytesList = await Future.wait(SrMarker.pinAssets.map((it) async {
+      return await getBytesFromAsset(it, (pinSize * pixelRatio.value).toInt());
+    }).toList());
   }
 
   Future<Uint8List> getBytesFromAsset(String path, int width) async {
