@@ -20,6 +20,7 @@ class HomeController {
   RxDouble pixelRatio = 2.625.obs;
   final int markerSize = 50;
   final int pinSize = 24;
+  RxSet<String> selectedCategories = <String>{}.obs;
 
   Rx<UserResponse> userInfo = UserResponse(memberId: 0).obs;
   final RxList<SpotResponse> _spots = <SpotResponse>[].obs;
@@ -64,5 +65,9 @@ class HomeController {
         bottomLatitude: latLngBounds.southwest.latitude,
         bottomLongitude: latLngBounds.northeast.longitude);
     shouldSpotsRefresh.value = false;
+  }
+
+  void onCategorySelected(Set<String> selected) {
+    selectedCategories.value = selected;
   }
 }

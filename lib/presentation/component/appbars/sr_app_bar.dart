@@ -24,6 +24,7 @@ class SrAppBar extends StatefulWidget {
     this.shouldRefresh = false,
     this.fetchRegionSpots,
     required this.user,
+    this.onCategorySelected,
   }) : super(key: key);
 
   UserResponse user;
@@ -36,16 +37,7 @@ class SrAppBar extends StatefulWidget {
   Function(String, String)? report;
   bool shouldRefresh = false;
   Function()? fetchRegionSpots;
-  List<bool> selectedChips = [
-    true,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false
-  ];
+  Function(Set<String> selected)? onCategorySelected;
 
   @override
   State<SrAppBar> createState() => _SrAppBarState();
@@ -56,6 +48,7 @@ class _SrAppBarState extends State<SrAppBar> {
   static const double _topContentSize = 96;
   double topContentSize = _topContentSize;
   double arrowAreaSize = 40;
+  Set<String> selected = {};
 
   @override
   Widget build(BuildContext context) {
@@ -354,10 +347,15 @@ class _SrAppBarState extends State<SrAppBar> {
                 child: SrChip(
                     name: chipNames[index],
                     color: chipColors[index],
-                    selected: widget.selectedChips[index],
+                    selected: selected.contains(chipNames[index]),
                     onTab: (isSelected) {
                       setState(() {
-                        widget.selectedChips[index] = isSelected;
+                        if(isSelected) {
+                          selected.add(chipNames[index]);
+                        } else {
+                          selected.remove(chipNames[index]);
+                        }
+                        widget.onCategorySelected?.call(selected);
                       });
                     }));
           }),

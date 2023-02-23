@@ -105,6 +105,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
             fetchRegionSpots: _fetchRegionSpots,
             shouldRefresh: homeController.shouldSpotsRefresh.value,
             user: homeController.userInfo.value,
+            onCategorySelected: homeController.onCategorySelected,
           )),
           GestureDetector(
             onTap: () {
