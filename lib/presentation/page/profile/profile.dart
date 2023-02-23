@@ -97,7 +97,7 @@ class _ProfileState extends State<Profile> {
             isMyPage: false,
             follow: profileController.follow,
             unfollow: profileController.unFollow,
-            isFollow: false,
+            isFollowing: profileController.user.value.isFollowing ?? false,
             block: profileController.block,
             report: profileController.report,
             user: profileController.user.value,

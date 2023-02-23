@@ -18,7 +18,7 @@ class SrAppBar extends StatefulWidget {
     this.isMyPage = true,
     this.follow,
     this.unfollow,
-    this.isFollow = false,
+    this.isFollowing = false,
     this.block,
     this.report,
     this.shouldRefresh = false,
@@ -28,7 +28,7 @@ class SrAppBar extends StatefulWidget {
 
   UserResponse user;
   String userName;
-  bool isFollow;
+  bool isFollowing;
   bool isMyPage;
   Function()? follow;
   Function()? unfollow;
@@ -216,15 +216,15 @@ class _SrAppBarState extends State<SrAppBar> {
               child: Padding(
             padding: EdgeInsets.only(right: 8),
             child: OutlinedButton(
-              onPressed: widget.isFollow ? widget.unfollow : widget.follow,
+              onPressed: widget.isFollowing ? widget.unfollow : widget.follow,
               child: Text(
-                widget.isFollow ? "팔로잉" : "팔로우",
+                widget.isFollowing ? "팔로잉" : "팔로우",
                 style: TextStyle(
-                    color: widget.isFollow ? SrColors.primary : SrColors.white),
+                    color: widget.isFollowing ? SrColors.primary : SrColors.white),
               ),
               style: OutlinedButton.styleFrom(
                   backgroundColor:
-                      widget.isFollow ? SrColors.white : SrColors.primary,
+                      widget.isFollowing ? SrColors.white : SrColors.primary,
                   side: BorderSide(
                     color: SrColors.primary,
                   ),

@@ -12,6 +12,8 @@ class UserResponse implements ResponseConverter {
   String? gender;
   String? birthdate;
   String? nickname;
+  bool? isFollowing;
+  bool? isFollower;
 
   UserResponse(
       {required this.memberId,
@@ -24,7 +26,10 @@ class UserResponse implements ResponseConverter {
       this.email,
       this.gender,
       this.birthdate,
-      this.nickname});
+      this.nickname,
+      this.isFollowing,
+      this.isFollower,
+      });
 
   UserResponse.fromJson(Map<String, dynamic> json)
       : memberId = json['memberId'],
@@ -39,7 +44,9 @@ class UserResponse implements ResponseConverter {
         email = json['email'],
         gender = json['gender'],
         birthdate = json['birthdate'],
-        nickname = json['nickname'];
+        nickname = json['nickname'],
+        isFollowing = json['isFollowing'],
+        isFollower = json['isFollower'];
 
   @override
   Map<String, dynamic> toJson() {
@@ -55,6 +62,8 @@ class UserResponse implements ResponseConverter {
     data['gender'] = gender;
     data['birthdate'] = birthdate;
     data['nickname'] = nickname;
+    data['isFollowing'] = isFollowing;
+    data['isFollower'] = isFollower;
     return data;
   }
 }

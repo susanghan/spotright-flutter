@@ -17,12 +17,14 @@ class ProfileController extends GetxController {
     user.value = userInfo;
   }
 
-  void follow() {
-    userRepository.follow(user.value.memberId);
+  Future<void> follow() async {
+    await userRepository.follow(user.value.memberId);
+    fetchProfileInfo(user.value.memberId);
   }
 
-  void unFollow() {
-    userRepository.unfollow(user.value.memberId, userRepository.userResponse!.memberId);
+  Future<void> unFollow() async {
+    await userRepository.unfollow(user.value.memberId, userRepository.userResponse!.memberId);
+    fetchProfileInfo(user.value.memberId);
   }
 
   void block() {
