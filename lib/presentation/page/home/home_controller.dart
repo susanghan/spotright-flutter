@@ -1,5 +1,5 @@
-import 'dart:math';
 import 'dart:typed_data';
+import 'dart:ui' as ui;
 
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -9,8 +9,6 @@ import 'package:spotright/data/spot/spot_repository.dart';
 import 'package:spotright/data/spot/spot_response.dart';
 import 'package:spotright/data/user/user_repository.dart';
 import 'package:spotright/data/user/user_response.dart';
-import 'dart:ui' as ui;
-
 import 'package:spotright/presentation/component/bottom_sheet/sr_bottom_sheet.dart';
 
 class HomeController {
@@ -22,19 +20,28 @@ class HomeController {
   RxDouble pixelRatio = 2.625.obs;
   final int markerSize = 50;
   final int pinSize = 24;
-  RxSet<String> selectedCategories = <String>{}.obs;
+  Set<String> selectedCategories = <String>{};
+  Function()? reRender;
 
   Rx<UserResponse> userInfo = UserResponse(memberId: 0).obs;
   final RxList<SpotResponse> _spots = <SpotResponse>[].obs;
-  RxSet<Marker> get spots => _spots.map((spot) => Marker(
-      markerId: MarkerId(spot.memberSpotId.toString()),
-    position: LatLng(spot.latitude!, spot.longitude!),
-    icon: BitmapDescriptor.fromBytes(markerImageBytesList[((spot.category! / 100).toInt() + 6) % 7]),
-    onTap: () => _showSpotBottomSheet(spot)
-  ),).toSet().obs;
+
+  RxSet<Marker> get spots => _spots
+      .where((spot) => selectedCategories.contains("전체") || selectedCategories.contains(spot.categoryText))
+      .map(
+        (spot) => Marker(
+            markerId: MarkerId(spot.memberSpotId.toString()),
+            position: LatLng(spot.latitude!, spot.longitude!),
+            icon: BitmapDescriptor.fromBytes(
+                markerImageBytesList[((spot.category! / 100).toInt() + 6) % 7]),
+            onTap: () => _showSpotBottomSheet(spot)),
+      )
+      .toSet()
+      .obs;
   RxBool shouldSpotsRefresh = false.obs;
 
-  void initState() {
+  void initState(Function() reRender) {
+    this.reRender = reRender;
     userInfo.value = userRepository.userResponse!;
     _setCustomMarker();
   }
@@ -44,9 +51,12 @@ class HomeController {
   }
 
   Future<void> _setCustomMarker() async {
-    markerImageBytes = await getBytesFromAsset("assets/marker_with_border.png", (50 * pixelRatio.value).toInt());
-    markerImageBytesList = await Future.wait(SrMarker.markerAssets.map((it) async {
-      return await getBytesFromAsset(it, (markerSize * pixelRatio.value).toInt());
+    markerImageBytes = await getBytesFromAsset(
+        "assets/marker_with_border.png", (50 * pixelRatio.value).toInt());
+    markerImageBytesList =
+        await Future.wait(SrMarker.markerAssets.map((it) async {
+      return await getBytesFromAsset(
+          it, (markerSize * pixelRatio.value).toInt());
     }).toList());
     pinImageBytesList = await Future.wait(SrMarker.pinAssets.map((it) async {
       return await getBytesFromAsset(it, (pinSize * pixelRatio.value).toInt());
@@ -55,9 +65,12 @@ class HomeController {
 
   Future<Uint8List> getBytesFromAsset(String path, int width) async {
     ByteData data = await rootBundle.load(path);
-    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(), targetWidth: width);
+    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
+        targetWidth: width);
     ui.FrameInfo fi = await codec.getNextFrame();
-    return (await fi.image.toByteData(format: ui.ImageByteFormat.png))!.buffer.asUint8List();
+    return (await fi.image.toByteData(format: ui.ImageByteFormat.png))!
+        .buffer
+        .asUint8List();
   }
 
   void fetchSpots(LatLngBounds latLngBounds) async {
@@ -71,12 +84,13 @@ class HomeController {
   }
 
   void onCategorySelected(Set<String> selected) {
-    selectedCategories.value = selected;
+    selectedCategories = selected;
+    reRender?.call();
   }
 
   void _showSpotBottomSheet(SpotResponse spot) {
-    print("실제 데이터, ${spot.toJson()}");
-
-    Get.bottomSheet(SrBottomSheet(spots: [spot],));
+    Get.bottomSheet(SrBottomSheet(
+      spots: [spot],
+    ));
   }
 }

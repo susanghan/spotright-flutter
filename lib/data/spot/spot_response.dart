@@ -1,3 +1,6 @@
+import 'package:flutter/foundation.dart';
+import '../resources/category.dart' as Res;
+
 class SpotResponse {
   String? address;
   int? category;
@@ -13,6 +16,7 @@ class SpotResponse {
   String? spotName;
   List<SpotPhoto>? spotPhotos;
   bool? visited;
+  String? get categoryText => Res.Category.mainCategory[((category! / 100).toInt() + 6) % 7];
 
   SpotResponse(
       {this.address,
