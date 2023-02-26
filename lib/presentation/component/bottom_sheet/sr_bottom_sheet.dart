@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spotright/data/spot/spot_response.dart';
 import 'package:spotright/presentation/common/colors.dart';
+import 'package:spotright/presentation/common/typography.dart';
 
 class SrBottomSheet extends StatelessWidget {
   SrBottomSheet({
@@ -37,36 +38,44 @@ class SrBottomSheet extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(left: 16),
+                    padding: EdgeInsets.only(left: 14),
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: EdgeInsets.only(top: 20, bottom: 4),
+                            padding: EdgeInsets.only(left: 2, top: 20, bottom: 8),
                             child: Row(
                               children: [
                                 Padding(
                                     padding: EdgeInsets.only(right: 4),
-                                    child: Text(e.spotName ?? "")),
+                                    child: Text(e.spotName ?? "", style: SrTypography.body2semi,)),
                                 Padding(
                                     padding: EdgeInsets.only(right: 6),
-                                    child: Text(e.category.toString())),
+                                    child: Text(e.category.toString(), style: SrTypography.body4medium.copy(color: SrColors.gray2),)),
                                 ..._Rating(e.rating),
                               ],
                             ),
                           ),
-                          Row(
-                            children: [
-                              SvgPicture.asset(
-                                "assets/location.svg",
-                                color: SrColors.gray1,
-                              ),
-                              Padding(
-                                  padding: EdgeInsets.only(bottom: 4),
-                                  child: Text(e.fullAddress ?? ""))
-                            ],
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 8),
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(right: 4),
+                                  child: SvgPicture.asset(
+                                    "assets/location.svg",
+                                    color: SrColors.gray1,
+                                  ),
+                                ),
+                                Padding(
+                                    padding: EdgeInsets.only(bottom: 4),
+                                    child: Text(e.fullAddress ?? "", style: SrTypography.body4medium.copy(color: SrColors.gray1),))
+                              ],
+                            ),
                           ),
-                          Text(e.memo ?? ""),
+                          Padding(
+                            padding: EdgeInsets.only(left: 2),
+                              child: Text(e.memo ?? "", style: SrTypography.body4medium.copy(color: SrColors.gray2),)),
                         ]),
                   ),
                   Container(
