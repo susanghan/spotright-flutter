@@ -1,43 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:spotright/data/spot/spot_response.dart';
 import 'package:spotright/presentation/common/colors.dart';
-import 'package:spotright/presentation/component/bottom_sheet/spot_summary.dart';
 
 class SrBottomSheet extends StatelessWidget {
-  SrBottomSheet({Key? key}) : super(key: key);
+  SrBottomSheet({
+    Key? key,
+    required this.spots,
+  }) : super(key: key);
 
-  final List<SpotSummary> spotList = [
-    SpotSummary(
-      title: "미스터디유커피",
-      category: "카페",
-      rating: 3,
-      address: "인천 연수구 아카데미로 119",
-      memo: "아샷추 존맛입니다.",
-      photoUrl: "https://picsum.photos/190",
-    ),
-    SpotSummary(
-      title: "미스터디유커피",
-      category: "카페",
-      rating: 3,
-      address: "인천 연수구 아카데미로 119",
-      memo: "아샷추 존맛입니다.",
-      photoUrl: "https://picsum.photos/190",
-    ),
-    SpotSummary(
-      title: "미스터디유커피",
-      category: "카페",
-      rating: 3,
-      address: "인천 연수구 아카데미로 119",
-      memo: "아샷추 존맛입니다.",
-      photoUrl: "https://picsum.photos/190",
-    ),
-  ];
+  List<SpotResponse> spots;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(left: 16, right: 16, bottom: 50),
-      height: spotList.length * 122,
+      height: spots.length * 122,
       child: SingleChildScrollView(
         child: Column(
           children: _SpotList()
@@ -47,7 +25,7 @@ class SrBottomSheet extends StatelessWidget {
   }
 
   List<Widget> _SpotList() {
-    return spotList
+    return spots
         .map((e) => Container(
               height: 108,
               margin: EdgeInsets.only(bottom: 14),
@@ -69,10 +47,10 @@ class SrBottomSheet extends StatelessWidget {
                               children: [
                                 Padding(
                                     padding: EdgeInsets.only(right: 4),
-                                    child: Text(e.title)),
+                                    child: Text(e.spotName ?? "")),
                                 Padding(
                                     padding: EdgeInsets.only(right: 6),
-                                    child: Text(e.category)),
+                                    child: Text(e.category.toString())),
                                 ..._Rating(e.rating),
                               ],
                             ),
@@ -85,7 +63,7 @@ class SrBottomSheet extends StatelessWidget {
                               ),
                               Padding(
                                   padding: EdgeInsets.only(bottom: 4),
-                                  child: Text(e.address))
+                                  child: Text(e.fullAddress ?? ""))
                             ],
                           ),
                           Text(e.memo ?? ""),
@@ -98,7 +76,7 @@ class SrBottomSheet extends StatelessWidget {
                     child: CircleAvatar(
                         backgroundColor: SrColors.white,
                         radius: 100,
-                        backgroundImage: NetworkImage(e.photoUrl ?? "")),
+                        backgroundImage: NetworkImage((e.spotPhotos?.length ?? 0) > 0 ? e.spotPhotos!.first.photoUrl! : "")),
                   )
                 ],
               ),

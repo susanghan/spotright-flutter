@@ -11,6 +11,8 @@ import 'package:spotright/data/user/user_repository.dart';
 import 'package:spotright/data/user/user_response.dart';
 import 'dart:ui' as ui;
 
+import 'package:spotright/presentation/component/bottom_sheet/sr_bottom_sheet.dart';
+
 class HomeController {
   UserRepository userRepository = Get.find();
   SpotRepository spotRepository = Get.find();
@@ -28,6 +30,7 @@ class HomeController {
       markerId: MarkerId(spot.memberSpotId.toString()),
     position: LatLng(spot.latitude!, spot.longitude!),
     icon: BitmapDescriptor.fromBytes(markerImageBytesList[((spot.category! / 100).toInt() + 6) % 7]),
+    onTap: () => _showSpotBottomSheet(spot)
   ),).toSet().obs;
   RxBool shouldSpotsRefresh = false.obs;
 
@@ -69,5 +72,11 @@ class HomeController {
 
   void onCategorySelected(Set<String> selected) {
     selectedCategories.value = selected;
+  }
+
+  void _showSpotBottomSheet(SpotResponse spot) {
+    print("실제 데이터, ${spot.toJson()}");
+
+    Get.bottomSheet(SrBottomSheet(spots: [spot],));
   }
 }
