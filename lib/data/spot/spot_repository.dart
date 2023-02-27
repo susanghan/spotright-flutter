@@ -14,15 +14,16 @@ class SpotRepository {
 
   NetworkClient networkClient = Get.find();
 
-  Future<void> findOneSpot(int memberId, int memberSpotId) async {
-    await networkClient.request(path: "$findOneSpotPath/$memberId/spot/$memberSpotId");
+  Future<SpotResponse> findOneSpot(int memberId, int memberSpotId) async {
+    var res = await networkClient.request(path: "$findOneSpotPath/$memberId/spot/$memberSpotId");
+    return SpotResponse.fromJson(res.jsonMap!);
   }
 
   /**
    * 위도 : latitude, 경도 : longitude
-   * 아마도 전체 범위 : top (90, 0) - bottom (0, 180)
+   * 아마도 전체 범위 : top (90, -180) - bottom (0, 180)
    */
-  Future<List<SpotResponse>> getSpotsFromCoordinate(int memberId, {double topLongitude = 0, double topLatitude = 90, double bottomLongitude = 180, double bottomLatitude = 0}) async {
+  Future<List<SpotResponse>> getSpotsFromCoordinate(int memberId, {double topLongitude = -180, double topLatitude = 90, double bottomLongitude = 179.999999, double bottomLatitude = 0}) async {
     var res = await networkClient.request(path: "$getSpotsByCoordinatePath/$memberId/spots/$topLongitude/$topLatitude/$bottomLongitude/$bottomLatitude");
     return res.list?.map((spot) => SpotResponse.fromJson(spot)).toList() ?? [];
   }
@@ -33,6 +34,10 @@ class SpotRepository {
 
   Future<void> deleteSpot(int memberSpotId) async {
     await networkClient.request(method: Http.delete, path: "$deleteSpotPath/$memberSpotId");
+  }
+
+  Future<void> deleteSpots(List<int> memberSpotIds) async {
+    // todo: 스팟 일괄 삭제 api 연결
   }
 
   Future<void> searchSpotByCoordinate() async {

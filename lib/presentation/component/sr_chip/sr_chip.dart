@@ -9,12 +9,16 @@ class SrChip extends StatefulWidget {
     this.color = const Color(0xffffffff),
     this.selected = true,
     this.onTab,
+    this.elevation = 4,
+    this.borderColor,
   }) : super(key: key);
 
   String name;
   Color color;
   bool selected;
   Function(bool)? onTab;
+  double elevation;
+  Color? borderColor;
 
   @override
   State<SrChip> createState() => _SrChipState();
@@ -26,12 +30,12 @@ class _SrChipState extends State<SrChip> {
     return Padding(
       padding: EdgeInsets.only(bottom: 4),
       child: Material(
-        elevation: 4,
+        elevation: widget.elevation,
         shape: RoundedRectangleBorder(
           side: BorderSide(
               width: 1.5,
               color:
-                  widget.selected ? widget.color : SrColors.white),
+                  widget.selected ? widget.color : widget.borderColor ?? SrColors.white),
           borderRadius: BorderRadius.circular(100),
         ),
         child: ActionChip(

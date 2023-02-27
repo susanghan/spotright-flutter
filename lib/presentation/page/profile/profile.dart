@@ -53,6 +53,11 @@ class _ProfileState extends State<Profile> {
     }
   }
 
+  Future<LatLngBounds> _getRegion() async {
+    final GoogleMapController controller = await _mapController.future;
+    return await controller.getVisibleRegion();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -103,8 +108,9 @@ class _ProfileState extends State<Profile> {
             user: profileController.user.value,
           )),
           GestureDetector(
-            onTap: () {
-              Get.to(const SpotList());
+            onTap: () async {
+              var region = await _getRegion();
+              profileController.moveSpotList(region);
             },
             child: Container(
               width: 112,

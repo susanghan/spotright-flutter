@@ -38,7 +38,7 @@ class _SrCheckBoxState extends State<SrCheckBox> {
                     color: widget.value ? SrColors.primary : SrColors.white,
                     border: Border.all(
                       color: _rectangleColor,
-                      width: 1.5,
+                      width: widget.isRectangle ? 2 : 1.5,
                     )),
                 child: widget.isRectangle ? _Check() : _Circle())
             : Container(

@@ -11,7 +11,6 @@ import 'package:spotright/presentation/component/appbars/sr_app_bar.dart';
 import 'package:spotright/presentation/page/add_spot/add_spot.dart';
 import 'package:spotright/presentation/page/home/home_controller.dart';
 import 'package:spotright/presentation/page/search/search.dart';
-import 'package:spotright/presentation/page/spot_list/spot_list.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -32,9 +31,13 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
   }
 
   void _fetchRegionSpots() async {
-    final GoogleMapController controller = await _mapController.future;
-    var region = await controller.getVisibleRegion();
+    var region = await _getRegion();
     homeController.fetchSpots(region);
+  }
+
+  Future<LatLngBounds> _getRegion() async {
+    final GoogleMapController controller = await _mapController.future;
+    return await controller.getVisibleRegion();
   }
 
   Future<LatLng> _currentLocation() async {
@@ -106,10 +109,15 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
             shouldRefresh: homeController.shouldSpotsRefresh.value,
             user: homeController.userInfo.value,
             onCategorySelected: homeController.onCategorySelected,
+            moveSpotList: () => homeController.moveSpotList(LatLngBounds(
+              northeast: LatLng(90, 179.999999),
+              southwest: LatLng(0, -180),
+            )),
           )),
           GestureDetector(
-            onTap: () {
-              Get.to(const SpotList());
+            onTap: () async {
+              var region = await _getRegion();
+              homeController.moveSpotList(region);
             },
             child: Container(
               width: 112,
