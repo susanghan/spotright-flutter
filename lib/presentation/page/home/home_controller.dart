@@ -22,7 +22,7 @@ class HomeController {
   RxDouble pixelRatio = 2.625.obs;
   final int markerSize = 50;
   final int pinSize = 24;
-  Set<String> selectedCategories = <String>{};
+  Set<String> selectedCategories = <String>{"전체"};
   Function()? reRender;
 
   Rx<UserResponse> userInfo = UserResponse(memberId: 0).obs;
