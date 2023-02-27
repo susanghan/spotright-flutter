@@ -1,33 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:spotright/presentation/common/colors.dart';
 
 //Todo : SrTextFiled) 본문 행간=글자크기 *1.4 ,글자크기:12, 행간:16.8, 본문 영역: 68*296, 상하 여백: 14, 좌우 여백: 16
 
-class SrTextField extends StatelessWidget {
-  SrTextField(
-      {Key? key,
-      this.suffixIcon,
-      this.prefixIcon,
-      this.suffixIconHeight,
-      this.suffixIconWidth,
-      this.cursorWidth = 1,
-      this.hint = '',
-      this.onChanged,
-      this.maxLines = 1,
-      this.height = 44,
-      this.borderRadius = 22,
-      this.controller,
-      this.backgroundColor,
-      this.inputBorder,
-      this.enableBorder,
-      this.focusInputBorder,
-      this.errorInputBorder,
-      this.prefixIconConstraints,
-      this.enabled = true,
-        this.contentPadding,
-      })
-      : super(key: key);
+class SrTextField extends StatefulWidget {
+  SrTextField({
+    Key? key,
+    this.suffixIcon,
+    this.prefixIcon,
+    this.suffixIconHeight,
+    this.suffixIconWidth,
+    this.cursorWidth = 1,
+    this.hint = '',
+    this.onChanged,
+    this.maxLines = 1,
+    this.height = 44,
+    this.borderRadius = 22,
+    this.controller,
+    this.backgroundColor,
+    this.inputBorder,
+    this.enableBorder,
+    this.focusInputBorder,
+    this.errorInputBorder,
+    this.prefixIconConstraints,
+    this.enabled = true,
+    this.contentPadding,
+    this.maxLength,
+  }) : super(key: key);
 
   final String hint;
   final Function(String)? onChanged;
@@ -44,40 +43,61 @@ class SrTextField extends StatelessWidget {
   InputBorder? inputBorder, enableBorder, focusInputBorder, errorInputBorder;
   BoxConstraints? prefixIconConstraints;
   final EdgeInsets? contentPadding;
+  final int? maxLength;
 
   @override
+  State<SrTextField> createState() => SrTextField_State();
+}
+
+class SrTextField_State extends State<SrTextField> {
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      height: height,
-      child: TextField(
-        controller: controller,
-        cursorColor: SrColors.success,
-        cursorWidth: cursorWidth,
-        maxLines: maxLines,
-        textAlign: TextAlign.start,
-        textAlignVertical: TextAlignVertical.center,
-        onChanged: onChanged,
-        enabled: enabled,
-        decoration: InputDecoration(
-            filled: !(backgroundColor == null),
-            fillColor: backgroundColor,
-            suffixIcon: suffixIcon,
-            prefixIcon: prefixIcon,
-            prefixIconConstraints: prefixIconConstraints,
-            contentPadding: contentPadding ?? EdgeInsets.symmetric(vertical: 15, horizontal: 16),
-            //Todo: 색 정정 하고 에러일 때 추가함. 수정 필요하면 해주세요.
-            border: inputBorder ?? OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
-                borderSide: const BorderSide(width: 1, color: SrColors.gray3)),
-            enabledBorder: enableBorder,
-            focusedBorder: focusInputBorder ?? OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
-                borderSide: const BorderSide(width: 1, color: SrColors.success)),
-            errorBorder: errorInputBorder ?? OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
-                borderSide: const BorderSide(width: 1, color: SrColors.primary)),
-            hintText: hint),
+    return Column(children: [
+      Container(
+        margin: EdgeInsets.only(bottom: 8),
+        height: widget.height,
+        child: TextField(
+          controller: widget.controller,
+          cursorColor: SrColors.success,
+          cursorWidth: widget.cursorWidth,
+          maxLines: widget.maxLines,
+          textAlign: TextAlign.start,
+          textAlignVertical: TextAlignVertical.center,
+          onChanged: widget.onChanged,
+          enabled: widget.enabled,
+          decoration: InputDecoration(
+              filled: !(widget.backgroundColor == null),
+              fillColor: widget.backgroundColor,
+              suffixIcon: widget.suffixIcon,
+              prefixIcon: widget.prefixIcon,
+              prefixIconConstraints: widget.prefixIconConstraints,
+              contentPadding: widget.contentPadding ??
+                  EdgeInsets.symmetric(vertical: 15, horizontal: 16),
+              //Todo: 색 정정 하고 에러일 때 추가함. 수정 필요하면 해주세요.
+              border: widget.inputBorder ??
+                  OutlineInputBorder(
+                      borderRadius:
+                      BorderRadius.all(Radius.circular(widget.borderRadius)),
+                      borderSide:
+                      const BorderSide(width: 1, color: SrColors.gray3)),
+              enabledBorder: widget.enableBorder,
+              focusedBorder: widget.focusInputBorder ??
+                  OutlineInputBorder(
+                      borderRadius:
+                      BorderRadius.all(Radius.circular(widget.borderRadius)),
+                      borderSide:
+                      const BorderSide(width: 1, color: SrColors.success)),
+              errorBorder: widget.errorInputBorder ??
+                  OutlineInputBorder(
+                      borderRadius:
+                      BorderRadius.all(Radius.circular(widget.borderRadius)),
+                      borderSide:
+                      const BorderSide(width: 1, color: SrColors.primary)),
+              hintText: widget.hint),
+        ),
       ),
-    );
+      if(widget.maxLength != null) Row(
+          mainAxisAlignment: MainAxisAlignment.end, children: [Text("120/140")])
+    ]);
   }
 }
