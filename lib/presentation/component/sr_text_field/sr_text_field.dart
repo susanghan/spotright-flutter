@@ -25,6 +25,7 @@ class SrTextField extends StatelessWidget {
       this.errorInputBorder,
       this.prefixIconConstraints,
       this.enabled = true,
+        this.contentPadding,
       })
       : super(key: key);
 
@@ -42,6 +43,7 @@ class SrTextField extends StatelessWidget {
   Color? backgroundColor;
   InputBorder? inputBorder, enableBorder, focusInputBorder, errorInputBorder;
   BoxConstraints? prefixIconConstraints;
+  final EdgeInsets? contentPadding;
 
   @override
   Widget build(BuildContext context) {
@@ -57,13 +59,12 @@ class SrTextField extends StatelessWidget {
         onChanged: onChanged,
         enabled: enabled,
         decoration: InputDecoration(
-            filled: backgroundColor==null ? false : true,
+            filled: !(backgroundColor == null),
             fillColor: backgroundColor,
             suffixIcon: suffixIcon,
             prefixIcon: prefixIcon,
             prefixIconConstraints: prefixIconConstraints,
-            //bottom 일부러 안 넣은 거임, line 여러 개일 때 이거 안 먹더라,,,참고해서 해결행~~~~
-            contentPadding: const EdgeInsets.only(left: 16, right: 16, top: 15),
+            contentPadding: contentPadding ?? EdgeInsets.symmetric(vertical: 15, horizontal: 16),
             //Todo: 색 정정 하고 에러일 때 추가함. 수정 필요하면 해주세요.
             border: inputBorder ?? OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
