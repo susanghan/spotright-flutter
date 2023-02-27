@@ -27,7 +27,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    homeController.initState();
+    homeController.initState(() => {setState(() {})});
     _fetchRegionSpots();
   }
 
@@ -46,8 +46,8 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
       currentLocation = await location.getLocation();
       controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
         bearing: 0,
-        target: LatLng(currentLocation.latitude!, currentLocation.longitude!),
-        // target: LatLng(37.510181246, 127.043505829),
+        // target: LatLng(currentLocation.latitude!, currentLocation.longitude!),
+        target: LatLng(37.510181246, 127.043505829),
         zoom: 17.0,
       )));
       return LatLng(currentLocation.latitude!, currentLocation.longitude!);
