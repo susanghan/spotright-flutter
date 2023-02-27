@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spotright/presentation/common/colors.dart';
+import 'package:spotright/presentation/common/typography.dart';
 
 //Todo : SrTextFiled) 본문 행간=글자크기 *1.4 ,글자크기:12, 행간:16.8, 본문 영역: 68*296, 상하 여백: 14, 좌우 여백: 16
 
@@ -50,6 +51,8 @@ class SrTextField extends StatefulWidget {
 }
 
 class SrTextField_State extends State<SrTextField> {
+  int contentLength = 0;
+
   @override
   Widget build(BuildContext context) {
     return Column(children: [
@@ -63,9 +66,11 @@ class SrTextField_State extends State<SrTextField> {
           maxLines: widget.maxLines,
           textAlign: TextAlign.start,
           textAlignVertical: TextAlignVertical.center,
-          onChanged: widget.onChanged,
+          onChanged: _onChanged,
           enabled: widget.enabled,
+          maxLength: widget.maxLength,
           decoration: InputDecoration(
+            counterText: "",
               filled: !(widget.backgroundColor == null),
               fillColor: widget.backgroundColor,
               suffixIcon: widget.suffixIcon,
@@ -97,7 +102,14 @@ class SrTextField_State extends State<SrTextField> {
         ),
       ),
       if(widget.maxLength != null) Row(
-          mainAxisAlignment: MainAxisAlignment.end, children: [Text("120/140")])
+          mainAxisAlignment: MainAxisAlignment.end, children: [Text("$contentLength/${widget.maxLength}", style: SrTypography.body4medium.copy(color: SrColors.gray2),)])
     ]);
+  }
+
+  void _onChanged(String text) {
+    widget.onChanged?.call(text);
+    setState(() {
+      contentLength = text.length;
+    });
   }
 }
