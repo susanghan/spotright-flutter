@@ -1,14 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:spotright/data/spot/spot_response.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
+import 'package:spotright/presentation/component/buttons/sr_rating_button.dart';
 import 'package:spotright/presentation/component/sr_check_box/sr_check_box.dart';
 import 'package:spotright/presentation/component/sr_chip/sr_chip.dart';
 import 'package:spotright/presentation/page/spot_list/spot_list_controller.dart';
 
 class SpotList extends StatefulWidget {
-  const SpotList({Key? key}) : super(key: key);
+  SpotList({Key? key,
+    required this.userId,
+    this.topLatitude = 90,
+    this.topLongitude = 0,
+    this.bottomLatitude = 0,
+    this.bottomLongitude = 180,
+  }) : super(key: key);
+
+  int userId;
+  double topLatitude;
+  double topLongitude;
+  double bottomLatitude;
+  double bottomLongitude;
 
   @override
   State<SpotList> createState() => _SpotListState();
@@ -28,6 +42,12 @@ class _SpotListState extends State<SpotList> {
   ];
 
   SpotListController _spotListController = Get.find();
+
+  @override
+  void initState() {
+    super.initState();
+    _spotListController.initState(widget.userId, widget.topLatitude, widget.topLongitude, widget.bottomLatitude, widget.bottomLongitude);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,70 +94,59 @@ class _SpotListState extends State<SpotList> {
         ),
         Flexible(
           child: ListView(
-            children: List.generate(10, (int index) {
-              return Column(children: [
-                Container(
-                    height: 72,
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                            alignment: Alignment.center,
-                            padding: EdgeInsets.only(right: 8),
-                            child: SvgPicture.asset(
-                              "assets/marker.svg",
-                              width: 26,
-                            )),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            RichText(
-                                overflow: TextOverflow.ellipsis,
-                                text: TextSpan(
-                                    style: TextStyle(color: SrColors.black),
-                                    children: [
-                                      TextSpan(text: "미스터디유커피"),
-                                      TextSpan(
-                                          text: "카페",
-                                          style:
-                                              TextStyle(color: SrColors.gray2))
-                                    ])),
-                            Text("인천 연수구 아카데미로 119"),
-                          ],
-                        ),
-                        Spacer(),
-                        Row(
-                          children: [
-                            SvgPicture.asset(
-                              "assets/star.svg",
-                              width: 16,
-                            ),
-                            Padding(padding: EdgeInsets.only(right: 2)),
-                            SvgPicture.asset(
-                              "assets/star.svg",
-                              width: 16,
-                            ),
-                            Padding(padding: EdgeInsets.only(right: 2)),
-                            SvgPicture.asset(
-                              "assets/star.svg",
-                              width: 16,
-                            ),
-                          ],
+            children: _spotListController.spots.map(
+                    (spot) {
+                      return Column(children: [
+                        _DefaultItem(spot),
+                        Divider(
+                          height: 2,
+                          thickness: 1,
+                          color: SrColors.gray3,
                         )
-                      ],
-                    )),
-                Divider(
-                  height: 2,
-                  thickness: 1,
-                  color: SrColors.gray3,
-                )
-              ]);
-            }),
+                      ]);
+                    }
+            ).toList(),
           ),
         )
       ],
     );
+  }
+
+  Widget _DefaultItem(SpotResponse spot) {
+    return  Container(
+        height: 72,
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+                alignment: Alignment.center,
+                padding: EdgeInsets.only(right: 8),
+                child: SvgPicture.asset(
+                  "assets/marker.svg",
+                  width: 26,
+                )),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                RichText(
+                    overflow: TextOverflow.ellipsis,
+                    text: TextSpan(
+                        style: TextStyle(color: SrColors.black),
+                        children: [
+                          TextSpan(text: spot.spotName),
+                          TextSpan(
+                              text: spot.mainCategory,
+                              style:
+                              TextStyle(color: SrColors.gray2))
+                        ])),
+                Text(spot.fullAddress ?? "정보 없음"),
+              ],
+            ),
+            Spacer(),
+            if(spot.rating != null && spot.rating != 0) SrRatingButton(initialRating: spot.rating!.toDouble(), ratingMode: RatingMode.readOnly)
+          ],
+        ));
   }
 
   Widget _editBody() {
