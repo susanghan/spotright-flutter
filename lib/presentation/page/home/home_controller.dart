@@ -35,7 +35,7 @@ class HomeController {
             markerId: MarkerId(spot.memberSpotId.toString()),
             position: LatLng(spot.latitude!, spot.longitude!),
             icon: BitmapDescriptor.fromBytes(
-                markerImageBytesList[((spot.category! / 100).toInt() + 6) % 7]),
+                markerImageBytesList[spot.mainCategoryIndex]),
             onTap: () => _showSpotBottomSheet(spot)),
       )
       .toSet()
