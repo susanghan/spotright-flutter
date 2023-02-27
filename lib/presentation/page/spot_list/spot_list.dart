@@ -115,42 +115,45 @@ class _SpotListState extends State<SpotList> {
   }
 
   Widget _DefaultItem(SpotResponse spot) {
-    return  Container(
-        height: 72,
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-                alignment: Alignment.center,
-                padding: EdgeInsets.only(right: 8),
-                child: SvgPicture.asset(
-                  "assets/marker.svg",
-                  width: 26,
-                  color: Category.mainCategoryColors[spot.mainCategoryIndex]
-                )),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(bottom: 8),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(right: 4),
-                          child: Text(spot.spotName ?? "", style: SrTypography.body2semi)),
-                      Text(spot.mainCategory ?? "", style: SrTypography.body4medium.copy(color: SrColors.gray2),),
-                    ],
+    return  GestureDetector(
+      onTap: _spotListController.moveDetail(spot),
+      child: Container(
+          height: 72,
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.only(right: 8),
+                  child: SvgPicture.asset(
+                    "assets/marker.svg",
+                    width: 26,
+                    color: Category.mainCategoryColors[spot.mainCategoryIndex]
+                  )),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 8),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(right: 4),
+                            child: Text(spot.spotName ?? "", style: SrTypography.body2semi)),
+                        Text(spot.mainCategory ?? "", style: SrTypography.body4medium.copy(color: SrColors.gray2),),
+                      ],
+                    ),
                   ),
-                ),
-                Text(spot.fullAddress ?? "정보 없음", style: SrTypography.body4medium.copy(color: SrColors.gray1),),
-              ],
-            ),
-            Spacer(),
-            if(spot.rating != null && spot.rating != 0) SrRatingButton(initialRating: spot.rating!.toDouble(), ratingMode: RatingMode.readOnly)
-          ],
-        ));
+                  Text(spot.fullAddress ?? "정보 없음", style: SrTypography.body4medium.copy(color: SrColors.gray1),),
+                ],
+              ),
+              Spacer(),
+              if(spot.rating != null && spot.rating != 0) SrRatingButton(initialRating: spot.rating!.toDouble(), ratingMode: RatingMode.readOnly)
+            ],
+          )),
+    );
   }
 
   Widget _editBody() {
