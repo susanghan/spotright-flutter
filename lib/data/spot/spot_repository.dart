@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:spotright/common/network_client.dart';
 import 'package:spotright/data/model/response_wrapper.dart';
+import 'package:spotright/data/spot/spot_request.dart';
 import 'package:spotright/data/spot/spot_response.dart';
 
 class SpotRepository {
@@ -8,7 +9,7 @@ class SpotRepository {
   final String getSpotsByCoordinatePath = "/member";
   final String saveSpotPath = "/member/spot";
   final String deleteSpotPath = "/member";
-  final String searchSpotByCoordinatePath = "/member/coordinate";
+  final String searchSpotByCoordinatePath = "/member/spot/coordinate";
   final String searchSpotByAddressPath = "/member/spot/search";
   final String updateSpotPath = "/member/spot/update";
 
@@ -40,8 +41,8 @@ class SpotRepository {
     // todo: 스팟 일괄 삭제 api 연결
   }
 
-  Future<void> searchSpotByCoordinate() async {
-    await networkClient.request(method: Http.post, path: searchSpotByCoordinatePath);
+  Future<void> searchSpotByCoordinate(SpotRequest spotRequest, {String queryType = "ADDRESS", String searchQuery = "null"}) async {
+    await networkClient.request(method: Http.post, body: spotRequest.toJson(), path: searchSpotByCoordinatePath);
   }
 
   Future<void> searchSpotByAddress() async {

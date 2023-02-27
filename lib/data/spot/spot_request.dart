@@ -11,6 +11,8 @@ class SpotRequest {
   String? province;
   String? rating;
   String? spotName;
+  String? queryType;
+  String? searchQuery;
 
   SpotRequest(
       {this.address,
@@ -24,7 +26,9 @@ class SpotRequest {
         this.memo,
         this.province,
         this.rating,
-        this.spotName});
+        this.spotName,
+        this.queryType,
+        this.searchQuery});
 
   SpotRequest.fromJson(Map<String, dynamic> json) {
     address = json['address'];
@@ -55,6 +59,8 @@ class SpotRequest {
     data['province'] = province;
     data['rating'] = rating;
     data['spotName'] = spotName;
+    data['queryType'] = queryType;
+    data['searchQuery'] = searchQuery;
     return data;
   }
 }

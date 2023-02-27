@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:spotright/data/spot/spot_repository.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/buttons/sr_cta_button.dart';
 import 'package:spotright/presentation/component/divider/sr_divider.dart';
@@ -25,6 +26,7 @@ class SearchLocation extends StatefulWidget {
 
 class _SearchLocationState extends State<SearchLocation> {
   Completer<GoogleMapController> _mapController = Completer();
+  SpotRepository spotRepository = Get.find();
   SearchLocationController searchLocationController = Get.find();
 
 
@@ -94,7 +96,9 @@ class _SearchLocationState extends State<SearchLocation> {
                 SrCTAButton(
                   text: "완료",
                   isEnabled: true,
-                  action: () {},
+                  action: () {
+                    searchLocationController.searchSpotByCoordinate();
+                  },
                 )
               ],
             ),
