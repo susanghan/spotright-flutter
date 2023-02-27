@@ -58,7 +58,6 @@ class _State extends State<Spotright> {
         '/signup': (context) => const SignUp(),
         '/block_list': (context) => const BlockList(),
         '/edit_profile': (context) => const EditProfile(),
-        '/spot_list': (context) => const SpotList(),
         '/login': (context) => const Login(),
         '/congratulation': (context) => const Congratulation(),
         '/searchLocation': (context) => const SearchLocation(),
@@ -99,6 +98,7 @@ class _State extends State<Spotright> {
 
   @override
   void initState() {
+    super.initState();
     Firebase.initializeApp();
     KakaoSdk.init(nativeAppKey: "6141df4779382304859d905edc750579");
   }
