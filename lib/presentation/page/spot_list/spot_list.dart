@@ -8,12 +8,12 @@ import 'package:spotright/presentation/common/typography.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/buttons/sr_rating_button.dart';
 import 'package:spotright/presentation/component/sr_check_box/sr_check_box.dart';
-import 'package:spotright/presentation/component/sr_chip/sr_chip.dart';
 import 'package:spotright/presentation/component/sr_chip/sr_chips.dart';
 import 'package:spotright/presentation/page/spot_list/spot_list_controller.dart';
 
 class SpotList extends StatefulWidget {
-  SpotList({Key? key,
+  SpotList({
+    Key? key,
     required this.userId,
     this.topLatitude = 90,
     this.topLongitude = 0,
@@ -49,7 +49,8 @@ class _SpotListState extends State<SpotList> {
   @override
   void initState() {
     super.initState();
-    _spotListController.initState(widget.userId, widget.topLatitude, widget.topLongitude, widget.bottomLatitude, widget.bottomLongitude);
+    _spotListController.initState(widget.userId, widget.topLatitude,
+        widget.topLongitude, widget.bottomLatitude, widget.bottomLongitude);
   }
 
   @override
@@ -59,15 +60,6 @@ class _SpotListState extends State<SpotList> {
             appBar: DefaultAppBar(
               title: '장소',
               hasBackButton: true,
-              actions: [
-                Obx(() => _spotListController.isEditMode.value
-                    ? TextButton(
-                        onPressed: () {
-                          _spotListController.changeMode();
-                        },
-                        child: Text("완료"))
-                    : SizedBox.shrink())
-              ],
             ),
             body: _body()));
   }
@@ -87,11 +79,12 @@ class _SpotListState extends State<SpotList> {
         Container(
             margin: EdgeInsets.only(right: 16, top: 10, bottom: 4),
             alignment: Alignment.centerRight,
-            child: TextButton(
-              onPressed: () {
-                _spotListController.changeMode();
-              },
-              child: Text("편집"),
+            child: GestureDetector(
+              onTap: _spotListController.changeMode,
+              child: Text(
+                "편집",
+                style: SrTypography.body3medium.copy(color: SrColors.gray1),
+              ),
             )),
         Divider(
           height: 2,
@@ -100,18 +93,16 @@ class _SpotListState extends State<SpotList> {
         ),
         Flexible(
           child: ListView(
-            children: _spotListController.spots.map(
-                    (spot) {
-                      return Column(children: [
-                        _DefaultItem(spot),
-                        Divider(
-                          height: 2,
-                          thickness: 1,
-                          color: SrColors.gray3,
-                        )
-                      ]);
-                    }
-            ).toList(),
+            children: _spotListController.spots.map((spot) {
+              return Column(children: [
+                _DefaultItem(spot),
+                Divider(
+                  height: 2,
+                  thickness: 1,
+                  color: SrColors.gray3,
+                )
+              ]);
+            }).toList(),
           ),
         )
       ],
@@ -119,45 +110,64 @@ class _SpotListState extends State<SpotList> {
   }
 
   Widget _DefaultItem(SpotResponse spot) {
-    return  GestureDetector(
-      onTap: _spotListController.moveDetail(spot),
-      child: Container(
-          height: 72,
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                  alignment: Alignment.center,
-                  padding: EdgeInsets.only(right: 8),
-                  child: SvgPicture.asset(
-                    "assets/marker.svg",
-                    width: 26,
-                    color: Category.mainCategoryColors[spot.mainCategoryIndex]
-                  )),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 8),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(right: 4),
-                            child: Text(spot.spotName ?? "", style: SrTypography.body2semi)),
-                        Text(spot.mainCategory ?? "", style: SrTypography.body4medium.copy(color: SrColors.gray2),),
-                      ],
-                    ),
-                  ),
-                  Text(spot.fullAddress ?? "정보 없음", style: SrTypography.body4medium.copy(color: SrColors.gray1),),
-                ],
-              ),
-              Spacer(),
-              if(spot.rating != null && spot.rating != 0) SrRatingButton(initialRating: spot.rating!.toDouble(), ratingMode: RatingMode.readOnly)
-            ],
-          )),
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16),
+      child: Row(children: [
+        GestureDetector(
+          onTap: _spotListController.moveDetail(spot),
+          child: _CommonItem(spot),
+        ),
+        Spacer(),
+        if (spot.rating != null && spot.rating != 0)
+          SrRatingButton(
+              initialRating: spot.rating!.toDouble(),
+              ratingMode: RatingMode.readOnly)
+      ]),
     );
+  }
+
+  Widget _CommonItem(SpotResponse spot) {
+    return Container(
+        height: 72,
+        padding: EdgeInsets.symmetric(vertical: 16),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+                alignment: Alignment.center,
+                padding: EdgeInsets.only(right: 8),
+                child: SvgPicture.asset("assets/marker.svg",
+                    width: 26,
+                    color:
+                        Category.mainCategoryColors[spot.mainCategoryIndex])),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(bottom: 8),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Padding(
+                          padding: EdgeInsets.only(right: 4),
+                          child: Text(spot.spotName ?? "",
+                              style: SrTypography.body2semi)),
+                      Text(
+                        spot.mainCategory ?? "",
+                        style: SrTypography.body4medium
+                            .copy(color: SrColors.gray2),
+                      ),
+                    ],
+                  ),
+                ),
+                Text(
+                  spot.fullAddress ?? "정보 없음",
+                  style: SrTypography.body4medium.copy(color: SrColors.gray1),
+                ),
+              ],
+            ),
+          ],
+        ));
   }
 
   Widget _editBody() {
@@ -170,9 +180,21 @@ class _SpotListState extends State<SpotList> {
             child: SrCheckBox(
               value: false,
               onChanged: (bool checked) {},
+              isRectangle: true,
             ),
           ),
-          Text("전체 선택")
+          Text("전체 선택"),
+          Spacer(),
+          Container(
+              margin: EdgeInsets.only(right: 16, top: 10, bottom: 4),
+              alignment: Alignment.centerRight,
+              child: GestureDetector(
+                onTap: _spotListController.changeMode,
+                child: Text(
+                  "삭제",
+                  style: SrTypography.body3medium.copy(color: SrColors.gray1),
+                ),
+              )),
         ]),
         Divider(
           height: 2,
@@ -181,54 +203,30 @@ class _SpotListState extends State<SpotList> {
         ),
         Flexible(
           child: ListView(
-            children: List.generate(10, (int index) {
-              return Column(children: [
-                Container(
-                    height: 72,
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Padding(
-                            padding: EdgeInsets.only(right: 16),
-                            child: SrCheckBox(
-                                value: false, onChanged: (bool checked) {})),
-                        Container(
-                            alignment: Alignment.center,
-                            padding: EdgeInsets.only(right: 8),
-                            child: SvgPicture.asset(
-                              "assets/marker.svg",
-                              width: 26,
-                            )),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            RichText(
-                                overflow: TextOverflow.ellipsis,
-                                text: TextSpan(
-                                    style: TextStyle(color: SrColors.black),
-                                    children: [
-                                      TextSpan(text: "미스터디유커피"),
-                                      TextSpan(
-                                          text: "카페",
-                                          style:
-                                              TextStyle(color: SrColors.gray2))
-                                    ])),
-                            Text("인천 연수구 아카데미로 119"),
-                          ],
-                        ),
-                      ],
-                    )),
-                Divider(
-                  height: 2,
-                  thickness: 1,
-                  color: SrColors.gray3,
-                )
-              ]);
-            }),
-          ),
+              children: _spotListController.spots
+                  .map((spot) => _EditItem(spot))
+                  .toList()),
         )
       ],
+    );
+  }
+
+  Widget _EditItem(SpotResponse spot) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16),
+      child: Row(children: [
+        Padding(
+            padding: EdgeInsets.only(right: 10),
+            child: SrCheckBox(
+              value: false,
+              onChanged: (bool checked) {},
+              isRectangle: true,
+            )),
+        GestureDetector(
+          onTap: _spotListController.moveDetail(spot),
+          child: _CommonItem(spot),
+        ),
+      ]),
     );
   }
 }
