@@ -11,6 +11,7 @@ import 'package:spotright/data/user/user_repository.dart';
 import 'package:spotright/data/user/user_response.dart';
 import 'package:spotright/presentation/component/bottom_sheet/sr_bottom_sheet.dart';
 import 'package:spotright/presentation/page/detail/detail.dart';
+import 'package:spotright/presentation/page/spot_list/spot_list.dart';
 
 class HomeController {
   UserRepository userRepository = Get.find();
@@ -97,4 +98,11 @@ class HomeController {
   }
 
   Function() _moveDetail(SpotResponse spot) => () => Get.to(Detail(userId: userInfo.value.memberId, memberSpotId: spot.memberSpotId!));
+  void moveSpotList(LatLngBounds latLngBounds) async {
+    Get.to(SpotList(userId: userInfo.value.memberId,
+        topLatitude: latLngBounds.northeast.latitude,
+        topLongitude: latLngBounds.southwest.longitude,
+        bottomLatitude: latLngBounds.southwest.latitude,
+        bottomLongitude: latLngBounds.northeast.longitude));
+  }
 }
