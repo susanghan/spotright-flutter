@@ -13,6 +13,12 @@ class SrTypography {
     fontWeight: FontWeight.w600,
   );
 
+  static const TextStyle body2medium = TextStyle(
+    color: Colors.black,
+    fontSize: 15.0,
+    fontWeight: FontWeight.w500,
+  );
+
   static const TextStyle body3semi = TextStyle(
     color: Colors.black,
     fontSize: 14.0,

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:spotright/data/resources/category.dart';
 import 'package:spotright/data/spot/spot_response.dart';
 import 'package:spotright/presentation/common/colors.dart';
+import 'package:spotright/presentation/common/typography.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/buttons/sr_rating_button.dart';
 import 'package:spotright/presentation/component/sr_check_box/sr_check_box.dart';
@@ -125,22 +127,24 @@ class _SpotListState extends State<SpotList> {
                 child: SvgPicture.asset(
                   "assets/marker.svg",
                   width: 26,
+                  color: Category.mainCategoryColors[spot.mainCategoryIndex]
                 )),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                RichText(
-                    overflow: TextOverflow.ellipsis,
-                    text: TextSpan(
-                        style: TextStyle(color: SrColors.black),
-                        children: [
-                          TextSpan(text: spot.spotName),
-                          TextSpan(
-                              text: spot.mainCategory,
-                              style:
-                              TextStyle(color: SrColors.gray2))
-                        ])),
-                Text(spot.fullAddress ?? "정보 없음"),
+                Padding(
+                  padding: EdgeInsets.only(bottom: 8),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(right: 4),
+                          child: Text(spot.spotName ?? "", style: SrTypography.body2semi)),
+                      Text(spot.mainCategory ?? "", style: SrTypography.body4medium.copy(color: SrColors.gray2),),
+                    ],
+                  ),
+                ),
+                Text(spot.fullAddress ?? "정보 없음", style: SrTypography.body4medium.copy(color: SrColors.gray1),),
               ],
             ),
             Spacer(),
@@ -232,7 +236,7 @@ class _SpotListState extends State<SpotList> {
               padding: EdgeInsets.only(right: 8),
               child: SrChip(
                   name: chipNames[index],
-                  color: chipColors[index],
+                  color: SrColors.categoryColors[index],
                   selected: true,
                   onTab: (isSelected) {}));
         }),

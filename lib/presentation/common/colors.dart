@@ -21,6 +21,17 @@ class SrColors {
   static const Color hospital = Color(0xff72CFD4);
   static const Color etc = Color(0xff828080);
   static const Color error = Color(0xffff0000);
+  static const List<Color> categoryColors = [
+    primary,
+    restaurant,
+    cafe,
+    tour,
+    accommodation,
+    shopping,
+    hospital,
+    etc,
+    error
+  ];
 
   static const Color kakao = Color(0xffFEE500);
 
