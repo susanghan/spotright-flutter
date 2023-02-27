@@ -11,7 +11,6 @@ import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/buttons/sr_cta_button.dart';
 import 'package:spotright/presentation/component/divider/sr_divider.dart';
 import 'package:spotright/presentation/component/sr_text_field/sr_text_field.dart';
-import 'package:spotright/presentation/page/add_spot/add_spot.dart';
 import 'package:spotright/presentation/page/search_location/search_location_controller.dart';
 
 import '../../common/colors.dart';
@@ -60,6 +59,7 @@ class _SearchLocationState extends State<SearchLocation> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset : false,
         appBar: DefaultAppBar(
           title: searchLocationController.userInfo?.value.spotrightId ?? "",
           hasBackButton: true,
@@ -82,14 +82,14 @@ class _SearchLocationState extends State<SearchLocation> {
                 //Todo : prefix 아이콘 상태에 따라서 가능하게 컨트롤러 만들어서 컨트롤, 지금은 정적 화면만
                 _SearchField(),
                 const Padding(padding: EdgeInsets.only(bottom: 4)),
-                // Align(
-                //   child: _ResultList(),
-                //   alignment: Alignment.centerLeft,
-                // ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: _ResultList(),
+                ),
                 Spacer(),
                 Align(
-                  child: _UserLocation(),
                   alignment: Alignment.centerRight,
+                  child: _UserLocation(),
                 ),
                 SrCTAButton(
                   text: "완료",
@@ -133,8 +133,6 @@ class _SearchLocationState extends State<SearchLocation> {
     ));
   }
 
-
-
   Widget _UserLocation() {
     return GestureDetector(
       onTap: () {
@@ -176,11 +174,11 @@ class _SearchLocationState extends State<SearchLocation> {
             onTap: () {
               _changeCountry(context);
             },
-            child: SvgPicture.asset(
+            child: Obx(()=>SvgPicture.asset(
               searchLocationController.countryImage,
               width: 20,
               height: 20,
-            ),
+            )),
           ),
         ),
         prefixIconConstraints: const BoxConstraints(
@@ -326,24 +324,24 @@ class _SearchLocationState extends State<SearchLocation> {
       thickness: 6,
       thumbVisibility: true,
       thumbColor: SrColors.gray2,
-      radius: Radius.circular(10),
+      radius: const Radius.circular(10),
       trackVisibility: false,
       //trackColor: SrColors.error,
       //trackRadius: Radius.circular(10),
       //trackBorderColor: SrColors.success,
       interactive: true,
-      fadeDuration: Duration(seconds: 1),
-      timeToFade: Duration(seconds: 1),
+      fadeDuration: const Duration(seconds: 1),
+      timeToFade: const Duration(seconds: 1),
       mainAxisMargin: 10,
       crossAxisMargin: 16,
       child: Container(
-        height: 352,
+        height: searchLocationController.resultCnt.value > 5 ? 352 : searchLocationController.resultCnt.value != 0 ? searchLocationController.resultCnt.value * 59 + 4 : 0,
         width: double.infinity,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20), color: SrColors.white),
-        padding: EdgeInsets.symmetric(vertical: 2),
+        padding: const EdgeInsets.symmetric(vertical: 2),
         child: ListView.separated(
-            itemCount: 10,
+            itemCount: searchLocationController.resultCnt.value,
             itemBuilder: (BuildContext context, int index) {
               return _Result();
             },

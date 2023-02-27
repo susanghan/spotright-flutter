@@ -10,15 +10,22 @@ import '../../../data/user/user_response.dart';
 import 'dart:ui' as ui;
 
 class SearchLocationController extends GetxController{
-  //user 정보
-  UserRepository userRepository = Get.find();
-  Rx<UserResponse>? userInfo;
+
   void initState() {
     userInfo = Rx<UserResponse>(userRepository.userResponse!);
     setCustomMarker();
+    countryState = CountryState.SOUTH_KOREA.obs;
+    isLoadedMarkerImage = false.obs;
+    markerPosition = const LatLng(37.510181246, 127.043505829).obs;
+    resultCnt = 0.obs;
+
   }
 
-  //국가 설정
+  //***user 정보
+  UserRepository userRepository = Get.find();
+  Rx<UserResponse>? userInfo;
+
+  //***국가 설정
   var countryState = CountryState.SOUTH_KOREA.obs;
 
   String get countryImage {
@@ -28,8 +35,8 @@ class SearchLocationController extends GetxController{
     return 'assets/flag_korea.svg';
   }
 
-  //마커 설정
-  //Todo: png 방법이 이상 없으면 날려 버릴 것임.
+  //***마커 설정
+  //Todo: png 방법이 이상 없으면 날려 버릴 것임. 웬만해서는 남겨두고 실험할 것
   Uint8List? markerImageBytes;
   RxBool isLoadedMarkerImage = false.obs;
   double pixelRatio = 2.625;
@@ -54,6 +61,9 @@ class SearchLocationController extends GetxController{
   }
 
   Rx<LatLng> markerPosition = LatLng(37.510181246, 127.043505829).obs;
+
+  //***검색 결과
+  RxInt resultCnt = 0.obs;
 
 }
 
