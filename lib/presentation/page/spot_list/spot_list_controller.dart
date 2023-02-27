@@ -14,9 +14,9 @@ class SpotListController extends GetxController {
   int userId = 0;
   RxSet<int> toRemoveSpotIds = <int>{}.obs;
   double topLatitude = 90;
-  double topLongitude = 0;
+  double topLongitude = -180;
   double bottomLatitude = 0;
-  double bottomLongitude = 180;
+  double bottomLongitude = 179.999999;
 
   void changeMode() {
     isEditMode.value = !isEditMode.value;

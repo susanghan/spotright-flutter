@@ -16,9 +16,9 @@ class SpotList extends StatefulWidget {
     Key? key,
     required this.userId,
     this.topLatitude = 90,
-    this.topLongitude = 0,
+    this.topLongitude = -180,
     this.bottomLatitude = 0,
-    this.bottomLongitude = 180,
+    this.bottomLongitude = 179.999999,
   }) : super(key: key);
 
   int userId;

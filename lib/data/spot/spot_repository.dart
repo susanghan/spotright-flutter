@@ -21,9 +21,9 @@ class SpotRepository {
 
   /**
    * 위도 : latitude, 경도 : longitude
-   * 아마도 전체 범위 : top (90, 0) - bottom (0, 180)
+   * 아마도 전체 범위 : top (90, -180) - bottom (0, 180)
    */
-  Future<List<SpotResponse>> getSpotsFromCoordinate(int memberId, {double topLongitude = 0, double topLatitude = 90, double bottomLongitude = 180, double bottomLatitude = 0}) async {
+  Future<List<SpotResponse>> getSpotsFromCoordinate(int memberId, {double topLongitude = -180, double topLatitude = 90, double bottomLongitude = 179.999999, double bottomLatitude = 0}) async {
     var res = await networkClient.request(path: "$getSpotsByCoordinatePath/$memberId/spots/$topLongitude/$topLatitude/$bottomLongitude/$bottomLatitude");
     return res.list?.map((spot) => SpotResponse.fromJson(spot)).toList() ?? [];
   }
