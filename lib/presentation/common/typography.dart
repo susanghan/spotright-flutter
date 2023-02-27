@@ -25,6 +25,12 @@ class SrTypography {
     fontWeight: FontWeight.w500,
   );
 
+  static const TextStyle body4bold = TextStyle(
+    color: Colors.black,
+    fontSize: 12.0,
+    fontWeight: FontWeight.bold,
+  );
+
   static const TextStyle body4medium = TextStyle(
     color: Colors.black,
     fontSize: 12.0,
@@ -39,12 +45,13 @@ class SrTypography {
 }
 
 extension TextStyleExtension on TextStyle {
-  TextStyle copy({Color? color}) {
+  TextStyle copy({Color? color, TextDecoration? decoration}) {
     return TextStyle(
       color: color,
       fontSize: fontSize,
       fontFamily: fontFamily,
       fontWeight: fontWeight,
+      decoration: decoration,
     );
   }
 }

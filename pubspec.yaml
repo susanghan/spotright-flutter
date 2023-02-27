@@ -49,6 +49,7 @@ dependencies:
   fluttertoast: 8.0.8 # 최신버전 8.1.3이 flutter 3.7이상인 버전에서만 정상 동작.
   flutter_native_splash: ^2.2.9
   package_info_plus: ^3.0.3
+  url_launcher: ^6.1.10 # 크롬 띄우기
 
 dev_dependencies:
   flutter_test:

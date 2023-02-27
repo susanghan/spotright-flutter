@@ -6,6 +6,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:spotright/presentation/common/typography.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/buttons/sr_rating_button.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../common/colors.dart';
 import '../../component/sr_chip/sr_chip_read_only.dart';
@@ -120,7 +121,7 @@ class _DetailState extends State<Detail> {
   }
 
   Widget Carousel(List<String> list) {
-    return Stack(children: [
+    return Stack(alignment: Alignment.bottomRight, children: [
       Container(
         width: double.infinity,
         color: SrColors.gray3,
@@ -138,10 +139,22 @@ class _DetailState extends State<Detail> {
               height: MediaQuery.of(context).size.width,
               viewportFraction: 1,
               enableInfiniteScroll: false,
-              //onPageChanged: (index, reason) =>
-              //{detailController.updatePage(index + 1)}
             )),
       ),
+      GestureDetector(
+        onTap: () {
+          Uri url = Uri.parse("https://www.google.com/search?q=${detailController.spot.value.spotName}");
+          launchUrl(url);
+        },
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+          child: Text(
+            '"${detailController.spot.value.spotName}" 검색하기',
+            style: SrTypography.body4bold.copy(
+                color: SrColors.gray1, decoration: TextDecoration.underline),
+          ),
+        ),
+      )
     ]);
   }
 
