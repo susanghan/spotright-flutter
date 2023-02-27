@@ -1,11 +1,12 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:spotright/presentation/common/typography.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/buttons/sr_rating_button.dart';
-import 'package:spotright/presentation/component/sr_chip/sr_chip.dart';
-import 'package:spotright/presentation/component/sr_text_field/sr_text_field.dart';
 import '../../common/colors.dart';
 import '../../component/sr_chip/sr_chip_read_only.dart';
 import 'detail_controller.dart';
@@ -16,7 +17,10 @@ import 'package:carousel_slider/carousel_slider.dart';
 //Todo: 이미지 가로,세로 길이 받아서 긴쪽으로 1:1 비율하기
 
 class Detail extends StatefulWidget {
-  const Detail({Key? key}) : super(key: key);
+  Detail({Key? key, required this.userId, required this.memberSpotId}) : super(key: key);
+
+  int userId;
+  int memberSpotId;
 
   @override
   State<Detail> createState() => _DetailState();
@@ -25,21 +29,18 @@ class Detail extends StatefulWidget {
 class _DetailState extends State<Detail> {
   DetailController detailController = Get.find();
 
-  List<String> images = [
-    'https://picsum.photos/200',
-    'https://picsum.photos/200',
-    'https://picsum.photos/200'
-  ];
-
   @override
-  void initState() {}
+  void initState() {
+    super.initState();
+    detailController.initSpot(widget.userId, widget.memberSpotId);
+  }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
             appBar: DefaultAppBar(
-                title: '공씨네 주먹밥 인천대점',
+                title: detailController.spot.value.spotName ?? "",
                 hasBackButton: true,
                 actions: [
                   GestureDetector(
@@ -59,18 +60,32 @@ class _DetailState extends State<Detail> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _SpotImages(images),
+                  _SpotImages(detailController.spot.value.spotPhotos?.map((spotPhoto) => spotPhoto.photoUrl!).toList() ?? []),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(16, 20, 16, 20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _SpotName("공씨네 주먹밥 인천대점"),
-                        _SpotChips("식당", "한식"),
-                        _SpotLocation("인천 연수구 아카데미로 119"),
+                        _SpotName(detailController.spot.value.spotName ?? "정보 없음"),
+                        // todo : 소분류 정보 추가
+                        _SpotChips(detailController.spot.value.mainCategory ?? "", "소분류"),
+                        _SpotLocation(detailController.spot.value.fullAddress ?? "정보 없음"),
                         _SearchLocation(),
-                        _SpotRating(2),
-                        SrTextField(maxLines: 8, height: 96,)
+                        _SpotRating(detailController.spot.value.rating?.toDouble() ?? 0),
+                        Container(
+                          width: double.infinity,
+                          padding: EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.rectangle,
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.fromBorderSide(
+                              BorderSide(
+                                color: SrColors.gray3
+                              )
+                            )
+                          ),
+                          child: Text(detailController.spot.value.memo ?? "", style: SrTypography.body4medium),
+                        ),
                       ],
                     ),
                   )
@@ -89,7 +104,7 @@ class _DetailState extends State<Detail> {
               color: SrColors.black.withOpacity(0.4),
               borderRadius: BorderRadius.circular(20)),
           child: Text(
-            "1/${images.length}",
+            "1/${list.length}",
             //"${detailController.currentCarouselPage}/${list.length}",
             style: const TextStyle(
                 color: Colors.white, fontWeight: FontWeight.w400, fontSize: 12),

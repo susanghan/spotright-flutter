@@ -16,7 +16,7 @@ class SpotResponse {
   String? spotName;
   List<SpotPhoto>? spotPhotos;
   bool? visited;
-  String? get categoryText => Res.Category.mainCategory[((category! / 100).toInt() + 6) % 7];
+  String? get mainCategory => Res.Category.mainCategory[((category! / 100).toInt() + 6) % 7];
 
   SpotResponse(
       {this.address,

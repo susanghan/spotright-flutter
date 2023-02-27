@@ -10,6 +10,7 @@ import 'package:spotright/data/spot/spot_response.dart';
 import 'package:spotright/data/user/user_repository.dart';
 import 'package:spotright/data/user/user_response.dart';
 import 'package:spotright/presentation/component/bottom_sheet/sr_bottom_sheet.dart';
+import 'package:spotright/presentation/page/detail/detail.dart';
 
 class HomeController {
   UserRepository userRepository = Get.find();
@@ -27,7 +28,7 @@ class HomeController {
   final RxList<SpotResponse> _spots = <SpotResponse>[].obs;
 
   RxSet<Marker> get spots => _spots
-      .where((spot) => selectedCategories.contains("전체") || selectedCategories.contains(spot.categoryText))
+      .where((spot) => selectedCategories.contains("전체") || selectedCategories.contains(spot.mainCategory))
       .map(
         (spot) => Marker(
             markerId: MarkerId(spot.memberSpotId.toString()),
@@ -91,6 +92,9 @@ class HomeController {
   void _showSpotBottomSheet(SpotResponse spot) {
     Get.bottomSheet(SrBottomSheet(
       spots: [spot],
+      moveDetail: _moveDetail(spot),
     ));
   }
+
+  Function() _moveDetail(SpotResponse spot) => () => Get.to(Detail(userId: userInfo.value.memberId, memberSpotId: spot.memberSpotId!));
 }

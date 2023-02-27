@@ -30,6 +30,12 @@ class SrTypography {
     fontSize: 12.0,
     fontWeight: FontWeight.w500,
   );
+
+  static const TextStyle body4light = TextStyle(
+    color: Colors.black,
+    fontSize: 12.0,
+    fontWeight: FontWeight.w300,
+  );
 }
 
 extension TextStyleExtension on TextStyle {

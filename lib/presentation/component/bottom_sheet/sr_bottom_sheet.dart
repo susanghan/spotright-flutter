@@ -8,18 +8,26 @@ class SrBottomSheet extends StatelessWidget {
   SrBottomSheet({
     Key? key,
     required this.spots,
+    this.moveDetail
   }) : super(key: key);
+
+  final Function()? moveDetail;
 
   List<SpotResponse> spots;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(left: 16, right: 16, bottom: 50),
-      height: spots.length * 122,
-      child: SingleChildScrollView(
-        child: Column(
-          children: _SpotList()
+    return GestureDetector(
+      onTap: () {
+        moveDetail?.call();
+      },
+      child: Container(
+        margin: EdgeInsets.only(left: 16, right: 16, bottom: 50),
+        height: spots.length * 122,
+        child: SingleChildScrollView(
+          child: Column(
+            children: _SpotList()
+          ),
         ),
       ),
     );

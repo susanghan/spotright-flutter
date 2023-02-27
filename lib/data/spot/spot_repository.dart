@@ -14,8 +14,9 @@ class SpotRepository {
 
   NetworkClient networkClient = Get.find();
 
-  Future<void> findOneSpot(int memberId, int memberSpotId) async {
-    await networkClient.request(path: "$findOneSpotPath/$memberId/spot/$memberSpotId");
+  Future<SpotResponse> findOneSpot(int memberId, int memberSpotId) async {
+    var res = await networkClient.request(path: "$findOneSpotPath/$memberId/spot/$memberSpotId");
+    return SpotResponse.fromJson(res.jsonMap!);
   }
 
   /**
