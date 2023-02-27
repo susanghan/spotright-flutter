@@ -189,7 +189,7 @@ class _SpotListState extends State<SpotList> {
               margin: EdgeInsets.only(right: 16, top: 10, bottom: 4),
               alignment: Alignment.centerRight,
               child: GestureDetector(
-                onTap: _spotListController.changeMode,
+                onTap: _spotListController.finishEdit,
                 child: Text(
                   "삭제",
                   style: SrTypography.body3medium.copy(color: SrColors.gray1),
@@ -218,8 +218,10 @@ class _SpotListState extends State<SpotList> {
         Padding(
             padding: EdgeInsets.only(right: 10),
             child: SrCheckBox(
-              value: false,
-              onChanged: (bool checked) {},
+              value: _spotListController.toRemoveSpotIds.contains(spot.memberSpotId),
+              onChanged: (bool checked) {
+                _spotListController.onCheckBoxSelected(spot.memberSpotId!, checked);
+              },
               isRectangle: true,
             )),
         GestureDetector(

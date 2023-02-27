@@ -12,6 +12,11 @@ class SpotListController extends GetxController {
       .where((spot) => selectedCategories.contains("전체") || selectedCategories.contains(spot.mainCategory))
       .toList().obs;
   int userId = 0;
+  RxSet<int> toRemoveSpotIds = <int>{}.obs;
+  double topLatitude = 90;
+  double topLongitude = 0;
+  double bottomLatitude = 0;
+  double bottomLongitude = 180;
 
   void changeMode() {
     isEditMode.value = !isEditMode.value;
@@ -20,7 +25,15 @@ class SpotListController extends GetxController {
   Future<void> initState(int userId, double topLatitude, double topLongitude,
       double bottomLatitude, double bottomLongitude) async {
     this.userId = userId;
+    this.topLatitude = topLatitude;
+    this.topLongitude = topLongitude;
+    this.bottomLatitude = bottomLatitude;
+    this.bottomLongitude = bottomLongitude;
 
+    await _fetchSpots();
+  }
+
+  Future<void> _fetchSpots() async {
     _spots.value = await spotRepository.getSpotsFromCoordinate(
       userId,
       topLatitude: topLatitude,
@@ -40,6 +53,18 @@ class SpotListController extends GetxController {
     }
   }
 
-  // todo 구현해야 함
-  void finishEdit() {}
+  void onCheckBoxSelected(int spotId, bool isChecked) {
+    if(isChecked) {
+      toRemoveSpotIds.add(spotId);
+    } else {
+      toRemoveSpotIds.remove(spotId);
+    }
+  }
+
+  Future<void> finishEdit() async {
+    await spotRepository.deleteSpots(toRemoveSpotIds.toList());
+    await _fetchSpots();
+    toRemoveSpotIds.clear();
+    changeMode();
+  }
 }

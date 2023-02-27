@@ -36,6 +36,10 @@ class SpotRepository {
     await networkClient.request(method: Http.delete, path: "$deleteSpotPath/$memberSpotId");
   }
 
+  Future<void> deleteSpots(List<int> memberSpotIds) async {
+    // todo: 스팟 일괄 삭제 api 연결
+  }
+
   Future<void> searchSpotByCoordinate() async {
     await networkClient.request(method: Http.post, path: searchSpotByCoordinatePath);
   }
