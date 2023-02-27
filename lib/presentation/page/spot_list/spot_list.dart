@@ -9,6 +9,7 @@ import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/buttons/sr_rating_button.dart';
 import 'package:spotright/presentation/component/sr_check_box/sr_check_box.dart';
 import 'package:spotright/presentation/component/sr_chip/sr_chip.dart';
+import 'package:spotright/presentation/component/sr_chip/sr_chips.dart';
 import 'package:spotright/presentation/page/spot_list/spot_list_controller.dart';
 
 class SpotList extends StatefulWidget {
@@ -79,7 +80,10 @@ class _SpotListState extends State<SpotList> {
   Widget _defaultBody() {
     return Column(
       children: [
-        _chips(),
+        SrChips(
+          onCategorySelected: _spotListController.onCategorySelected,
+          selectedCategories: _spotListController.selectedCategories,
+        ),
         Container(
             margin: EdgeInsets.only(right: 16, top: 10, bottom: 4),
             alignment: Alignment.centerRight,
@@ -225,25 +229,6 @@ class _SpotListState extends State<SpotList> {
           ),
         )
       ],
-    );
-  }
-
-  Widget _chips() {
-    return Container(
-      padding: EdgeInsets.only(left: 16),
-      height: 40,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: List.generate(8, (int index) {
-          return Padding(
-              padding: EdgeInsets.only(right: 8),
-              child: SrChip(
-                  name: chipNames[index],
-                  color: SrColors.categoryColors[index],
-                  selected: true,
-                  onTab: (isSelected) {}));
-        }),
-      ),
     );
   }
 }
