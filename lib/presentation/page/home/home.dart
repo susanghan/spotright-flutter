@@ -109,6 +109,10 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
             shouldRefresh: homeController.shouldSpotsRefresh.value,
             user: homeController.userInfo.value,
             onCategorySelected: homeController.onCategorySelected,
+            moveSpotList: () => homeController.moveSpotList(LatLngBounds(
+              northeast: LatLng(90, 179.999999),
+              southwest: LatLng(0, -180),
+            )),
           )),
           GestureDetector(
             onTap: () async {

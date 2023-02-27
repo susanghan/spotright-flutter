@@ -25,6 +25,7 @@ class SrAppBar extends StatefulWidget {
     this.fetchRegionSpots,
     required this.user,
     this.onCategorySelected,
+    this.moveSpotList,
   }) : super(key: key);
 
   UserResponse user;
@@ -38,6 +39,7 @@ class SrAppBar extends StatefulWidget {
   bool shouldRefresh = false;
   Function()? fetchRegionSpots;
   Function(Set<String> selected)? onCategorySelected;
+  Function()? moveSpotList;
 
   @override
   State<SrAppBar> createState() => _SrAppBarState();
@@ -133,9 +135,12 @@ class _SrAppBarState extends State<SrAppBar> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [Text(widget.user.memberSpotsCnt.toString()), Text('장소')],
+                        GestureDetector(
+                          onTap: widget.moveSpotList,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [Text(widget.user.memberSpotsCnt.toString()), Text('장소')],
+                          ),
                         ),
                         GestureDetector(
                           onTap: () {
