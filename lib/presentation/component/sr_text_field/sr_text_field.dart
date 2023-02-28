@@ -27,6 +27,7 @@ class SrTextField extends StatefulWidget {
     this.enabled = true,
     this.contentPadding,
     this.maxLength,
+    this.onSubmitted
   }) : super(key: key);
 
   final String hint;
@@ -45,6 +46,7 @@ class SrTextField extends StatefulWidget {
   BoxConstraints? prefixIconConstraints;
   final EdgeInsets? contentPadding;
   final int? maxLength;
+  ValueChanged<String>? onSubmitted;
 
   @override
   State<SrTextField> createState() => SrTextField_State();
@@ -69,6 +71,7 @@ class SrTextField_State extends State<SrTextField> {
           onChanged: _onChanged,
           enabled: widget.enabled,
           maxLength: widget.maxLength,
+          onSubmitted: widget.onSubmitted,
           decoration: InputDecoration(
             counterText: "",
               filled: !(widget.backgroundColor == null),
