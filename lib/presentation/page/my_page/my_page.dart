@@ -9,6 +9,7 @@ import 'package:spotright/presentation/page/login/Login.dart';
 import 'package:spotright/presentation/page/manage_user_info/change_user_language.dart';
 import 'package:spotright/presentation/page/manage_user_info/manage_user_info_list.dart';
 import 'package:spotright/presentation/page/my_page/my_page_controller.dart';
+import 'package:spotright/presentation/page/opensource_licence/OpenSourceLisence.dart';
 import '../../common/colors.dart';
 import '../../component/divider/sr_divider.dart';
 
@@ -46,7 +47,7 @@ class _MyPageState extends State<MyPage> {
               _ListText(listText: "차단사용자관리"),
               _ListText(listText: "언어설정", action: () { Get.to(ChangeUserLanguage());}),
               SrDivider(),
-              _ListText(listText: "오픈소스라이센스"),
+              _ListText(listText: "오픈소스라이센스", action: () => Get.to(OpenSourceLicence())),
               _ListText(listText: "개인정보 처리방침"),
               _ListText(listText: "버전정보 ${myPageController.versionName} (${myPageController.buildNumber})"),
               SrDivider(),
