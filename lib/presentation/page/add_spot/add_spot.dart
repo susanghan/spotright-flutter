@@ -341,14 +341,20 @@ class _AddSpotState extends State<AddSpot> {
 
   List<Widget> _InputRating() {
     return [
-      _TextFieldLabel("별점", true),
-      Container(
-        padding: const EdgeInsets.only(top: 4, bottom: 16),
-        alignment: Alignment.center,
-        child: SrRatingButton(
-          ratingMode: RatingMode.interactive,
-        ),
-      ),
+      Obx(() => Visibility(
+          visible: addSpotController.isVisited.value,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+            _TextFieldLabel("별점", true),
+            Container(
+              padding: const EdgeInsets.only(top: 4, bottom: 16),
+              alignment: Alignment.center,
+              child: SrRatingButton(
+                ratingMode: RatingMode.interactive,
+              ),
+            ),
+          ],)))
     ];
   }
 
