@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:spotright/common/network_client.dart';
 import 'package:spotright/data/model/response_wrapper.dart';
+import 'package:spotright/data/spot/location_request.dart';
+import 'package:spotright/data/spot/location_response.dart';
 import 'package:spotright/data/spot/spot_request.dart';
 import 'package:spotright/data/spot/spot_response.dart';
 
@@ -10,7 +12,7 @@ class SpotRepository {
   final String saveSpotPath = "/member/spot";
   final String deleteSpotPath = "/member";
   final String searchSpotByCoordinatePath = "/member/spot/coordinate";
-  final String searchSpotByAddressPath = "/member/spot/search";
+  final String searchSpotPath = "/member/spot/search";
   final String updateSpotPath = "/member/spot/update";
 
   NetworkClient networkClient = Get.find();
@@ -41,12 +43,14 @@ class SpotRepository {
     // todo: 스팟 일괄 삭제 api 연결
   }
 
-  Future<void> searchSpotByCoordinate(SpotRequest spotRequest, {String queryType = "ADDRESS", String searchQuery = "null"}) async {
+  Future<void> searchSpotByCoordinate(SpotRequest spotRequest) async {
     await networkClient.request(method: Http.post, body: spotRequest.toJson(), path: searchSpotByCoordinatePath);
   }
 
-  Future<void> searchSpotByAddress() async {
-    await networkClient.request(method: Http.post, path: searchSpotByAddressPath);
+  Future<List<LocationResponse>> searchSpot(LocationRequest locationRequest) async {
+    var res = await networkClient.request(method: Http.post, body: locationRequest.toJson() ,path: searchSpotPath);
+    if(res.responseWrapper.responseCode == "SPOT_NOT_FOUND") return [LocationResponse(fullAddress: "검색 결과 없음", name: "검색 결과 없음", address: "검색 결과 없음", city: "검색 결과 없음")];
+    return res.list?.map((spot) =>  LocationResponse.fromJson(spot)).toList() ?? [];
   }
 
   Future<void> updateSpot() async {

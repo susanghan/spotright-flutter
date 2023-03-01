@@ -12,6 +12,7 @@ import 'package:spotright/presentation/component/sr_text_field/sr_text_field.dar
 import 'package:spotright/presentation/page/add_spot/add_spot_controller.dart';
 import 'package:spotright/presentation/page/search_location/search_location.dart';
 import '../../component/buttons/sr_dropdown_button.dart';
+import '../search_location/search_location_controller.dart';
 
 class AddSpot extends StatefulWidget {
   const AddSpot({Key? key}) : super(key: key);
@@ -24,22 +25,15 @@ AddSpotController addSpotController = Get.find();
 
 final List<String> mainCategory = addSpotController.mainCategory;
 final List<Color> mainCategoryColors = addSpotController.mainCategoryColors;
-//List<String> subCategory = [];
+
 
 class _AddSpotState extends State<AddSpot> {
   @override
   void initState() {
-    addSpotController.subCategory.value = [];
-
-    addSpotController.selectedMainIndex.value = 0;
-    addSpotController.mainIsSelected.value = false;
-    addSpotController.selectedMainString.value = null;
-
-    addSpotController.selectedSubIndex.value = 0;
-    addSpotController.subIsSelected.value = false;
-    addSpotController.selectedSubString.value = null;
-
-    addSpotController.isVisited.value = false;
+    addSpotController.initState();
+    print("안녕${addSpotController.spotName.value}");
+    print("안녕${addSpotController.spotName.value}");
+    super.initState();
   }
 
   @override
@@ -174,7 +168,13 @@ class _AddSpotState extends State<AddSpot> {
   List<Widget> _InputSpotName() {
     return [
       _TextFieldLabel("장소명을 입력해 주세요", true),
-      Padding(padding: const EdgeInsets.only(bottom: 16), child: SrTextField()),
+      Padding(
+          padding: const EdgeInsets.only(bottom: 16),
+          child: Obx(
+            () => SrTextField(
+                controller: TextEditingController(
+                    text: addSpotController.spotName.value)),
+          )),
     ];
   }
 
@@ -183,7 +183,10 @@ class _AddSpotState extends State<AddSpot> {
       _TextFieldLabel("시/도를 입력해주세요", true),
       Padding(
         padding: EdgeInsets.only(bottom: 16),
-        child: SrTextField(),
+        child: Obx(() => SrTextField(
+              controller: TextEditingController(
+                  text: addSpotController.province.value),
+            )),
       ),
     ];
   }
@@ -193,7 +196,7 @@ class _AddSpotState extends State<AddSpot> {
       _TextFieldLabel("시/군/구를 입력해주세요", true),
       Padding(
         padding: EdgeInsets.only(bottom: 16),
-        child: SrTextField(),
+        child: Obx(() => SrTextField(controller: TextEditingController(text: addSpotController.city.value,))),
       ),
     ];
   }
@@ -203,7 +206,7 @@ class _AddSpotState extends State<AddSpot> {
       _TextFieldLabel("상세주소를 입력해주세요", true),
       Padding(
         padding: EdgeInsets.only(bottom: 16),
-        child: SrTextField(),
+        child: Obx(() => SrTextField(controller: TextEditingController(text: addSpotController.address.value,))),
       ),
     ];
   }
@@ -231,13 +234,15 @@ class _AddSpotState extends State<AddSpot> {
                     onChanged: (value) {
                       addSpotController.mainIsSelected.value = true;
                       addSpotController.selectedMainString.value = value;
-                      addSpotController.selectedMainIndex.value = Category.mainCategory.indexOf(value!) + 1;
+                      addSpotController.selectedMainIndex.value =
+                          Category.mainCategory.indexOf(value!) + 1;
 
                       addSpotController.subIsSelected.value = false;
                       addSpotController.selectedSubString.value = null;
-                      addSpotController.subCategory.value = Category.subCategories[addSpotController.selectedMainIndex.value]!;
-
-                      },
+                      addSpotController.subCategory.value =
+                          Category.subCategories[
+                              addSpotController.selectedMainIndex.value]!;
+                    },
                     isSelected: addSpotController.mainIsSelected.value,
                     selectedString: addSpotController.selectedMainString.value),
               ),
@@ -248,7 +253,7 @@ class _AddSpotState extends State<AddSpot> {
             Flexible(
               flex: 1,
               child: Obx(
-                    () => SrDropdownButton(
+                () => SrDropdownButton(
                     hasIcon: false,
                     isRequired: false,
                     dropdownItems: addSpotController.subCategory.value,
@@ -257,13 +262,14 @@ class _AddSpotState extends State<AddSpot> {
                       addSpotController.subIsSelected.value = true;
                       addSpotController.selectedSubString.value = value;
                       //Todo : 선택 없음과 기타는 코드가 앞임을 주의!! 따로 함수 만들어서 하든가 하기
-                      addSpotController.selectedSubIndex.value = addSpotController.subCategory.value.indexOf(value!);
+                      addSpotController.selectedSubIndex.value =
+                          addSpotController.subCategory.value.indexOf(value!);
                     },
                     isSelected: addSpotController.subIsSelected.value,
                     selectedString: addSpotController.selectedSubString.value),
               ),
             ),
-            ],
+          ],
         ),
       )
     ];
@@ -296,28 +302,37 @@ class _AddSpotState extends State<AddSpot> {
           children: [
             Flexible(
               child: GestureDetector(
-                onTap: (){
+                onTap: () {
                   addSpotController.isVisited.value = true;
                 },
-                child: Obx(()=>Row(children: [
-                  const Padding(padding: EdgeInsets.only(right: 8), child: Text("예")),
-                  SrCheckBox(value: addSpotController.isVisited.value, onChanged: (checked) {
-                    addSpotController.isVisited.value = true; }),
-                ])),
-              ),)
-            ,
+                child: Obx(() => Row(children: [
+                      const Padding(
+                          padding: EdgeInsets.only(right: 8), child: Text("예")),
+                      SrCheckBox(
+                          value: addSpotController.isVisited.value,
+                          onChanged: (checked) {
+                            addSpotController.isVisited.value = true;
+                          }),
+                    ])),
+              ),
+            ),
             Flexible(
               child: GestureDetector(
-                onTap: (){
+                onTap: () {
                   addSpotController.isVisited.value = false;
                 },
-                child: Obx(()=>Row(children: [
-                  const Padding(
-                      padding: EdgeInsets.only(right: 8), child: Text("아니오")),
-                  SrCheckBox(value: !addSpotController.isVisited.value, onChanged: (checked) {
-                    addSpotController.isVisited.value = false; }),
-                ])),
-              ),),
+                child: Obx(() => Row(children: [
+                      const Padding(
+                          padding: EdgeInsets.only(right: 8),
+                          child: Text("아니오")),
+                      SrCheckBox(
+                          value: !addSpotController.isVisited.value,
+                          onChanged: (checked) {
+                            addSpotController.isVisited.value = false;
+                          }),
+                    ])),
+              ),
+            ),
           ],
         ),
       )

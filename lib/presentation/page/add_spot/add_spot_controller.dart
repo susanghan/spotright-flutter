@@ -1,13 +1,44 @@
 import 'dart:ffi';
 import 'dart:ui';
 
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:spotright/data/spot/location_response.dart';
 
 import '../../../data/resources/category.dart';
 
 class AddSpotController extends GetxController{
 
-  //_SelectSpotCategory
+  void initState(){
+    subCategory.value = [];
+
+    selectedMainIndex.value = 0;
+    mainIsSelected.value = false;
+    selectedMainString.value = null;
+
+    selectedSubIndex.value = 0;
+    subIsSelected.value = false;
+    selectedSubString.value = null;
+
+    isVisited.value = false;
+
+    spotName.value = "";
+    province.value = "";
+    city.value = "";
+    address.value = "";
+
+  }
+
+  //**장소
+  RxString spotName = "".obs;
+
+  //**주소
+  RxString province = "".obs;
+  RxString city = "".obs;
+  RxString address = "".obs;
+
+
+  //**선택된 카테고리
   final List<String> mainCategory = Category.mainCategory;
   final List<Color> mainCategoryColors = Category.mainCategoryColors;
   RxList<String> subCategory = [""].obs;
@@ -20,7 +51,7 @@ class AddSpotController extends GetxController{
   RxBool subIsSelected = false.obs;
   Rxn<String> selectedSubString = Rxn<String>();
 
-  //_InputVisitation
+  //**방문 여부
   RxBool isVisited = false.obs;
 
 
