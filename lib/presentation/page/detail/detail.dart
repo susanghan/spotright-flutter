@@ -220,16 +220,19 @@ class _DetailState extends State<Detail> {
   }
 
   Widget _SearchLocation() {
-    return const Padding(
-        padding: EdgeInsets.only(bottom: 18, left: 18),
-        child: Text(
-          "지도에서 위치 확인하기",
-          style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w300,
-              color: SrColors.gray1,
-              decoration: TextDecoration.underline),
-        ));
+    return GestureDetector(
+      onTap: () => Get.back(),
+      child: Padding(
+          padding: EdgeInsets.only(bottom: 18, left: 18),
+          child: Text(
+            "지도에서 위치 확인하기",
+            style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w300,
+                color: SrColors.gray1,
+                decoration: TextDecoration.underline),
+          )),
+    );
   }
 
   Widget _SpotRating(double rating) {

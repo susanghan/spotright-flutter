@@ -14,6 +14,7 @@ class SpotRepository {
   final String searchSpotByCoordinatePath = "/member/spot/coordinate";
   final String searchSpotPath = "/member/spot/search";
   final String updateSpotPath = "/member/spot/update";
+  final String _deleteSpotsPath = "/member/spot";
 
   NetworkClient networkClient = Get.find();
 
@@ -40,7 +41,7 @@ class SpotRepository {
   }
 
   Future<void> deleteSpots(List<int> memberSpotIds) async {
-    // todo: 스팟 일괄 삭제 api 연결
+    await networkClient.request(method: Http.delete, path: _deleteSpotsPath, body: {"deleteMemberSpotIds": memberSpotIds});
   }
 
   Future<void> searchSpotByCoordinate(SpotRequest spotRequest) async {
