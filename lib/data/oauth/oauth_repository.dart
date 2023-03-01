@@ -34,8 +34,9 @@ class OAuthRepository {
   Future<bool> signInWithKakao() async {
     logger.d("카카오톡으로 로그인");
     OAuthToken kakaoToken = await KakaoTalkSignInApi().login();
+    print("hehe ${kakaoToken.idToken}");
     oAuthResponse = OAuthResponse.fromKakao(kakaoToken);
 
-    return userRepository.login("apple", oAuthResponse!.token);
+    return userRepository.login("kakao", oAuthResponse!.token);
   }
 }
