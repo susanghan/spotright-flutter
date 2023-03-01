@@ -59,7 +59,7 @@ class SrBottomSheet extends StatelessWidget {
                                     child: Text(e.spotName ?? "", style: SrTypography.body2semi,)),
                                 Padding(
                                     padding: EdgeInsets.only(right: 6),
-                                    child: Text(e.category.toString(), style: SrTypography.body4medium.copy(color: SrColors.gray2),)),
+                                    child: Text(e.mainCategory ?? "", style: SrTypography.body4medium.copy(color: SrColors.gray2),)),
                                 ..._Rating(e.rating),
                               ],
                             ),
