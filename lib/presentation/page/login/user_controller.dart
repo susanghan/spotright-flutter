@@ -18,11 +18,11 @@ class UserController extends GetxController {
     return oAuthRepository.signUpWithGoogle();
   }
 
-  void signInWithApple() {
-    oAuthRepository.signInWithApple();
+  Future<bool> signInWithApple() {
+    return oAuthRepository.signInWithApple();
   }
 
-  void signInWithKakao() {
-    oAuthRepository.signInWithKakao();
+  Future<bool> signInWithKakao() {
+    return oAuthRepository.signInWithKakao();
   }
 }

@@ -23,15 +23,19 @@ class OAuthRepository {
     return userRepository.login("google", oAuthResponse!.token);
   }
 
-  void signInWithApple() async {
+  Future<bool> signInWithApple() async {
     logger.d("애플로 로그인");
     OAuthCredential appleCredential = await AppleSignInApi().login();
     oAuthResponse = OAuthResponse.fromApple(appleCredential);
+
+    return userRepository.login("apple", oAuthResponse!.token);
   }
 
-  void signInWithKakao() async {
+  Future<bool> signInWithKakao() async {
     logger.d("카카오톡으로 로그인");
     OAuthToken kakaoToken = await KakaoTalkSignInApi().login();
     oAuthResponse = OAuthResponse.fromKakao(kakaoToken);
+
+    return userRepository.login("apple", oAuthResponse!.token);
   }
 }
