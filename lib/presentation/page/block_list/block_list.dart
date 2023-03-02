@@ -44,7 +44,7 @@ class _BlockListState extends State<BlockList> {
               Padding(
                   padding: EdgeInsets.only(left: 16, right: 16, bottom: 36),
                   child: SrCTAButton(
-                      text: "차단해제", isEnabled: false, action: () {}))
+                      text: "차단해제", isEnabled: blockListController.unblockUserIds.isNotEmpty, action: blockListController.unblock))
             ])),
       ),
     );
@@ -58,8 +58,8 @@ class _BlockListState extends State<BlockList> {
         Padding(
             padding: EdgeInsets.only(right: 12),
             child: SrCheckBox(
-              value: false,
-              onChanged: (checked) {},
+              value: blockListController.unblockUserIds.contains(user.memberId),
+              onChanged: blockListController.onChecked(user),
               isRectangle: true,
               size: 16,
             )),

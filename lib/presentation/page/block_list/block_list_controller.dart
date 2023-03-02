@@ -12,11 +12,18 @@ class BlockListController extends GetxController {
     blockedUsers.value = users;
   }
 
-  void onChecked(bool checked, UserResponse user) {
-    if(checked) {
-      unblockUserIds.add(user.memberId);
-    } else {
-      unblockUserIds.remove(user.memberId);
-    }
+  Function(bool) onChecked(UserResponse user) {
+    return (bool checked) {
+      if(checked) {
+        unblockUserIds.add(user.memberId);
+      } else {
+        unblockUserIds.remove(user.memberId);
+      }
+    };
+  }
+
+  Future<void> unblock() async {
+    await userRepository.unblockUsers(unblockUserIds.toList());
+    Get.back();
   }
 }

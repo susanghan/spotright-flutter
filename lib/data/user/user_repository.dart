@@ -151,4 +151,9 @@ class UserRepository {
     });
     return res.list?.map((userJson) => UserResponse.fromJson(userJson)).toList() ?? [];
   }
+
+  Future<void> unblockUsers(List<int> memberIds) async {
+    // todo : 차단 일괄 해제 URL, json field명만 설정해주면 아마 될 듯!
+    await networkClient.request(path: "", body: {"ids": memberIds});
+  }
 }
