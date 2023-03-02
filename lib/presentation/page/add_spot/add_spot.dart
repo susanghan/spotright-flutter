@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:spotright/data/resources/category.dart';
 import 'package:spotright/presentation/common/colors.dart';
+import 'package:spotright/presentation/common/typography.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/buttons/sr_attach_picture.dart';
 import 'package:spotright/presentation/component/buttons/sr_cta_button.dart';
@@ -57,6 +58,7 @@ class _AddSpotState extends State<AddSpot> {
                   ..._SpotLabel(),
                   ..._InputSpotName(),
                   ..._InputSpotProvince(),
+                  _recommendKeywordList(),
                   ..._InputSpotCity(),
                   ..._InputSpotAddress(),
                   ..._SelectSpotCategory(),
@@ -178,14 +180,48 @@ class _AddSpotState extends State<AddSpot> {
     ];
   }
 
+  Widget _recommendKeyword() {
+    return Container(
+      height: 45,
+      padding: EdgeInsets.only(left: 16, top: 15),
+      child: Text("안녕"),
+    );
+  }
+
+  Widget _recommendKeywordList() {
+    return RawScrollbar(child: Container(
+      height: 229,
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(vertical: 2),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25),
+        boxShadow: [
+          BoxShadow(color: SrColors.black.withOpacity(0.25), offset: Offset(0, 4), blurRadius: 4)
+        ],
+        color: SrColors.primary
+      ),
+      child: ListView.builder(
+        itemCount: 5,
+        itemBuilder: (BuildContext context, int index){
+          return _recommendKeyword();
+        },
+
+      ),
+    ));
+
+  }
+
   List<Widget> _InputSpotProvince() {
     return [
       _TextFieldLabel("시/도를 입력해주세요", true),
       Padding(
         padding: EdgeInsets.only(bottom: 16),
         child: Obx(() => SrTextField(
+
               controller: TextEditingController(
-                  text: addSpotController.province.value),
+                  text: addSpotController.province.value,
+                  ),
+
             )),
       ),
     ];
@@ -281,14 +317,10 @@ class _AddSpotState extends State<AddSpot> {
       Padding(
           padding: const EdgeInsets.only(bottom: 8),
           child: SrTextField(
+            maxLength: 140,
             maxLines: 5,
             height: 137,
           )),
-      Container(
-        margin: const EdgeInsets.only(bottom: 16),
-        child: Text("120/140"),
-        alignment: Alignment.centerRight,
-      ),
     ];
   }
 
