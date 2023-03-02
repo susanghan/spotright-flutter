@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:spotright/data/user/user_repository.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
+import 'package:spotright/presentation/page/block_list/block_list.dart';
 import 'package:spotright/presentation/page/deactivate_account/deactivate_account_pre.dart';
 import 'package:spotright/presentation/page/edit_profile/edit_profile.dart';
 import 'package:spotright/presentation/page/login/Login.dart';
@@ -44,7 +45,7 @@ class _MyPageState extends State<MyPage> {
               ..._UserProfile(false),
               SrDivider(height: 4,),
               _ListText(listText: "개인정보관리", action: () {Get.to(ManageUserInfoList()); }),
-              _ListText(listText: "차단사용자관리"),
+              _ListText(listText: "차단사용자관리", action: () => Get.to(BlockList())),
               _ListText(listText: "언어설정", action: () { Get.to(ChangeUserLanguage());}),
               SrDivider(),
               _ListText(listText: "오픈소스라이센스", action: () => Get.to(OpenSourceLicence())),

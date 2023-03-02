@@ -98,8 +98,9 @@ class UserRepository {
     await networkClient.request(method: Http.post, path: "$_blockPath/$memberId");
   }
 
-  Future<void> getBlocks() async {
-    await networkClient.request(path: _getBlocksPath);
+  Future<List<UserResponse>> getBlocks() async {
+    var res = await networkClient.request(path: _getBlocksPath);
+    return res.list?.map((json) => UserResponse.fromJson(json)).toList() ?? [];
   }
 
   Future<void> follow(int memberId) async {
