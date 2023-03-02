@@ -65,7 +65,6 @@ class UserRepository {
   Future<bool> fetchRefreshTokenFromLocal() async {
     String savedRefreshToken = await localRepository.fetch(_refreshTokenKey);
     networkClient.refreshToken = savedRefreshToken;
-    networkClient.refreshToken = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiQURNSU4iLCJVU0VSIl0sImlzcyI6Im5vZ2Ftc3VuZy5jb20iLCJleHAiOjE2Nzk5NzkwODksImlhdCI6MTY3NzU1OTg4OX0.u9bLwBH8_7a2L81cPn9vzI9xwZnKVIUWVQqYwCozMxE";
     return networkClient.refreshToken?.isNotEmpty ?? false;
   }
 
