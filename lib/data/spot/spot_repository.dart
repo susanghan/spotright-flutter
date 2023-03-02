@@ -50,7 +50,7 @@ class SpotRepository {
 
   Future<List<LocationResponse>> searchSpot(LocationRequest locationRequest) async {
     var res = await networkClient.request(method: Http.post, body: locationRequest.toJson() ,path: searchSpotPath);
-    if(res.responseWrapper.responseCode == "SPOT_NOT_FOUND") return [LocationResponse(fullAddress: "검색 결과 없음", name: "검색 결과 없음", address: "검색 결과 없음", city: "검색 결과 없음")];
+    if(res.responseWrapper.responseCode == "SPOT_NOT_FOUND") return [LocationResponse(fullAddress: "검색어를 수정해서 다시 검색해 주세요", name: "검색 결과 없음", address: "검색 결과 없음", city: "검색 결과 없음")];
     return res.list?.map((spot) =>  LocationResponse.fromJson(spot)).toList() ?? [];
   }
 
