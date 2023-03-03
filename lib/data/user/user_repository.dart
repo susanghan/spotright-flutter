@@ -27,6 +27,7 @@ class UserRepository {
   final String _searchMembersByIdPath = "/member/spotright-id";
   final String _getFollowersByIdPath = "/member";
   final String _getFollowingsByIdPath = "/member";
+  final String _unblockUsersPath = "/member/unblock";
 
   bool get isLoggedIn => networkClient.accessToken != null;
 
@@ -153,7 +154,6 @@ class UserRepository {
   }
 
   Future<void> unblockUsers(List<int> memberIds) async {
-    // todo : 차단 일괄 해제 URL, json field명만 설정해주면 아마 될 듯!
-    await networkClient.request(path: "", body: {"ids": memberIds});
+    await networkClient.request(method: Http.delete, path: _unblockUsersPath, body: {"memberIds": memberIds});
   }
 }
