@@ -51,6 +51,12 @@ class _SrAppBarState extends State<SrAppBar> {
   double topContentSize = _topContentSize;
   double arrowAreaSize = 40;
   Set<String> selected = {"전체"};
+  ImageProvider get profilePhoto {
+    if(widget.user.memberPhoto?.photoUrl != null) {
+      return NetworkImage(widget.user.memberPhoto?.photoUrl! ?? "");      
+    }
+    return const AssetImage("assets/user_profile_default_small.png");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -117,8 +123,7 @@ class _SrAppBarState extends State<SrAppBar> {
                     child: CircleAvatar(
                         backgroundColor: SrColors.white,
                         radius: 100,
-                        backgroundImage:
-                            NetworkImage('https://picsum.photos/200')),
+                        backgroundImage: profilePhoto),
                     decoration: BoxDecoration(
                         color: SrColors.black,
                         borderRadius: BorderRadius.circular(100)),
