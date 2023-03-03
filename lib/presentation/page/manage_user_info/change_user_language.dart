@@ -1,29 +1,46 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
+import 'package:spotright/presentation/page/manage_user_info/change_user_language_controller.dart';
 import '../../common/colors.dart';
 import '../../component/appbars/default_app_bar.dart';
 import '../../component/divider/sr_divider.dart';
 
-//Todo: 버튼 선택시 적용 ->이전 페이지로 돌아감
+class ChangeUserLanguage extends StatefulWidget {
+  ChangeUserLanguage({Key? key}) : super(key: key);
 
-class ChangeUserLanguage extends StatelessWidget {
-  const ChangeUserLanguage({Key? key}) : super(key: key);
+  @override
+  State<ChangeUserLanguage> createState() => _ChangeUserLanguageState();
+}
+
+class _ChangeUserLanguageState extends State<ChangeUserLanguage> {
+  ChangeUserLanguageController languageController = Get.put(ChangeUserLanguageController());
+
+
+  @override
+  void initState() {
+    super.initState();
+    languageController.initState(() => setState(() {}));
+  }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
       appBar: DefaultAppBar(
-        title: "언어 설정",
+        title: "settingLanguage".tr,
         hasBackButton: true,
       ),
       body: Column(
         children: [
           SrDivider(),
-          _ListText(listText: "한국어", action: () {}),
+          _ListText(listText: "한국어", action: () {
+            languageController.changeLanguage(Locale('ko', 'KR'));
+          }),
           SrDivider(),
-          _ListText(listText: "English", action: () {}),
+          _ListText(listText: "English", action: () {
+            languageController.changeLanguage(Locale('en', 'US'));
+          }),
           SrDivider(),
         ],
       ),
