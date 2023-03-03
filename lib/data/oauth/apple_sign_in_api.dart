@@ -5,16 +5,18 @@ class AppleSignInApi {
 
   Future<OAuthCredential> login() async {
 
+    String baseUrl = "spotright-dev.nogamsung.com";
+    var uri = Uri.https(baseUrl, "/api/member/oauth/apple");
+
     final appleCredential = await SignInWithApple.getAppleIDCredential(scopes: [
       AppleIDAuthorizationScopes.email,
-    ]);
+    ],
+    webAuthenticationOptions: WebAuthenticationOptions(clientId: "com.susanghan.spotright.login", redirectUri: uri));
 
-    final OAuthCredential oauthCredential = OAuthProvider("https://spotright-372310.firebaseapp.com/__/auth/handler").credential(
+    final OAuthCredential oauthCredential = OAuthProvider("apple.com").credential(
       idToken: appleCredential.identityToken,
       accessToken: appleCredential.authorizationCode,
     );
-
-    print("apple ${oauthCredential.accessToken} ${oauthCredential.idToken} ${oauthCredential.rawNonce}");
 
     return oauthCredential;
   }
