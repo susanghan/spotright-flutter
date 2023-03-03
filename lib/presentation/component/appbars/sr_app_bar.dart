@@ -50,7 +50,7 @@ class _SrAppBarState extends State<SrAppBar> {
   static const double _topContentSize = 96;
   double topContentSize = _topContentSize;
   double arrowAreaSize = 40;
-  Set<String> selected = {};
+  Set<String> selected = {"전체"};
 
   @override
   Widget build(BuildContext context) {
