@@ -9,7 +9,7 @@ import 'package:location/location.dart';
 import 'package:spotright/data/spot/location_request.dart';
 import 'package:spotright/data/spot/location_response.dart';
 import 'package:spotright/data/spot/spot_repository.dart';
-import 'package:spotright/presentation/page/add_spot/add_spot_controller.dart';
+import 'package:spotright/presentation/page/add_spot/add_spot.dart';
 import '../../../data/user/user_repository.dart';
 import '../../../data/user/user_response.dart';
 import 'dart:ui' as ui;
@@ -122,9 +122,22 @@ class SearchLocationController extends GetxController {
             : null,
         queryType: describeEnum(queryTypeState.value).toString(),
         searchQuery: searchQuery?.value);
-    print("위치 검색");
+
     spots.value = await spotRepository.searchSpot(req);
-    print("위치 검색2");
+
+  }
+
+  Future<void> submitClicked(bool isCameraMoving, bool isMoveByHuman) async {
+    if(!isCameraMoving && !isMoveByHuman){
+      queryTypeState.value = QueryTypeState.COORDINATE;
+      await searchSpot();
+
+      addSpotController.spotName.value = searchQuery?.value ?? "";
+      addSpotController.province.value = await spots[0].province ?? "";
+      addSpotController.city.value = await spots[0].city ?? "";
+      addSpotController.address.value = await spots[0].address ?? "";
+    }
+
   }
 
   void get moveMap async {
@@ -136,6 +149,7 @@ class SearchLocationController extends GetxController {
     controller.animateCamera(CameraUpdate.newCameraPosition(position));
     spots.value = [];
   }
+
 }
 
 enum CountryState { CANADA, SOUTH_KOREA, UNITED_STATES }

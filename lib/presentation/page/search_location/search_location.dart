@@ -28,6 +28,8 @@ class _SearchLocationState extends State<SearchLocation> {
   AddSpotController addSpotController = Get.find();
 
   bool isCameraMoving = true;
+  bool isResultSelected = false;
+  bool isMoveByHuman = false;
 
   @override
   void initState() {
@@ -196,9 +198,13 @@ class _SearchLocationState extends State<SearchLocation> {
       onCameraMove: (CameraPosition position) {
         isCameraMoving = true;
         searchLocationController.markerPosition.value = position.target;
+
+        if (isMoveByHuman) {isResultSelected = false; isMoveByHuman = false;}
       },
       onCameraIdle: () {
         isCameraMoving = false;
+
+        if (isResultSelected) {isMoveByHuman = true;}
       },
       markers: {
         Marker(
@@ -372,6 +378,8 @@ class _SearchLocationState extends State<SearchLocation> {
         addSpotController.province.value = spot.province ?? "";
         addSpotController.city.value = spot.city ?? "";
         addSpotController.address.value = spot.address ?? "";
+
+        isResultSelected= true;
       },
       child: Container(
         padding: EdgeInsets.only(left: 16),
@@ -410,9 +418,6 @@ class _SearchLocationState extends State<SearchLocation> {
         thumbColor: SrColors.gray2,
         radius: const Radius.circular(10),
         trackVisibility: false,
-        //trackColor: SrColors.error,
-        //trackRadius: Radius.circular(10),
-        //trackBorderColor: SrColors.success,
         interactive: true,
         fadeDuration: const Duration(seconds: 1),
         timeToFade: const Duration(seconds: 1),
@@ -469,19 +474,10 @@ class _SearchLocationState extends State<SearchLocation> {
     return SrCTAButton(
       text: "완료",
       isEnabled: true,
-      action: () {
-        //Todo: 좌표로 설정 다시 하기ㅎ
-        /*
-        if (!isCameraMoving) {
-          searchLocationController.queryTypeState.value = QueryTypeState.COORDINATE;
-          searchLocationController.searchSpot();
-          print(
-              "좌표로 검색${searchLocationController.spots.length}");
-          addSpotController.spotName.value =
-              searchLocationController.searchQuery?.value ?? "";
-
-        }
-        */
+      action: () async {
+        print("완료 버튼 상태");
+        print(isResultSelected);
+        searchLocationController.submitClicked(isCameraMoving, isMoveByHuman);
 
         Navigator.of(context).pop();
       },
