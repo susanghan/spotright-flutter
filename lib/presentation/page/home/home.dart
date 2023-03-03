@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:spotright/presentation/common/colors.dart';
+import 'package:spotright/presentation/common/controller/map_controller.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/appbars/sr_app_bar.dart';
 import 'package:spotright/presentation/page/add_spot/add_spot.dart';
@@ -22,17 +23,19 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> with WidgetsBindingObserver {
   Completer<GoogleMapController> _mapController = Completer();
   HomeController homeController = Get.find();
+  MapController mapController = Get.put(MapController());
 
   @override
   void initState() {
     super.initState();
-    homeController.initState(() => {setState(() {})});
+    homeController.initState();
+    mapController.initState(() => {setState(() {})}, homeController.userInfo.value);
     _fetchRegionSpots();
   }
 
   void _fetchRegionSpots() async {
     var region = await _getRegion();
-    homeController.fetchSpots(region);
+    mapController.fetchSpots(region);
   }
 
   Future<LatLngBounds> _getRegion() async {
@@ -63,7 +66,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    homeController.pixelRatio.value = MediaQuery.of(context).devicePixelRatio;
+    mapController.pixelRatio.value = MediaQuery.of(context).devicePixelRatio;
 
     return SafeArea(
       child: Scaffold(
@@ -91,9 +94,9 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
             zoomControlsEnabled: false,
             myLocationButtonEnabled: false,
             myLocationEnabled: true,
-            markers: homeController.spots,
+            markers: mapController.spots,
             mapType: MapType.normal,
-            onCameraIdle: homeController.onCameraMoved,
+            onCameraIdle: mapController.onCameraMoved,
             initialCameraPosition: CameraPosition(
               target: LatLng(37.510181246, 127.043505829),
               zoom: 14.4746,
@@ -106,10 +109,10 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
           Obx(() => SrAppBar(
             userName: homeController.userInfo.value.nickname ?? "",
             fetchRegionSpots: _fetchRegionSpots,
-            shouldRefresh: homeController.shouldSpotsRefresh.value,
+            shouldRefresh: mapController.shouldSpotsRefresh.value,
             user: homeController.userInfo.value,
-            onCategorySelected: homeController.onCategorySelected,
-            moveSpotList: () => homeController.moveSpotList(LatLngBounds(
+            onCategorySelected: mapController.onCategorySelected,
+            moveSpotList: () => mapController.navigateSpotList(LatLngBounds(
               northeast: LatLng(90, 179.999999),
               southwest: LatLng(0, -180),
             )),
@@ -117,7 +120,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
           GestureDetector(
             onTap: () async {
               var region = await _getRegion();
-              homeController.moveSpotList(region);
+              mapController.navigateSpotList(region);
             },
             child: Container(
               width: 112,
