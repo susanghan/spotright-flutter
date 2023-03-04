@@ -1,7 +1,12 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:spotright/data/spot/spot_repository.dart';
 import 'package:spotright/data/spot/spot_response.dart';
 import 'package:spotright/data/user/user_repository.dart';
+import 'package:spotright/presentation/common/colors.dart';
+import 'package:spotright/presentation/common/typography.dart';
+import 'package:spotright/presentation/component/dialog/sr_dialog.dart';
 import 'package:spotright/presentation/page/detail/detail.dart';
 
 class SpotListController extends GetxController {
@@ -68,9 +73,22 @@ class SpotListController extends GetxController {
   }
 
   Future<void> finishEdit() async {
-    await spotRepository.deleteSpots(toRemoveSpotIds.toList());
-    await _fetchSpots();
-    toRemoveSpotIds.clear();
-    changeMode();
+    Get.dialog(
+      SrDialog(
+        icon: SvgPicture.asset("assets/triangle.svg"),
+        title: "정말 삭제하시겠습니까?",
+        description: "삭제하면 목록에서 사라집니다",
+        actions: [
+          TextButton(onPressed: () => Get.back(), child: Text("취소하기", style: SrTypography.body2medium.copy(color: SrColors.white))),
+          TextButton(onPressed: () async {
+            Get.back();
+            await spotRepository.deleteSpots(toRemoveSpotIds.toList());
+            await _fetchSpots();
+            toRemoveSpotIds.clear();
+            changeMode();
+          }, child: Text("삭제하기", style: SrTypography.body2medium.copy(color: SrColors.white))),
+        ],
+      )
+    );
   }
 }
