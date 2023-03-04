@@ -5,14 +5,12 @@ import 'package:spotright/presentation/common/colors.dart';
 SrCustomDropdown srCustomDropdown = SrCustomDropdown();
 
 class SrCustomDropdown {
-
-  OverlayEntry inputRecommendation({
-    required LayerLink layerLink,
-    required TextEditingController controller,
-    required Function onPressed,
-    required margin,
-    required inputList
-  }) {
+  OverlayEntry inputRecommendation(
+      {required LayerLink layerLink,
+      required TextEditingController controller,
+      required Function onPressed,
+      required margin,
+      required inputList}) {
     final inputListLength = inputList.length;
 
     return OverlayEntry(
@@ -30,11 +28,12 @@ class SrCustomDropdown {
                 border: Border.all(color: SrColors.gray3),
                 borderRadius: BorderRadius.circular(25),
                 boxShadow: [
-                  BoxShadow(color: SrColors.black.withOpacity(0.25), offset: Offset(0, 4), blurRadius: 4)
+                  BoxShadow(
+                      color: SrColors.black.withOpacity(0.25),
+                      offset: Offset(0, 4),
+                      blurRadius: 4)
                 ],
-                color: SrColors.white
-
-            ),
+                color: SrColors.white),
             child: ListView.builder(
               physics: const ClampingScrollPhysics(),
               padding: const EdgeInsets.symmetric(vertical: 2),

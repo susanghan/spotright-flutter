@@ -5,7 +5,7 @@ import '../../../data/resources/geo.dart';
 import 'sr_custom_drop_down.dart';
 
 class SrRecommendTextField extends StatefulWidget {
-  const SrRecommendTextField({Key? key}) : super(key: key);
+  const SrRecommendTextField({Key? key, required searchList}) : super(key: key);
 
   @override
   State<SrRecommendTextField> createState() => _SrRecommendTextFieldState();
@@ -17,6 +17,8 @@ class _SrRecommendTextFieldState extends State<SrRecommendTextField> {
   late FocusNode _inputFocusNode;
   OverlayEntry? _overlayEntry;
   final LayerLink _layerLink = LayerLink();
+
+  List<String> searchList = Geo.krGeo.keys.toList();
   List<String>? resultList;
 
   void _removeInputOverlay() {
@@ -53,29 +55,25 @@ class _SrRecommendTextFieldState extends State<SrRecommendTextField> {
           _currentFocus.unfocus();
         }
       },
-      child: Scaffold(
-        body: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children:[ _inputTextField(),]
-        ),
-      ),
+      child: _inputTextField(),
+
     );
   }
 
-  List<String> krProvinceGeo = Geo.krGeo.keys.toList();
 
-  void searchKeyword(String input) {
-    resultList = krProvinceGeo.where((krProvinceGeo) => krProvinceGeo.contains(input)).toList();
-
-  }
 
   Widget _inputTextField() {
+    void _searchKeyword(String input) {
+      resultList = searchList.where((searchList) => searchList.contains(input)).toList();
+
+    }
+
     void _showInputOverlay() {
       if (_inputFocusNode.hasFocus) {
         if (_inputController.text.isNotEmpty) {
           final _input = _inputController.text;
 
-          searchKeyword(_input);
+          _searchKeyword(_input);
 
           _removeInputOverlay();
 
@@ -91,15 +89,12 @@ class _SrRecommendTextFieldState extends State<SrRecommendTextField> {
 
     return CompositedTransformTarget(
       link: _layerLink,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: SrTextField(
-          height: 45,
-          controller: _inputController,
-          focusNode: _inputFocusNode,
-          textInputAction: TextInputAction.next,
-          onChanged: (_) => _showInputOverlay(),
-        ),
+      child: SrTextField(
+        height: 45,
+        controller: _inputController,
+        focusNode: _inputFocusNode,
+        textInputAction: TextInputAction.next,
+        onChanged: (_) => _showInputOverlay(),
       ),
     );
   }
@@ -107,7 +102,7 @@ class _SrRecommendTextFieldState extends State<SrRecommendTextField> {
   OverlayEntry _inputListOverlayEntry() {
     return srCustomDropdown.inputRecommendation(
       inputList: resultList?.take(5),
-      margin: EdgeInsets.symmetric(horizontal: 16),
+      margin: EdgeInsets.symmetric(horizontal: 0),
       layerLink: _layerLink,
       controller: _inputController,
       onPressed: () {
