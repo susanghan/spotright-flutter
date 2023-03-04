@@ -173,7 +173,7 @@ class _AddSpotState extends State<AddSpot> {
           child: Obx(
             () => SrTextField(
                 controller: TextEditingController(
-                    text: addSpotController.spotName.value)),
+                    text: addSpotController.spotName.value,), textInputAction: TextInputAction.next,),
           )),
     ];
   }

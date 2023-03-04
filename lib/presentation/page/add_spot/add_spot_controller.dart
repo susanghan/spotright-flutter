@@ -25,6 +25,7 @@ class AddSpotController extends GetxController{
     isVisited.value = false;
 
     spotName.value = "";
+    countryState.value = Country.SOUTH_KOREA;
     province.value = "";
     city.value = "";
     address.value = "";
