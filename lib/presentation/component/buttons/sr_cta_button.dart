@@ -11,7 +11,6 @@ class SrCTAButton extends StatelessWidget {
   final bool isEnabled;
   final Function() action;
 
-  //Todo : 내가 아예 Material button으로 바꿨어. 내 생각에는 이상 없을 거 같은디 pull 받기 전에 한 번 봐 줭
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,7 +18,9 @@ class SrCTAButton extends StatelessWidget {
       height: 60,
       child: MaterialButton(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
-        onPressed: action,
+        onPressed: () {
+          if(isEnabled) action();
+        },
         color: isEnabled ? SrColors.primary : SrColors.gray,
         splashColor: SrColors.primary,
         highlightColor: SrColors.primary,
