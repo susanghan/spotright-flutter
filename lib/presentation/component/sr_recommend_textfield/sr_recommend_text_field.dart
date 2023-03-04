@@ -12,13 +12,12 @@ class SrRecommendTextField extends StatefulWidget {
 }
 
 class _SrRecommendTextFieldState extends State<SrRecommendTextField> {
-
   late TextEditingController _inputController;
   late FocusNode _inputFocusNode;
   OverlayEntry? _overlayEntry;
   final LayerLink _layerLink = LayerLink();
 
-  List<String> searchList = Geo.krGeo.keys.toList();
+  List<String> searchList = Geo.SOUTH_KOREA.keys.toList();
   List<String>? resultList;
 
   void _removeInputOverlay() {
@@ -56,16 +55,13 @@ class _SrRecommendTextFieldState extends State<SrRecommendTextField> {
         }
       },
       child: _inputTextField(),
-
     );
   }
 
-
-
   Widget _inputTextField() {
     void _searchKeyword(String input) {
-      resultList = searchList.where((searchList) => searchList.contains(input)).toList();
-
+      resultList =
+          searchList.where((searchList) => searchList.contains(input)).toList();
     }
 
     void _showInputOverlay() {
@@ -79,13 +75,11 @@ class _SrRecommendTextFieldState extends State<SrRecommendTextField> {
 
           _overlayEntry = _inputListOverlayEntry();
           Overlay.of(context)?.insert(_overlayEntry!);
-
         } else {
           _removeInputOverlay();
         }
       }
     }
-
 
     return CompositedTransformTarget(
       link: _layerLink,
