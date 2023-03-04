@@ -74,7 +74,7 @@ class _SearchLocationState extends State<SearchLocation> {
                                 searchLocationController.countryState.value =
                                     Country.SOUTH_KOREA;
                                 addSpotController.countryState.value = Country.SOUTH_KOREA;
-
+                                addSpotController.setSearchProvinceList();
                                 Navigator.of(context).pop();
                               },
                               child: SvgPicture.asset(
@@ -100,6 +100,7 @@ class _SearchLocationState extends State<SearchLocation> {
                                 searchLocationController.countryState.value =
                                     Country.UNITED_STATES;
                                 addSpotController.countryState.value = Country.UNITED_STATES;
+                                addSpotController.setSearchProvinceList();
                                 Navigator.of(context).pop();
                               },
                               child: SvgPicture.asset(
@@ -125,7 +126,7 @@ class _SearchLocationState extends State<SearchLocation> {
                                 searchLocationController.countryState.value =
                                     Country.CANADA;
                                 addSpotController.countryState.value = Country.CANADA;
-
+                                addSpotController.setSearchProvinceList();
                                 Navigator.of(context).pop();
                               },
                               child: SvgPicture.asset(
