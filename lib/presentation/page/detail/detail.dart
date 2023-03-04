@@ -33,7 +33,12 @@ class _DetailState extends State<Detail> {
   @override
   void initState() {
     super.initState();
-    detailController.initSpot(widget.userId, widget.memberSpotId);
+    _init();
+  }
+
+  Future<void> _init() async {
+    await detailController.initSpot(widget.userId, widget.memberSpotId);
+    setState(() {});
   }
 
   @override
