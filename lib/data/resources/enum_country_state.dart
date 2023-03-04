@@ -1,0 +1,1 @@
+enum CountryState { CANADA, SOUTH_KOREA, UNITED_STATES }
