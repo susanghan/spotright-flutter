@@ -110,20 +110,21 @@ class _SpotListState extends State<SpotList> {
   }
 
   Widget _DefaultItem(SpotResponse spot) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16),
-      child: Row(children: [
-        Flexible(
-          child: GestureDetector(
-            onTap: _spotListController.moveDetail(spot),
+    return GestureDetector(
+      onTap: _spotListController.moveDetail(spot),
+      child: Container(
+        color: SrColors.white,
+        padding: EdgeInsets.symmetric(horizontal: 16),
+        child: Row(children: [
+          Flexible(
             child: _CommonItem(spot),
           ),
-        ),
-        if (spot.rating != null && spot.rating != 0)
-          SrRatingButton(
-              initialRating: spot.rating!.toDouble(),
-              ratingMode: RatingMode.readOnly)
-      ]),
+          if (spot.rating != null && spot.rating != 0)
+            SrRatingButton(
+                initialRating: spot.rating!.toDouble(),
+                ratingMode: RatingMode.readOnly)
+        ]),
+      ),
     );
   }
 
