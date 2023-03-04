@@ -13,6 +13,7 @@ import 'package:spotright/presentation/component/sr_text_field/sr_text_field.dar
 import 'package:spotright/presentation/page/search_location/search_location_controller.dart';
 
 import '../../common/colors.dart';
+import '../../../data/resources/enum_country.dart';
 import '../add_spot/add_spot_controller.dart';
 
 class SearchLocation extends StatefulWidget {
@@ -71,7 +72,7 @@ class _SearchLocationState extends State<SearchLocation> {
                             GestureDetector(
                               onTap: () {
                                 searchLocationController.countryState.value =
-                                    CountryState.SOUTH_KOREA;
+                                    Country.SOUTH_KOREA;
                                 Navigator.of(context).pop();
                               },
                               child: SvgPicture.asset(
@@ -95,7 +96,7 @@ class _SearchLocationState extends State<SearchLocation> {
                             GestureDetector(
                               onTap: () {
                                 searchLocationController.countryState.value =
-                                    CountryState.UNITED_STATES;
+                                    Country.UNITED_STATES;
                                 Navigator.of(context).pop();
                               },
                               child: SvgPicture.asset(
@@ -119,7 +120,7 @@ class _SearchLocationState extends State<SearchLocation> {
                             GestureDetector(
                               onTap: () {
                                 searchLocationController.countryState.value =
-                                    CountryState.CANADA;
+                                    Country.CANADA;
                                 Navigator.of(context).pop();
                               },
                               child: SvgPicture.asset(
