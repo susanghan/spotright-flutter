@@ -1,14 +1,21 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spotright/presentation/common/colors.dart';
 
 class SrRatingButton extends StatefulWidget {
-  SrRatingButton({Key? key, required this.ratingMode, this.initialRating = 0})
+  SrRatingButton(
+      {Key? key,
+      required this.ratingMode,
+      this.initialRating = 0,
+      this.onRating})
       : super(key: key);
 
   RatingMode ratingMode;
   double initialRating;
+  ValueChanged<double>? onRating;
 
   @override
   _SrRatingButtonState createState() => _SrRatingButtonState();
@@ -31,6 +38,10 @@ class _SrRatingButtonState extends State<SrRatingButton> {
 
   @override
   Widget build(BuildContext context) {
+    double onRatingUpdate(double rating) {
+      return 0.0;
+    }
+
     return Column(children: [
       RatingBar.builder(
         ignoreGestures: widget.ratingMode == RatingMode.readOnly,
@@ -57,11 +68,7 @@ class _SrRatingButtonState extends State<SrRatingButton> {
                 height: 12,
                 color: SrColors.primary,
               ),
-        onRatingUpdate: (rating) {
-          setState(() {
-             _rating = rating;
-          });
-        },
+        onRatingUpdate: widget.onRating!,
         updateOnDrag: true,
       ),
       SizedBox(
@@ -70,7 +77,9 @@ class _SrRatingButtonState extends State<SrRatingButton> {
       Text(
         _ratingText[_rating.round()],
         style: TextStyle(
-            fontSize : widget.ratingMode == RatingMode.interactive ? 15 : 0, fontWeight: FontWeight.w500, color: SrColors.black),
+            fontSize: widget.ratingMode == RatingMode.interactive ? 15 : 0,
+            fontWeight: FontWeight.w500,
+            color: SrColors.black),
       )
     ]);
   }
