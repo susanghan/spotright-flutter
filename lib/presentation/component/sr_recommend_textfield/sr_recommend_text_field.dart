@@ -5,12 +5,13 @@ import '../../../data/resources/geo.dart';
 import 'sr_custom_drop_down.dart';
 
 class SrRecommendTextField extends StatefulWidget {
-  SrRecommendTextField({Key? key, required this.inputController, required this.onDropdownPressed, required this.searchList, required this.onChanged}) : super(key: key);
+  SrRecommendTextField( {Key? key, required this.focusOut,required this.inputController, required this.onDropdownPressed, required this.searchList, required this.onChanged}) : super(key: key);
 
   late TextEditingController inputController;
   List<String> searchList;
   Function() onChanged;
   Function() onDropdownPressed;
+  Function() focusOut;
 
   @override
   State<SrRecommendTextField> createState() => _SrRecommendTextFieldState();
@@ -50,14 +51,19 @@ class _SrRecommendTextFieldState extends State<SrRecommendTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        final _currentFocus = FocusScope.of(context);
-        if (!_currentFocus.hasPrimaryFocus) {
-          _currentFocus.unfocus();
-        }
+    return Focus(
+      onFocusChange: (foucus){
+        widget.focusOut();
       },
-      child: _inputTextField(),
+      child: GestureDetector(
+        onTap: () {
+          final _currentFocus = FocusScope.of(context);
+          if (!_currentFocus.hasPrimaryFocus) {
+            _currentFocus.unfocus();
+          }
+        },
+        child: _inputTextField(),
+      ),
     );
   }
 

@@ -199,6 +199,7 @@ class _AddSpotState extends State<AddSpot> {
                     addSpotController.setSearchCityList(
                         addSpotController.provinceController.text);
                   },
+                  focusOut: (){},
                 )),
           ),
         ],
@@ -216,6 +217,7 @@ class _AddSpotState extends State<AddSpot> {
               searchList: addSpotController.searchCityList.value,
               onChanged: () {},
               onDropdownPressed: () {},
+              focusOut: (){},
             )),
       ),
     ];
