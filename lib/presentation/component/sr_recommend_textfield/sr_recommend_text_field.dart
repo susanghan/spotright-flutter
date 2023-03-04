@@ -53,7 +53,10 @@ class _SrRecommendTextFieldState extends State<SrRecommendTextField> {
   Widget build(BuildContext context) {
     return Focus(
       onFocusChange: (foucus){
-        widget.focusOut();
+        if(!foucus && widget.inputController.text.isNotEmpty){
+          widget.inputController.text = widget.searchList[0].toString();
+          widget.focusOut();
+        }
       },
       child: GestureDetector(
         onTap: () {

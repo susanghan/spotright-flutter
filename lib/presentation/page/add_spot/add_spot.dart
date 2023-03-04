@@ -199,7 +199,10 @@ class _AddSpotState extends State<AddSpot> {
                     addSpotController.setSearchCityList(
                         addSpotController.provinceController.text);
                   },
-                  focusOut: (){},
+                  focusOut: (){
+                    addSpotController.setSearchCityList(
+                        addSpotController.provinceController.text);
+                  },
                 )),
           ),
         ],

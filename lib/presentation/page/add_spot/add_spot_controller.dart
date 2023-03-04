@@ -79,6 +79,8 @@ class AddSpotController extends GetxController{
 
 
 
+
+
   //**선택된 카테고리
   final List<String> mainCategory = Category.mainCategory;
   final List<Color> mainCategoryColors = Category.mainCategoryColors;
