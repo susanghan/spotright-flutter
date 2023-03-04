@@ -73,6 +73,8 @@ class _SearchLocationState extends State<SearchLocation> {
                               onTap: () {
                                 searchLocationController.countryState.value =
                                     Country.SOUTH_KOREA;
+                                addSpotController.countryState.value = Country.SOUTH_KOREA;
+
                                 Navigator.of(context).pop();
                               },
                               child: SvgPicture.asset(
@@ -97,6 +99,7 @@ class _SearchLocationState extends State<SearchLocation> {
                               onTap: () {
                                 searchLocationController.countryState.value =
                                     Country.UNITED_STATES;
+                                addSpotController.countryState.value = Country.UNITED_STATES;
                                 Navigator.of(context).pop();
                               },
                               child: SvgPicture.asset(
@@ -121,6 +124,8 @@ class _SearchLocationState extends State<SearchLocation> {
                               onTap: () {
                                 searchLocationController.countryState.value =
                                     Country.CANADA;
+                                addSpotController.countryState.value = Country.CANADA;
+
                                 Navigator.of(context).pop();
                               },
                               child: SvgPicture.asset(
