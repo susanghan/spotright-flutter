@@ -5,7 +5,10 @@ import '../../../data/resources/geo.dart';
 import 'sr_custom_drop_down.dart';
 
 class SrRecommendTextField extends StatefulWidget {
-  const SrRecommendTextField({Key? key, required searchList}) : super(key: key);
+  SrRecommendTextField({Key? key, required this.searchList, required this.onChanged}) : super(key: key);
+
+  List<String> searchList;
+  Function() onChanged;
 
   @override
   State<SrRecommendTextField> createState() => _SrRecommendTextFieldState();
@@ -17,7 +20,6 @@ class _SrRecommendTextFieldState extends State<SrRecommendTextField> {
   OverlayEntry? _overlayEntry;
   final LayerLink _layerLink = LayerLink();
 
-  List<String> searchList = Geo.SOUTH_KOREA.keys.toList();
   List<String>? resultList;
 
   void _removeInputOverlay() {
@@ -61,10 +63,13 @@ class _SrRecommendTextFieldState extends State<SrRecommendTextField> {
   Widget _inputTextField() {
     void _searchKeyword(String input) {
       resultList =
-          searchList.where((searchList) => searchList.contains(input)).toList();
+          widget.searchList.where((searchList) => searchList.contains(input)).toList();
+
     }
 
     void _showInputOverlay() {
+      widget.onChanged();
+
       if (_inputFocusNode.hasFocus) {
         if (_inputController.text.isNotEmpty) {
           final _input = _inputController.text;
