@@ -1,5 +1,5 @@
 class Geo {
-  static Map<String, List<String>> krGeo = {
+  static Map<String, List<String>> SOUTH_KOREA = {
     "서울특별시" : [ "종로구", "중구", "용산구", "성동구", "광진구", "동대문구", "중랑구", "성북구", "강북구" , "도봉구", "노원구", "은평구", "서대문구", "마포구", "양천구", "강서구", "구로구", "금천구", "영등포구", "동작구", "관악구", "서초구", "강남구", "송파구", "강동구"],
     "부산광역시" : ["중구", "서구", "동구", "영도구", "부산진구", "동래구", "남구", "북구", "해운대구", "사하구", "금정구", "강서구", "연제구", "수영구", "사상구", "기장군"],
     "대구광역시" : ["중구", "동구", "서구", "남구", "북구", "수성구", "달서구", "달성군"],
@@ -19,7 +19,7 @@ class Geo {
     "제주도" : ["제주시", "서귀포시"],
 };
 
-  static Map<String, List<String>> usGeo = {
+  static Map<String, List<String>> UNITED_STATES = {
     "Alabama": ["Alexander City", "Andalusia", "Anniston", "Athens", "Atmore", "Auburn", "Bessemer", "Birmingham", "Chickasaw", "Clanton", "Cullman", "Decatur", "Demopolis", "Dothan", "Enterprise", "Eufaula", "Florence", "Fort Payne", "Gadsden", "Greenville", "Guntersville", "Huntsville", "Jasper", "Marion", "Mobile", "Montgomery", "Opelika", "Ozark", "Phenix City", "Prichard", "Scottsboro", "Selma", "Sheffield", "Sylacauga", "Talladega", "Troy", "Tuscaloosa", "Tuscumbia", "Tuskegee"],
     "Alaska": ["Anchorage", "Cordova", "Fairbanks", "Haines", "Homer", "Juneau", "Ketchikan", "Kodiak", "Kotzebue", "Nome", "Palmer", "Seward", "Sitka", "Skagway", "Valdez"],
     "Arizona": ["Ajo", "Avondale", "Bisbee", "Casa Grande", "Chandler", "Clifton", "Douglas", "Flagstaff", "Florence", "Gila Bend", "Glendale", "Globe", "Kingman", "Lake Havasu City", "Mesa", "Nogales", "Oraibi", "Phoenix", "Prescott", "Scottsdale", "Sierra Vista", "Tempe", "Tombstone", "Tucson", "Walpi", "Window Rock", "Winslow", "Yuma"],
@@ -72,7 +72,7 @@ class Geo {
     "Wyoming": ["Buffalo", "Casper", "Cheyenne", "Cody", "Douglas", "Evanston", "Gillette", "Green River", "Jackson", "Lander", "Laramie", "Newcastle", "Powell", "Rawlins", "Riverton", "Rock Springs", "Sheridan", "Ten Sleep", "Thermopolis", "Torrington", "Worland"]
   };
 
-  static Map<String, List<String>> caGeo = {
+  static Map<String, List<String>> CANADA = {
     "Alberta": ["Banff", "Brooks", "Calgary", "Edmonton", "Fort McMurray", "Grande Prairie", "Jasper", "Lake Louise", "Lethbridge", "Medicine Hat", "Red Deer", "Saint Albert"],
     "British Columbia": ["Barkerville", "Burnaby", "Campbell River", "Chilliwack", "Courtenay", "Cranbrook", "Dawson Creek", "Delta", "Esquimalt", "Fort Saint James", "Fort Saint John", "Hope", "Kamloops", "Kelowna", "Kimberley", "Kitimat", "Langley", "Nanaimo", "Nelson", "New Westminster", "North Vancouver", "Oak Bay", "Penticton", "Powell River", "Prince George", "Prince Rupert", "Quesnel", "Revelstoke", "Rossland", "Trail", "Vancouver", "Vernon", "Victoria", "West Vancouver", "White Rock"],
     "Manitoba": ["Brandon", "Churchill", "Dauphin", "Flin Flon", "Kildonan", "Saint Boniface", "Swan River", "Thompson", "Winnipeg", "York Factory"],
