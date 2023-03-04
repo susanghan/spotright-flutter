@@ -76,7 +76,7 @@ class _SpotListState extends State<SpotList> {
           onCategorySelected: _spotListController.onCategorySelected,
           selectedCategories: _spotListController.selectedCategories,
         ),
-        Container(
+        if(_spotListController.isMyPage.value) Container(
             margin: EdgeInsets.only(right: 16, top: 10, bottom: 4),
             alignment: Alignment.centerRight,
             child: GestureDetector(

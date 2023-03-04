@@ -1,10 +1,12 @@
 import 'package:get/get.dart';
 import 'package:spotright/data/spot/spot_repository.dart';
 import 'package:spotright/data/spot/spot_response.dart';
+import 'package:spotright/data/user/user_repository.dart';
 import 'package:spotright/presentation/page/detail/detail.dart';
 
 class SpotListController extends GetxController {
   SpotRepository spotRepository = Get.find();
+  UserRepository userRepository = Get.find();
   RxBool isEditMode = false.obs;
   RxSet<String> selectedCategories = <String>{"전체"}.obs;
   final RxList<SpotResponse> _spots = <SpotResponse>[].obs;
@@ -17,6 +19,7 @@ class SpotListController extends GetxController {
   double topLongitude = -180;
   double bottomLatitude = 0;
   double bottomLongitude = 179.999999;
+  RxBool isMyPage = false.obs;
 
   void changeMode() {
     isEditMode.value = !isEditMode.value;
@@ -29,6 +32,8 @@ class SpotListController extends GetxController {
     this.topLongitude = topLongitude;
     this.bottomLatitude = bottomLatitude;
     this.bottomLongitude = bottomLongitude;
+
+    isMyPage.value = userRepository.userResponse!.memberId == userId;
 
     await _fetchSpots();
   }
