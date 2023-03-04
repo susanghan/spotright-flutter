@@ -12,8 +12,9 @@ import 'package:spotright/presentation/component/sr_check_box/sr_check_box.dart'
 import 'package:spotright/presentation/component/sr_text_field/sr_text_field.dart';
 import 'package:spotright/presentation/page/add_spot/add_spot_controller.dart';
 import 'package:spotright/presentation/page/search_location/search_location.dart';
+import '../../../data/resources/geo.dart';
 import '../../component/buttons/sr_dropdown_button.dart';
-import '../search_location/search_location_controller.dart';
+import '../../component/sr_recommend_textfield/sr_recommend_text_field.dart';
 
 class AddSpot extends StatefulWidget {
   const AddSpot({Key? key}) : super(key: key);
@@ -32,8 +33,6 @@ class _AddSpotState extends State<AddSpot> {
   @override
   void initState() {
     addSpotController.initState();
-    print("안녕${addSpotController.spotName.value}");
-    print("안녕${addSpotController.spotName.value}");
     super.initState();
   }
 
@@ -58,7 +57,6 @@ class _AddSpotState extends State<AddSpot> {
                   ..._SpotLabel(),
                   ..._InputSpotName(),
                   ..._InputSpotProvince(),
-                  _recommendKeywordList(),
                   ..._InputSpotCity(),
                   ..._InputSpotAddress(),
                   ..._SelectSpotCategory(),
@@ -180,50 +178,18 @@ class _AddSpotState extends State<AddSpot> {
     ];
   }
 
-  Widget _recommendKeyword() {
-    return Container(
-      height: 45,
-      padding: EdgeInsets.only(left: 16, top: 15),
-      child: Text("안녕"),
-    );
-  }
-
-  Widget _recommendKeywordList() {
-    return RawScrollbar(child: Container(
-      height: 229,
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(vertical: 2),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25),
-        boxShadow: [
-          BoxShadow(color: SrColors.black.withOpacity(0.25), offset: Offset(0, 4), blurRadius: 4)
-        ],
-        color: SrColors.primary
-      ),
-      child: ListView.builder(
-        itemCount: 5,
-        itemBuilder: (BuildContext context, int index){
-          return _recommendKeyword();
-        },
-
-      ),
-    ));
-
-  }
-
   List<Widget> _InputSpotProvince() {
     return [
-      _TextFieldLabel("시/도를 입력해주세요", true),
-      Padding(
-        padding: EdgeInsets.only(bottom: 16),
-        child: Obx(() => SrTextField(
-
-              controller: TextEditingController(
-                  text: addSpotController.province.value,
-                  ),
-
-            )),
-      ),
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _TextFieldLabel("시/도를 입력해주세요", true),
+          Padding(
+            padding: EdgeInsets.only(bottom: 16),
+            child: Obx(()=> SrRecommendTextField(searchList: addSpotController.searchProvinceList.value, onChanged: (){ addSpotController.setSearchProvinceList(); })),
+          ),
+        ],
+      )
     ];
   }
 
@@ -232,7 +198,8 @@ class _AddSpotState extends State<AddSpot> {
       _TextFieldLabel("시/군/구를 입력해주세요", true),
       Padding(
         padding: EdgeInsets.only(bottom: 16),
-        child: Obx(() => SrTextField(controller: TextEditingController(text: addSpotController.city.value,))),
+        child: Obx(()=> SrRecommendTextField(searchList: addSpotController.searchCityList.value, onChanged: (){ addSpotController.setSearchCityList(); })),
+
       ),
     ];
   }
@@ -324,7 +291,6 @@ class _AddSpotState extends State<AddSpot> {
     ];
   }
 
-  //Todo: 여기는 라디오 버튼 쪽이라 그냥 안 건드렸어! _TextFieldLabel로 바꾼 거 빼구~,,여기 간격 넘 안 맞아서 그것도 안 해 뒀어,,,ㅠ
   List<Widget> _InputVisitation() {
     return [
       _TextFieldLabel("방문한 장소인가요?", true),
