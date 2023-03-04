@@ -107,7 +107,7 @@ class _SrRecommendTextFieldState extends State<SrRecommendTextField> {
 
   OverlayEntry _inputListOverlayEntry() {
     return srCustomDropdown.inputRecommendation(
-      inputList: resultList?.take(5),
+      inputList: resultList?.length ==0 ? widget.searchList.take(5): resultList?.take(5),
       margin: EdgeInsets.symmetric(horizontal: 0),
       layerLink: _layerLink,
       controller: widget.inputController,

@@ -73,7 +73,6 @@ class AddSpotController extends GetxController{
   }
 
   void setSearchCityList(String? keyword) {
-    //searchCityList.value = Geo.SOUTH_KOREA[keyword]?.toList() ?? [];
     searchCityList.value = searchCityMap[keyword]?.toList() ?? [];
   }
 
