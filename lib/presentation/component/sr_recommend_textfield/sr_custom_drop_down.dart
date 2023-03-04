@@ -10,7 +10,8 @@ class SrCustomDropdown {
       required TextEditingController controller,
       required Function onPressed,
       required margin,
-      required inputList}) {
+      required inputList,
+      required Function inputListChanged}) {
     final inputListLength = inputList.length;
 
     return OverlayEntry(
@@ -39,14 +40,13 @@ class SrCustomDropdown {
               padding: const EdgeInsets.symmetric(vertical: 2),
               itemCount: inputList.length,
               itemBuilder: (context, index) {
+                inputListChanged();
                 return CupertinoButton(
                   padding: const EdgeInsets.symmetric(horizontal: 14),
                   pressedOpacity: 1,
                   minSize: 45,
                   onPressed: () {
-                    // 이메일 입력값 변경.
                     controller.text = inputList.elementAt(index);
-
                     onPressed();
                   },
                   child: Align(
