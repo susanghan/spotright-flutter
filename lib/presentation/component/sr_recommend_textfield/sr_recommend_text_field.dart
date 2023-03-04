@@ -32,7 +32,6 @@ class _SrRecommendTextFieldState extends State<SrRecommendTextField> {
   @override
   void initState() {
     super.initState();
-    widget.inputController = TextEditingController();
     _inputFocusNode = FocusNode()
       ..addListener(() {
         if (!_inputFocusNode.hasFocus) {
