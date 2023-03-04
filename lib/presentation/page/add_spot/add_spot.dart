@@ -28,7 +28,6 @@ AddSpotController addSpotController = Get.find();
 final List<String> mainCategory = addSpotController.mainCategory;
 final List<Color> mainCategoryColors = addSpotController.mainCategoryColors;
 
-
 class _AddSpotState extends State<AddSpot> {
   @override
   void initState() {
@@ -172,8 +171,11 @@ class _AddSpotState extends State<AddSpot> {
           padding: const EdgeInsets.only(bottom: 16),
           child: Obx(
             () => SrTextField(
-                controller: TextEditingController(
-                    text: addSpotController.spotName.value,), textInputAction: TextInputAction.next,),
+              controller: TextEditingController(
+                text: addSpotController.spotName.value,
+              ),
+              textInputAction: TextInputAction.next,
+            ),
           )),
     ];
   }
@@ -186,7 +188,23 @@ class _AddSpotState extends State<AddSpot> {
           _TextFieldLabel("시/도를 입력해주세요", true),
           Padding(
             padding: EdgeInsets.only(bottom: 16),
-            child: Obx(()=> SrRecommendTextField(searchList: addSpotController.searchProvinceList.value, onChanged: (){ addSpotController.setSearchProvinceList(); })),
+            child: Obx(() => SrRecommendTextField(
+                  inputController: addSpotController.provinceController =
+                      TextEditingController(
+                          text: addSpotController.province.value),
+                  searchList: addSpotController.searchProvinceList.value,
+                  onChanged: () {
+                    print("터치2${addSpotController.provinceController.text}");
+                    addSpotController.setSearchCityList(
+                        addSpotController.provinceController.text);
+                  },
+                  onDropdownPressed: () {
+                    print("터치1${addSpotController.provinceController.text}");
+                    addSpotController.setSearchCityList(
+                        addSpotController.provinceController.text);
+                    print("${addSpotController.searchCityList.value}");
+                  },
+                )),
           ),
         ],
       )
@@ -198,8 +216,13 @@ class _AddSpotState extends State<AddSpot> {
       _TextFieldLabel("시/군/구를 입력해주세요", true),
       Padding(
         padding: EdgeInsets.only(bottom: 16),
-        child: Obx(()=> SrRecommendTextField(searchList: addSpotController.searchCityList.value, onChanged: (){ addSpotController.setSearchCityList(); })),
-
+        child: Obx(() => SrRecommendTextField(
+              inputController:
+                  TextEditingController(text: addSpotController.city.value),
+              searchList: addSpotController.searchCityList.value,
+              onChanged: () {},
+              onDropdownPressed: () {},
+            )),
       ),
     ];
   }
@@ -209,7 +232,10 @@ class _AddSpotState extends State<AddSpot> {
       _TextFieldLabel("상세주소를 입력해주세요", true),
       Padding(
         padding: EdgeInsets.only(bottom: 16),
-        child: Obx(() => SrTextField(controller: TextEditingController(text: addSpotController.address.value,))),
+        child: Obx(() => SrTextField(
+                controller: TextEditingController(
+              text: addSpotController.address.value,
+            ))),
       ),
     ];
   }
@@ -344,15 +370,16 @@ class _AddSpotState extends State<AddSpot> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-            _TextFieldLabel("별점", true),
-            Container(
-              padding: const EdgeInsets.only(top: 4, bottom: 16),
-              alignment: Alignment.center,
-              child: SrRatingButton(
-                ratingMode: RatingMode.interactive,
+              _TextFieldLabel("별점", true),
+              Container(
+                padding: const EdgeInsets.only(top: 4, bottom: 16),
+                alignment: Alignment.center,
+                child: SrRatingButton(
+                  ratingMode: RatingMode.interactive,
+                ),
               ),
-            ),
-          ],)))
+            ],
+          )))
     ];
   }
 
