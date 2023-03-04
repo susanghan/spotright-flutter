@@ -22,6 +22,12 @@ class _ChangeUserBirthState extends State<ChangeUserBirth> {
   BirthdayController birthdayController = Get.put(BirthdayController());
 
   @override
+  void initState() {
+    super.initState();
+    birthdayController.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
@@ -43,19 +49,17 @@ class _ChangeUserBirthState extends State<ChangeUserBirth> {
                     ],
                   ),
                 ),
-                SrCTAButton(
+                Obx(() => SrCTAButton(
                   text: "완료",
-                  isEnabled: false,
-                  action: () {},
-                ),
+                  isEnabled: birthdayController.ctaActive.value,
+                  action: birthdayController.changeBirthdate,
+                )),
               ],
             ),
           ),
         ));
   }
 
-  //ui를 위한 보조적인 박스.
-  //_CenterFactor의 위아래에 있으면 mainAxisAlignment: MainAxisAlignment.spaceBetween가 적용되어 _CenterFactor가 자연스럽게 중앙의 상단 쪽에 위치한다.
   Widget _AssistBox(double boxHeight) {
     return SizedBox(
       width: double.infinity,

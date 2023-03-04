@@ -91,8 +91,8 @@ class UserRepository {
     return UserResponse.fromJson(res.jsonMap!);
   }
 
-  Future<void> updateBirthDate() async {
-    await networkClient.request(method: Http.patch, path: _updateBirthDatePath);
+  Future<void> updateBirthDate(String birthdate) async {
+    await networkClient.request(method: Http.patch, path: _updateBirthDatePath, body: {"birthdate": birthdate});
   }
 
   Future<void> block(int memberId) async {
