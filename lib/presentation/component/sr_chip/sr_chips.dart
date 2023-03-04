@@ -19,8 +19,8 @@ class SrChips extends StatelessWidget {
         width: double.infinity,
         height: 40,
         margin: EdgeInsets.only(top: 10),
-        padding: EdgeInsets.only(left: 20),
         child: ListView(
+          padding: EdgeInsets.only(left: 16),
           scrollDirection: Axis.horizontal,
           children: List.generate(8, (int index) {
             return Padding(
