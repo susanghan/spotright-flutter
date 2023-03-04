@@ -33,7 +33,11 @@ class AddSpotController extends GetxController{
     city.value = "";
     address.value = "";
 
+    searchCityMap.value= {"" : [""]};
+    searchCityList.value = [""];
+
     setSearchProvinceList();
+    setSearchCityList(province.value);
   }
 
   //**inputController
@@ -48,6 +52,7 @@ class AddSpotController extends GetxController{
   RxList<String> searchProvinceList = [""].obs;
   RxMap<String, List<String>> searchCityMap = {"" : [""]}.obs;
   RxList<String> searchCityList = [""].obs;
+
   RxString province = "".obs;
   RxString city = "".obs;
   RxString address = "".obs;
@@ -71,6 +76,8 @@ class AddSpotController extends GetxController{
     //searchCityList.value = Geo.SOUTH_KOREA[keyword]?.toList() ?? [];
     searchCityList.value = searchCityMap[keyword]?.toList() ?? [];
   }
+
+
 
 
   //**선택된 카테고리

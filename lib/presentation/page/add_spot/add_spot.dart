@@ -189,20 +189,15 @@ class _AddSpotState extends State<AddSpot> {
           Padding(
             padding: EdgeInsets.only(bottom: 16),
             child: Obx(() => SrRecommendTextField(
-                  inputController: addSpotController.provinceController =
-                      TextEditingController(
-                          text: addSpotController.province.value),
+                  inputController: addSpotController.provinceController,
                   searchList: addSpotController.searchProvinceList.value,
                   onChanged: () {
-                    print("터치2${addSpotController.provinceController.text}");
                     addSpotController.setSearchCityList(
                         addSpotController.provinceController.text);
                   },
                   onDropdownPressed: () {
-                    print("터치1${addSpotController.provinceController.text}");
                     addSpotController.setSearchCityList(
                         addSpotController.provinceController.text);
-                    print("${addSpotController.searchCityList.value}");
                   },
                 )),
           ),
@@ -217,8 +212,7 @@ class _AddSpotState extends State<AddSpot> {
       Padding(
         padding: EdgeInsets.only(bottom: 16),
         child: Obx(() => SrRecommendTextField(
-              inputController:
-                  TextEditingController(text: addSpotController.city.value),
+              inputController: addSpotController.cityController,
               searchList: addSpotController.searchCityList.value,
               onChanged: () {},
               onDropdownPressed: () {},

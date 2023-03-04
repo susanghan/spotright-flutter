@@ -135,9 +135,9 @@ class SearchLocationController extends GetxController {
       await searchSpot();
 
       addSpotController.spotName.value = searchQuery?.value ?? "";
-      addSpotController.province.value = await spots[0].province ?? "";
-      addSpotController.city.value = await spots[0].city ?? "";
-      addSpotController.address.value = await spots[0].address ?? "";
+      addSpotController.provinceController.text = spots[0].province ?? "";
+      addSpotController.cityController.text = spots[0].city ?? "";
+      addSpotController.address.value = spots[0].address ?? "";
     }
 
   }
