@@ -101,5 +101,26 @@ class _State extends State<Spotright> {
     super.initState();
     Firebase.initializeApp();
     KakaoSdk.init(nativeAppKey: "6141df4779382304859d905edc750579");
+
+    initLocale();
+  }
+
+  Future<void> initLocale() async {
+    final String languageKey = "language";
+    String savedLanguage = await LocalRepository().fetch(languageKey);
+    Locale locale = Get.deviceLocale ?? Locale('en', 'US');
+
+    switch (savedLanguage) {
+      case 'ko':
+        locale = Locale('ko', 'KR');
+        break;
+      case 'en':
+        locale = Locale('en', 'US');
+        break;
+      default:
+        locale = Locale('en', 'US');
+    }
+
+    Get.locale = locale;
   }
 }

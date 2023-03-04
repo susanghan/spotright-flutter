@@ -7,6 +7,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:spotright/data/user/user_response.dart';
 import 'package:spotright/presentation/common/colors.dart';
+import 'package:spotright/presentation/common/controller/map_controller.dart';
 import 'package:spotright/presentation/component/appbars/appbar_title.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/appbars/sr_app_bar.dart';
@@ -25,12 +26,21 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   Completer<GoogleMapController> _mapController = Completer();
-  late ProfileController profileController = Get.put(ProfileController());
+  ProfileController profileController = Get.put(ProfileController());
+  MapController mapController = Get.put(MapController());
+
 
   @override
   void initState() {
     super.initState();
     profileController.fetchProfileInfo(widget.user.memberId);
+    mapController.initState(() => {setState(() {})}, widget.user);
+    _fetchRegionSpots();
+  }
+
+  void _fetchRegionSpots() async {
+    var region = await _getRegion();
+    mapController.fetchSpots(region);
   }
 
   Future<LatLng> _currentLocation() async {
@@ -42,7 +52,8 @@ class _ProfileState extends State<Profile> {
       currentLocation = await location.getLocation();
       controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
         bearing: 0,
-        target: LatLng(currentLocation.latitude!, currentLocation.longitude!),
+          target: LatLng(37.510181246, 127.043505829),
+        // target: LatLng(currentLocation.latitude!, currentLocation.longitude!),
         zoom: 17.0,
       )));
       return LatLng(currentLocation.latitude!, currentLocation.longitude!);
@@ -83,7 +94,7 @@ class _ProfileState extends State<Profile> {
             ]
         ),
         body: Stack(alignment: Alignment.bottomCenter, children: [
-          GoogleMap(
+          Obx(() => GoogleMap(
             zoomControlsEnabled: false,
             myLocationButtonEnabled: false,
             myLocationEnabled: true,
@@ -96,7 +107,9 @@ class _ProfileState extends State<Profile> {
               _mapController.complete(controller);
               _currentLocation();
             },
-          ),
+            markers: mapController.spots,
+            onCameraIdle: mapController.onCameraMoved,
+          )),
           Obx(() => SrAppBar(
             userName: profileController.user.value.nickname ?? "",
             isMyPage: false,
@@ -106,11 +119,18 @@ class _ProfileState extends State<Profile> {
             block: profileController.block,
             report: profileController.report,
             user: profileController.user.value,
+            fetchRegionSpots: _fetchRegionSpots,
+            shouldRefresh: mapController.shouldSpotsRefresh.value,
+            onCategorySelected: mapController.onCategorySelected,
+            moveSpotList: () => mapController.navigateSpotList(LatLngBounds(
+              northeast: LatLng(90, 179.999999),
+              southwest: LatLng(0, -180),
+            )),
           )),
           GestureDetector(
             onTap: () async {
               var region = await _getRegion();
-              profileController.moveSpotList(region);
+              mapController.navigateSpotList(region);
             },
             child: Container(
               width: 112,
