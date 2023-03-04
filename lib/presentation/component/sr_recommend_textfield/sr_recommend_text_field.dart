@@ -5,17 +5,19 @@ import '../../../data/resources/geo.dart';
 import 'sr_custom_drop_down.dart';
 
 class SrRecommendTextField extends StatefulWidget {
-  SrRecommendTextField({Key? key, required this.searchList, required this.onChanged}) : super(key: key);
+  SrRecommendTextField({Key? key, required this.inputController, required this.onDropdownPressed, required this.searchList, required this.onChanged}) : super(key: key);
 
+  late TextEditingController inputController;
   List<String> searchList;
   Function() onChanged;
+  Function() onDropdownPressed;
 
   @override
   State<SrRecommendTextField> createState() => _SrRecommendTextFieldState();
 }
 
 class _SrRecommendTextFieldState extends State<SrRecommendTextField> {
-  late TextEditingController _inputController;
+
   late FocusNode _inputFocusNode;
   OverlayEntry? _overlayEntry;
   final LayerLink _layerLink = LayerLink();
@@ -30,7 +32,7 @@ class _SrRecommendTextFieldState extends State<SrRecommendTextField> {
   @override
   void initState() {
     super.initState();
-    _inputController = TextEditingController();
+    widget.inputController = TextEditingController();
     _inputFocusNode = FocusNode()
       ..addListener(() {
         if (!_inputFocusNode.hasFocus) {
@@ -41,11 +43,11 @@ class _SrRecommendTextFieldState extends State<SrRecommendTextField> {
 
   @override
   void dispose() {
-    _inputController.dispose();
-    _overlayEntry?.dispose();
-    _inputFocusNode.dispose();
-    super.dispose();
-  }
+     widget.inputController.dispose();
+     _overlayEntry?.dispose();
+     _inputFocusNode.dispose();
+     super.dispose();
+   }
 
   @override
   Widget build(BuildContext context) {
@@ -71,8 +73,8 @@ class _SrRecommendTextFieldState extends State<SrRecommendTextField> {
       widget.onChanged();
 
       if (_inputFocusNode.hasFocus) {
-        if (_inputController.text.isNotEmpty) {
-          final _input = _inputController.text;
+        if (widget.inputController.text.isNotEmpty) {
+          final _input = widget.inputController.text;
 
           _searchKeyword(_input);
 
@@ -90,7 +92,7 @@ class _SrRecommendTextFieldState extends State<SrRecommendTextField> {
       link: _layerLink,
       child: SrTextField(
         height: 45,
-        controller: _inputController,
+        controller: widget.inputController,
         focusNode: _inputFocusNode,
         textInputAction: TextInputAction.next,
         onChanged: (_) => _showInputOverlay(),
@@ -103,8 +105,9 @@ class _SrRecommendTextFieldState extends State<SrRecommendTextField> {
       inputList: resultList?.take(5),
       margin: EdgeInsets.symmetric(horizontal: 0),
       layerLink: _layerLink,
-      controller: _inputController,
+      controller: widget.inputController,
       onPressed: () {
+        widget.onDropdownPressed();
         setState(() {
           _inputFocusNode.unfocus();
           _removeInputOverlay();
