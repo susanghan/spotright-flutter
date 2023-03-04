@@ -70,7 +70,7 @@ class _SpotListState extends State<SpotList> {
   }
 
   Widget _defaultBody() {
-    return Column(
+    return Obx(() => Column(
       children: [
         SrChips(
           onCategorySelected: _spotListController.onCategorySelected,
@@ -106,7 +106,7 @@ class _SpotListState extends State<SpotList> {
           ),
         )
       ],
-    );
+    ));
   }
 
   Widget _DefaultItem(SpotResponse spot) {

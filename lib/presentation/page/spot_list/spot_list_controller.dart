@@ -34,6 +34,7 @@ class SpotListController extends GetxController {
     this.bottomLongitude = bottomLongitude;
 
     isMyPage.value = userRepository.userResponse!.memberId == userId;
+    isEditMode.value = false;
 
     await _fetchSpots();
   }
