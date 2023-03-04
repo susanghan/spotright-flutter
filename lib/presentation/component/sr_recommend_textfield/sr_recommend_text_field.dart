@@ -5,7 +5,14 @@ import '../../../data/resources/geo.dart';
 import 'sr_custom_drop_down.dart';
 
 class SrRecommendTextField extends StatefulWidget {
-  SrRecommendTextField( {Key? key, required this.focusOut,required this.inputController, required this.onDropdownPressed, required this.searchList, required this.onChanged}) : super(key: key);
+  SrRecommendTextField(
+      {Key? key,
+      required this.focusOut,
+      required this.inputController,
+      required this.onDropdownPressed,
+      required this.searchList,
+      required this.onChanged})
+      : super(key: key);
 
   late TextEditingController inputController;
   List<String> searchList;
@@ -18,12 +25,13 @@ class SrRecommendTextField extends StatefulWidget {
 }
 
 class _SrRecommendTextFieldState extends State<SrRecommendTextField> {
-
   late FocusNode _inputFocusNode;
   OverlayEntry? _overlayEntry;
   final LayerLink _layerLink = LayerLink();
 
   List<String>? resultList;
+
+  bool _isDropdownSelected = false;
 
   void _removeInputOverlay() {
     _overlayEntry?.remove();
@@ -43,18 +51,20 @@ class _SrRecommendTextFieldState extends State<SrRecommendTextField> {
 
   @override
   void dispose() {
-     widget.inputController.dispose();
-     _overlayEntry?.dispose();
-     _inputFocusNode.dispose();
-     super.dispose();
-   }
+    widget.inputController.dispose();
+    _overlayEntry?.dispose();
+    _inputFocusNode.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Focus(
-      onFocusChange: (foucus){
-        if(!foucus && widget.inputController.text.isNotEmpty){
-          widget.inputController.text = widget.searchList[0].toString();
+      onFocusChange: (foucus) {
+        if (!foucus &&
+            widget.inputController.text.isNotEmpty &&
+            !_isDropdownSelected) {
+          widget.inputController.text = resultList![0];
           widget.focusOut();
         }
       },
@@ -70,21 +80,22 @@ class _SrRecommendTextFieldState extends State<SrRecommendTextField> {
     );
   }
 
+  void searchKeyword(String input) {
+    resultList = widget.searchList
+        .where((searchList) => searchList.contains(input))
+        .toList();
+  }
+
   Widget _inputTextField() {
-    void _searchKeyword(String input) {
-      resultList =
-          widget.searchList.where((searchList) => searchList.contains(input)).toList();
-
-    }
-
     void _showInputOverlay() {
       widget.onChanged();
+      _isDropdownSelected = false;
 
       if (_inputFocusNode.hasFocus) {
         if (widget.inputController.text.isNotEmpty) {
           final _input = widget.inputController.text;
 
-          _searchKeyword(_input);
+          searchKeyword(_input);
 
           _removeInputOverlay();
 
@@ -110,13 +121,19 @@ class _SrRecommendTextFieldState extends State<SrRecommendTextField> {
 
   OverlayEntry _inputListOverlayEntry() {
     return srCustomDropdown.inputRecommendation(
-      inputList: resultList?.length ==0 ? widget.searchList.take(5): resultList?.take(5),
+      inputList: resultList?.length == 0
+          ? resultList = widget.searchList.take(5).toList()
+          : resultList?.take(5),
+      inputListChanged: () {
+        resultList = resultList;
+      },
       margin: EdgeInsets.symmetric(horizontal: 0),
       layerLink: _layerLink,
       controller: widget.inputController,
       onPressed: () {
         widget.onDropdownPressed();
         setState(() {
+          _isDropdownSelected = true;
           _inputFocusNode.unfocus();
           _removeInputOverlay();
         });
