@@ -27,7 +27,9 @@ class SrTextField extends StatefulWidget {
     this.enabled = true,
     this.contentPadding,
     this.maxLength,
-    this.onSubmitted
+    this.onSubmitted,
+    this.focusNode,
+    this.textInputAction
   }) : super(key: key);
 
   final String hint;
@@ -47,6 +49,9 @@ class SrTextField extends StatefulWidget {
   final EdgeInsets? contentPadding;
   final int? maxLength;
   ValueChanged<String>? onSubmitted;
+  FocusNode? focusNode;
+  TextInputAction? textInputAction;
+
 
   @override
   State<SrTextField> createState() => SrTextField_State();
@@ -63,6 +68,8 @@ class SrTextField_State extends State<SrTextField> {
         height: widget.height,
         child: TextField(
           controller: widget.controller,
+          focusNode: widget.focusNode,
+          textInputAction: widget.textInputAction,
           cursorColor: SrColors.success,
           cursorWidth: widget.cursorWidth,
           maxLines: widget.maxLines,
