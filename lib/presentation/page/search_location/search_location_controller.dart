@@ -14,6 +14,8 @@ import '../../../data/user/user_repository.dart';
 import '../../../data/user/user_response.dart';
 import 'dart:ui' as ui;
 
+import '../../../data/resources/enum_country.dart';
+
 class SearchLocationController extends GetxController {
   final SpotRepository spotRepository = Get.find();
   Completer<GoogleMapController> mapController = Completer();
@@ -22,7 +24,7 @@ class SearchLocationController extends GetxController {
     mapController = Completer();
     userInfo = Rx<UserResponse>(userRepository.userResponse!);
     setCustomMarker();
-    countryState.value = CountryState.SOUTH_KOREA;
+    countryState.value = Country.SOUTH_KOREA;
     isLoadedMarkerImage = false.obs;
     markerPosition.value = LatLng(37.510181246, 127.043505829);
     queryTypeState.value = QueryTypeState.COORDINATE;
@@ -37,7 +39,7 @@ class SearchLocationController extends GetxController {
   Rx<UserResponse>? userInfo;
 
   //***국가 설정
-  var countryState = CountryState.SOUTH_KOREA.obs;
+  var countryState = Country.SOUTH_KOREA.obs;
 
   //***마커 설정
   //Todo: png 방법이 이상 없으면 날려 버릴 것임. 웬만해서는 남겨두고 실험할 것
@@ -76,13 +78,13 @@ class SearchLocationController extends GetxController {
   }
 
   String get countryImage {
-    if (countryState.value == CountryState.SOUTH_KOREA) {
+    if (countryState.value == Country.SOUTH_KOREA) {
       return 'assets/flag_korea.svg';
     }
-    if (countryState.value == CountryState.UNITED_STATES) {
+    if (countryState.value == Country.UNITED_STATES) {
       return 'assets/flag_usa.svg';
     }
-    if (countryState.value == CountryState.CANADA) {
+    if (countryState.value == Country.CANADA) {
       return 'assets/flag_canada.svg';
     }
     return 'assets/flag_korea.svg';
@@ -152,7 +154,6 @@ class SearchLocationController extends GetxController {
 
 }
 
-enum CountryState { CANADA, SOUTH_KOREA, UNITED_STATES }
 
 enum QueryTypeState {
   ADDRESS,
