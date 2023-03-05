@@ -61,7 +61,6 @@ class _State extends State<Spotright> {
         '/login': (context) => const Login(),
         '/congratulation': (context) => const Congratulation(),
         '/searchLocation': (context) => const SearchLocation(),
-        '/registerSpot': (context) => const RegisterSpot(),
       },
       theme: ThemeData(
         primarySwatch: SrColors.materialPrimary,

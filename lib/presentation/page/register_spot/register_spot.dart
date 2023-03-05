@@ -15,7 +15,9 @@ import '../../component/buttons/sr_dropdown_button.dart';
 import '../../component/sr_recommend_textfield/sr_recommend_text_field.dart';
 
 class RegisterSpot extends StatefulWidget {
-  const RegisterSpot({Key? key}) : super(key: key);
+  RegisterSpot({Key? key, required this.pageMode}) : super(key: key);
+
+  PageMode pageMode;
 
   @override
   State<RegisterSpot> createState() => _RegisterSpotState();
@@ -29,7 +31,7 @@ final List<Color> mainCategoryColors = registerSpotController.mainCategoryColors
 class _RegisterSpotState extends State<RegisterSpot> {
   @override
   void initState() {
-    registerSpotController.initState();
+    registerSpotController.initState(widget.pageMode);
     super.initState();
   }
 
@@ -38,7 +40,7 @@ class _RegisterSpotState extends State<RegisterSpot> {
     return SafeArea(
         child: Scaffold(
       appBar: DefaultAppBar(
-        title: "장소추가",
+        title:  widget.pageMode==PageMode.add ? "장소 추가" : "장소 수정",
         hasBackButton: true,
       ),
       body: SingleChildScrollView(
