@@ -31,13 +31,13 @@ class ProfileController extends GetxController {
     userRepository.block(user.value.memberId);
   }
 
-  void report(String type, String reason) {
+  Future<void> report(String type, String reason) async {
     ReportRequest request = ReportRequest(
       reason: reason,
       memberOrMemberSpotId: user.value.memberId,
       reasonType: type,
       reportType: reportType,
     );
-    reportRepository.report(request);
+    await reportRepository.report(request);
   }
 }

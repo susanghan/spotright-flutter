@@ -1,13 +1,18 @@
 import 'dart:typed_data';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:spotright/data/resources/marker.dart';
 import 'package:spotright/data/spot/spot_repository.dart';
 import 'package:spotright/data/spot/spot_response.dart';
 import 'package:spotright/data/user/user_response.dart';
+import 'package:spotright/presentation/common/colors.dart';
+import 'package:spotright/presentation/common/typography.dart';
 import 'package:spotright/presentation/component/bottom_sheet/sr_bottom_sheet.dart';
+import 'package:spotright/presentation/component/dialog/sr_dialog.dart';
 import 'package:spotright/presentation/page/detail/detail.dart';
 import 'package:spotright/presentation/page/spot_list/spot_list.dart';
 import 'dart:ui' as ui;
@@ -81,6 +86,18 @@ class MapController extends GetxController {
         topLongitude: latLngBounds.southwest.longitude,
         bottomLatitude: latLngBounds.southwest.latitude,
         bottomLongitude: latLngBounds.northeast.longitude);
+
+    if(_spots.isEmpty) {
+      Get.dialog(SrDialog(
+        icon: SvgPicture.asset("assets/warning.svg"),
+        title: "검색 결과가 없습니다",
+        description: "다른 지역으로 이동하여 검색해주세요 :)",
+        actions: [
+          TextButton(onPressed: () => Get.back(), child: Text("완료", style: SrTypography.body2medium.copy(color: SrColors.white),))
+        ],
+      ));
+    }
+
     shouldSpotsRefresh.value = false;
   }
 

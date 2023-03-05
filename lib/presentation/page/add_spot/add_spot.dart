@@ -169,6 +169,9 @@ class _AddSpotState extends State<AddSpot> {
         child: SrTextField(
           controller: addSpotController.spotNameController,
           textInputAction: TextInputAction.next,
+          onChanged: (text){
+            addSpotController.onChangeCtaState();
+          },
         ),
       ),
     ];
@@ -196,6 +199,7 @@ class _AddSpotState extends State<AddSpot> {
                   focusOut: () {
                     addSpotController.setSearchCityList(
                         addSpotController.provinceController.text);
+                    addSpotController.onChangeCtaState();
                   },
                 )),
           ),
@@ -212,7 +216,9 @@ class _AddSpotState extends State<AddSpot> {
         child: Obx(() => SrRecommendTextField(
               inputController: addSpotController.cityController,
               searchList: addSpotController.searchCityList.value,
-              onChanged: () {},
+              onChanged: () {
+                addSpotController.onChangeCtaState();
+              },
               onDropdownPressed: () {},
               focusOut: () {},
             )),
@@ -228,6 +234,9 @@ class _AddSpotState extends State<AddSpot> {
         child: SrTextField(
           controller: addSpotController.addressController,
           textInputAction: TextInputAction.next,
+          onChanged: (text) {
+            addSpotController.onChangeCtaState();
+          },
         ),
       ),
     ];
@@ -254,6 +263,8 @@ class _AddSpotState extends State<AddSpot> {
                     hint: '대분류',
                     dropdownIconColors: mainCategoryColors,
                     onChanged: (value) {
+                      addSpotController.onChangeCtaState();
+
                       addSpotController.mainIsSelected.value = true;
                       addSpotController.selectedMainString.value = value;
                       addSpotController.selectedMainIndex.value =
@@ -393,7 +404,7 @@ class _AddSpotState extends State<AddSpot> {
     return [
       Obx(() => SrCTAButton(
             text: "완료",
-            isEnabled: addSpotController.isSubmitBtnEnabled,
+            isEnabled: addSpotController.isCtaActive.value,
             action: () => addSpotController.submitAction(),
           ))
     ];

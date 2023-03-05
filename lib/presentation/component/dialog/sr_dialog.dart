@@ -62,7 +62,15 @@ class SrDialog extends StatelessWidget {
     List<Widget> res = [];
 
     actions?.forEach((widget) {
-      res.add(widget);
+      res.add(
+          Flexible(
+            child: SizedBox(
+              width: double.infinity,
+              height: double.infinity,
+                child: widget
+            ),
+          )
+      );
       if (widget != actions?.last) {
         res.add(Container(
           width: 1,

@@ -260,9 +260,17 @@ class _SrAppBarState extends State<SrAppBar> {
               Get.dialog(ReportDialog(
                 title: "사용자 신고사유",
                 options: ReportOptions.options,
-                onFinish: (String type, String reason) {
+                onFinish: (String type, String reason) async {
                   Get.back();
-                  widget.report?.call(type, reason);
+                  await widget.report?.call(type, reason);
+                  Get.dialog(SrDialog(
+                    icon: SvgPicture.asset("assets/warning.svg"),
+                    title: "신고 완료!",
+                    description: "신고처리 완료되었습니다",
+                    actions: [
+                      TextButton(onPressed: () => Get.back(), child: Text("완료", style: SrTypography.body2medium.copy(color: SrColors.white),))
+                    ],
+                  ));
                 },
               ));
             },
@@ -348,8 +356,8 @@ class _SrAppBarState extends State<SrAppBar> {
         width: double.infinity,
         height: 40,
         margin: EdgeInsets.only(top: 10),
-        padding: EdgeInsets.only(left: 20),
         child: ListView(
+          padding: EdgeInsets.only(left: 16),
           scrollDirection: Axis.horizontal,
           children: List.generate(8, (int index) {
             return Padding(

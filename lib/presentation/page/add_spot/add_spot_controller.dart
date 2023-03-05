@@ -35,19 +35,19 @@ class AddSpotController extends GetxController {
 
     isVisited.value = false;
 
-    spotName.value = "";
     countryState.value = Country.SOUTH_KOREA;
-    province.value = "";
-    city.value = "";
-    address.value = "";
 
+    searchProvinceList.value = [""];
     searchCityMap.value = {
       "": [""]
     };
     searchCityList.value = [""];
 
     setSearchProvinceList();
-    setSearchCityList(province.value);
+    setSearchCityList(provinceController.text);
+
+
+    isCtaActive.value = false;
   }
 
   //**inputController
@@ -57,9 +57,6 @@ class AddSpotController extends GetxController {
   TextEditingController addressController = TextEditingController();
   TextEditingController memoController = TextEditingController();
 
-  //**장소
-  RxString spotName = "".obs;
-
   //**주소
   var countryState = Country.SOUTH_KOREA.obs;
   RxList<String> searchProvinceList = [""].obs;
@@ -68,9 +65,6 @@ class AddSpotController extends GetxController {
   }.obs;
   RxList<String> searchCityList = [""].obs;
 
-  RxString province = "".obs;
-  RxString city = "".obs;
-  RxString address = "".obs;
 
   void setSearchProvinceList() {
     if (countryState.value == Country.SOUTH_KOREA) {
@@ -111,10 +105,18 @@ class AddSpotController extends GetxController {
   RxDouble rating = 0.0.obs;
 
   //**완료 버튼
-  //bool get isSubmitBtnEnabled => (spotName.value.isNotEmpty).obs;
-  bool get isSubmitBtnEnabled {
-    return spotName.value.isEmpty;
+  RxBool isCtaActive = false.obs;
+
+  bool get _isCtaActive => ((spotNameController.text.length>= 3) &&
+      provinceController.text.isNotEmpty &&
+  cityController.text.isNotEmpty &&
+  addressController.text.isNotEmpty &&
+  mainIsSelected.value);
+
+  void onChangeCtaState() {
+    isCtaActive.value = _isCtaActive;
   }
+
 
   int encodeCategory() {
     String mainCode = "0";
@@ -146,6 +148,8 @@ class AddSpotController extends GetxController {
     if (isVisited.value == false) {
       rating.value = 0.0;
     }
+
+    print("아이ㅓ머야${isCtaActive.value}");
 
     encodeCategory();
 
