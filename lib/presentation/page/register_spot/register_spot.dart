@@ -407,7 +407,7 @@ class _RegisterSpotState extends State<RegisterSpot> {
       SrCTAButton(
             text: "완료",
             isEnabled: true,//registerSpotController.isCtaActive.value,
-            action: () => registerSpotController.submitAction(),
+            action: () => widget.pageMode == PageMode.add ? registerSpotController.addSpot() : registerSpotController.editSpot(),
           )
     ];
   }

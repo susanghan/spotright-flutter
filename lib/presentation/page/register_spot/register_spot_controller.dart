@@ -175,7 +175,7 @@ class RegisterSpotController extends GetxController {
     }
   }
 
-  Future<void> submitAction() async {
+  Future<void> addSpot() async {
     if (isVisited.value == false) {
       rating.value = 0.0;
     }
@@ -194,20 +194,33 @@ class RegisterSpotController extends GetxController {
         rating: "${rating.value.round()}",
         spotName: spotNameController.text);
 
-    print("address ${addressController.text.runtimeType}");
-
-    print("city ${cityController.text.runtimeType}");
-    print("country ${describeEnum(countryState.value).toString().runtimeType}");
-    print(
-        "latitude ${searchLocationController.markerPosition.value.latitude.runtimeType}");
-    print(
-        "longitude ${searchLocationController.markerPosition.value.longitude.runtimeType}");
-    print("memo ${memoController.text.runtimeType}");
-    print("province ${provinceController.text.runtimeType}");
-    print("rating ${rating.value.round().toString().runtimeType}");
-    print("spotName ${spotNameController.text.runtimeType}");
-
     await spotRepository.saveSpot(req);
+
+    Get.back();
+  }
+
+
+  Future<void> editSpot() async {
+    if (isVisited.value == false) {
+      rating.value = 0.0;
+    }
+
+    int totalCode = encodeCategory();
+
+    SpotRequest req = SpotRequest(
+        address: addressController.text,
+        category: totalCode,
+        city: cityController.text,
+        country: describeEnum(countryState.value).toString(),
+        deleteSpotPhotoIds: [],
+        latitude: searchLocationController.markerPosition.value.latitude,
+        longitude: searchLocationController.markerPosition.value.longitude,
+        memo: memoController.text,
+        province: provinceController.text,
+        rating: "${rating.value.round()}",
+        spotName: spotNameController.text);
+
+    await spotRepository.updateSpot(req);
 
     Get.back();
   }
