@@ -9,8 +9,8 @@ import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/common/controller/map_controller.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/appbars/sr_app_bar.dart';
-import 'package:spotright/presentation/page/add_spot/add_spot.dart';
 import 'package:spotright/presentation/page/home/home_controller.dart';
+import 'package:spotright/presentation/page/register_spot/register_spot.dart';
 import 'package:spotright/presentation/page/search/search.dart';
 
 class Home extends StatefulWidget {
@@ -152,7 +152,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Get.to(AddSpot());
+                    Get.to(RegisterSpot());
                   },
                   child: Container(
                     width: 44,

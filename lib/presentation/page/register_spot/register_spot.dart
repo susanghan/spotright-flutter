@@ -3,35 +3,33 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:spotright/data/resources/category.dart';
 import 'package:spotright/presentation/common/colors.dart';
-import 'package:spotright/presentation/common/typography.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/buttons/sr_attach_picture.dart';
 import 'package:spotright/presentation/component/buttons/sr_cta_button.dart';
 import 'package:spotright/presentation/component/buttons/sr_rating_button.dart';
 import 'package:spotright/presentation/component/sr_check_box/sr_check_box.dart';
 import 'package:spotright/presentation/component/sr_text_field/sr_text_field.dart';
-import 'package:spotright/presentation/page/add_spot/add_spot_controller.dart';
+import 'package:spotright/presentation/page/register_spot/register_spot_controller.dart';
 import 'package:spotright/presentation/page/search_location/search_location.dart';
-import '../../../data/resources/geo.dart';
 import '../../component/buttons/sr_dropdown_button.dart';
 import '../../component/sr_recommend_textfield/sr_recommend_text_field.dart';
 
-class AddSpot extends StatefulWidget {
-  const AddSpot({Key? key}) : super(key: key);
+class RegisterSpot extends StatefulWidget {
+  const RegisterSpot({Key? key}) : super(key: key);
 
   @override
-  State<AddSpot> createState() => _AddSpotState();
+  State<RegisterSpot> createState() => _RegisterSpotState();
 }
 
-AddSpotController addSpotController = Get.find();
+RegisterSpotController registerSpotController = Get.find();
 
-final List<String> mainCategory = addSpotController.mainCategory;
-final List<Color> mainCategoryColors = addSpotController.mainCategoryColors;
+final List<String> mainCategory = registerSpotController.mainCategory;
+final List<Color> mainCategoryColors = registerSpotController.mainCategoryColors;
 
-class _AddSpotState extends State<AddSpot> {
+class _RegisterSpotState extends State<RegisterSpot> {
   @override
   void initState() {
-    addSpotController.initState();
+    registerSpotController.initState();
     super.initState();
   }
 
@@ -167,10 +165,10 @@ class _AddSpotState extends State<AddSpot> {
       Padding(
         padding: const EdgeInsets.only(bottom: 16),
         child: SrTextField(
-          controller: addSpotController.spotNameController,
+          controller: registerSpotController.spotNameController,
           textInputAction: TextInputAction.next,
           onChanged: (text){
-            addSpotController.onChangeCtaState();
+            registerSpotController.onChangeCtaState();
           },
         ),
       ),
@@ -186,20 +184,20 @@ class _AddSpotState extends State<AddSpot> {
           Padding(
             padding: EdgeInsets.only(bottom: 16),
             child: Obx(() => SrRecommendTextField(
-                  inputController: addSpotController.provinceController,
-                  searchList: addSpotController.searchProvinceList.value,
+                  inputController: registerSpotController.provinceController,
+                  searchList: registerSpotController.searchProvinceList.value,
                   onChanged: () {
-                    addSpotController.setSearchCityList(
-                        addSpotController.provinceController.text);
+                    registerSpotController.setSearchCityList(
+                        registerSpotController.provinceController.text);
                   },
                   onDropdownPressed: () {
-                    addSpotController.setSearchCityList(
-                        addSpotController.provinceController.text);
+                    registerSpotController.setSearchCityList(
+                        registerSpotController.provinceController.text);
                   },
                   focusOut: () {
-                    addSpotController.setSearchCityList(
-                        addSpotController.provinceController.text);
-                    addSpotController.onChangeCtaState();
+                    registerSpotController.setSearchCityList(
+                        registerSpotController.provinceController.text);
+                    registerSpotController.onChangeCtaState();
                   },
                 )),
           ),
@@ -214,10 +212,10 @@ class _AddSpotState extends State<AddSpot> {
       Padding(
         padding: EdgeInsets.only(bottom: 16),
         child: Obx(() => SrRecommendTextField(
-              inputController: addSpotController.cityController,
-              searchList: addSpotController.searchCityList.value,
+              inputController: registerSpotController.cityController,
+              searchList: registerSpotController.searchCityList.value,
               onChanged: () {
-                addSpotController.onChangeCtaState();
+                registerSpotController.onChangeCtaState();
               },
               onDropdownPressed: () {},
               focusOut: () {},
@@ -232,10 +230,10 @@ class _AddSpotState extends State<AddSpot> {
       Padding(
         padding: EdgeInsets.only(bottom: 16),
         child: SrTextField(
-          controller: addSpotController.addressController,
+          controller: registerSpotController.addressController,
           textInputAction: TextInputAction.next,
           onChanged: (text) {
-            addSpotController.onChangeCtaState();
+            registerSpotController.onChangeCtaState();
           },
         ),
       ),
@@ -263,21 +261,21 @@ class _AddSpotState extends State<AddSpot> {
                     hint: '대분류',
                     dropdownIconColors: mainCategoryColors,
                     onChanged: (value) {
-                      addSpotController.onChangeCtaState();
+                      registerSpotController.onChangeCtaState();
 
-                      addSpotController.mainIsSelected.value = true;
-                      addSpotController.selectedMainString.value = value;
-                      addSpotController.selectedMainIndex.value =
+                      registerSpotController.mainIsSelected.value = true;
+                      registerSpotController.selectedMainString.value = value;
+                      registerSpotController.selectedMainIndex.value =
                           SpotCategory.mainCategory.indexOf(value!) + 1;
 
-                      addSpotController.subIsSelected.value = false;
-                      addSpotController.selectedSubString.value = null;
-                      addSpotController.subCategory.value =
+                      registerSpotController.subIsSelected.value = false;
+                      registerSpotController.selectedSubString.value = null;
+                      registerSpotController.subCategory.value =
                           SpotCategory.subCategories[
-                              addSpotController.selectedMainIndex.value]!;
+                              registerSpotController.selectedMainIndex.value]!;
                     },
-                    isSelected: addSpotController.mainIsSelected.value,
-                    selectedString: addSpotController.selectedMainString.value),
+                    isSelected: registerSpotController.mainIsSelected.value,
+                    selectedString: registerSpotController.selectedMainString.value),
               ),
             ),
             const SizedBox(
@@ -289,17 +287,17 @@ class _AddSpotState extends State<AddSpot> {
                 () => SrDropdownButton(
                     hasIcon: false,
                     isRequired: false,
-                    dropdownItems: addSpotController.subCategory.value,
+                    dropdownItems: registerSpotController.subCategory.value,
                     hint: '소분류',
                     onChanged: (value) {
-                      addSpotController.subIsSelected.value = true;
-                      addSpotController.selectedSubString.value = value;
+                      registerSpotController.subIsSelected.value = true;
+                      registerSpotController.selectedSubString.value = value;
                       //Todo : 선택 없음과 기타는 코드가 앞임을 주의!! 따로 함수 만들어서 하든가 하기
-                      addSpotController.selectedSubIndex.value =
-                          addSpotController.subCategory.value.indexOf(value!);
+                      registerSpotController.selectedSubIndex.value =
+                          registerSpotController.subCategory.value.indexOf(value!);
                     },
-                    isSelected: addSpotController.subIsSelected.value,
-                    selectedString: addSpotController.selectedSubString.value),
+                    isSelected: registerSpotController.subIsSelected.value,
+                    selectedString: registerSpotController.selectedSubString.value),
               ),
             ),
           ],
@@ -318,15 +316,15 @@ class _AddSpotState extends State<AddSpot> {
             Flexible(
               child: GestureDetector(
                 onTap: () {
-                  addSpotController.isVisited.value = true;
+                  registerSpotController.isVisited.value = true;
                 },
                 child: Obx(() => Row(children: [
                       const Padding(
                           padding: EdgeInsets.only(right: 8), child: Text("예")),
                       SrCheckBox(
-                          value: addSpotController.isVisited.value,
+                          value: registerSpotController.isVisited.value,
                           onChanged: (checked) {
-                            addSpotController.isVisited.value = true;
+                            registerSpotController.isVisited.value = true;
                           }),
                     ])),
               ),
@@ -334,16 +332,16 @@ class _AddSpotState extends State<AddSpot> {
             Flexible(
               child: GestureDetector(
                 onTap: () {
-                  addSpotController.isVisited.value = false;
+                  registerSpotController.isVisited.value = false;
                 },
                 child: Obx(() => Row(children: [
                       const Padding(
                           padding: EdgeInsets.only(right: 8),
                           child: Text("아니오")),
                       SrCheckBox(
-                          value: !addSpotController.isVisited.value,
+                          value: !registerSpotController.isVisited.value,
                           onChanged: (checked) {
-                            addSpotController.isVisited.value = false;
+                            registerSpotController.isVisited.value = false;
                           }),
                     ])),
               ),
@@ -357,7 +355,7 @@ class _AddSpotState extends State<AddSpot> {
   List<Widget> _InputRating() {
     return [
       Obx(() => Visibility(
-          visible: addSpotController.isVisited.value,
+          visible: registerSpotController.isVisited.value,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -368,7 +366,7 @@ class _AddSpotState extends State<AddSpot> {
                 child: SrRatingButton(
                   ratingMode: RatingMode.interactive,
                   onRating: (rating) {
-                    addSpotController.rating.value = rating;
+                    registerSpotController.rating.value = rating;
                   },
                 ),
               ),
@@ -392,7 +390,7 @@ class _AddSpotState extends State<AddSpot> {
       Padding(
           padding: const EdgeInsets.only(bottom: 8),
           child: SrTextField(
-            controller: addSpotController.memoController,
+            controller: registerSpotController.memoController,
             maxLength: 140,
             maxLines: 5,
             height: 137,
@@ -404,8 +402,8 @@ class _AddSpotState extends State<AddSpot> {
     return [
       Obx(() => SrCTAButton(
             text: "완료",
-            isEnabled: addSpotController.isCtaActive.value,
-            action: () => addSpotController.submitAction(),
+            isEnabled: registerSpotController.isCtaActive.value,
+            action: () => registerSpotController.submitAction(),
           ))
     ];
   }

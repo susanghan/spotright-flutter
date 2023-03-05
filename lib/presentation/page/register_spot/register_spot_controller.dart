@@ -12,7 +12,7 @@ import '../../../data/resources/category.dart';
 import '../../../data/resources/enum_country.dart';
 import '../../../data/resources/geo.dart';
 
-class AddSpotController extends GetxController {
+class RegisterSpotController extends GetxController {
   SearchLocationController searchLocationController = Get.find();
   final SpotRepository spotRepository = Get.find();
 

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:spotright/presentation/common/colors.dart';
-import 'package:spotright/presentation/page/add_spot/add_spot.dart';
 
 class SrDropdownButton extends StatefulWidget {
   SrDropdownButton(

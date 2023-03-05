@@ -14,7 +14,7 @@ import 'package:spotright/presentation/page/search_location/search_location_cont
 
 import '../../common/colors.dart';
 import '../../../data/resources/enum_country.dart';
-import '../add_spot/add_spot_controller.dart';
+import '../register_spot/register_spot_controller.dart';
 
 class SearchLocation extends StatefulWidget {
   const SearchLocation({Key? key}) : super(key: key);
@@ -26,7 +26,7 @@ class SearchLocation extends StatefulWidget {
 class _SearchLocationState extends State<SearchLocation> {
   SpotRepository spotRepository = Get.find();
   SearchLocationController searchLocationController = Get.find();
-  AddSpotController addSpotController = Get.find();
+  RegisterSpotController registerSpotController = Get.find();
 
   bool isCameraMoving = true;
   bool isResultSelected = false;
@@ -73,8 +73,8 @@ class _SearchLocationState extends State<SearchLocation> {
                               onTap: () {
                                 searchLocationController.countryState.value =
                                     Country.SOUTH_KOREA;
-                                addSpotController.countryState.value = Country.SOUTH_KOREA;
-                                addSpotController.setSearchProvinceList();
+                                registerSpotController.countryState.value = Country.SOUTH_KOREA;
+                                registerSpotController.setSearchProvinceList();
                                 Navigator.of(context).pop();
                               },
                               child: SvgPicture.asset(
@@ -99,8 +99,8 @@ class _SearchLocationState extends State<SearchLocation> {
                               onTap: () {
                                 searchLocationController.countryState.value =
                                     Country.UNITED_STATES;
-                                addSpotController.countryState.value = Country.UNITED_STATES;
-                                addSpotController.setSearchProvinceList();
+                                registerSpotController.countryState.value = Country.UNITED_STATES;
+                                registerSpotController.setSearchProvinceList();
                                 Navigator.of(context).pop();
                               },
                               child: SvgPicture.asset(
@@ -125,8 +125,8 @@ class _SearchLocationState extends State<SearchLocation> {
                               onTap: () {
                                 searchLocationController.countryState.value =
                                     Country.CANADA;
-                                addSpotController.countryState.value = Country.CANADA;
-                                addSpotController.setSearchProvinceList();
+                                registerSpotController.countryState.value = Country.CANADA;
+                                registerSpotController.setSearchProvinceList();
                                 Navigator.of(context).pop();
                               },
                               child: SvgPicture.asset(
@@ -381,10 +381,10 @@ class _SearchLocationState extends State<SearchLocation> {
 
         searchLocationController.moveMap;
 
-        addSpotController.spotNameController.text = spot.name ?? "";
-        addSpotController.provinceController.text = spot.province ?? "";
-        addSpotController.cityController.text = spot.city ?? "";
-        addSpotController.addressController.text = spot.address ?? "";
+        registerSpotController.spotNameController.text = spot.name ?? "";
+        registerSpotController.provinceController.text = spot.province ?? "";
+        registerSpotController.cityController.text = spot.city ?? "";
+        registerSpotController.addressController.text = spot.address ?? "";
 
         isResultSelected= true;
       },

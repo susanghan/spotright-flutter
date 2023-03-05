@@ -14,8 +14,6 @@ import 'package:spotright/data/spot/spot_repository.dart';
 import 'package:spotright/data/user/user_repository.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/common/language.dart';
-import 'package:spotright/presentation/page/add_spot/add_spot.dart';
-import 'package:spotright/presentation/page/add_spot/add_spot_controller.dart';
 import 'package:spotright/presentation/page/block_list/block_list.dart';
 import 'package:spotright/presentation/page/congratulation/congratulation.dart';
 import 'package:spotright/presentation/page/detail/detail.dart';
@@ -27,6 +25,8 @@ import 'package:spotright/presentation/page/home/home.dart';
 import 'package:spotright/presentation/page/home/home_controller.dart';
 import 'package:spotright/presentation/page/login/Login.dart';
 import 'package:spotright/presentation/page/login/user_controller.dart';
+import 'package:spotright/presentation/page/register_spot/register_spot.dart';
+import 'package:spotright/presentation/page/register_spot/register_spot_controller.dart';
 import 'package:spotright/presentation/page/search_location/search_location.dart';
 import 'package:spotright/presentation/page/search_location/search_location_controller.dart';
 import 'package:spotright/presentation/page/signup/sign_up.dart';
@@ -61,7 +61,7 @@ class _State extends State<Spotright> {
         '/login': (context) => const Login(),
         '/congratulation': (context) => const Congratulation(),
         '/searchLocation': (context) => const SearchLocation(),
-        '/addSpot': (context) => const AddSpot(),
+        '/registerSpot': (context) => const RegisterSpot(),
       },
       theme: ThemeData(
         primarySwatch: SrColors.materialPrimary,
@@ -88,7 +88,7 @@ class _State extends State<Spotright> {
         Get.put(UserController());
         Get.put(HomeController());
         Get.put(SearchLocationController());
-        Get.put(AddSpotController());
+        Get.put(RegisterSpotController());
       }),
       locale: Get.deviceLocale,
       fallbackLocale: const Locale('en', 'US'),

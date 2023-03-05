@@ -9,12 +9,12 @@ import 'package:location/location.dart';
 import 'package:spotright/data/spot/location_request.dart';
 import 'package:spotright/data/spot/location_response.dart';
 import 'package:spotright/data/spot/spot_repository.dart';
-import 'package:spotright/presentation/page/add_spot/add_spot.dart';
 import '../../../data/user/user_repository.dart';
 import '../../../data/user/user_response.dart';
 import 'dart:ui' as ui;
 
 import '../../../data/resources/enum_country.dart';
+import '../register_spot/register_spot.dart';
 
 class SearchLocationController extends GetxController {
   final SpotRepository spotRepository = Get.find();
@@ -134,10 +134,10 @@ class SearchLocationController extends GetxController {
       queryTypeState.value = QueryTypeState.COORDINATE;
       await searchSpot();
 
-      addSpotController.spotNameController.text = searchQuery?.value ?? "";
-      addSpotController.provinceController.text = spots[0].province ?? "";
-      addSpotController.cityController.text = spots[0].city ?? "";
-      addSpotController.addressController.text = spots[0].address ?? "";
+      registerSpotController.spotNameController.text = searchQuery?.value ?? "";
+      registerSpotController.provinceController.text = spots[0].province ?? "";
+      registerSpotController.cityController.text = spots[0].city ?? "";
+      registerSpotController.addressController.text = spots[0].address ?? "";
     }
 
   }
