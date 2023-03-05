@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import '../../presentation/common/colors.dart';
 
-class Category{
+class SpotCategory{
   static List<String> mainCategory = ["식당", "카페", "관광지", "숙소", "쇼핑", "병원", "기타"];
   static List<Color> mainCategoryColors = [SrColors.restaurant, SrColors.cafe, SrColors.tour, SrColors.accommodation, SrColors.shopping, SrColors.hospital, SrColors.etc];
 

@@ -139,7 +139,7 @@ class _SpotListState extends State<SpotList> {
                 child: SvgPicture.asset("assets/marker.svg",
                     width: 26,
                     color:
-                        Category.mainCategoryColors[spot.mainCategoryIndex])),
+                        SpotCategory.mainCategoryColors[spot.mainCategoryIndex])),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

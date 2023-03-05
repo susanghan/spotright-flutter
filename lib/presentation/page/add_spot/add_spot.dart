@@ -257,12 +257,12 @@ class _AddSpotState extends State<AddSpot> {
                       addSpotController.mainIsSelected.value = true;
                       addSpotController.selectedMainString.value = value;
                       addSpotController.selectedMainIndex.value =
-                          Category.mainCategory.indexOf(value!) + 1;
+                          SpotCategory.mainCategory.indexOf(value!) + 1;
 
                       addSpotController.subIsSelected.value = false;
                       addSpotController.selectedSubString.value = null;
                       addSpotController.subCategory.value =
-                          Category.subCategories[
+                          SpotCategory.subCategories[
                               addSpotController.selectedMainIndex.value]!;
                     },
                     isSelected: addSpotController.mainIsSelected.value,
