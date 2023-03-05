@@ -268,14 +268,15 @@ class _RegisterSpotState extends State<RegisterSpot> {
                       registerSpotController.mainIsSelected.value = true;
                       registerSpotController.selectedMainString.value = value;
                       registerSpotController.selectedMainIndex.value =
-                          SpotCategory.mainCategory.indexOf(value!) + 1;
-
+                          SpotCategory.mainCategory.indexOf(value!);
                       registerSpotController.subIsSelected.value = false;
                       registerSpotController.selectedSubString.value = null;
                       registerSpotController.subCategory.value =
                           SpotCategory.subCategories[
-                              registerSpotController.selectedMainIndex.value]!;
+                              registerSpotController.selectedMainIndex.value + 1]!;
+
                     },
+
                     isSelected: registerSpotController.mainIsSelected.value,
                     selectedString: registerSpotController.selectedMainString.value),
               ),
@@ -367,6 +368,7 @@ class _RegisterSpotState extends State<RegisterSpot> {
                 alignment: Alignment.center,
                 child: SrRatingButton(
                   ratingMode: RatingMode.interactive,
+                  initialRating: registerSpotController.rating.value,
                   onRating: (rating) {
                     registerSpotController.rating.value = rating;
                   },
@@ -402,11 +404,11 @@ class _RegisterSpotState extends State<RegisterSpot> {
 
   List<Widget> _SubmitButton() {
     return [
-      Obx(() => SrCTAButton(
+      SrCTAButton(
             text: "완료",
-            isEnabled: registerSpotController.isCtaActive.value,
+            isEnabled: true,//registerSpotController.isCtaActive.value,
             action: () => registerSpotController.submitAction(),
-          ))
+          )
     ];
   }
 }

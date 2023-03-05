@@ -6,10 +6,12 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:spotright/presentation/common/typography.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/buttons/sr_rating_button.dart';
+import 'package:spotright/presentation/page/register_spot/register_spot.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../common/colors.dart';
 import '../../component/sr_chip/sr_chip_read_only.dart';
+import '../register_spot/register_spot_controller.dart';
 import 'detail_controller.dart';
 
 //Todo : 수정 클릭시 장소 수정 페이지로 이동
@@ -51,7 +53,7 @@ class _DetailState extends State<Detail> {
                 actions: [
                   GestureDetector(
                     onTap: () {
-
+                      Get.to(RegisterSpot(pageMode: PageMode.edit));
                     },
                     child: Padding(
                       padding: EdgeInsets.only(right: 20),
