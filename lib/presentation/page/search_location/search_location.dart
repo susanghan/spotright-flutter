@@ -360,7 +360,7 @@ class _SearchLocationState extends State<SearchLocation> {
             searchLocationController.queryTypeState.value =
                 QueryTypeState.ADDRESS;
           }
-          searchLocationController.searchQuery?.value = text;
+          searchLocationController.searchQuery.value = text;
           searchLocationController.searchSpot();
         },
       ),

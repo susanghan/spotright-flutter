@@ -28,7 +28,7 @@ class SearchLocationController extends GetxController {
     isLoadedMarkerImage = false.obs;
     markerPosition.value = LatLng(37.510181246, 127.043505829);
     queryTypeState.value = QueryTypeState.COORDINATE;
-    searchQuery?.value = "";
+    searchQuery.value = "";
     spots.value = <LocationResponse>[];
 
     spots.value = [];
@@ -52,7 +52,7 @@ class SearchLocationController extends GetxController {
 
   //**검색창
   var queryTypeState = QueryTypeState.ADDRESS.obs;
-  RxString? searchQuery = "".obs;
+  RxString searchQuery = "".obs;
 
   //***검색 결과
   RxList<LocationResponse> spots = <LocationResponse>[].obs;
@@ -123,7 +123,7 @@ class SearchLocationController extends GetxController {
             ? markerPosition.value.longitude
             : null,
         queryType: describeEnum(queryTypeState.value).toString(),
-        searchQuery: searchQuery?.value);
+        searchQuery: searchQuery.value);
 
     spots.value = await spotRepository.searchSpot(req);
 
@@ -134,7 +134,8 @@ class SearchLocationController extends GetxController {
       queryTypeState.value = QueryTypeState.COORDINATE;
       await searchSpot();
 
-      registerSpotController.spotNameController.text = searchQuery?.value ?? "";
+
+      searchQuery.value.isNotEmpty ? registerSpotController.spotNameController.text = searchQuery.value : null ;
       registerSpotController.provinceController.text = spots[0].province ?? "";
       registerSpotController.cityController.text = spots[0].city ?? "";
       registerSpotController.addressController.text = spots[0].address ?? "";
