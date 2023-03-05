@@ -63,10 +63,7 @@ class _AddSpotState extends State<AddSpot> {
                   ..._InputRating(),
                   ..._Pictures(),
                   ..._InputMemo(),
-                  SrCTAButton(
-                    text: "완료",
-                    action: () {},
-                  )
+                  ..._SubmitButton()
                 ],
               ),
             ),
@@ -168,15 +165,12 @@ class _AddSpotState extends State<AddSpot> {
     return [
       _TextFieldLabel("장소명을 입력해 주세요", true),
       Padding(
-          padding: const EdgeInsets.only(bottom: 16),
-          child: Obx(
-            () => SrTextField(
-              controller: TextEditingController(
-                text: addSpotController.spotName.value,
-              ),
-              textInputAction: TextInputAction.next,
-            ),
-          )),
+        padding: const EdgeInsets.only(bottom: 16),
+        child: SrTextField(
+          controller: addSpotController.spotNameController,
+          textInputAction: TextInputAction.next,
+        ),
+      ),
     ];
   }
 
@@ -199,7 +193,7 @@ class _AddSpotState extends State<AddSpot> {
                     addSpotController.setSearchCityList(
                         addSpotController.provinceController.text);
                   },
-                  focusOut: (){
+                  focusOut: () {
                     addSpotController.setSearchCityList(
                         addSpotController.provinceController.text);
                   },
@@ -220,7 +214,7 @@ class _AddSpotState extends State<AddSpot> {
               searchList: addSpotController.searchCityList.value,
               onChanged: () {},
               onDropdownPressed: () {},
-              focusOut: (){},
+              focusOut: () {},
             )),
       ),
     ];
@@ -231,10 +225,10 @@ class _AddSpotState extends State<AddSpot> {
       _TextFieldLabel("상세주소를 입력해주세요", true),
       Padding(
         padding: EdgeInsets.only(bottom: 16),
-        child: Obx(() => SrTextField(
-                controller: TextEditingController(
-              text: addSpotController.address.value,
-            ))),
+        child: SrTextField(
+          controller: addSpotController.addressController,
+          textInputAction: TextInputAction.next,
+        ),
       ),
     ];
   }
@@ -303,19 +297,6 @@ class _AddSpotState extends State<AddSpot> {
     ];
   }
 
-  List<Widget> _InputMemo() {
-    return [
-      _TextFieldLabel("메모", false),
-      Padding(
-          padding: const EdgeInsets.only(bottom: 8),
-          child: SrTextField(
-            maxLength: 140,
-            maxLines: 5,
-            height: 137,
-          )),
-    ];
-  }
-
   List<Widget> _InputVisitation() {
     return [
       _TextFieldLabel("방문한 장소인가요?", true),
@@ -375,6 +356,9 @@ class _AddSpotState extends State<AddSpot> {
                 alignment: Alignment.center,
                 child: SrRatingButton(
                   ratingMode: RatingMode.interactive,
+                  onRating: (rating) {
+                    addSpotController.rating.value = rating;
+                  },
                 ),
               ),
             ],
@@ -388,6 +372,30 @@ class _AddSpotState extends State<AddSpot> {
       Padding(
           padding: EdgeInsets.only(top: 8, bottom: 16),
           child: SrAttachPiture()),
+    ];
+  }
+
+  List<Widget> _InputMemo() {
+    return [
+      _TextFieldLabel("메모", false),
+      Padding(
+          padding: const EdgeInsets.only(bottom: 8),
+          child: SrTextField(
+            controller: addSpotController.memoController,
+            maxLength: 140,
+            maxLines: 5,
+            height: 137,
+          )),
+    ];
+  }
+
+  List<Widget> _SubmitButton() {
+    return [
+      Obx(() => SrCTAButton(
+            text: "완료",
+            isEnabled: addSpotController.isSubmitBtnEnabled,
+            action: () => addSpotController.submitAction(),
+          ))
     ];
   }
 }
