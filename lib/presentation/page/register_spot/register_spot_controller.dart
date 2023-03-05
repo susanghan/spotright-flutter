@@ -162,16 +162,17 @@ class RegisterSpotController extends GetxController {
       if (selectedSubString.value == "기타") {
         subCode = "01";
       } else {
-        subCode = ((selectedSubIndex.value + subCategory.length + 2) %
-            subCategory.length)
+        subCode = ((selectedSubIndex.value + (subCategory.length * 2) + 2) %
+            (subCategory.length * 2))
             .toString();
+        if(subCode.length < 2) {
+          subCode = "0$subCode";
+        }
       }
       totalCode = int.parse(mainCode + subCode);
     } else {
       totalCode = 0;
     }
-    print("totalcategorydd ${totalCode}");
-
     return totalCode;
   }
 
