@@ -30,18 +30,15 @@ class RegisterSpotController extends GetxController {
     mainIsSelected.value = true;
     selectedMainString.value = detailController.spot.value.mainCategory;
 
+    subCategory.value = SpotCategory.subCategories[detailController.spot.value.mainCategoryIndex + 1]!;
 
-    //selectedSubIndex.value = detailController.spot.value.subCategoryIndex;
     selectedSubIndex.value = detailController.spot.value.subCategoryIndex;
-    print("selectedSubIndex : ${selectedSubIndex.value}");
-
-    subIsSelected.value = false;
-    selectedSubString.value = null;
+    subIsSelected.value = true;
+    selectedSubString.value = selectedSubIndex.value >= 0 ? subCategory.value[selectedSubIndex.value] : null;
 
     isVisited.value = (detailController.spot.value.rating != 0);
 
     rating.value = detailController.spot.value.rating?.toDouble() ?? 0.0;
-    print("별점 : ${selectedMainIndex.value}");
 
     memoController.text = detailController.spot.value.memo ?? "";
   }
