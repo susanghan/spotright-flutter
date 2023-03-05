@@ -381,10 +381,10 @@ class _SearchLocationState extends State<SearchLocation> {
 
         searchLocationController.moveMap;
 
-        addSpotController.spotName.value = spot.name ?? "";
+        addSpotController.spotNameController.text = spot.name ?? "";
         addSpotController.provinceController.text = spot.province ?? "";
         addSpotController.cityController.text = spot.city ?? "";
-        addSpotController.address.value = spot.address ?? "";
+        addSpotController.addressController.text = spot.address ?? "";
 
         isResultSelected= true;
       },

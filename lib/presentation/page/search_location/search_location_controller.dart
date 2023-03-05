@@ -134,10 +134,10 @@ class SearchLocationController extends GetxController {
       queryTypeState.value = QueryTypeState.COORDINATE;
       await searchSpot();
 
-      addSpotController.spotName.value = searchQuery?.value ?? "";
+      addSpotController.spotNameController.text = searchQuery?.value ?? "";
       addSpotController.provinceController.text = spots[0].province ?? "";
       addSpotController.cityController.text = spots[0].city ?? "";
-      addSpotController.address.value = spots[0].address ?? "";
+      addSpotController.addressController.text = spots[0].address ?? "";
     }
 
   }
