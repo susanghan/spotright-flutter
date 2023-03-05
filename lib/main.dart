@@ -98,6 +98,8 @@ class _State extends State<Spotright> {
 
   @override
   void initState() {
+
+    LocalRepository().save("memberId", "2");
     super.initState();
     Firebase.initializeApp();
     KakaoSdk.init(nativeAppKey: "6141df4779382304859d905edc750579");

@@ -15,7 +15,9 @@ import '../../component/buttons/sr_dropdown_button.dart';
 import '../../component/sr_recommend_textfield/sr_recommend_text_field.dart';
 
 class RegisterSpot extends StatefulWidget {
-  const RegisterSpot({Key? key}) : super(key: key);
+  RegisterSpot({Key? key, required this.pageMode}) : super(key: key);
+
+  PageMode pageMode;
 
   @override
   State<RegisterSpot> createState() => _RegisterSpotState();

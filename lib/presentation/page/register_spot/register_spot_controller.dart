@@ -16,7 +16,14 @@ class RegisterSpotController extends GetxController {
   SearchLocationController searchLocationController = Get.find();
   final SpotRepository spotRepository = Get.find();
 
+  var pageMode = PageMode.add.obs;
+
+  void setPageMode(PageMode _pageMode){
+    pageMode.value = _pageMode;
+  }
+
   void initState() {
+
     provinceController = TextEditingController();
     cityController = TextEditingController();
     spotNameController = TextEditingController();
@@ -179,4 +186,9 @@ class RegisterSpotController extends GetxController {
 
     await spotRepository.saveSpot(req);
   }
+}
+
+enum PageMode {
+  add,
+  edit
 }
