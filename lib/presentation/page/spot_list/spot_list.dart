@@ -70,13 +70,13 @@ class _SpotListState extends State<SpotList> {
   }
 
   Widget _defaultBody() {
-    return Column(
+    return Obx(() => Column(
       children: [
         SrChips(
           onCategorySelected: _spotListController.onCategorySelected,
           selectedCategories: _spotListController.selectedCategories,
         ),
-        Container(
+        if(_spotListController.isMyPage.value) Container(
             margin: EdgeInsets.only(right: 16, top: 10, bottom: 4),
             alignment: Alignment.centerRight,
             child: GestureDetector(
@@ -106,23 +106,25 @@ class _SpotListState extends State<SpotList> {
           ),
         )
       ],
-    );
+    ));
   }
 
   Widget _DefaultItem(SpotResponse spot) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16),
-      child: Row(children: [
-        GestureDetector(
-          onTap: _spotListController.moveDetail(spot),
-          child: _CommonItem(spot),
-        ),
-        Spacer(),
-        if (spot.rating != null && spot.rating != 0)
-          SrRatingButton(
-              initialRating: spot.rating!.toDouble(),
-              ratingMode: RatingMode.readOnly)
-      ]),
+    return GestureDetector(
+      onTap: _spotListController.moveDetail(spot),
+      child: Container(
+        color: SrColors.white,
+        padding: EdgeInsets.symmetric(horizontal: 16),
+        child: Row(children: [
+          Flexible(
+            child: _CommonItem(spot),
+          ),
+          if (spot.rating != null && spot.rating != 0)
+            SrRatingButton(
+                initialRating: spot.rating!.toDouble(),
+                ratingMode: RatingMode.readOnly)
+        ]),
+      ),
     );
   }
 
@@ -139,32 +141,36 @@ class _SpotListState extends State<SpotList> {
                 child: SvgPicture.asset("assets/marker.svg",
                     width: 26,
                     color:
-                        SpotCategory.mainCategoryColors[spot.mainCategoryIndex])),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(bottom: 8),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Padding(
-                          padding: EdgeInsets.only(right: 4),
-                          child: Text(spot.spotName ?? "",
-                              style: SrTypography.body2semi)),
-                      Text(
-                        spot.mainCategory ?? "",
-                        style: SrTypography.body4medium
-                            .copy(color: SrColors.gray2),
-                      ),
-                    ],
+                        Category.mainCategoryColors[spot.mainCategoryIndex])),
+            Flexible(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 8),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Flexible(
+                          child: Padding(
+                              padding: EdgeInsets.only(right: 4),
+                              child: Text(spot.spotName ?? "",
+                                  style: SrTypography.body2semi, overflow: TextOverflow.ellipsis,)),
+                        ),
+                        Text(
+                          spot.mainCategory ?? "",
+                          style: SrTypography.body4medium
+                              .copy(color: SrColors.gray2),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                Text(
-                  spot.fullAddress ?? "정보 없음",
-                  style: SrTypography.body4medium.copy(color: SrColors.gray1),
-                ),
-              ],
+                  Text(
+                    spot.fullAddress ?? "정보 없음",
+                    style: SrTypography.body4medium.copy(color: SrColors.gray1),
+                  ),
+                ],
+              ),
             ),
           ],
         ));
@@ -224,8 +230,7 @@ class _SpotListState extends State<SpotList> {
               },
               isRectangle: true,
             )),
-        GestureDetector(
-          onTap: _spotListController.moveDetail(spot),
+        Flexible(
           child: _CommonItem(spot),
         ),
       ]),

@@ -16,8 +16,8 @@ class SpotResponse {
   String? spotName;
   List<SpotPhoto>? spotPhotos;
   bool? visited;
-  int get mainCategoryIndex => (category! ~/ 100 + 6) % 7;
-  String? get mainCategory => Res.SpotCategory.mainCategory[mainCategoryIndex];
+  int get mainCategoryIndex => category != null ? (category! ~/ 100 + 6) % 7 : 6;
+  String? get mainCategory => Res.Category.mainCategory[mainCategoryIndex];
 
   SpotResponse(
       {this.address,
