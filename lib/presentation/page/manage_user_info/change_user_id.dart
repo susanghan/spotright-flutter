@@ -45,7 +45,7 @@ class _ChangeUserIdState extends State<ChangeUserId> {
               Obx(() => SrCTAButton(
                     text: "완료",
                     isEnabled: idController.ctaActive.value,
-                    action: () {},
+                    action: idController.onFinished,
                   )),
             ],
           ),

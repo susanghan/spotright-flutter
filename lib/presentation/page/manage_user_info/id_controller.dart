@@ -48,4 +48,10 @@ class IdController extends GetxController {
       idMessageStatus.value = MessageStatus.defaultMessage;
     }
   }
+
+  Future<void> onFinished() async {
+    Get.back();
+    await userRepository.updateId(newId.value);
+    userRepository.fetchMyInfo();
+  }
 }

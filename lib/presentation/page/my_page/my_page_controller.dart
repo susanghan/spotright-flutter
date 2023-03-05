@@ -11,6 +11,7 @@ class MyPageController extends GetxController {
   Rx<UserResponse> userResponse = Rx<UserResponse>(UserResponse(memberId: 0));
 
   void initState() async {
+    await userRepository.fetchMyInfo();
     userResponse.value = userRepository.userResponse!;
 
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
