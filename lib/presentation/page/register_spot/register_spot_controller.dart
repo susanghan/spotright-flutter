@@ -33,7 +33,7 @@ class RegisterSpotController extends GetxController {
     subCategory.value = SpotCategory.subCategories[detailController.spot.value.mainCategoryIndex + 1]!;
 
     selectedSubIndex.value = detailController.spot.value.subCategoryIndex;
-    subIsSelected.value = true;
+    subIsSelected.value = selectedSubIndex.value >= 0;
     selectedSubString.value = selectedSubIndex.value >= 0 ? subCategory.value[selectedSubIndex.value] : null;
 
     isVisited.value = (detailController.spot.value.rating != 0);
@@ -128,6 +128,10 @@ class RegisterSpotController extends GetxController {
   RxInt selectedSubIndex = 0.obs;
   RxBool subIsSelected = false.obs;
   Rxn<String> selectedSubString = Rxn<String>();
+
+  void mainCategoryChanged(){
+
+  }
 
   //**방문 여부
   RxBool isVisited = false.obs;
