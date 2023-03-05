@@ -13,7 +13,7 @@ class SrColors {
   static const Color darkGray = Color(0xff6C6C6C);
   static const Color white = Color(0xffffffff);
 
-  static const Color restaurant = Color(0xffFFD771);
+  static const Color restaurant = Color(0xffF6BC27);
   static const Color cafe = Color(0xffFF83E4);
   static const Color tour = Color(0xffA0DE6F);
   static const Color accommodation = Color(0xff5D7BE4);
