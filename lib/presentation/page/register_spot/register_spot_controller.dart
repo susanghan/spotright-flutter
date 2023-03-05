@@ -30,9 +30,11 @@ class RegisterSpotController extends GetxController {
     mainIsSelected.value = true;
     selectedMainString.value = detailController.spot.value.mainCategory;
 
-    print("mainIndexdetail : ${selectedMainIndex.value}");
 
-    selectedSubIndex.value = 0;
+    //selectedSubIndex.value = detailController.spot.value.subCategoryIndex;
+    selectedSubIndex.value = detailController.spot.value.subCategoryIndex;
+    print("selectedSubIndex : ${selectedSubIndex.value}");
+
     subIsSelected.value = false;
     selectedSubString.value = null;
 
@@ -55,11 +57,11 @@ class RegisterSpotController extends GetxController {
 
     subCategory.value = [];
 
-    selectedMainIndex.value = 0;
+    selectedMainIndex.value = -2;
     mainIsSelected.value = false;
     selectedMainString.value = null;
 
-    selectedSubIndex.value = 0;
+    selectedSubIndex.value = -2;
     subIsSelected.value = false;
     selectedSubString.value = null;
 
@@ -156,9 +158,6 @@ class RegisterSpotController extends GetxController {
 
     mainCode = ((selectedMainIndex.value += mainCategory.length + 1) % mainCategory.length).toString();
     if (mainCode != "0") {
-      if (selectedSubString.value == null) {
-        subCode = "00";
-      }
       if (selectedSubString.value == "기타") {
         subCode = "01";
       } else {
@@ -169,11 +168,10 @@ class RegisterSpotController extends GetxController {
           subCode = "0$subCode";
         }
       }
-      totalCode = int.parse(mainCode + subCode);
+      return totalCode = int.parse(mainCode + subCode);
     } else {
-      totalCode = 0;
+      return totalCode = 0;
     }
-    return totalCode;
   }
 
   Future<void> submitAction() async {
