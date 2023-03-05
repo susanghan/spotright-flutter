@@ -12,16 +12,40 @@ class IdController extends GetxController {
   };
 
   var idMessageStatus = MessageStatus.defaultMessage.obs;
+  RxString get idValidationMessage => _idMessageMap[idMessageStatus.value]!.obs;
   UserRepository userRepository = Get.find();
   RxBool ctaActive = false.obs;
   RxString newId = "".obs;
 
   Future<void> verifyId() async {
-    ctaActive.value = await userRepository.verifyDuplicatedId(newId.value);
+    if(idMessageStatus.value != MessageStatus.empty) return;
+
+    bool res = await userRepository.verifyDuplicatedId(newId.value);
+    ctaActive.value = res;
+    if(res) {
+      idMessageStatus.value = MessageStatus.enabled;
+    }
   }
 
   void onChangeText(String text) {
+    _validateId(text);
     newId.value = text;
     ctaActive.value = false;
+  }
+
+  void _validateId(String id) {
+    final regex = RegExp(r'^([0-9a-zA-Z-_]{6,16})$');
+    if (regex.hasMatch(id)) {
+      idMessageStatus.value = MessageStatus.empty;
+      return;
+    }
+
+    if (id.isEmpty) {
+      idMessageStatus.value = MessageStatus.defaultMessage;
+    } else if (id.length < 6 || id.length > 16) {
+      idMessageStatus.value = MessageStatus.checkLength;
+    } else {
+      idMessageStatus.value = MessageStatus.defaultMessage;
+    }
   }
 }
