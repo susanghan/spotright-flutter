@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:spotright/presentation/page/manage_user_info/id_controller.dart';
 
 import '../../common/colors.dart';
 import '../../component/appbars/default_app_bar.dart';
 import '../../component/buttons/sr_cta_button.dart';
 import '../../component/sr_text_field/sr_text_field.dart';
-
-//Todo : 중복확인을 통과 - 캡션(사용가능한 아이디입니다), 완료버튼 활성화
 
 class ChangeUserId extends StatefulWidget {
   const ChangeUserId({Key? key}) : super(key: key);
@@ -16,6 +16,8 @@ class ChangeUserId extends StatefulWidget {
 }
 
 class _ChangeUserIdState extends State<ChangeUserId> {
+  IdController idController = Get.put(IdController());
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -38,11 +40,11 @@ class _ChangeUserIdState extends State<ChangeUserId> {
                   ],
                 ),
               ),
-              SrCTAButton(
+              Obx(() => SrCTAButton(
                 text: "완료",
-                isEnabled: false,
+                isEnabled: idController.ctaActive.value,
                 action: () {},
-              ),
+              )),
             ],
           ),
         ),
@@ -79,10 +81,11 @@ class _ChangeUserIdState extends State<ChangeUserId> {
             padding: const EdgeInsets.only(bottom: 6),
             child: SrTextField(
               height: 45,
+              onChanged: idController.onChangeText,
               suffixIcon: Padding(
                 padding: const EdgeInsets.fromLTRB(0, 4, 6, 4),
                 child: OutlinedButton(
-                  onPressed: () {},
+                  onPressed: idController.verifyId,
                   style: OutlinedButton.styleFrom(
                       backgroundColor: SrColors.primary,
                       shape: RoundedRectangleBorder(
