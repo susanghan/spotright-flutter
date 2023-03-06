@@ -6,6 +6,7 @@ import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/buttons/sr_cta_button.dart';
 import 'package:spotright/presentation/page/edit_profile/edit_profile_controller.dart';
+import 'package:spotright/presentation/page/edit_profile/edit_profile_state.dart';
 
 import '../../component/sr_text_field/sr_text_field.dart';
 
@@ -24,12 +25,14 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
-  EditProfileController editProfileController = Get.find();
+  EditProfileController editProfileController = Get.put(EditProfileController());
 
   @override
   void initState() {
+    super.initState();
     editProfileController.userProfileState.value = UserProfileState.serverState;
     editProfileController.userProfilePath = ''.obs;
+    editProfileController.initState();
   }
 
   @override
@@ -131,9 +134,11 @@ class _EditProfileState extends State<EditProfile> {
         Padding(
             padding: const EdgeInsets.only(bottom: 6),
             child: SrTextField(
-                hint: editProfileController.editProfileState.nickname.value,
+                hint: "닉네임",
                 maxLines: 1,
-                onChanged: editProfileController.onNicknameChanged)),
+                onChanged: editProfileController.onNicknameChanged,
+                controller: editProfileController.nicknameController,
+            )),
         Padding(
             padding: const EdgeInsets.only(left: 16),
             child: Obx(

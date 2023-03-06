@@ -83,7 +83,6 @@ class _State extends State<Spotright> {
 
         Get.put(SignUpController(signUpState: SignUpState()));
         Get.put(SpotListController());
-        Get.put(EditProfileController(editProfileState: EditProfileState()));
         Get.put(DetailController());
         Get.put(UserController());
         Get.put(HomeController());

@@ -2,23 +2,30 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spotright/data/user/user_repository.dart';
+import 'package:spotright/data/user/user_response.dart';
 import 'package:spotright/presentation/page/edit_profile/edit_profile_state.dart';
 import 'package:image_picker/image_picker.dart';
 
 class EditProfileController extends GetxController {
-  EditProfileController({required this.editProfileState});
-
-  final EditProfileState editProfileState;
+  final EditProfileState editProfileState = EditProfileState();
 
   UserRepository userRepository = Get.find();
   final ImageProvider _defaultProfileImage = const AssetImage('assets/user_profile_default_large.png');
   final ImagePicker _picker = ImagePicker();
   dynamic pickImageError;
 
-  RxBool get isEdited => (userRepository.userResponse!.nickname != editProfileState.nickname.value).obs;
+  RxBool get isEdited => (user.nickname != editProfileState.nickname.value).obs;
   var userProfileState = UserProfileState.serverState.obs;
   String? serverProfilePath = '';
   RxString userProfilePath = ''.obs;
+  UserResponse user = UserResponse(memberId: 0);
+  TextEditingController nicknameController = TextEditingController();
+
+  void initState() {
+    user = userRepository.userResponse!;
+    editProfileState.nickname.value = user.nickname!;
+    nicknameController.text = user.nickname!;
+  }
 
   ImageProvider? get imageProvider {
     if(userProfileState.value == UserProfileState.serverState) return null;
