@@ -9,18 +9,19 @@ class EditProfileState {
     MessageStatus.empty: '',
   };
 
+  RxString nickname = "".obs;
   var nicknameMessageStatus = MessageStatus.defaultMessage.obs;
   String get nicknameValidationMessage => _nicknameMessageMap[nicknameMessageStatus.value]!;
 
-  void validateNickname(String nickname) {
+  void validateNickname() {
     final regex = RegExp(r'^([a-zA-Zㄱ-ㅎ가-힣]{1,10})$');
-    if (regex.hasMatch(nickname)) {
+    if (regex.hasMatch(nickname.value)) {
       nicknameMessageStatus.value = MessageStatus.enabled;
       return;
     }
     if (nickname.isEmpty) {
       nicknameMessageStatus.value = MessageStatus.defaultMessage;
-    } else if (nickname.length > 10) {
+    } else if (nickname.value.length > 10) {
       nicknameMessageStatus.value = MessageStatus.checkLength;
     } else {
       nicknameMessageStatus.value = MessageStatus.defaultMessage;

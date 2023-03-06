@@ -28,10 +28,8 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   void initState() {
-    //처움 불러올 때는 서버에서 무조건 가져와야 하고, userProfilePath도 다 초기화 해야 함
     editProfileController.userProfileState.value = UserProfileState.serverState;
     editProfileController.userProfilePath = ''.obs;
-    editProfileController.userNickName = ''.obs;
   }
 
   @override
@@ -55,7 +53,7 @@ class _EditProfileState extends State<EditProfile> {
               Obx(() => SrCTAButton(
                     text: "완료",
                     isEnabled: editProfileController.isEdited.value,
-                    action: () {},
+                    action: editProfileController.onFinished,
                   ))
             ]),
           )),
@@ -133,7 +131,7 @@ class _EditProfileState extends State<EditProfile> {
         Padding(
             padding: const EdgeInsets.only(bottom: 6),
             child: SrTextField(
-                hint: editProfileController.severNickName ?? '',
+                hint: editProfileController.editProfileState.nickname.value,
                 maxLines: 1,
                 onChanged: editProfileController.onNicknameChanged)),
         Padding(

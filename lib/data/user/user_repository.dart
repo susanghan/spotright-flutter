@@ -28,6 +28,7 @@ class UserRepository {
   final String _getFollowersByIdPath = "/member";
   final String _getFollowingsByIdPath = "/member";
   final String _unblockUsersPath = "/member/unblock";
+  final String _updateNicknamePath = "/member/nickname";
 
   bool get isLoggedIn => networkClient.accessToken != null;
 
@@ -155,5 +156,9 @@ class UserRepository {
 
   Future<void> unblockUsers(List<int> memberIds) async {
     await networkClient.request(method: Http.delete, path: _unblockUsersPath, body: {"memberIds": memberIds});
+  }
+
+  Future<void> updateNickname(String nickname) async {
+    await networkClient.request(method: Http.patch, path: _updateNicknamePath, body: {"nickname": nickname});
   }
 }

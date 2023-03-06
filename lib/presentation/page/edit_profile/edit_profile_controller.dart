@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:spotright/data/user/user_repository.dart';
 import 'package:spotright/presentation/page/edit_profile/edit_profile_state.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -9,16 +10,15 @@ class EditProfileController extends GetxController {
 
   final EditProfileState editProfileState;
 
+  UserRepository userRepository = Get.find();
   final ImageProvider _defaultProfileImage = const AssetImage('assets/user_profile_default_large.png');
   final ImagePicker _picker = ImagePicker();
   dynamic pickImageError;
 
-  RxBool get isEdited => (userProfileState.value !=UserProfileState.serverState || severNickName != userNickName.value).obs;
+  RxBool get isEdited => (userRepository.userResponse!.nickname != editProfileState.nickname.value).obs;
   var userProfileState = UserProfileState.serverState.obs;
   String? serverProfilePath = '';
-  String? severNickName = '';
   RxString userProfilePath = ''.obs;
-  RxString userNickName = ''.obs;
 
   ImageProvider? get imageProvider {
     if(userProfileState.value == UserProfileState.serverState) return null;
@@ -42,9 +42,15 @@ class EditProfileController extends GetxController {
   }
 
   void onNicknameChanged(String nickname) {
-    editProfileState.validateNickname(nickname);
+    editProfileState.nickname.value = nickname;
+    editProfileState.validateNickname();
   }
 
+  Future<void> onFinished() async {
+    Get.back();
+    await userRepository.updateNickname(editProfileState.nickname.value);
+    userRepository.fetchMyInfo();
+  }
 }
 
 enum UserProfileState{
