@@ -15,7 +15,9 @@ import '../../component/buttons/sr_dropdown_button.dart';
 import '../../component/sr_recommend_textfield/sr_recommend_text_field.dart';
 
 class RegisterSpot extends StatefulWidget {
-  const RegisterSpot({Key? key}) : super(key: key);
+  RegisterSpot({Key? key, required this.pageMode}) : super(key: key);
+
+  PageMode pageMode;
 
   @override
   State<RegisterSpot> createState() => _RegisterSpotState();
@@ -29,7 +31,7 @@ final List<Color> mainCategoryColors = registerSpotController.mainCategoryColors
 class _RegisterSpotState extends State<RegisterSpot> {
   @override
   void initState() {
-    registerSpotController.initState();
+    registerSpotController.initState(widget.pageMode);
     super.initState();
   }
 
@@ -38,7 +40,7 @@ class _RegisterSpotState extends State<RegisterSpot> {
     return SafeArea(
         child: Scaffold(
       appBar: DefaultAppBar(
-        title: "장소추가",
+        title:  widget.pageMode==PageMode.add ? "장소 추가" : "장소 수정",
         hasBackButton: true,
       ),
       body: SingleChildScrollView(
@@ -266,14 +268,15 @@ class _RegisterSpotState extends State<RegisterSpot> {
                       registerSpotController.mainIsSelected.value = true;
                       registerSpotController.selectedMainString.value = value;
                       registerSpotController.selectedMainIndex.value =
-                          SpotCategory.mainCategory.indexOf(value!) + 1;
-
+                          SpotCategory.mainCategory.indexOf(value!);
                       registerSpotController.subIsSelected.value = false;
                       registerSpotController.selectedSubString.value = null;
                       registerSpotController.subCategory.value =
                           SpotCategory.subCategories[
-                              registerSpotController.selectedMainIndex.value]!;
+                              registerSpotController.selectedMainIndex.value + 1]!;
+
                     },
+
                     isSelected: registerSpotController.mainIsSelected.value,
                     selectedString: registerSpotController.selectedMainString.value),
               ),
@@ -365,6 +368,7 @@ class _RegisterSpotState extends State<RegisterSpot> {
                 alignment: Alignment.center,
                 child: SrRatingButton(
                   ratingMode: RatingMode.interactive,
+                  initialRating: registerSpotController.rating.value,
                   onRating: (rating) {
                     registerSpotController.rating.value = rating;
                   },
@@ -400,11 +404,11 @@ class _RegisterSpotState extends State<RegisterSpot> {
 
   List<Widget> _SubmitButton() {
     return [
-      Obx(() => SrCTAButton(
+      SrCTAButton(
             text: "완료",
-            isEnabled: registerSpotController.isCtaActive.value,
-            action: () => registerSpotController.submitAction(),
-          ))
+            isEnabled: true,//registerSpotController.isCtaActive.value,
+            action: () => widget.pageMode == PageMode.add ? registerSpotController.addSpot() : registerSpotController.editSpot(),
+          )
     ];
   }
 }

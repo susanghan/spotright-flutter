@@ -34,7 +34,6 @@ class SpotRepository {
 
   Future<void> saveSpot(SpotRequest spotRequest) async {
     var res = await networkClient.request(method: Http.post, body: spotRequest.toJson(), path: saveSpotPath);
-    //return SpotResponse.fromJson(res.jsonMap!);
   }
 
   Future<void> deleteSpot(int memberSpotId) async {
@@ -55,7 +54,7 @@ class SpotRepository {
     return res.list?.map((spot) =>  LocationResponse.fromJson(spot)).toList() ?? [];
   }
 
-  Future<void> updateSpot() async {
-    await networkClient.request(method: Http.post, path: updateSpotPath);
+  Future<void> updateSpot(SpotRequest spotRequest) async {
+    await networkClient.request(method: Http.post, body: spotRequest.toJson(),path: updateSpotPath);
   }
 }

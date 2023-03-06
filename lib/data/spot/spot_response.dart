@@ -16,24 +16,48 @@ class SpotResponse {
   String? spotName;
   List<SpotPhoto>? spotPhotos;
   bool? visited;
-  int get mainCategoryIndex => category != null ? (category! ~/ 100 + 6) % 7 : 6;
+
+  int get mainCategoryIndex =>
+      category != null ? (category! ~/ 100 + 6) % 7 : 6;
+
   String? get mainCategory => Res.SpotCategory.mainCategory[mainCategoryIndex];
+  int get subCategoryIndex {
+    if (category != null) {
+      int subCategoryIndex;
+      if (category == 0) {
+        return -2;
+      } else {
+        subCategoryIndex = int.parse(category.toString().substring(1));
+
+        if (subCategoryIndex != 0) {
+          if (subCategoryIndex == 1) {
+            return Res.SpotCategory.subCategories[mainCategoryIndex + 1]!.length -1;
+          }
+          return subCategoryIndex - 2;
+        }
+        return -2;
+      }
+    }
+    return -2;
+  }
+
+  String? get subCategory => subCategoryIndex >= 0 ? Res.SpotCategory.subCategories[mainCategoryIndex +1]![0] : "";
 
   SpotResponse(
       {this.address,
-        this.category,
-        this.city,
-        this.country,
-        this.fullAddress,
-        this.latitude,
-        this.longitude,
-        this.memberSpotId,
-        this.memo,
-        this.province,
-        this.rating,
-        this.spotName,
-        this.spotPhotos,
-        this.visited});
+      this.category,
+      this.city,
+      this.country,
+      this.fullAddress,
+      this.latitude,
+      this.longitude,
+      this.memberSpotId,
+      this.memo,
+      this.province,
+      this.rating,
+      this.spotName,
+      this.spotPhotos,
+      this.visited});
 
   SpotResponse.fromJson(Map<String, dynamic> json) {
     address = json['address'];

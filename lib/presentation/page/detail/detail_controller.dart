@@ -9,4 +9,6 @@ class DetailController extends GetxController{
   Future<void> initSpot(int userId, int memberSpotId) async {
     spot.value = await spotRepository.findOneSpot(userId, memberSpotId);
   }
+
+
 }

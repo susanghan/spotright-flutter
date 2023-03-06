@@ -13,6 +13,8 @@ import 'package:spotright/presentation/page/home/home_controller.dart';
 import 'package:spotright/presentation/page/register_spot/register_spot.dart';
 import 'package:spotright/presentation/page/search/search.dart';
 
+import '../register_spot/register_spot_controller.dart';
+
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -152,7 +154,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Get.to(RegisterSpot());
+                    Get.to(RegisterSpot(pageMode: PageMode.add));
                   },
                   child: Container(
                     width: 44,
