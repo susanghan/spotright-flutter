@@ -14,7 +14,7 @@ class EditProfileController extends GetxController {
   final ImagePicker _picker = ImagePicker();
   dynamic pickImageError;
 
-  RxBool get isEdited => (user.nickname != editProfileState.nickname.value).obs;
+  RxBool get ctaActive => ((user.nickname != editProfileState.nickname.value) && (editProfileState.nicknameMessageStatus.value == MessageStatus.enabled)).obs;
   var userProfileState = UserProfileState.serverState.obs;
   String? serverProfilePath = '';
   RxString userProfilePath = ''.obs;
