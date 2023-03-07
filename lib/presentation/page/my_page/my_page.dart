@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:spotright/data/user/user_repository.dart';
+import 'package:spotright/presentation/common/typography.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/page/block_list/block_list.dart';
 import 'package:spotright/presentation/page/deactivate_account/deactivate_account_pre.dart';
@@ -39,9 +40,8 @@ class _MyPageState extends State<MyPage> {
           title: "마이페이지",
           hasBackButton: true,
         ),
-        body: Container(
-          padding: const EdgeInsets.only(bottom: 30),
-          child: Obx(() => Column(
+        body: Obx(() => SingleChildScrollView(
+          child: Column(
             children: [
               ..._UserProfile(false),
               SrDivider(height: 4,),
@@ -58,15 +58,18 @@ class _MyPageState extends State<MyPage> {
                 Get.to(Login());
               }),
               SrDivider(),
-              const Spacer(),
-              InkWell(
-                  onTap: (){
-                    Get.to(DeactivateAccountPre());
-                  },
-                  child: const Text("계정 삭제", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w300, color: SrColors.gray1),))
+              Padding(
+                padding: EdgeInsets.only(top: 120, bottom: 30),
+                child: InkWell(
+                    onTap: (){
+                      Get.to(DeactivateAccountPre());
+                    },
+                    child: Text("계정삭제", style: SrTypography.body4light.copy(color: SrColors.gray1)),
+                )
+              )
             ],
-          )),
-        ),
+          ),
+        )),
       ),
     );
   }
