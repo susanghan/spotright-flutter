@@ -48,7 +48,7 @@ class SignUpController extends GetxController {
     signUpState.email.value = oAuthResponse.email ?? "";
     emailController.text = signUpState.email.value;
     signUpState.onChangeCtaState();
-    signUpState.emailInputEnabled.value = false;
+    if(signUpState.email.isNotEmpty) signUpState.emailInputEnabled.value = false;
   }
 
   void verifyDuplicateId() async {
