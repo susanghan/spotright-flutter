@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:spotright/presentation/common/colors.dart';
+import 'package:spotright/presentation/common/typography.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
+import 'package:spotright/presentation/component/buttons/sr_cta_button.dart';
+import 'package:spotright/presentation/component/sr_text_field/sr_text_field.dart';
 
 class Email extends StatefulWidget {
   const Email({Key? key}) : super(key: key);
@@ -11,8 +15,46 @@ class Email extends StatefulWidget {
 class _EmailState extends State<Email> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(child: Scaffold(
-      appBar: DefaultAppBar(title: "이메일 인증", hasBackButton: true,),
-    ));
+    return SafeArea(
+        child: Scaffold(
+            appBar: DefaultAppBar(
+              title: "이메일 인증",
+              hasBackButton: true,
+            ),
+            body: Padding(
+              padding: EdgeInsets.only(left: 16, right: 16, top: 152),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                        padding: EdgeInsets.only(bottom: 8),
+                        child: Text("이메일로 전송된 인증번호를 입력해주세요",
+                            style: SrTypography.body2medium)),
+                    SrTextField(
+                      controller: TextEditingController(),
+                      enabled: true,
+                      onChanged: (text) {},
+                      hint: 'example@gmail.com',
+                      suffixIcon: Padding(
+                        padding: EdgeInsets.all(4),
+                        child: OutlinedButton(
+                          onPressed: () {},
+                          child: Text(
+                            "인증하기",
+                            style: TextStyle(color: SrColors.white),
+                          ),
+                          style: OutlinedButton.styleFrom(
+                              backgroundColor: SrColors.primary,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(100))),
+                        ),
+                      ),
+                    ),
+                    Spacer(),
+                    Padding(
+                        padding: EdgeInsets.only(bottom: 36),
+                        child: SrCTAButton(text: "완료", action: () {}))
+                  ]),
+            )));
   }
 }
