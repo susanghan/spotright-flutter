@@ -9,6 +9,7 @@ import 'package:spotright/presentation/component/sr_check_box/sr_check_box.dart'
 import 'package:spotright/presentation/component/sr_text_field/sr_text_field.dart';
 import 'package:spotright/presentation/page/home/home.dart';
 import 'package:spotright/presentation/page/signup/sign_up_controller.dart';
+import 'package:spotright/presentation/page/signup/sign_up_state.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -18,7 +19,7 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  SignUpController signUpController = Get.find();
+  SignUpController signUpController = Get.put(SignUpController(signUpState: SignUpState()));
   OAuthRepository oAuthRepository = Get.find();
 
   @override

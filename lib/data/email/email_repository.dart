@@ -21,10 +21,6 @@ class EmailRepository {
       "verificationCode": code
     });
 
-    if(res.statusCode == 200) {
-      return true;
-    } else {
-      return false;
-    }
+    return res.statusCode == 200;
   }
 }

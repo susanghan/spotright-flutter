@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/common/typography.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/buttons/sr_cta_button.dart';
 import 'package:spotright/presentation/component/sr_text_field/sr_text_field.dart';
+
+import 'email_controller.dart';
 
 class Email extends StatefulWidget {
   const Email({Key? key}) : super(key: key);
@@ -13,6 +16,8 @@ class Email extends StatefulWidget {
 }
 
 class _EmailState extends State<Email> {
+  EmailController emailController = Get.put(EmailController());
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -49,12 +54,7 @@ class _EmailState extends State<Email> {
                                   borderRadius: BorderRadius.circular(100))),
                         ),
                       ),
-                    ),
-                    Spacer(),
-                    Padding(
-                        padding: EdgeInsets.only(bottom: 36),
-                        child: SrCTAButton(text: "완료", action: () {}))
-                  ]),
-            )));
+                    ),]
+            ))));
   }
 }

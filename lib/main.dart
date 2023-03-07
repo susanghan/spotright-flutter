@@ -83,7 +83,6 @@ class _State extends State<Spotright> {
         Get.put(ReportRepository());
         Get.put(EmailRepository());
 
-        Get.put(SignUpController(signUpState: SignUpState()));
         Get.put(SpotListController());
         Get.put(DetailController());
         Get.put(UserController());
