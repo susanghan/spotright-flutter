@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spotright/data/user/user_repository.dart';
 import 'package:spotright/presentation/page/signup/sign_up_state.dart';
@@ -11,11 +12,16 @@ class IdController extends GetxController {
     MessageStatus.empty: '',
   };
 
+  TextEditingController textController = TextEditingController();
   var idMessageStatus = MessageStatus.defaultMessage.obs;
   RxString get idValidationMessage => _idMessageMap[idMessageStatus.value]!.obs;
   UserRepository userRepository = Get.find();
   RxBool ctaActive = false.obs;
   RxString newId = "".obs;
+
+  void initState() {
+    textController.text = userRepository.userResponse!.spotrightId!;
+  }
 
   Future<void> verifyId() async {
     if(idMessageStatus.value != MessageStatus.empty) return;

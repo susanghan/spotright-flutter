@@ -19,6 +19,13 @@ class ChangeUserId extends StatefulWidget {
 class _ChangeUserIdState extends State<ChangeUserId> {
   IdController idController = Get.put(IdController());
 
+
+  @override
+  void initState() {
+    super.initState();
+    idController.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -83,6 +90,7 @@ class _ChangeUserIdState extends State<ChangeUserId> {
           child: SrTextField(
             height: 45,
             onChanged: idController.onChangeText,
+            controller: idController.textController,
             suffixIcon: Padding(
               padding: const EdgeInsets.fromLTRB(0, 4, 6, 4),
               child: OutlinedButton(
