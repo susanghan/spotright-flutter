@@ -98,13 +98,15 @@ class _SignUpState extends State<SignUp> {
           suffixIcon: Padding(
             padding: EdgeInsets.all(4),
             child: OutlinedButton(
-              onPressed: () {},
+              onPressed: () {
+                if(signUpController.signUpState.emailInputEnabled.value) signUpController.authenticateEmail();
+              },
               child: Text(
-                "인증완료",
+                signUpController.signUpState.emailInputEnabled.value ? "인증하기" : "인증완료",
                 style: TextStyle(color: SrColors.white),
               ),
               style: OutlinedButton.styleFrom(
-                  backgroundColor: SrColors.gray9e,
+                  backgroundColor: signUpController.signUpState.emailInputEnabled.value ? SrColors.primary : SrColors.gray9e,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(100))),
             ),

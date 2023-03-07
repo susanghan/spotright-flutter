@@ -7,6 +7,7 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:logger/logger.dart';
 import 'package:spotright/common/network_client.dart';
+import 'package:spotright/data/email/email_repository.dart';
 import 'package:spotright/data/oauth/oauth_repository.dart';
 import 'package:spotright/data/local/local_repository.dart';
 import 'package:spotright/data/report/report_repository.dart';
@@ -34,6 +35,7 @@ import 'package:spotright/presentation/page/signup/sign_up_controller.dart';
 import 'package:spotright/presentation/page/signup/sign_up_state.dart';
 import 'package:spotright/presentation/page/spot_list/spot_list.dart';
 import 'package:spotright/presentation/page/spot_list/spot_list_controller.dart';
+
 
 void main() {
   runApp(Spotright());
@@ -67,7 +69,7 @@ class _State extends State<Spotright> {
         canvasColor: SrColors.white,
         fontFamily: 'Pretendard'
       ),
-      initialRoute: '/login',
+      initialRoute: '/signup',
       initialBinding: BindingsBuilder(() {
         // 순서 중요
         Get.put(Logger());
@@ -79,6 +81,7 @@ class _State extends State<Spotright> {
         Get.put(OAuthRepository());
         Get.put(SpotRepository());
         Get.put(ReportRepository());
+        Get.put(EmailRepository());
 
         Get.put(SignUpController(signUpState: SignUpState()));
         Get.put(SpotListController());

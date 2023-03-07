@@ -1,15 +1,18 @@
 import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:spotright/data/email/email_repository.dart';
 import 'package:spotright/data/oauth/oauth_response.dart';
 import 'package:spotright/data/user/sign_up_request.dart';
 import 'package:spotright/data/user/user_repository.dart';
+import 'package:spotright/presentation/page/email/email.dart';
 import 'package:spotright/presentation/page/signup/sign_up_state.dart';
 
 class SignUpController extends GetxController {
   SignUpController({required this.signUpState});
 
   final UserRepository userRepository = Get.find();
+  final EmailRepository emailRepository = Get.find();
   final SignUpState signUpState;
   final TextEditingController emailController = TextEditingController();
   OAuthResponse? oAuthResponse;
@@ -77,5 +80,10 @@ class SignUpController extends GetxController {
       spotrightId: signUpState.id.value,
     );
     await userRepository.signUp(req, "Bearer ${oAuthResponse!.token}");
+  }
+
+  void authenticateEmail() {
+    emailRepository.sendMail(signUpState.email.value);
+    Get.to(Email());
   }
 }
