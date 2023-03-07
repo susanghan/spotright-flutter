@@ -15,10 +15,10 @@ class EmailRepository {
     });
   }
 
-  Future<bool> verifyEmail(String code) async {
-    var res = await networkClient.request(method: Http.post, path: _verifyEmailPath, body: {
-      "email": "",
-      "verificationCode": code
+  Future<bool> verifyEmail(String email, String code) async {
+    var res = await networkClient.request(method: Http.patch, path: _verifyEmailPath, body: {
+      "email": email,
+      "verificationCode": code,
     });
 
     return res.statusCode == 200;

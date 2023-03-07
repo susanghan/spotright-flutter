@@ -38,12 +38,12 @@ class _EmailState extends State<Email> {
                     SrTextField(
                       controller: TextEditingController(),
                       enabled: true,
-                      onChanged: (text) {},
+                      onChanged: emailController.onChanged,
                       hint: 'example@gmail.com',
                       suffixIcon: Padding(
                         padding: EdgeInsets.all(4),
                         child: OutlinedButton(
-                          onPressed: () {},
+                          onPressed: emailController.verifyEmail,
                           child: Text(
                             "인증하기",
                             style: TextStyle(color: SrColors.white),

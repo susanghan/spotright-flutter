@@ -69,7 +69,7 @@ class _State extends State<Spotright> {
         canvasColor: SrColors.white,
         fontFamily: 'Pretendard'
       ),
-      initialRoute: '/signup',
+      initialRoute: '/login',
       initialBinding: BindingsBuilder(() {
         // 순서 중요
         Get.put(Logger());
