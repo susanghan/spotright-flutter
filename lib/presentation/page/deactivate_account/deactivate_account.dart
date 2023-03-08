@@ -1,16 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/sr_text_field/sr_text_field.dart';
+import 'package:spotright/presentation/page/deactivate_account/deactivate_controller.dart';
 
 import '../../common/colors.dart';
 import '../../component/buttons/sr_cta_button.dart';
 
-//Todo : 무언가 입력해야 계정삭제 버튼이 활성화
-//Todo : 계정삭제 버튼을 눌렀을 때 틀린 아이디를 입력했을 경우 경고창은 notification 밖을 누르면(사라짐?)
 class DeactivateAccount extends StatefulWidget {
   const DeactivateAccount({Key? key}) : super(key: key);
 
@@ -19,6 +15,8 @@ class DeactivateAccount extends StatefulWidget {
 }
 
 class _DeactivateAccountState extends State<DeactivateAccount> {
+  DeactivateController deactivateController = Get.put(DeactivateController());
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -35,47 +33,46 @@ class _DeactivateAccountState extends State<DeactivateAccount> {
                 child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ..._CenterFactor("계정을 삭제하시려면 아이디를 입력해주세요"),
-                ..._AssistBox(170),
+                _CenterFactor("계정을 삭제하시려면 아이디를 입력해주세요"),
+                _AssistBox(170),
               ],
             )),
-            SrCTAButton(
+            Obx(() => SrCTAButton(
               text: "계정 삭제",
-              isEnabled: false,
-              action: () {},
-            ),
+              isEnabled: deactivateController.ctaActive.value,
+              action: deactivateController.deactivate,
+            )),
           ],
         ),
       ),
     ));
   }
 
-  List<Widget> _AssistBox(double boxHeight) {
-    return [
+  Widget _AssistBox(double boxHeight) {
+    return
       SizedBox(
         width: double.infinity,
         height: boxHeight,
-      ),
-    ];
+      );
   }
 
-  List<Widget> _CenterFactor(String labelText) {
-    return [
-      Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(bottom: 8),
-            child: Text(
-              labelText,
-              style: const TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
-                  color: SrColors.black),
-            ),
+  Widget _CenterFactor(String labelText) {
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.only(bottom: 8),
+          child: Text(
+            labelText,
+            style: const TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w500,
+                color: SrColors.black),
           ),
-          SrTextField(),
-        ],
-      )
-    ];
+        ),
+        SrTextField(
+          onChanged: deactivateController.onChanged,
+        ),
+      ],
+    );
   }
 }

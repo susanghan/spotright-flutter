@@ -55,7 +55,7 @@ class DeactivateAccountPre extends StatelessWidget {
         children: [
           Padding(
               padding: const EdgeInsets.only(bottom: 24),
-              child: SvgPicture.asset("assets/deactivate_emoji.svg")),
+              child: Image(image: AssetImage("assets/sad.jpg"), width: 120, height: 120,)),
           Text(
             labelText,
             style: const TextStyle(
