@@ -30,7 +30,6 @@ class _EditProfileState extends State<EditProfile> {
   @override
   void initState() {
     super.initState();
-    editProfileController.userProfileState.value = UserProfileState.serverState;
     editProfileController.userProfilePath = ''.obs;
     editProfileController.initState();
   }

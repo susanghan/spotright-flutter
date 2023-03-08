@@ -15,7 +15,7 @@ class EditProfileController extends GetxController {
   dynamic pickImageError;
 
   RxBool get ctaActive => ((user.nickname != editProfileState.nickname.value) && (editProfileState.nicknameMessageStatus.value == MessageStatus.enabled)).obs;
-  var userProfileState = UserProfileState.serverState.obs;
+  var userProfileState = UserProfileState.defaultState.obs;
   String? serverProfilePath = '';
   RxString userProfilePath = ''.obs;
   UserResponse user = UserResponse(memberId: 0);
@@ -25,12 +25,15 @@ class EditProfileController extends GetxController {
     user = userRepository.userResponse!;
     editProfileState.nickname.value = user.nickname!;
     nicknameController.text = user.nickname!;
+    if(user.memberPhoto?.photoUrl!.isNotEmpty ?? false) userProfileState.value = UserProfileState.serverState;
   }
 
   ImageProvider? get imageProvider {
-    if(userProfileState.value == UserProfileState.serverState) return null;
-    if(userProfileState.value == UserProfileState.galleryState) return Image.file(File(userProfilePath.value), cacheWidth: 720,).image;
-    if(userProfileState.value == UserProfileState.defaultState) return _defaultProfileImage;
+    switch(userProfileState.value) {
+      case UserProfileState.serverState: return null;
+      case UserProfileState.galleryState: return Image.file(File(userProfilePath.value), cacheWidth: 720,).image;
+      default: return _defaultProfileImage;
+    }
   }
 
   Future<void> onEditButtonPressed(ImageSource source, {BuildContext? context}) async {
