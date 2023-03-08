@@ -33,11 +33,9 @@ class _LoginState extends State<Login> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              margin: EdgeInsets.only(top: 168, bottom: 76),
-              height: 180,
-              color: SrColors.gray3,
-            ),
+            Padding(
+              padding: EdgeInsets.only(top: 200, bottom: 40),
+                child: Image(image: AssetImage("assets/login_logo.jpg"), width: 214,)),
             _signInButton("assets/google.svg", "구글 계정으로 로그인", userController.signInWithGoogle),
             _signInButton("assets/apple.svg", "애플 계정으로 로그인", userController.signInWithApple),
             _signInButton("assets/kakao.svg", "카카오 계정으로 로그인", userController.signInWithKakao, isKakao: true),
