@@ -7,6 +7,7 @@ class MyPageController extends GetxController {
   UserRepository userRepository = Get.find();
   RxString versionName = "0.0.0".obs;
   RxString buildNumber = "0".obs;
+  RxBool hasPhoto = false.obs;
 
   Rx<UserResponse> userResponse = Rx<UserResponse>(UserResponse(memberId: 0));
 
@@ -17,5 +18,6 @@ class MyPageController extends GetxController {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     versionName.value = packageInfo.version;
     buildNumber.value = packageInfo.buildNumber;
+    if(userResponse.value.memberPhoto?.photoUrl?.isNotEmpty ?? false) hasPhoto.value = true;
   }
 }

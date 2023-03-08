@@ -43,7 +43,7 @@ class _MyPageState extends State<MyPage> {
         body: Obx(() => SingleChildScrollView(
           child: Column(
             children: [
-              ..._UserProfile(false),
+              _UserProfile(),
               SrDivider(height: 4,),
               _ListText(listText: "개인정보관리", action: () {Get.to(ManageUserInfoList()); }),
               _ListText(listText: "차단사용자관리", action: () => Get.to(BlockList())),
@@ -74,8 +74,8 @@ class _MyPageState extends State<MyPage> {
     );
   }
 
-  List<Widget> _UserProfile(bool hasUserPicture) {
-    return [
+  Widget _UserProfile() {
+    return
       Padding(
           padding: EdgeInsets.only(top: 12, bottom: 18),
           child: Column(
@@ -88,10 +88,8 @@ class _MyPageState extends State<MyPage> {
                 child: CircleAvatar(
                   backgroundColor: SrColors.white,
                     radius: 100,
-                    backgroundImage: hasUserPicture ? null : const AssetImage('assets/user_profile_default_small.png'),
-                    //Todo: 아래 각각은 되는데 합치면 안 됨. why?
-                    //backgroundImage: NetworkImage('https://picsum.photos/200')
-                    //backgroundImage : AssetImage('assets/user_profile_none_small.png')
+                    backgroundImage: myPageController.hasPhoto.value ? NetworkImage(myPageController.userResponse.value.memberPhoto!.photoUrl!)
+                        : AssetImage('assets/user_profile_default_small.png') as ImageProvider,
                 ),
               ),
               GestureDetector(
@@ -123,8 +121,7 @@ class _MyPageState extends State<MyPage> {
                 ),
               )
             ],
-          ))
-    ];
+          ));
   }
 
   Widget _ListText({required String listText, Function()? action}) {
