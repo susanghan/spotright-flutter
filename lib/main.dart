@@ -8,6 +8,7 @@ import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:logger/logger.dart';
 import 'package:spotright/common/network_client.dart';
 import 'package:spotright/data/email/email_repository.dart';
+import 'package:spotright/data/file/file_repository.dart';
 import 'package:spotright/data/oauth/oauth_repository.dart';
 import 'package:spotright/data/local/local_repository.dart';
 import 'package:spotright/data/report/report_repository.dart';
@@ -17,23 +18,16 @@ import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/common/language.dart';
 import 'package:spotright/presentation/page/block_list/block_list.dart';
 import 'package:spotright/presentation/page/congratulation/congratulation.dart';
-import 'package:spotright/presentation/page/detail/detail.dart';
 import 'package:spotright/presentation/page/detail/detail_controller.dart';
 import 'package:spotright/presentation/page/edit_profile/edit_profile.dart';
-import 'package:spotright/presentation/page/edit_profile/edit_profile_controller.dart';
-import 'package:spotright/presentation/page/edit_profile/edit_profile_state.dart';
 import 'package:spotright/presentation/page/home/home.dart';
 import 'package:spotright/presentation/page/home/home_controller.dart';
 import 'package:spotright/presentation/page/login/Login.dart';
 import 'package:spotright/presentation/page/login/user_controller.dart';
-import 'package:spotright/presentation/page/register_spot/register_spot.dart';
 import 'package:spotright/presentation/page/register_spot/register_spot_controller.dart';
 import 'package:spotright/presentation/page/search_location/search_location.dart';
 import 'package:spotright/presentation/page/search_location/search_location_controller.dart';
 import 'package:spotright/presentation/page/signup/sign_up.dart';
-import 'package:spotright/presentation/page/signup/sign_up_controller.dart';
-import 'package:spotright/presentation/page/signup/sign_up_state.dart';
-import 'package:spotright/presentation/page/spot_list/spot_list.dart';
 import 'package:spotright/presentation/page/spot_list/spot_list_controller.dart';
 
 
@@ -82,6 +76,7 @@ class _State extends State<Spotright> {
         Get.put(SpotRepository());
         Get.put(ReportRepository());
         Get.put(EmailRepository());
+        Get.put(FileRepository());
 
         Get.put(SpotListController());
         Get.put(DetailController());

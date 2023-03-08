@@ -51,6 +51,7 @@ dependencies:
   package_info_plus: ^3.0.3
   url_launcher: ^6.1.10 # 크롬 띄우기
   flutter_oss_licenses: ^2.0.1
+  dio: ^4.0.6
 
 dev_dependencies:
   flutter_test:

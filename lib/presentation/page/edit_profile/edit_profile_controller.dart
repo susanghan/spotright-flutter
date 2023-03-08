@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:spotright/data/file/file_repository.dart';
 import 'package:spotright/data/user/user_repository.dart';
 import 'package:spotright/data/user/user_response.dart';
 import 'package:spotright/presentation/page/edit_profile/edit_profile_state.dart';
@@ -8,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 
 class EditProfileController extends GetxController {
   final EditProfileState editProfileState = EditProfileState();
+  final FileRepository fileRepository = Get.find();
 
   UserRepository userRepository = Get.find();
   final ImageProvider _defaultProfileImage = const AssetImage('assets/user_profile_default_large.png');
@@ -30,7 +32,7 @@ class EditProfileController extends GetxController {
 
   ImageProvider? get imageProvider {
     switch(userProfileState.value) {
-      case UserProfileState.serverState: return null;
+      case UserProfileState.serverState: return NetworkImage(user.memberPhoto!.photoUrl!);
       case UserProfileState.galleryState: return Image.file(File(userProfilePath.value), cacheWidth: 720,).image;
       default: return _defaultProfileImage;
     }
@@ -41,14 +43,16 @@ class EditProfileController extends GetxController {
       final XFile? pickedFile = await _picker.pickImage(source: source);
       userProfileState.value = UserProfileState.galleryState;
       userProfilePath.value = pickedFile!.path;
+      updateProfilePhoto();
     } catch (e) {
       pickImageError = e;
     }
   }
 
-  void get onDeleteButtonPressed{
+  Future<void> onDeleteButtonPressed() async {
     userProfilePath.value = '';
     userProfileState.value = UserProfileState.defaultState;
+    fileRepository.postProfileFile(null);
   }
 
   void onNicknameChanged(String nickname) {
@@ -60,6 +64,10 @@ class EditProfileController extends GetxController {
     Get.back();
     await userRepository.updateNickname(editProfileState.nickname.value);
     userRepository.fetchMyInfo();
+  }
+
+  Future<void> updateProfilePhoto() async {
+    fileRepository.postProfileFile(userProfilePath.value);
   }
 }
 

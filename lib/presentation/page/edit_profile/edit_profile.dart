@@ -30,7 +30,6 @@ class _EditProfileState extends State<EditProfile> {
   @override
   void initState() {
     super.initState();
-    editProfileController.userProfilePath = ''.obs;
     editProfileController.initState();
   }
 
@@ -83,9 +82,7 @@ class _EditProfileState extends State<EditProfile> {
               //삭제 버튼입니다.
               top: 12,
               child: GestureDetector(
-                  onTap: () {
-                    editProfileController.onDeleteButtonPressed;
-                  },
+                  onTap: editProfileController.onDeleteButtonPressed,
                   child: Obx(() => Visibility(
                       visible: editProfileController.userProfileState.value !=
                           UserProfileState.defaultState,
