@@ -80,12 +80,14 @@ class UserRepository {
     userResponse = newUserResponse;
   }
 
-  Future<void> signUp(SignUpRequest body, String accessToken) async {
+  Future<bool> signUp(SignUpRequest body, String accessToken) async {
     var res = await networkClient.request(method: Http.post, path: _signUpPath, body: body.toJson(), headers: {"authorization": accessToken});
     Map<String, String> headers = res.headers;
     networkClient.saveRefreshToken(headers);
     userResponse = UserResponse.fromJson(res.jsonMap!);
     localRepository.save(_memberIdKey, userResponse!.memberId.toString());
+
+    return res.statusCode == 200 || res.statusCode == 201;
   }
 
   Future<UserResponse> getMemberInfo(int memberId) async {

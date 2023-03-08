@@ -20,7 +20,7 @@ class _LoginState extends State<Login> {
   void initState() {
     super.initState();
     userController.loginWithCache(() {
-      Get.to(const Home());
+      Get.offAll(const Home());
     });
   }
 

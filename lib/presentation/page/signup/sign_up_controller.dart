@@ -6,6 +6,7 @@ import 'package:spotright/data/oauth/oauth_response.dart';
 import 'package:spotright/data/user/sign_up_request.dart';
 import 'package:spotright/data/user/user_repository.dart';
 import 'package:spotright/presentation/page/email/email.dart';
+import 'package:spotright/presentation/page/home/home.dart';
 import 'package:spotright/presentation/page/signup/sign_up_state.dart';
 
 class SignUpController extends GetxController {
@@ -79,7 +80,8 @@ class SignUpController extends GetxController {
       nickname: signUpState.nickname.value,
       spotrightId: signUpState.id.value,
     );
-    await userRepository.signUp(req, "Bearer ${oAuthResponse!.token}");
+    bool res = await userRepository.signUp(req, "Bearer ${oAuthResponse!.token}");
+    if(res) Get.offAll(const Home());
   }
 
   void authenticateEmail() {

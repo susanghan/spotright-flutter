@@ -66,10 +66,7 @@ class _SignUpState extends State<SignUp> {
                   child: SrCTAButton(
                     text: '완료',
                     isEnabled: signUpController.signUpState.ctaActive.value,
-                    action: () async {
-                      await signUpController.signup();
-                      Get.to(() => const Home());
-                    },
+                    action: signUpController.signup,
                   ),
                 )),
           ]),
