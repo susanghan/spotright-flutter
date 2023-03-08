@@ -55,7 +55,7 @@ class _MyPageState extends State<MyPage> {
               SrDivider(),
               _ListText(listText: "로그아웃", action: () async {
                 await userRepository.logout();
-                Get.to(Login());
+                Get.offAll(Login());
               }),
               SrDivider(),
               Padding(

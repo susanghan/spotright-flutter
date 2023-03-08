@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:spotright/data/user/user_repository.dart';
+import 'package:spotright/presentation/page/login/Login.dart';
 
 class DeactivateController extends GetxController {
   UserRepository userRepository = Get.find();
@@ -15,7 +16,7 @@ class DeactivateController extends GetxController {
   Future<void> deactivate() async {
     bool res = await userRepository.deactivate(inputId);
     if(res) {
-      Get.to("login");
+      Get.offAll(Login());
     }
   }
 }
