@@ -36,9 +36,9 @@ class _LoginState extends State<Login> {
             Padding(
               padding: EdgeInsets.only(top: 200, bottom: 40),
                 child: Image(image: AssetImage("assets/login_logo.jpg"), width: 214,)),
-            _signInButton("assets/google.svg", "구글 계정으로 로그인", userController.signInWithGoogle),
-            _signInButton("assets/apple.svg", "애플 계정으로 로그인", userController.signInWithApple),
-            _signInButton("assets/kakao.svg", "카카오 계정으로 로그인", userController.signInWithKakao, isKakao: true),
+            _signInButton("assets/google.svg", "구글 로그인", userController.signInWithGoogle),
+            _signInButton("assets/apple.svg", "애플 로그인", userController.signInWithApple),
+            _signInButton("assets/kakao.svg", "카카오 로그인", userController.signInWithKakao, isKakao: true),
           ],
         ),
       ),
@@ -63,13 +63,19 @@ class _LoginState extends State<Login> {
         },
         style: OutlinedButton.styleFrom(
             backgroundColor: isKakao ? SrColors.kakao : SrColors.white,
+            side: BorderSide(
+              width: 2,
+              color: isKakao ? SrColors.kakao : SrColors.gray2,
+            ),
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(100))),
+                borderRadius: BorderRadius.circular(100),
+            )
+        ),
         child:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          SizedBox(width: 24, child: SvgPicture.asset(iconPath)),
-          Text(buttonName, style: TextStyle(color: SrColors.black)),
-          SizedBox(
+              SizedBox(width: 24, child: SvgPicture.asset(iconPath)),
+              Text(buttonName, style: TextStyle(color: SrColors.black)),
+              SizedBox(
             width: 24,
           ),
         ]),
