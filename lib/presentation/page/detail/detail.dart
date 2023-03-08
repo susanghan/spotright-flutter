@@ -5,7 +5,10 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:spotright/presentation/common/typography.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
+import 'package:spotright/presentation/component/appbars/report_options.dart';
 import 'package:spotright/presentation/component/buttons/sr_rating_button.dart';
+import 'package:spotright/presentation/component/dialog/report_dialog.dart';
+import 'package:spotright/presentation/component/dialog/sr_dialog.dart';
 import 'package:spotright/presentation/page/register_spot/register_spot.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -39,7 +42,7 @@ class _DetailState extends State<Detail> {
   }
 
   Future<void> _init() async {
-    await detailController.initSpot(widget.userId, widget.memberSpotId);
+    await detailController.initState(widget.userId, widget.memberSpotId);
     setState(() {});
   }
 
@@ -51,20 +54,8 @@ class _DetailState extends State<Detail> {
                 title: detailController.spot.value.spotName ?? "",
                 hasBackButton: true,
                 actions: [
-                  GestureDetector(
-                    onTap: () {
-                      Get.to(RegisterSpot(pageMode: PageMode.edit));
-                    },
-                    child: Padding(
-                      padding: EdgeInsets.only(right: 20),
-                      child: SvgPicture.asset(
-                        'assets/edit.svg',
-                        color: SrColors.black,
-                        width: 24,
-                        height: 24,
-                      ),
-                    ),
-                  )
+                  if(detailController.isMyPage.value) _EditButton()
+                  else _ReportButton()
                 ]),
             body: SingleChildScrollView(
               child: Column(
@@ -109,6 +100,55 @@ class _DetailState extends State<Detail> {
                 ],
               ),
             )));
+  }
+
+  Widget _EditButton() {
+    return GestureDetector(
+      onTap: () {
+        Get.to(RegisterSpot(pageMode: PageMode.edit));
+      },
+      child: Padding(
+        padding: EdgeInsets.only(right: 20),
+        child: SvgPicture.asset(
+          'assets/edit.svg',
+          color: SrColors.black,
+          width: 24,
+          height: 24,
+        ),
+      ),
+    );
+  }
+
+  Widget _ReportButton() {
+    return GestureDetector(
+      onTap: () {
+        Get.dialog(ReportDialog(
+          title: "스팟 신고사유",
+          options: ReportOptions.spotOptions,
+          onFinish: (String type, String reason) async {
+            Get.back();
+            detailController.report(type, reason);
+            Get.dialog(SrDialog(
+              icon: SvgPicture.asset("assets/warning.svg"),
+              title: "신고 완료!",
+              description: "신고처리 완료되었습니다",
+              actions: [
+                TextButton(onPressed: () => Get.back(), child: Text("완료", style: SrTypography.body2medium.copy(color: SrColors.white),))
+              ],
+            ));
+          },
+        ));
+      },
+      child: Padding(
+        padding: EdgeInsets.only(right: 20),
+        child: SvgPicture.asset(
+          'assets/triangle.svg',
+          color: SrColors.primary,
+          width: 24,
+          height: 24,
+        ),
+      ),
+    );
   }
 
   Widget _SpotImages(List<String> list) {
