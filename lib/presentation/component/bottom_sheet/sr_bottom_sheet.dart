@@ -45,46 +45,50 @@ class SrBottomSheet extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Padding(
-                    padding: EdgeInsets.only(left: 14),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(left: 2, top: 20, bottom: 8),
-                            child: Row(
-                              children: [
-                                Padding(
-                                    padding: EdgeInsets.only(right: 4),
-                                    child: Text(e.spotName ?? "", style: SrTypography.body2semi,)),
-                                Padding(
-                                    padding: EdgeInsets.only(right: 6),
-                                    child: Text(e.mainCategory ?? "", style: SrTypography.body4medium.copy(color: SrColors.gray2),)),
-                                ..._Rating(e.rating),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(bottom: 8),
-                            child: Row(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(right: 4),
-                                  child: SvgPicture.asset(
-                                    "assets/location.svg",
-                                    color: SrColors.gray1,
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 14),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(left: 2, top: 20, bottom: 8),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Padding(
+                                        padding: EdgeInsets.only(right: 4),
+                                        child: Text(e.spotName ?? "", style: SrTypography.body2semi, overflow: TextOverflow.ellipsis,)),
                                   ),
-                                ),
-                                Padding(
-                                    padding: EdgeInsets.only(bottom: 4),
-                                    child: Text(e.fullAddress ?? "", style: SrTypography.body4medium.copy(color: SrColors.gray1),))
-                              ],
+                                  Padding(
+                                      padding: EdgeInsets.only(right: 6),
+                                      child: Text(e.mainCategory ?? "", style: SrTypography.body4medium.copy(color: SrColors.gray2),)),
+                                  ..._Rating(e.rating),
+                                ],
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 2),
-                              child: Text(e.memo ?? "", style: SrTypography.body4medium.copy(color: SrColors.gray2),)),
-                        ]),
+                            Padding(
+                              padding: EdgeInsets.only(bottom: 8),
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(right: 4),
+                                    child: SvgPicture.asset(
+                                      "assets/location.svg",
+                                      color: SrColors.gray1,
+                                    ),
+                                  ),
+                                  Padding(
+                                      padding: EdgeInsets.only(bottom: 4),
+                                      child: Text(e.fullAddress ?? "", style: SrTypography.body4medium.copy(color: SrColors.gray1),))
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(left: 2),
+                                child: Text(e.memo ?? "", style: SrTypography.body4medium.copy(color: SrColors.gray2),)),
+                          ]),
+                    ),
                   ),
                   Container(
                     margin: EdgeInsets.only(right: 8),
