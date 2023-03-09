@@ -68,7 +68,7 @@ class _SrRatingButtonState extends State<SrRatingButton> {
                 height: 12,
                 color: SrColors.primary,
               ),
-        onRatingUpdate: (double value) { widget.onRating?.call(value); },
+        onRatingUpdate: (double rating) { _rating = rating; widget.onRating?.call(rating); },
         updateOnDrag: true,
       ),
       SizedBox(
