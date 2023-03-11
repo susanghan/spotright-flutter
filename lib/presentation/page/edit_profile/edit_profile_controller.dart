@@ -43,7 +43,6 @@ class EditProfileController extends GetxController {
       final XFile? pickedFile = await _picker.pickImage(source: source);
       userProfileState.value = UserProfileState.galleryState;
       userProfilePath.value = pickedFile!.path;
-      updateProfilePhoto();
     } catch (e) {
       pickImageError = e;
     }
@@ -52,7 +51,6 @@ class EditProfileController extends GetxController {
   Future<void> onDeleteButtonPressed() async {
     userProfilePath.value = '';
     userProfileState.value = UserProfileState.defaultState;
-    fileRepository.postProfileFile(null);
   }
 
   void onNicknameChanged(String nickname) {
@@ -61,13 +59,25 @@ class EditProfileController extends GetxController {
   }
 
   Future<void> onFinished() async {
+    if(userProfilePath.value.isEmpty){
+      fileRepository.postProfileFile(null, "");
+      print("프로필 삭제");
+    }
+    else{
+      updateProfilePhoto();
+      print("프로필 수정");
+    }
+
     Get.back();
     await userRepository.updateNickname(editProfileState.nickname.value);
     userRepository.fetchMyInfo();
   }
 
   Future<void> updateProfilePhoto() async {
-    fileRepository.postProfileFile(userProfilePath.value);
+    var _userProfilePath = userProfilePath.value;
+    print("눌러짐");
+    String mediaType = _userProfilePath.split(".").removeLast();
+    fileRepository.postProfileFile(userProfilePath.value, mediaType);
   }
 }
 

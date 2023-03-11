@@ -11,13 +11,14 @@ class FileRepository {
 
   NetworkClient networkClient = GetX.Get.find();
 
-  Future<bool> postProfileFile(String? photoPath) async {
+  Future<void> postProfileFile(String? photoPath, String mediaType) async {
     if(photoPath == null) {
-      networkClient.request(method: Http.post, path: _postProfileFilePath, body: {'photo': null});
+      networkClient.request(method: Http.delete, path: _postProfileFilePath);
     }
-
-    FormData formData = FormData.fromMap({'photo': MultipartFile.fromFileSync(photoPath!, contentType: MediaType("image", "jpeg"))});
-    return uploadImage(formData, _postProfileFilePath);
+    else{
+      FormData formData = FormData.fromMap({'photo': MultipartFile.fromFileSync(photoPath, contentType: MediaType("image", mediaType))});
+      uploadImage(formData, _postProfileFilePath);
+    }
   }
 
   Future<bool> uploadSpotImages(List<String> photoPaths, int spotId) async {

@@ -51,11 +51,12 @@ class _EditProfileState extends State<EditProfile> {
                   ),
                 ),
               ),
-              Obx(() => SrCTAButton(
+              SrCTAButton(
                     text: "완료",
-                    isEnabled: editProfileController.ctaActive.value,
+                    //isEnabled: editProfileController.ctaActive.value,
+                    isEnabled: true,
                     action: editProfileController.onFinished,
-                  ))
+                  )
             ]),
           )),
     );
