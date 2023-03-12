@@ -126,9 +126,9 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
               mapController.navigateSpotList(region);
             },
             child: Container(
-              width: 112,
-              height: 36,
-              margin: EdgeInsets.only(bottom: 24),
+              width: 114,
+              height: 35,
+              margin: EdgeInsets.only(bottom: 40),
               child: Material(
                 elevation: 4,
                 shape: RoundedRectangleBorder(
@@ -136,7 +136,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                 child:
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   Padding(
-                      padding: EdgeInsets.only(right: 4),
+                      padding: EdgeInsets.only(right: 9),
                       child: Icon(Icons.menu)),
                   Text(
                     '목록보기',
@@ -149,7 +149,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
           Container(
             alignment: Alignment.bottomRight,
             height: 172,
-            margin: EdgeInsets.only(right: 16),
+            margin: EdgeInsets.only(right: 16, bottom: 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
@@ -162,7 +162,13 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                     height: 44,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(100),
-                        color: SrColors.primary),
+                        color: SrColors.primary,
+                        boxShadow: [
+                          BoxShadow(color: Colors.grey.withOpacity(0.7),
+                            spreadRadius: 0,
+                            blurRadius: 5.0,
+                            offset: Offset(0, 3.5), )
+                        ]),
                     child: SvgPicture.asset(
                       "assets/plus.svg",
                       color: SrColors.white,
@@ -180,7 +186,14 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                     height: 44,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(100),
-                        color: SrColors.gray9e),
+                        color: SrColors.gray9e,
+                        boxShadow: [
+                          BoxShadow(color: Colors.grey.withOpacity(0.7),
+                            spreadRadius: 0,
+                            blurRadius: 5.0,
+                            offset: Offset(0, 3.5), )
+                        ]
+                    ),
                     child: SvgPicture.asset(
                       "assets/my_location.svg",
                       color: SrColors.white,
