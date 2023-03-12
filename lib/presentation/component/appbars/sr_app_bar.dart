@@ -197,6 +197,7 @@ class _SrAppBarState extends State<SrAppBar> {
           Get.to(MyPage());
         },
         style: TextButton.styleFrom(
+            primary: SrColors.gray1,
             padding: EdgeInsets.symmetric(vertical: 6),
             backgroundColor: SrColors.gray3,
             minimumSize: Size.fromHeight(26),
