@@ -103,19 +103,19 @@ class SpotResponse {
 
 class SpotPhoto {
   String? photoUrl;
-  int? spotPhotoId;
+  int? memberSpotPhotoId;
 
-  SpotPhoto({this.photoUrl, this.spotPhotoId});
+  SpotPhoto({this.photoUrl, this.memberSpotPhotoId});
 
   SpotPhoto.fromJson(Map<String, dynamic> json) {
     photoUrl = json['photoUrl'];
-    spotPhotoId = json['spotPhotoId'];
+    memberSpotPhotoId = json['memberSpotPhotoId'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['photoUrl'] = photoUrl;
-    data['spotPhotoId'] = spotPhotoId;
+    data['spotPhotoId'] = memberSpotPhotoId;
     return data;
   }
 }

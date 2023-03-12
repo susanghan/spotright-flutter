@@ -32,18 +32,13 @@ class _SrAttachPitureState extends State<SrAttachPiture> {
   dynamic _pickImageError;
 
   List<XFile> imageFileList = [];
-  bool hasInitImage = false;
   List<bool> _isImgaeFileClicked = List.filled(5, false);
 
   @override
   void initState() {
-    if(registerSpotController.pageMode == PageMode.edit){
-      print("initState : ${registerSpotController.imageFilePath.value}");
-      if(registerSpotController.imageFilePath.value.isNotEmpty){
-        hasInitImage = true;
-      }
-      _AttachPictures();
-    }
+    print("registerSpotController.spotPhotoIds : ${registerSpotController.spotPhotoIds}");
+
+    _AttachPictures();
     super.initState();
   }
 
@@ -91,7 +86,7 @@ class _SrAttachPitureState extends State<SrAttachPiture> {
       GestureDetector(
         onTap: (){
           setState(() {
-            _isImgaeFileClicked[index] ? registerSpotController.imageFilePath.value.removeAt(index) : {_isImgaeFileClicked = List.filled(5, false), _isImgaeFileClicked[index] = true};
+            _isImgaeFileClicked[index] ? {registerSpotController.imageFilePath.value.removeAt(index), registerSpotController.spotDeletedPhotoIds.value.add(registerSpotController.spotPhotoIds.value.removeAt(index)) } : {_isImgaeFileClicked = List.filled(5, false), _isImgaeFileClicked[index] = true};
           });
         },
         child: Stack(
@@ -136,7 +131,10 @@ class _SrAttachPitureState extends State<SrAttachPiture> {
         int _insertIndex = 0;
 
         while(registerSpotController.imageFilePath.length < 5 && pickedFileList.length > _insertIndex){
-            registerSpotController.imageFilePath.insert(_insertIndex, pickedFileList[_insertIndex].path);
+            registerSpotController.imageFilePath.add(pickedFileList[_insertIndex].path);
+            print("registerSpotController.spotPhotoIds : ${registerSpotController.spotPhotoIds}");
+            registerSpotController.spotPhotoIds.add( 0);
+            print("registerSpotController.spotPhotoIds : ${registerSpotController.spotPhotoIds}");
             _insertIndex += 1;
         }
 

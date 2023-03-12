@@ -42,9 +42,9 @@ class RegisterSpotController extends GetxController {
 
     rating.value = detailController.spot.value.rating?.toDouble() ?? 0.0;
 
-    if(detailController.spot.value.spotPhotos != null){
+    if(detailController.spot.value.spotPhotos != []){
       detailController.spot.value.spotPhotos!.map((e) => imageFilePath.value.add(e.photoUrl ?? '')).toList();
-      print("imageFilePath.value : ${imageFilePath.value}");
+      detailController.spot.value.spotPhotos!.map((e) => spotPhotoIds.value.add(e.memberSpotPhotoId ?? 0)).toList();
     }
 
     memoController.text = detailController.spot.value.memo ?? "";
@@ -52,6 +52,8 @@ class RegisterSpotController extends GetxController {
 
   void initState(PageMode _pageMode) {
     pageMode = _pageMode;
+
+    memberSpotId.value = detailController.spot.value.memberSpotId ?? 0;
 
     spotNameController = TextEditingController();
     provinceController = TextEditingController();
@@ -83,6 +85,8 @@ class RegisterSpotController extends GetxController {
     setSearchCityList(provinceController.text);
 
     imageFilePath.value = [];
+    spotPhotoIds.value = [];
+    spotDeletedPhotoIds.value = [];
 
     isCtaActive.value = false;
 
@@ -151,9 +155,14 @@ class RegisterSpotController extends GetxController {
   //**사진
   RxList<String> imageFilePath = [''].obs;
   RxInt memberSpotId = 0.obs;
+  RxList<int> spotPhotoIds = [0].obs;
+  RxList<int> spotDeletedPhotoIds = [0].obs;
   Future<void> uploadSpotPhotos() async {
-    imageFilePath.value.isNotEmpty ? fileRepository.uploadSpotImages(imageFilePath.value, memberSpotId.value) : null;
+    imageFilePath.value.removeWhere((element) => element.contains("http"));
+    imageFilePath.value != [] ? fileRepository.uploadSpotImages(imageFilePath.value, memberSpotId.value) : null;
   }
+
+
 
 
   //**완료 버튼
@@ -214,8 +223,8 @@ class RegisterSpotController extends GetxController {
         spotName: spotNameController.text);
 
     var res = await spotRepository.saveSpot(req);
-    memberSpotId.value = res.memberSpotId!;
 
+    memberSpotId.value = res.memberSpotId!;
 
     uploadSpotPhotos();
 
@@ -233,11 +242,12 @@ class RegisterSpotController extends GetxController {
 
     //사진 제외 스팟 정보 넣기
     SpotRequest req = SpotRequest(
+        memberSpotId: memberSpotId.value,
         address: addressController.text,
         category: totalCode,
         city: cityController.text,
         country: describeEnum(countryState.value).toString(),
-        deleteSpotPhotoIds: [],
+        deleteSpotPhotoIds: spotDeletedPhotoIds,
         latitude: searchLocationController.markerPosition.value.latitude,
         longitude: searchLocationController.markerPosition.value.longitude,
         memo: memoController.text,
@@ -248,11 +258,8 @@ class RegisterSpotController extends GetxController {
     await spotRepository.updateSpot(req);
 
     //사진 추가하여 넣기
+    uploadSpotPhotos();
 
-
-    var res = await spotRepository.saveSpot(req);
-    memberSpotId.value = res.memberSpotId!;
-    print("memberSpotId.value : ${memberSpotId.value}");
 
     Get.back();
   }
