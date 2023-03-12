@@ -74,7 +74,7 @@ class _SrAppBarState extends State<SrAppBar> {
                   height: 33,
                   width: 183,
                   child: Material(
-                    elevation: 4,
+                    elevation: 2,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
@@ -366,6 +366,7 @@ class _SrAppBarState extends State<SrAppBar> {
                 child: SrChip(
                     name: chipNames[index],
                     color: chipColors[index],
+                    elevation: 2,
                     selected: selected.contains(chipNames[index]),
                     onTab: (isSelected) {
                       setState(() {

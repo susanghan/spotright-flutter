@@ -28,7 +28,7 @@ class _SrChipState extends State<SrChip> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 0),
+      padding: EdgeInsets.only(bottom: 4),
       child: Material(
         elevation: widget.elevation,
         shape: RoundedRectangleBorder(
