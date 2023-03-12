@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../common/colors.dart';
@@ -23,11 +24,8 @@ class DefaultAppBar extends StatelessWidget with PreferredSizeWidget {
     return AppBar(
       leading: hasBackButton
           ? IconButton(
-              icon: Icon(
-                Icons.arrow_back_ios,
-                color: SrColors.black,
-                size: 20,
-              ),
+              icon: SvgPicture.asset("assets/arrow_back.svg"),
+              iconSize: 20,
               onPressed: () {
                 Get.back();
               },
