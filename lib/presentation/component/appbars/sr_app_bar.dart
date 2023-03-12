@@ -71,27 +71,30 @@ class _SrAppBarState extends State<SrAppBar> {
             TextButton(
                 onPressed: widget.fetchRegionSpots,
                 child: Container(
-                  height: 30,
-                  width: 168,
+                  height: 33,
+                  width: 183,
                   child: Material(
                     elevation: 4,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(100),
+                      borderRadius: BorderRadius.circular(20),
                     ),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                              padding: EdgeInsets.only(right: 8),
-                              child: SvgPicture.asset(
-                                "assets/refresh.svg",
-                                width: 16,
-                              )),
-                          Text(
-                            "이 지역에서 검색하기",
-                            style: SrTypography.body3medium,
-                          ),
-                        ]),
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(14, 8, 15, 8),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                                padding: EdgeInsets.only(right: 8),
+                                child: SvgPicture.asset(
+                                  "assets/refresh.svg",
+                                  width: 16,
+                                )),
+                            Text(
+                              "이 지역에서 검색하기",
+                              style: SrTypography.body3medium,
+                            ),
+                          ]),
+                    ),
                   ),
                 ))
         ],
@@ -105,21 +108,21 @@ class _SrAppBarState extends State<SrAppBar> {
       curve: Curves.ease,
       child: Container(
         height: topContentSize,
-        padding: EdgeInsets.symmetric(horizontal: 20),
+        padding: EdgeInsets.only(left: 32, right: 32, top: 4),
         decoration: const BoxDecoration(
           color: SrColors.white,
         ),
         child: Row(
           children: [
             Padding(
-              padding: EdgeInsets.fromLTRB(20, 8, 40, 0),
+              padding: EdgeInsets.fromLTRB(0, 0, 63, 0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    width: 64,
-                    height: 64,
-                    margin: EdgeInsets.only(bottom: 4),
+                    width: 60,
+                    height: 60,
+                    margin: EdgeInsets.only(bottom: 8),
                     child: CircleAvatar(
                         backgroundColor: SrColors.white,
                         radius: 100,
@@ -128,13 +131,13 @@ class _SrAppBarState extends State<SrAppBar> {
                         color: SrColors.black,
                         borderRadius: BorderRadius.circular(100)),
                   ),
-                  Text(widget.userName)
+                  Text(widget.userName, style: SrTypography.body3semi,)
                 ],
               ),
             ),
             Expanded(
               child: Padding(
-                padding: EdgeInsets.only(top: 16, right: 20),
+                padding: EdgeInsets.only(top: 16, right: 0),
                 child: Column(
                   children: [
                     Row(
@@ -144,7 +147,7 @@ class _SrAppBarState extends State<SrAppBar> {
                           onTap: widget.moveSpotList,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [Text(widget.user.memberSpotsCnt.toString()), Text('장소')],
+                            children: [Padding(padding: const EdgeInsets.only(bottom: 4), child: Text(widget.user.memberSpotsCnt.toString(), style: SrTypography.body3semi,)), const Text('장소', style: SrTypography.body4light,)],
                           ),
                         ),
                         GestureDetector(
@@ -154,8 +157,8 @@ class _SrAppBarState extends State<SrAppBar> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text(widget.user.followersCnt.toString()),
-                              Text('팔로워')
+                              Padding(padding: const EdgeInsets.only(bottom: 4), child: Text(widget.user.followersCnt.toString(), style: SrTypography.body3semi)),
+                              const Text('팔로워', style: SrTypography.body4light,)
                             ],
                           ),
                         ),
@@ -166,14 +169,14 @@ class _SrAppBarState extends State<SrAppBar> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text(widget.user.followingsCnt.toString()),
-                              Text('팔로잉')
+                              Padding(padding: const EdgeInsets.only(bottom: 4), child: Text(widget.user.followingsCnt.toString(), style: SrTypography.body3semi)),
+                              const Text('팔로잉',  style: SrTypography.body4light,)
                             ],
                           ),
                         )
                       ],
                     ),
-                    Padding(padding: EdgeInsets.only(bottom: 8)),
+                    Padding(padding: EdgeInsets.only(bottom: 12)),
                     widget.isMyPage ? _MyPage() : _ProfileMenus(),
                   ],
                 ),
@@ -193,19 +196,17 @@ class _SrAppBarState extends State<SrAppBar> {
         onPressed: () {
           Get.to(MyPage());
         },
-        child: Text(
-          '마이페이지',
-          style: TextStyle(
-            color: SrColors.gray1,
-          ),
-        ),
         style: TextButton.styleFrom(
-            padding: EdgeInsets.zero,
+            padding: EdgeInsets.symmetric(vertical: 6),
             backgroundColor: SrColors.gray3,
-            minimumSize: Size.fromHeight(24),
-            fixedSize: Size.fromHeight(24),
+            minimumSize: Size.fromHeight(26),
+            fixedSize: Size.fromHeight(26),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(100))),
+        child: Text(
+          '마이페이지',
+          style: SrTypography.body4medium.copy(color: SrColors.gray1),
+        ),
       ),
     );
   }
@@ -217,7 +218,7 @@ class _SrAppBarState extends State<SrAppBar> {
         children: [
           Expanded(
               child: Padding(
-            padding: EdgeInsets.only(right: 8),
+            padding: EdgeInsets.only(right: 7),
             child: OutlinedButton(
               onPressed: widget.isFollowing ? widget.unfollow : widget.follow,
               child: Text(
@@ -326,8 +327,8 @@ class _SrAppBarState extends State<SrAppBar> {
         child: SvgPicture.asset(
           expanded ? 'assets/arrow_up.svg' : 'assets/arrow_down.svg',
           color: SrColors.primary,
-          width: 24,
-          height: 24,
+          width: 20,
+          height: 20,
         ),
         onTap: () {
           setState(() {
@@ -354,8 +355,8 @@ class _SrAppBarState extends State<SrAppBar> {
 
     return Container(
         width: double.infinity,
-        height: 40,
-        margin: EdgeInsets.only(top: 10),
+        height: 36,
+        margin: EdgeInsets.only(top: 8),
         child: ListView(
           padding: EdgeInsets.only(left: 16),
           scrollDirection: Axis.horizontal,

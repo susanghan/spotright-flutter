@@ -28,7 +28,7 @@ class _SrChipState extends State<SrChip> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 4),
+      padding: EdgeInsets.only(bottom: 0),
       child: Material(
         elevation: widget.elevation,
         shape: RoundedRectangleBorder(
@@ -36,7 +36,7 @@ class _SrChipState extends State<SrChip> {
               width: 1.5,
               color:
                   widget.selected ? widget.color : widget.borderColor ?? SrColors.white),
-          borderRadius: BorderRadius.circular(100),
+          borderRadius: BorderRadius.circular(20),
         ),
         child: ActionChip(
           avatar: Container(
