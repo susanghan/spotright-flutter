@@ -32,11 +32,18 @@ class _SrAttachPitureState extends State<SrAttachPiture> {
   dynamic _pickImageError;
 
   List<XFile> imageFileList = [];
+  bool hasInitImage = false;
   List<bool> _isImgaeFileClicked = List.filled(5, false);
 
   @override
   void initState() {
-    _AttachPictures();
+    if(registerSpotController.pageMode == PageMode.edit){
+      print("initState : ${registerSpotController.imageFilePath.value}");
+      if(registerSpotController.imageFilePath.value.isNotEmpty){
+        hasInitImage = true;
+      }
+      _AttachPictures();
+    }
     super.initState();
   }
 
@@ -65,7 +72,7 @@ class _SrAttachPitureState extends State<SrAttachPiture> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SvgPicture.asset("assets/camera.svg"),
-                      Text("${imageFileList.length}/5"),
+                      Text("${registerSpotController.imageFilePath.length}/5"),
                     ],
                   ),
                 ),
@@ -84,7 +91,7 @@ class _SrAttachPitureState extends State<SrAttachPiture> {
       GestureDetector(
         onTap: (){
           setState(() {
-            _isImgaeFileClicked[index] ? imageFileList.removeAt(index) : {_isImgaeFileClicked = List.filled(5, false), _isImgaeFileClicked[index] = true};
+            _isImgaeFileClicked[index] ? registerSpotController.imageFilePath.value.removeAt(index) : {_isImgaeFileClicked = List.filled(5, false), _isImgaeFileClicked[index] = true};
           });
         },
         child: Stack(
@@ -92,7 +99,7 @@ class _SrAttachPitureState extends State<SrAttachPiture> {
           children:[
             ClipRRect(
                 borderRadius: BorderRadius.circular(20),
-                child: Image.file(
+                child: imageFile.contains("http") ? Image.network(imageFile) : Image.file(
                   File(imageFile),
                   width: 92,
                   height: 92,
@@ -118,7 +125,7 @@ class _SrAttachPitureState extends State<SrAttachPiture> {
   }
 
   List<Widget>? _AttachPictures() {
-    return imageFileList.asMap().entries.map((e) => _AttachPicture(e.key, e.value.path)).toList();
+    return registerSpotController.imageFilePath.value.asMap().entries.map((e) => _AttachPicture(e.key, e.value)).toList();
   }
 
   Future<void> _onAttachButtonPressed(ImageSource source,
@@ -126,13 +133,38 @@ class _SrAttachPitureState extends State<SrAttachPiture> {
     try {
       final List<XFile> pickedFileList = await _picker.pickMultiImage();
       setState(() {
-        imageFileList = [...pickedFileList, ...imageFileList];
-        imageFileList.length < 6
-            ? {imageFileList = imageFileList, _isImgaeFileClicked = List.filled(5, false)}
-            : imageFileList = imageFileList.reversed.take(5).toList();
+        int _insertIndex = 0;
 
-        registerSpotController.imageFilePath.value = [];
-        imageFileList.forEach((element) { registerSpotController.imageFilePath.value.add(element.path); });
+        while(registerSpotController.imageFilePath.length < 5 && pickedFileList.length > _insertIndex){
+            registerSpotController.imageFilePath.insert(_insertIndex, pickedFileList[_insertIndex].path);
+            _insertIndex += 1;
+        }
+
+        _isImgaeFileClicked = List.filled(5, false);
+
+
+        /*
+        switch(registerSpotController.pageMode){
+          case PageMode.add : {
+            imageFileList = [...pickedFileList, ...imageFileList];
+            imageFileList.length < 6
+                ? {imageFileList = imageFileList, _isImgaeFileClicked = List.filled(5, false), }
+                : imageFileList = imageFileList.reversed.take(5).toList();
+
+            registerSpotController.imageFilePath.value = [];
+            imageFileList.forEach((element) { registerSpotController.imageFilePath.add(element.path); });
+          }
+          break;
+          case PageMode.edit : {
+              registerSpotController.imageFilePath.length + pickedFileList.length < 6
+                  ? {pickedFileList.reversed.forEach((element) {registerSpotController.imageFilePath.insert(0, element.path); _isImgaeFileClicked = List.filled(5, false);})}
+                  : {};
+          }
+        }*/
+
+        //hasInitImage ? hasInitImage = false : registerSpotController.imageFilePath.value = [];
+        //imageFileList.forEach((element) { registerSpotController.imageFilePath.value.insert(0, element.path); });
+
       });
     } catch (e) {
       setState(() {

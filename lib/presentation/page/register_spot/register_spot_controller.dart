@@ -42,6 +42,11 @@ class RegisterSpotController extends GetxController {
 
     rating.value = detailController.spot.value.rating?.toDouble() ?? 0.0;
 
+    if(detailController.spot.value.spotPhotos != null){
+      detailController.spot.value.spotPhotos!.map((e) => imageFilePath.value.add(e.photoUrl ?? '')).toList();
+      print("imageFilePath.value : ${imageFilePath.value}");
+    }
+
     memoController.text = detailController.spot.value.memo ?? "";
   }
 
@@ -76,6 +81,8 @@ class RegisterSpotController extends GetxController {
 
     setSearchProvinceList();
     setSearchCityList(provinceController.text);
+
+    imageFilePath.value = [];
 
     isCtaActive.value = false;
 
@@ -145,8 +152,7 @@ class RegisterSpotController extends GetxController {
   RxList<String> imageFilePath = [''].obs;
   RxInt memberSpotId = 0.obs;
   Future<void> uploadSpotPhotos() async {
-    fileRepository.uploadSpotImages(imageFilePath, memberSpotId.value);
-
+    imageFilePath.value.isNotEmpty ? fileRepository.uploadSpotImages(imageFilePath.value, memberSpotId.value) : null;
   }
 
 
@@ -210,6 +216,7 @@ class RegisterSpotController extends GetxController {
     var res = await spotRepository.saveSpot(req);
     memberSpotId.value = res.memberSpotId!;
 
+
     uploadSpotPhotos();
 
     Get.back();
@@ -245,6 +252,7 @@ class RegisterSpotController extends GetxController {
 
     var res = await spotRepository.saveSpot(req);
     memberSpotId.value = res.memberSpotId!;
+    print("memberSpotId.value : ${memberSpotId.value}");
 
     Get.back();
   }
