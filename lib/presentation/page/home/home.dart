@@ -32,7 +32,8 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
     super.initState();
     homeController.initState();
     mapController.initState(() => {setState(() {})}, homeController.userInfo.value);
-    _fetchRegionSpots();
+    //Todo: 맨 처음에 어플 실행시 장소 없다는 경고창 없게. 그냥 이렇게 해도 됨?
+    //_fetchRegionSpots();
   }
 
   void _fetchRegionSpots() async {
@@ -54,8 +55,8 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
       currentLocation = await location.getLocation();
       controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
         bearing: 0,
-        // target: LatLng(currentLocation.latitude!, currentLocation.longitude!),
-        target: LatLng(37.510181246, 127.043505829),
+        target: LatLng(currentLocation.latitude!, currentLocation.longitude!),
+        //target: LatLng(37.510181246, 127.043505829),
         zoom: 17.0,
       )));
       return LatLng(currentLocation.latitude!, currentLocation.longitude!);
