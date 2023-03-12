@@ -7,7 +7,7 @@ import 'package:http_parser/http_parser.dart';
 class FileRepository {
   Dio dio = Dio();
   final String _postProfileFilePath = "/member/photo";
-  final String _postSpotFilePath = "/member/spot/files";
+  final String _postSpotFilePath = "/member/spot";
 
   NetworkClient networkClient = GetX.Get.find();
 
@@ -22,9 +22,9 @@ class FileRepository {
   }
 
   Future<bool> uploadSpotImages(List<String> photoPaths, int spotId) async {
-    List<MultipartFile> files = photoPaths.map((photoPath) => MultipartFile.fromFileSync(photoPath, contentType: MediaType("image", "jpeg"))).toList();
+    List<MultipartFile> files = photoPaths.map((photoPath) => MultipartFile.fromFileSync(photoPath, contentType: MediaType("image", photoPath.split(".").removeLast()))).toList();
     FormData formData = FormData.fromMap({'photos': files, 'memberSpotId': spotId});
-    return uploadImage(formData, _postSpotFilePath);
+    return uploadImage(formData, "$_postSpotFilePath/$spotId/photos");
   }
 
   Future<bool> uploadImage(FormData formData, String path) async {

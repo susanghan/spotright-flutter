@@ -61,11 +61,9 @@ class EditProfileController extends GetxController {
   Future<void> onFinished() async {
     if(userProfilePath.value.isEmpty){
       fileRepository.postProfileFile(null, "");
-      print("프로필 삭제");
     }
     else{
       updateProfilePhoto();
-      print("프로필 수정");
     }
 
     Get.back();
@@ -75,7 +73,6 @@ class EditProfileController extends GetxController {
 
   Future<void> updateProfilePhoto() async {
     var _userProfilePath = userProfilePath.value;
-    print("눌러짐");
     String mediaType = _userProfilePath.split(".").removeLast();
     fileRepository.postProfileFile(userProfilePath.value, mediaType);
   }

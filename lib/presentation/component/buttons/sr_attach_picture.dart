@@ -5,13 +5,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
 import 'package:spotright/presentation/common/colors.dart';
 
+import '../../page/register_spot/register_spot_controller.dart';
+
 class SrAttachPiture extends StatefulWidget {
-  const SrAttachPiture({Key? key}) : super(key: key);
+  SrAttachPiture({Key? key}) : super(key: key);
+
 
   @override
   State<SrAttachPiture> createState() => _SrAttachPitureState();
@@ -20,12 +25,20 @@ class SrAttachPiture extends StatefulWidget {
 typedef OnPickImageCallback = void Function(double? maxWidth, double? maxHeight, int? quality);
 
 class _SrAttachPitureState extends State<SrAttachPiture> {
+  final RegisterSpotController registerSpotController = Get.find();
+
   final ImagePicker _picker = ImagePicker();
   final Color _clickedColor = SrColors.gray1.withOpacity(0.7);
   dynamic _pickImageError;
 
-  List<XFile> _imageFileList = [];
+  List<XFile> imageFileList = [];
   List<bool> _isImgaeFileClicked = List.filled(5, false);
+
+  @override
+  void initState() {
+    _AttachPictures();
+    super.initState();
+  }
 
 
   @override
@@ -52,7 +65,7 @@ class _SrAttachPitureState extends State<SrAttachPiture> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SvgPicture.asset("assets/camera.svg"),
-                      Text("${_imageFileList.length}/5"),
+                      Text("${imageFileList.length}/5"),
                     ],
                   ),
                 ),
@@ -65,13 +78,13 @@ class _SrAttachPitureState extends State<SrAttachPiture> {
     );
   }
 
-  Widget _AttachPicture(int index, XFile imageFile) {
+  Widget _AttachPicture(int index, String imageFile) {
     return Row(children: [
       const SizedBox(height: 92, width: 8,),
       GestureDetector(
         onTap: (){
           setState(() {
-            _isImgaeFileClicked[index] ? _imageFileList.removeAt(index) : {_isImgaeFileClicked = List.filled(5, false), _isImgaeFileClicked[index] = true};
+            _isImgaeFileClicked[index] ? imageFileList.removeAt(index) : {_isImgaeFileClicked = List.filled(5, false), _isImgaeFileClicked[index] = true};
           });
         },
         child: Stack(
@@ -80,7 +93,7 @@ class _SrAttachPitureState extends State<SrAttachPiture> {
             ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: Image.file(
-                  File(imageFile.path),
+                  File(imageFile),
                   width: 92,
                   height: 92,
                   cacheWidth: 200,
@@ -105,7 +118,7 @@ class _SrAttachPitureState extends State<SrAttachPiture> {
   }
 
   List<Widget>? _AttachPictures() {
-    return _imageFileList.asMap().entries.map((e) => _AttachPicture(e.key, e.value)).toList();
+    return imageFileList.asMap().entries.map((e) => _AttachPicture(e.key, e.value.path)).toList();
   }
 
   Future<void> _onAttachButtonPressed(ImageSource source,
@@ -113,10 +126,13 @@ class _SrAttachPitureState extends State<SrAttachPiture> {
     try {
       final List<XFile> pickedFileList = await _picker.pickMultiImage();
       setState(() {
-        _imageFileList = [...pickedFileList, ..._imageFileList];
-        _imageFileList.length < 6
-            ? {_imageFileList = _imageFileList, _isImgaeFileClicked = List.filled(5, false)}
-            : _imageFileList = _imageFileList.reversed.take(5).toList();
+        imageFileList = [...pickedFileList, ...imageFileList];
+        imageFileList.length < 6
+            ? {imageFileList = imageFileList, _isImgaeFileClicked = List.filled(5, false)}
+            : imageFileList = imageFileList.reversed.take(5).toList();
+
+        registerSpotController.imageFilePath.value = [];
+        imageFileList.forEach((element) { registerSpotController.imageFilePath.value.add(element.path); });
       });
     } catch (e) {
       setState(() {

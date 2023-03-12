@@ -167,6 +167,7 @@ class _RegisterSpotState extends State<RegisterSpot> {
       Padding(
         padding: const EdgeInsets.only(bottom: 16),
         child: SrTextField(
+
           controller: registerSpotController.spotNameController,
           textInputAction: TextInputAction.next,
           onChanged: (text){

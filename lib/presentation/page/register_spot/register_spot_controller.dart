@@ -12,11 +12,13 @@ import 'package:spotright/presentation/page/search_location/search_location_cont
 import '../../../data/resources/category.dart';
 import '../../../data/resources/enum_country.dart';
 import '../../../data/resources/geo.dart';
+import 'package:spotright/data/file/file_repository.dart';
 
 class RegisterSpotController extends GetxController {
   SearchLocationController searchLocationController = Get.find();
   DetailController detailController = Get.find();
   final SpotRepository spotRepository = Get.find();
+  final FileRepository fileRepository = Get.find();
 
   PageMode pageMode = PageMode.add;
 
@@ -139,6 +141,15 @@ class RegisterSpotController extends GetxController {
   //**별점
   RxDouble rating = 0.0.obs;
 
+  //**사진
+  RxList<String> imageFilePath = [''].obs;
+  RxInt memberSpotId = 0.obs;
+  Future<void> uploadSpotPhotos() async {
+    fileRepository.uploadSpotImages(imageFilePath, memberSpotId.value);
+
+  }
+
+
   //**완료 버튼
   RxBool isCtaActive = false.obs;
 
@@ -176,12 +187,14 @@ class RegisterSpotController extends GetxController {
   }
 
   Future<void> addSpot() async {
+
     if (isVisited.value == false) {
       rating.value = 0.0;
     }
 
     int totalCode = encodeCategory();
 
+    //사진 제외 스팟 정보 넣기
     SpotRequest req = SpotRequest(
         address: addressController.text,
         category: totalCode,
@@ -194,7 +207,10 @@ class RegisterSpotController extends GetxController {
         rating: "${rating.value.round()}",
         spotName: spotNameController.text);
 
-    await spotRepository.saveSpot(req);
+    var res = await spotRepository.saveSpot(req);
+    memberSpotId.value = res.memberSpotId!;
+
+    uploadSpotPhotos();
 
     Get.back();
   }
@@ -207,6 +223,8 @@ class RegisterSpotController extends GetxController {
 
     int totalCode = encodeCategory();
 
+
+    //사진 제외 스팟 정보 넣기
     SpotRequest req = SpotRequest(
         address: addressController.text,
         category: totalCode,
@@ -221,6 +239,12 @@ class RegisterSpotController extends GetxController {
         spotName: spotNameController.text);
 
     await spotRepository.updateSpot(req);
+
+    //사진 추가하여 넣기
+
+
+    var res = await spotRepository.saveSpot(req);
+    memberSpotId.value = res.memberSpotId!;
 
     Get.back();
   }
