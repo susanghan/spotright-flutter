@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
+import 'package:spotright/presentation/page/manage_user_info/change_password.dart';
 import 'package:spotright/presentation/page/manage_user_info/change_user_birth.dart';
 import 'package:spotright/presentation/page/manage_user_info/change_user_id.dart';
 import '../../common/colors.dart';
@@ -31,7 +32,7 @@ class ManageUserInfoList extends StatelessWidget {
           ..._ListText(
               listText: "비밀번호 재설정",
               action: () {
-                Get.to(ChangeUserId());
+                Get.to(ChangePassword());
               }),
           SrDivider(),
           ..._ListText(
