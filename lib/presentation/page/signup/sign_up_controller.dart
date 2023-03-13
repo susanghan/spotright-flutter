@@ -25,6 +25,11 @@ class SignUpController extends GetxController {
     signUpState.onChangeCtaState();
   }
 
+  void onPasswordChanged(String password) {
+    signUpState.password.value = password;
+    signUpState.validatePassword();
+  }
+
   void onNicknameChanged(String nickname) {
     signUpState.nickname.value = nickname;
     signUpState.validateNickname(nickname);

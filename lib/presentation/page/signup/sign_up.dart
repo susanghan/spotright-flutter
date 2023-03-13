@@ -50,6 +50,7 @@ class _SignUpState extends State<SignUp> {
                       children: [
                         ..._InputEmail(),
                         ..._InputId(),
+                        ..._InputPassword(),
                         ..._InputNickname(),
                         ..._InputBirthday(),
                         ..._InputSex(),
@@ -110,6 +111,27 @@ class _SignUpState extends State<SignUp> {
             ),
           ),
         ),
+      ),
+    ];
+  }
+
+  List<Widget> _InputPassword() {
+    return [
+      Padding(
+        padding: EdgeInsets.only(bottom: 4),
+        child: Text('비밀번호를 입력해주세요.'),
+      ),
+      Padding(
+        padding: EdgeInsets.only(bottom: 6),
+        child: SrTextField(
+          hint: 'password',
+          onChanged: signUpController.onPasswordChanged,
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.only(left: 12, bottom: 16),
+        child:
+        Obx(() => Text(signUpController.signUpState.passwordValidationMessage)),
       ),
     ];
   }
