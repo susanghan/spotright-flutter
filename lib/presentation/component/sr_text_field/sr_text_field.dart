@@ -67,6 +67,7 @@ class SrTextField_State extends State<SrTextField> {
         margin: EdgeInsets.only(bottom: 8),
         height: widget.height,
         child: TextField(
+          style: SrTypography.body2light.copy(color: SrColors.black),
           controller: widget.controller,
           focusNode: widget.focusNode,
           textInputAction: widget.textInputAction,
@@ -95,7 +96,11 @@ class SrTextField_State extends State<SrTextField> {
                       BorderRadius.all(Radius.circular(widget.borderRadius)),
                       borderSide:
                       const BorderSide(width: 1, color: SrColors.gray3)),
-              enabledBorder: widget.enableBorder,
+              enabledBorder: widget.enableBorder ?? OutlineInputBorder(
+                  borderRadius:
+                  BorderRadius.all(Radius.circular(widget.borderRadius)),
+                  borderSide:
+                  const BorderSide(width: 1, color: SrColors.gray1)),
               focusedBorder: widget.focusInputBorder ??
                   OutlineInputBorder(
                       borderRadius:
@@ -112,7 +117,7 @@ class SrTextField_State extends State<SrTextField> {
         ),
       ),
       if(widget.maxLength != null) Row(
-          mainAxisAlignment: MainAxisAlignment.end, children: [Text("$contentLength/${widget.maxLength}", style: SrTypography.body4medium.copy(color: SrColors.gray2),)])
+          mainAxisAlignment: MainAxisAlignment.end, children: [Text("$contentLength/${widget.maxLength}", style: SrTypography.body4medium.copy(color: SrColors.gray),)])
     ]);
   }
 
