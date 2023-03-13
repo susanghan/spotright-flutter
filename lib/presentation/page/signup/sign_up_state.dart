@@ -49,6 +49,8 @@ class SignUpState {
   bool get _ctaActive =>
       checkedEmail.value &&
       checkedIdDuplication.value &&
+      passwordMessageStatue.value == MessageStatus.enabled &&
+          isPasswordsEqual &&
       (nicknameMessageStatus.value == MessageStatus.enabled) &&
       privacyPolicy.value;
 

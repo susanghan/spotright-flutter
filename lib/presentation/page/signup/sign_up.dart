@@ -125,6 +125,7 @@ class _SignUpState extends State<SignUp> {
       Padding(
         padding: EdgeInsets.only(bottom: 6),
         child: SrTextField(
+          password: true,
           hint: '비밀번호',
           onChanged: signUpController.onPasswordChanged,
         ),
@@ -146,6 +147,7 @@ class _SignUpState extends State<SignUp> {
       Padding(
         padding: EdgeInsets.only(bottom: 6),
         child: SrTextField(
+          password: true,
           hint: '비밀번호 확인',
           onChanged: signUpController.onPasswordConfirmChanged,
         ),
