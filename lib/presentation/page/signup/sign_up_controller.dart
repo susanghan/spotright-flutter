@@ -87,6 +87,8 @@ class SignUpController extends GetxController {
       authProvider: oAuthResponse!.authProvider,
       birthdate: signUpState.birthdate.value,
       email: signUpState.email.value,
+      password: signUpState.password.value,
+      passwordReEntered: signUpState.passwordConfirm.value,
       gender: signUpState.sex.value == 0 ? "MALE" : "FEMALE",
       nickname: signUpState.nickname.value,
       spotrightId: signUpState.id.value,
