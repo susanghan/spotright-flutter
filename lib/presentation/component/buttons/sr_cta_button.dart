@@ -26,7 +26,7 @@ class SrCTAButton extends StatelessWidget {
         highlightColor: SrColors.primary,
         child:Text(
           text,
-          style: const TextStyle(color: SrColors.white, fontWeight: FontWeight.w600, fontSize: 20),
+          style: const TextStyle(color: SrColors.white, fontWeight: FontWeight.w600, fontSize: 18),
         ),
       ),
     );
