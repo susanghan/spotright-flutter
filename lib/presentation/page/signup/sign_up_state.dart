@@ -31,7 +31,9 @@ class SignUpState {
   RxString id = "".obs;
   RxBool checkedIdDuplication = false.obs;
   RxString nickname = "".obs;
-  RxString password= "".obs;
+  RxString password = "".obs;
+  RxString passwordConfirm = "".obs;
+  bool get isPasswordsEqual => password.value == passwordConfirm.value;
   var idMessageStatus = MessageStatus.defaultMessage.obs;
   var nicknameMessageStatus = MessageStatus.defaultMessage.obs;
   var passwordMessageStatue = MessageStatus.defaultMessage.obs;
