@@ -29,6 +29,12 @@ class ManageUserInfoList extends StatelessWidget {
               }),
           SrDivider(),
           ..._ListText(
+              listText: "비밀번호 재설정",
+              action: () {
+                Get.to(ChangeUserId());
+              }),
+          SrDivider(),
+          ..._ListText(
               listText: "생년월일 변경",
               action: () {
                 Get.to(ChangeUserBirth());
