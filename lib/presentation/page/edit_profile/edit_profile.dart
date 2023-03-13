@@ -42,7 +42,7 @@ class _EditProfileState extends State<EditProfile> {
             hasBackButton: true,
           ),
           body: Padding(
-            padding: const EdgeInsets.fromLTRB(16, 12, 16, 36),
+            padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
             child: Column(children: [
               Expanded(
                 child: SingleChildScrollView(
@@ -51,14 +51,20 @@ class _EditProfileState extends State<EditProfile> {
                   ),
                 ),
               ),
-              SrCTAButton(
-                    text: "완료",
-                    //isEnabled: editProfileController.ctaActive.value,
-                    isEnabled: true,
-                    action: editProfileController.onFinished,
-                  )
+
             ]),
-          )),
+          ),
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.fromLTRB(16, 0, 16, 36),
+          child: SrCTAButton(
+            text: "완료",
+            //isEnabled: editProfileController.ctaActive.value,
+            isEnabled: true,
+            action: editProfileController.onFinished,
+          ),
+        ),),
+
+
     );
   }
 
