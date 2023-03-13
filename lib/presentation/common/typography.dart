@@ -28,6 +28,13 @@ class SrTypography {
     fontWeight: FontWeight.w500,
   );
 
+
+  static const TextStyle body2light = TextStyle(
+    color: Colors.black,
+    fontSize: 15.0,
+    fontWeight: FontWeight.w300,
+  );
+
   static const TextStyle body3semi = TextStyle(
     color: Colors.black,
     fontSize: 14.0,
