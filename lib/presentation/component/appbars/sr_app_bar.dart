@@ -113,6 +113,7 @@ class _SrAppBarState extends State<SrAppBar> {
           color: SrColors.white,
         ),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
               padding: EdgeInsets.fromLTRB(0, 0, 63, 0),
@@ -135,46 +136,52 @@ class _SrAppBarState extends State<SrAppBar> {
                 ],
               ),
             ),
-            Expanded(
+            SizedBox(
+              width: 180,
+              height: 76,
               child: Padding(
-                padding: EdgeInsets.only(top: 16, right: 0),
+                padding: EdgeInsets.only(top: 0, right: 0),
                 child: Column(
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        GestureDetector(
-                          onTap: widget.moveSpotList,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [Padding(padding: const EdgeInsets.only(bottom: 4), child: Text(widget.user.memberSpotsCnt.toString(), style: SrTypography.body3semi,)), const Text('장소', style: SrTypography.body4light,)],
+                    SizedBox(
+                      width: 172,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: widget.moveSpotList,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [Padding(padding: const EdgeInsets.only(bottom: 4), child: Text(widget.user.memberSpotsCnt.toString(), style: SrTypography.body3semi,)), SizedBox(width: 35, child: const Text('장소', style: SrTypography.body4light, textAlign: TextAlign.center,))],
+                            ),
                           ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Get.to(Following(tabIndex: 0, user: widget.user,));
-                          },
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Padding(padding: const EdgeInsets.only(bottom: 4), child: Text(widget.user.followersCnt.toString(), style: SrTypography.body3semi)),
-                              const Text('팔로워', style: SrTypography.body4light,)
-                            ],
+                          GestureDetector(
+                            onTap: () {
+                              Get.to(Following(tabIndex: 0, user: widget.user,));
+                            },
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(padding: const EdgeInsets.only(bottom: 4), child: Text(widget.user.followersCnt.toString(), style: SrTypography.body3semi)),
+                                const Text('팔로워', style: SrTypography.body4light,)
+                              ],
+                            ),
                           ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Get.to(Following(tabIndex: 1, user: widget.user,));
-                          },
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Padding(padding: const EdgeInsets.only(bottom: 4), child: Text(widget.user.followingsCnt.toString(), style: SrTypography.body3semi)),
-                              const Text('팔로잉',  style: SrTypography.body4light,)
-                            ],
-                          ),
-                        )
-                      ],
+                          GestureDetector(
+                            onTap: () {
+                              Get.to(Following(tabIndex: 1, user: widget.user,));
+                            },
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(padding: const EdgeInsets.only(bottom: 4), child: Text(widget.user.followingsCnt.toString(), style: SrTypography.body3semi)),
+                                const Text('팔로잉',  style: SrTypography.body4light,)
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                     Padding(padding: EdgeInsets.only(bottom: 12)),
                     widget.isMyPage ? _MyPage() : _ProfileMenus(),
@@ -199,7 +206,7 @@ class _SrAppBarState extends State<SrAppBar> {
         style: TextButton.styleFrom(
             primary: SrColors.gray1,
             padding: EdgeInsets.symmetric(vertical: 6),
-            backgroundColor: SrColors.gray3,
+            backgroundColor: SrColors.gray4,
             minimumSize: Size.fromHeight(26),
             fixedSize: Size.fromHeight(26),
             shape: RoundedRectangleBorder(

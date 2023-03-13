@@ -8,6 +8,7 @@ class SrColors {
   static const Color gray1 = Color(0xff767676);
   static const Color gray2 = Color(0xff9B9B9B);
   static const Color gray3 = Color(0xffCBCACA);
+  static const Color gray4 = Color(0xffe3e3e3);
   static const Color gray = Color(0xffB0B0B0);
   static const Color gray9e = Color(0xff9e9e9e);
   static const Color darkGray = Color(0xff6C6C6C);
