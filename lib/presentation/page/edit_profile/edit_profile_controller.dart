@@ -11,28 +11,45 @@ class EditProfileController extends GetxController {
   final EditProfileState editProfileState = EditProfileState();
   final FileRepository fileRepository = Get.find();
 
+  void initState() {
+    userResponse.value = userRepository.userResponse!;
+
+    if(userResponse.value.memberPhoto?.photoUrl!.isNotEmpty ?? false) userProfileState.value = UserProfileState.serverState;
+    userProfilePath.value = '';
+
+    TextEditingController nicknameController = TextEditingController();
+    editProfileState.nickname.value = userResponse.value.nickname ?? '';
+    nicknameController.text = userResponse.value.nickname ?? '';
+    userNickname.value = userResponse.value.nickname ?? '';
+
+    ctaActive.value = false;
+
+    imageProvider;
+  }
+
+  //**user 정보
   UserRepository userRepository = Get.find();
+  Rx<UserResponse> userResponse = Rx<UserResponse>(UserResponse(memberId: 0));
+
+  //**프로필 사진
+  var userProfileState = UserProfileState.defaultState.obs;
+  RxString userProfilePath = ''.obs;
+
+  //**사진 ImageProvider
   final ImageProvider _defaultProfileImage = const AssetImage('assets/user_profile_default_large.png');
   final ImagePicker _picker = ImagePicker();
   dynamic pickImageError;
 
-  RxBool get ctaActive => ((user.nickname != editProfileState.nickname.value) && (editProfileState.nicknameMessageStatus.value == MessageStatus.enabled)).obs;
-  var userProfileState = UserProfileState.defaultState.obs;
-  String? serverProfilePath = '';
-  RxString userProfilePath = ''.obs;
-  UserResponse user = UserResponse(memberId: 0);
+  //**닉네임
   TextEditingController nicknameController = TextEditingController();
+  RxString userNickname = ''.obs;
 
-  void initState() {
-    user = userRepository.userResponse!;
-    editProfileState.nickname.value = user.nickname!;
-    nicknameController.text = user.nickname!;
-    if(user.memberPhoto?.photoUrl!.isNotEmpty ?? false) userProfileState.value = UserProfileState.serverState;
-  }
+  //**완료 버튼
+  RxBool get ctaActive => ((userNickname.value != userResponse.value.nickname ) && (editProfileState.nicknameMessageStatus.value == MessageStatus.enabled)).obs;
 
   ImageProvider? get imageProvider {
     switch(userProfileState.value) {
-      case UserProfileState.serverState: return NetworkImage(user.memberPhoto!.photoUrl!);
+      case UserProfileState.serverState: return NetworkImage(userResponse.value.memberPhoto!.photoUrl!);
       case UserProfileState.galleryState: return Image.file(File(userProfilePath.value), cacheWidth: 720,).image;
       default: return _defaultProfileImage;
     }
@@ -56,6 +73,7 @@ class EditProfileController extends GetxController {
   void onNicknameChanged(String nickname) {
     editProfileState.nickname.value = nickname;
     editProfileState.validateNickname();
+    userNickname.value = nickname;
   }
 
   Future<void> onFinished() async {

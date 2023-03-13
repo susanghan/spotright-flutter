@@ -47,7 +47,7 @@ class _EditProfileState extends State<EditProfile> {
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
-                    children: [_UserProfile(), _UserNickName("감자튀김")],
+                    children: [_UserProfile(), _UserNickName("닉네임을 입력해 주세요")],
                   ),
                 ),
               ),
@@ -56,12 +56,11 @@ class _EditProfileState extends State<EditProfile> {
           ),
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 36),
-          child: SrCTAButton(
+          child: Obx(()=>SrCTAButton(
             text: "완료",
-            //isEnabled: editProfileController.ctaActive.value,
-            isEnabled: true,
+            isEnabled: editProfileController.ctaActive.value,
             action: editProfileController.onFinished,
-          ),
+          ),)
         ),),
 
 
@@ -121,6 +120,11 @@ class _EditProfileState extends State<EditProfile> {
   }
 
   Widget _UserNickName(String? userNickname) {
+    InputBorder? border = const OutlineInputBorder(
+        borderRadius:
+        BorderRadius.all(Radius.circular(22)),
+        borderSide:
+        BorderSide(width: 1, color: SrColors.gray1));
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -135,10 +139,11 @@ class _EditProfileState extends State<EditProfile> {
               textAlign: TextAlign.left,
             )),
         Padding(
-            padding: const EdgeInsets.only(bottom: 6),
+            padding: const EdgeInsets.only(bottom: 0),
             child: SrTextField(
                 hint: "닉네임",
                 maxLines: 1,
+                focusInputBorder: border,
                 onChanged: editProfileController.onNicknameChanged,
                 controller: editProfileController.nicknameController,
             )),

@@ -44,7 +44,7 @@ class _MyPageState extends State<MyPage> {
           child: Column(
             children: [
               _UserProfile(),
-              SrDivider(height: 4,),
+              SrDivider(height: 3,),
               _ListText(listText: "개인정보관리", action: () {Get.to(ManageUserInfoList()); }),
               _ListText(listText: "차단사용자관리", action: () => Get.to(BlockList())),
               _ListText(listText: "settingLanguage".tr, action: () { Get.to(ChangeUserLanguage());}),
@@ -85,12 +85,12 @@ class _MyPageState extends State<MyPage> {
                 width: 80,
                 height: 80,
                 //color: SrColors.white,
-                child: CircleAvatar(
+                child: Obx(() => CircleAvatar(
                   backgroundColor: SrColors.white,
-                    radius: 100,
-                    backgroundImage: myPageController.hasPhoto.value ? NetworkImage(myPageController.userResponse.value.memberPhoto!.photoUrl!)
-                        : AssetImage('assets/user_profile_default_small.png') as ImageProvider,
-                ),
+                  radius: 100,
+                  backgroundImage: myPageController.hasPhoto.value ? NetworkImage(myPageController.userResponse.value.memberPhoto!.photoUrl!)
+                      : AssetImage('assets/user_profile_default_small.png') as ImageProvider,
+                ),)
               ),
               GestureDetector(
                 onTap: (){
