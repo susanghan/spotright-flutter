@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 class SrColors {
   static const Color primary = Color(0xffFD4F18);
   static const Color black = Color(0xff000000);
+  static const Color gray1 = Color(0xff5e5e5e);
+  static const Color gray2 = Color(0xff9B9B9B);
+  static const Color gray3 = Color(0xffCBCACA);
   static const Color gray = Color(0xffB0B0B0);
-  static const Color gray1 = Color(0xff6c6c6c);
-  static const Color gray2 = Color(0xffcccccc);
-  static const Color gray3 = Color(0xffe9e9e9);
   static const Color gray9e = Color(0xff9e9e9e);
   static const Color darkGray = Color(0xff6C6C6C);
   static const Color white = Color(0xffffffff);
