@@ -58,18 +58,18 @@ class _MyPageState extends State<MyPage> {
                 Get.offAll(Login());
               }),
               SrDivider(),
-              Padding(
-                padding: EdgeInsets.only(top: 120, bottom: 30),
-                child: InkWell(
-                    onTap: (){
-                      Get.to(DeactivateAccountPre());
-                    },
-                    child: Text("계정삭제", style: SrTypography.body4light.copy(color: SrColors.gray1)),
-                )
-              )
             ],
           ),
         )),
+        bottomNavigationBar: Padding(
+            padding: EdgeInsets.only(bottom: 30),
+            child: InkWell(
+              onTap: (){
+                Get.to(DeactivateAccountPre());
+              },
+              child: Text("계정삭제",textAlign: TextAlign.center,style: SrTypography.body4light.copy(color: SrColors.gray1)),
+            )
+        ),
       ),
     );
   }

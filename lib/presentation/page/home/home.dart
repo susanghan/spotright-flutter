@@ -32,8 +32,8 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
     super.initState();
     homeController.initState();
     mapController.initState(() => {setState(() {})}, homeController.userInfo.value);
-    //Todo: 맨 처음에 어플 실행시 장소 없다는 경고창 없게. 그냥 이렇게 해도 됨?
-    //_fetchRegionSpots();
+    //Todo: current 이동 완료 후에 실행. 맨 처음에 어플 실행시 장소 없다는 실행은 하되 경고창은 없게.
+    _fetchRegionSpots();
   }
 
   void _fetchRegionSpots() async {
