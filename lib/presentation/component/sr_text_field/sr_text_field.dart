@@ -15,7 +15,7 @@ class SrTextField extends StatefulWidget {
     this.hint = '',
     this.onChanged,
     this.maxLines = 1,
-    this.height = 44,
+    this.height = 47,
     this.borderRadius = 22,
     this.controller,
     this.backgroundColor,
