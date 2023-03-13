@@ -29,7 +29,8 @@ class SrTextField extends StatefulWidget {
     this.maxLength,
     this.onSubmitted,
     this.focusNode,
-    this.textInputAction
+    this.textInputAction,
+    this.password = false,
   }) : super(key: key);
 
   final String hint;
@@ -42,6 +43,7 @@ class SrTextField extends StatefulWidget {
   final TextEditingController? controller;
   final double cursorWidth;
   final bool enabled;
+  final bool password;
   double? suffixIconHeight, suffixIconWidth;
   Color? backgroundColor;
   InputBorder? inputBorder, enableBorder, focusInputBorder, errorInputBorder;
@@ -80,6 +82,7 @@ class SrTextField_State extends State<SrTextField> {
           enabled: widget.enabled,
           maxLength: widget.maxLength,
           onSubmitted: widget.onSubmitted,
+          obscureText: widget.password,
           decoration: InputDecoration(
             counterText: "",
               filled: !(widget.backgroundColor == null),

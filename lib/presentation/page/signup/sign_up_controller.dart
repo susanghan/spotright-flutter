@@ -25,6 +25,17 @@ class SignUpController extends GetxController {
     signUpState.onChangeCtaState();
   }
 
+  void onPasswordChanged(String password) {
+    signUpState.password.value = password;
+    signUpState.validatePassword();
+    signUpState.onChangeCtaState();
+  }
+
+  void onPasswordConfirmChanged(String passwordConfirm) {
+    signUpState.passwordConfirm.value = passwordConfirm;
+    signUpState.onChangeCtaState();
+  }
+
   void onNicknameChanged(String nickname) {
     signUpState.nickname.value = nickname;
     signUpState.validateNickname(nickname);
@@ -76,6 +87,8 @@ class SignUpController extends GetxController {
       authProvider: oAuthResponse!.authProvider,
       birthdate: signUpState.birthdate.value,
       email: signUpState.email.value,
+      password: signUpState.password.value,
+      passwordReEntered: signUpState.passwordConfirm.value,
       gender: signUpState.sex.value == 0 ? "MALE" : "FEMALE",
       nickname: signUpState.nickname.value,
       spotrightId: signUpState.id.value,

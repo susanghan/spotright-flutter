@@ -5,6 +5,8 @@ class SignUpRequest {
   String? gender;
   String? nickname;
   String? spotrightId;
+  String? password;
+  String? passwordReEntered;
 
   SignUpRequest(
       {this.authProvider,
@@ -12,7 +14,9 @@ class SignUpRequest {
         this.email,
         this.gender,
         this.nickname,
-        this.spotrightId});
+        this.spotrightId,
+        this.password,
+        this.passwordReEntered,});
 
   SignUpRequest.fromJson(Map<String, dynamic> json) {
     authProvider = json['authProvider'];
@@ -31,6 +35,8 @@ class SignUpRequest {
     data['gender'] = gender;
     data['nickname'] = nickname;
     data['spotrightId'] = spotrightId;
+    data['password'] = password;
+    data['passwordReEntered'] = passwordReEntered;
     return data;
   }
 }

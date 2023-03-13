@@ -43,6 +43,12 @@ class _ProfileState extends State<Profile> {
     mapController.fetchSpots(region);
   }
 
+  void _refreshSpots() async {
+    var region = await _getRegion();
+    mapController.fetchSpots(region);
+    mapController.checkSpotEmpty();
+  }
+
   Future<LatLng> _currentLocation() async {
     final GoogleMapController controller = await _mapController.future;
     LocationData? currentLocation;
@@ -119,7 +125,7 @@ class _ProfileState extends State<Profile> {
             block: profileController.block,
             report: profileController.report,
             user: profileController.user.value,
-            fetchRegionSpots: _fetchRegionSpots,
+            fetchRegionSpots: _refreshSpots,
             shouldRefresh: mapController.shouldSpotsRefresh.value,
             onCategorySelected: mapController.onCategorySelected,
             moveSpotList: () => mapController.navigateSpotList(LatLngBounds(

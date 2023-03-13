@@ -41,6 +41,12 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
     mapController.fetchSpots(region);
   }
 
+  void _refreshSpots() async {
+    var region = await _getRegion();
+    mapController.fetchSpots(region);
+    mapController.checkSpotEmpty();
+  }
+
   Future<LatLngBounds> _getRegion() async {
     final GoogleMapController controller = await _mapController.future;
     return await controller.getVisibleRegion();
@@ -111,7 +117,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
           )),
           Obx(() => SrAppBar(
             userName: homeController.userInfo.value.nickname ?? "",
-            fetchRegionSpots: _fetchRegionSpots,
+            fetchRegionSpots: _refreshSpots,
             shouldRefresh: mapController.shouldSpotsRefresh.value,
             user: homeController.userInfo.value,
             onCategorySelected: mapController.onCategorySelected,

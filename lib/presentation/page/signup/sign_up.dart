@@ -50,6 +50,8 @@ class _SignUpState extends State<SignUp> {
                       children: [
                         ..._InputEmail(),
                         ..._InputId(),
+                        ..._InputPassword(),
+                        ..._InputPasswordConfirm(),
                         ..._InputNickname(),
                         ..._InputBirthday(),
                         ..._InputSex(),
@@ -110,6 +112,50 @@ class _SignUpState extends State<SignUp> {
             ),
           ),
         ),
+      ),
+    ];
+  }
+
+  List<Widget> _InputPassword() {
+    return [
+      Padding(
+        padding: EdgeInsets.only(bottom: 4),
+        child: Text('비밀번호를 입력해주세요.'),
+      ),
+      Padding(
+        padding: EdgeInsets.only(bottom: 6),
+        child: SrTextField(
+          password: true,
+          hint: '비밀번호',
+          onChanged: signUpController.onPasswordChanged,
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.only(left: 12, bottom: 16),
+        child:
+        Obx(() => Text(signUpController.signUpState.passwordValidationMessage)),
+      ),
+    ];
+  }
+
+  List<Widget> _InputPasswordConfirm() {
+    return [
+      Padding(
+        padding: EdgeInsets.only(bottom: 4),
+        child: Text('다시 한 번 입력해주세요.'),
+      ),
+      Padding(
+        padding: EdgeInsets.only(bottom: 6),
+        child: SrTextField(
+          password: true,
+          hint: '비밀번호 확인',
+          onChanged: signUpController.onPasswordConfirmChanged,
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.only(left: 12, bottom: 16),
+        child:
+        Obx(() => Text(signUpController.signUpState.isPasswordsEqual ? "비밀번호가 일치합니다." : "비밀번호가 일치하지 않습니다.")),
       ),
     ];
   }

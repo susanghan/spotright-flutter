@@ -87,6 +87,10 @@ class MapController extends GetxController {
         bottomLatitude: latLngBounds.southwest.latitude,
         bottomLongitude: latLngBounds.northeast.longitude);
 
+    shouldSpotsRefresh.value = false;
+  }
+
+  void checkSpotEmpty() {
     if(_spots.isEmpty) {
       Get.dialog(SrDialog(
         icon: SvgPicture.asset("assets/warning.svg"),
@@ -97,8 +101,6 @@ class MapController extends GetxController {
         ],
       ));
     }
-
-    shouldSpotsRefresh.value = false;
   }
 
   void onCategorySelected(Set<String> selected) {

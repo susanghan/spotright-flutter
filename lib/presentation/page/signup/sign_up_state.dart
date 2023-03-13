@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:spotright/presentation/page/edit_profile/edit_profile_state.dart';
 
 class SignUpState {
   final Map<MessageStatus, String> _idMessageMap = {
@@ -17,19 +18,30 @@ class SignUpState {
     MessageStatus.empty: '',
   };
 
+  final Map<MessageStatus, String> _passwordMessageMap = {
+    MessageStatus.defaultMessage: "영문, 숫자, 특수문자(#\$@!%&*?) 조합 8~30자",
+    MessageStatus.checkLength: '비밀번호는 6~16자여야 합니다.',
+    MessageStatus.enabled: '사용 가능한 비밀번호입니다.',
+    MessageStatus.empty: '',
+  };
+
   RxString email = "".obs;
   RxBool emailInputEnabled = true.obs;
   RxBool checkedEmail = true.obs;
   RxString id = "".obs;
   RxBool checkedIdDuplication = false.obs;
   RxString nickname = "".obs;
+  RxString password = "".obs;
+  RxString passwordConfirm = "".obs;
+  bool get isPasswordsEqual => password.value == passwordConfirm.value;
   var idMessageStatus = MessageStatus.defaultMessage.obs;
   var nicknameMessageStatus = MessageStatus.defaultMessage.obs;
+  var passwordMessageStatue = MessageStatus.defaultMessage.obs;
 
   String get idValidationMessage => _idMessageMap[idMessageStatus.value]!;
-
   String get nicknameValidationMessage =>
       _nicknameMessageMap[nicknameMessageStatus.value]!;
+  String get passwordValidationMessage => _passwordMessageMap[passwordMessageStatue]!;
   RxString birthdate = "2000-01-01".obs;
   RxInt sex = 0.obs; // 0: 남자, 1: 여자
   RxBool privacyPolicy = false.obs;
@@ -37,14 +49,14 @@ class SignUpState {
   bool get _ctaActive =>
       checkedEmail.value &&
       checkedIdDuplication.value &&
+      passwordMessageStatue.value == MessageStatus.enabled &&
+          isPasswordsEqual &&
       (nicknameMessageStatus.value == MessageStatus.enabled) &&
       privacyPolicy.value;
 
   RxBool ctaActive = false.obs;
 
   void onChangeCtaState() {
-    print("onChange CTA ${checkedEmail.value} ${checkedIdDuplication.value} ${nicknameMessageStatus.value} ${privacyPolicy.value}");
-
     ctaActive.value = _ctaActive;
   }
 
@@ -65,6 +77,28 @@ class SignUpState {
       idMessageStatus.value = MessageStatus.checkLength;
     } else {
       idMessageStatus.value = MessageStatus.defaultMessage;
+    }
+  }
+
+  void validatePassword() {
+    final specialRegex = RegExp(r'[^a-zA-Z0-9#$@!%&*?]');
+    if(specialRegex.hasMatch(password.value)) {
+      passwordMessageStatue.value = MessageStatus.defaultMessage;
+      return;
+    }
+
+    final regex = RegExp(r'^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[#$@!%&*?]).{8,30}$');
+    if (regex.hasMatch(password.value)) {
+      passwordMessageStatue.value = MessageStatus.enabled;
+      return;
+    }
+
+    if (id.isEmpty) {
+      passwordMessageStatue.value = MessageStatus.defaultMessage;
+    } else if (password.value.length < 8 || password.value.length > 30) {
+      passwordMessageStatue.value = MessageStatus.checkLength;
+    } else {
+      passwordMessageStatue.value = MessageStatus.defaultMessage;
     }
   }
 
