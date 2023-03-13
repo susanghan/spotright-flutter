@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -37,7 +39,7 @@ class _LoginState extends State<Login> {
               padding: EdgeInsets.only(top: 200, bottom: 40),
                 child: Image(image: AssetImage("assets/login_logo.jpg"), width: 214,)),
             _signInButton("assets/google.svg", "구글 로그인", userController.signInWithGoogle),
-            _signInButton("assets/apple.svg", "애플 로그인", userController.signInWithApple),
+            if(Platform.isIOS) _signInButton("assets/apple.svg", "애플 로그인", userController.signInWithApple),
             _signInButton("assets/kakao.svg", "카카오 로그인", userController.signInWithKakao, isKakao: true),
           ],
         ),
