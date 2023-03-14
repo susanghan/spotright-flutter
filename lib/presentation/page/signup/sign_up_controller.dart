@@ -60,7 +60,8 @@ class SignUpController extends GetxController {
     signUpState.email.value = oAuthResponse.email ?? "";
     emailController.text = signUpState.email.value;
     signUpState.onChangeCtaState();
-    if(signUpState.email.isNotEmpty) signUpState.emailInputEnabled.value = false;
+    if (signUpState.email.isNotEmpty)
+      signUpState.emailInputEnabled.value = false;
   }
 
   void verifyDuplicateId() async {
@@ -82,6 +83,14 @@ class SignUpController extends GetxController {
     signUpState.onChangeCtaState();
   }
 
+  Function(bool checked) onJoinPathChanged(String key) {
+    return (bool checked) {
+      if (checked) {
+        signUpState.selectedJoinPath.value = key;
+      }
+    };
+  }
+
   Future<void> signup() async {
     SignUpRequest req = SignUpRequest(
       authProvider: oAuthResponse!.authProvider,
@@ -92,9 +101,11 @@ class SignUpController extends GetxController {
       gender: signUpState.sex.value == 0 ? "MALE" : "FEMALE",
       nickname: signUpState.nickname.value,
       spotrightId: signUpState.id.value,
+      registrationPath: signUpState.selectedJoinPath.value,
     );
-    bool res = await userRepository.signUp(req, "Bearer ${oAuthResponse!.token}");
-    if(res) Get.offAll(const Home());
+    bool res =
+        await userRepository.signUp(req, "Bearer ${oAuthResponse!.token}");
+    if (res) Get.offAll(const Home());
   }
 
   void authenticateEmail() {

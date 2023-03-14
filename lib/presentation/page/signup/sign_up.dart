@@ -7,7 +7,6 @@ import 'package:spotright/presentation/component/buttons/sr_cta_button.dart';
 import 'package:spotright/presentation/component/dialog/birthday_dialog.dart';
 import 'package:spotright/presentation/component/sr_check_box/sr_check_box.dart';
 import 'package:spotright/presentation/component/sr_text_field/sr_text_field.dart';
-import 'package:spotright/presentation/page/home/home.dart';
 import 'package:spotright/presentation/page/signup/sign_up_controller.dart';
 import 'package:spotright/presentation/page/signup/sign_up_state.dart';
 
@@ -24,7 +23,6 @@ class _SignUpState extends State<SignUp> {
 
   @override
   void initState() {
-    // todo: 에러 처리
     if (oAuthRepository.oAuthResponse == null) {
       return;
     }
@@ -55,6 +53,7 @@ class _SignUpState extends State<SignUp> {
                         ..._InputNickname(),
                         ..._InputBirthday(),
                         ..._InputSex(),
+                        ..._InputJoinPath(),
                         ..._InputPrivacyPolicy(),
                         Padding(padding: EdgeInsets.only(bottom: 40 + 88)),
                       ]),
@@ -282,6 +281,31 @@ class _SignUpState extends State<SignUp> {
               ],
             ),
           )
+        ],
+      ),
+    );
+  }
+
+  List<Widget> _InputJoinPath() {
+    return [
+      Padding(
+        padding: EdgeInsets.only(bottom: 16),
+          child: Text("가입경로를 선택해주세요")),
+      ...{"INSTAGRAM": "인스타그램", "EVERYTIME": "에브리타임", "FRIEND": "지인", "ETC": "기타"}
+          .entries.map((entry) => _PathItem(entry.key, entry.value, signUpController.signUpState.selectedJoinPath == entry.key)).toList(),
+      Padding(padding: EdgeInsets.only(bottom: 12)),
+    ];
+  }
+
+  Widget _PathItem(String key, String path, bool selected) {
+    return Padding(
+      padding: EdgeInsets.only(left: 12, bottom: 16),
+      child: Row(
+        children: [
+          Padding(
+              padding: EdgeInsets.only(right: 8),
+              child: SrCheckBox(value: selected, onChanged: signUpController.onJoinPathChanged(key))),
+          Text(path)
         ],
       ),
     );

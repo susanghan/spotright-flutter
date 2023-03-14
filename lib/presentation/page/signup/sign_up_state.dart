@@ -37,6 +37,7 @@ class SignUpState {
   var idMessageStatus = MessageStatus.defaultMessage.obs;
   var nicknameMessageStatus = MessageStatus.defaultMessage.obs;
   var passwordMessageStatue = MessageStatus.defaultMessage.obs;
+  RxString selectedJoinPath = "INSTAGRAM".obs;
 
   String get idValidationMessage => _idMessageMap[idMessageStatus.value]!;
   String get nicknameValidationMessage =>
