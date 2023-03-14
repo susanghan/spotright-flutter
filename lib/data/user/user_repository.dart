@@ -166,7 +166,7 @@ class UserRepository {
   }
 
   Future<bool> deactivate(String spotrightId) async {
-    var res = await networkClient.request(method: Http.delete, path: "_deactivatePath/$spotrightId");
+    var res = await networkClient.request(method: Http.delete, path: "$_deactivatePath/$spotrightId");
     return res.statusCode == 200;
   }
 }
