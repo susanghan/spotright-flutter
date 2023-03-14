@@ -325,45 +325,41 @@ class _SearchLocationState extends State<SearchLocation> {
   }
 
   Widget _SearchField() {
-    return Material(
-      elevation: 4,
-      borderRadius: BorderRadius.circular(20),
-      child: SrTextField(
-        height: 36,
-        borderRadius: 20,
-        hint: "",
-        backgroundColor: SrColors.white,
-        enableBorder: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20)),
-            borderSide: BorderSide(width: 1, color: SrColors.white)),
-        focusInputBorder: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20)),
-            borderSide: BorderSide(width: 1, color: SrColors.white)),
-        prefixIcon: Padding(
-          padding: const EdgeInsets.only(left: 16, right: 12),
-          child: GestureDetector(
-            onTap: () {
-              _changeCountry(context);
-            },
-            child: Obx(() => SvgPicture.asset(
-              searchLocationController.countryImage,
-              width: 20,
-              height: 20,
-            )),
-          ),
+    return SrTextField(
+      height: 43,
+      borderRadius: 22,
+      hint: "",
+      backgroundColor: SrColors.white,
+      enableBorder: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(22)),
+          borderSide: BorderSide(width: 1, color: SrColors.white)),
+      focusInputBorder: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(22)),
+          borderSide: BorderSide(width: 1, color: SrColors.white)),
+      prefixIcon: Padding(
+        padding: const EdgeInsets.only(left: 12, bottom: 3, right: 8),
+        child: GestureDetector(
+          onTap: () {
+            _changeCountry(context);
+          },
+          child: Obx(() => SvgPicture.asset(
+            searchLocationController.countryImage,
+            width: 24,
+            height: 24,
+          )),
         ),
-        prefixIconConstraints: const BoxConstraints(
-            maxWidth: 48, maxHeight: 20, minHeight: 20, minWidth: 48),
-        onSubmitted: (String text) {
-          if (searchLocationController.queryTypeState.value ==
-              QueryTypeState.COORDINATE) {
-            searchLocationController.queryTypeState.value =
-                QueryTypeState.ADDRESS;
-          }
-          searchLocationController.searchQuery.value = text;
-          searchLocationController.searchSpot();
-        },
       ),
+      prefixIconConstraints: const BoxConstraints(
+          maxWidth: 44, maxHeight: 44, minHeight: 24, minWidth: 24),
+      onSubmitted: (String text) {
+        if (searchLocationController.queryTypeState.value ==
+            QueryTypeState.COORDINATE) {
+          searchLocationController.queryTypeState.value =
+              QueryTypeState.ADDRESS;
+        }
+        searchLocationController.searchQuery.value = text;
+        searchLocationController.searchSpot();
+      },
     );
   }
 

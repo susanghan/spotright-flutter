@@ -31,6 +31,7 @@ class SrTextField extends StatefulWidget {
     this.focusNode,
     this.textInputAction,
     this.password = false,
+    this.boxShadow
   }) : super(key: key);
 
   final String hint;
@@ -53,6 +54,7 @@ class SrTextField extends StatefulWidget {
   ValueChanged<String>? onSubmitted;
   FocusNode? focusNode;
   TextInputAction? textInputAction;
+  Decoration? boxShadow;
 
 
   @override
@@ -68,6 +70,17 @@ class SrTextField_State extends State<SrTextField> {
       Container(
         margin: EdgeInsets.only(bottom: 8),
         height: widget.height,
+        decoration: widget.boxShadow ?? BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: SrColors.gray3.withOpacity(0.5),
+              blurRadius: 5.0,
+              spreadRadius: 0.0,
+              offset: const Offset(0, 4),
+            )
+          ],
+          borderRadius: BorderRadius.all(Radius.circular(widget.borderRadius)),
+        ),
         child: TextField(
           style: SrTypography.body2light.copy(color: SrColors.black),
           controller: widget.controller,
