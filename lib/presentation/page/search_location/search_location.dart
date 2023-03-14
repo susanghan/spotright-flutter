@@ -326,9 +326,20 @@ class _SearchLocationState extends State<SearchLocation> {
 
   Widget _SearchField() {
     return SrTextField(
-      height: 43,
+      height: 47,
       borderRadius: 22,
       hint: "",
+      boxShadow: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: SrColors.gray3.withOpacity(0.7),
+            blurRadius: 5.0,
+            spreadRadius: 0.0,
+            offset: const Offset(0, 4),
+          )
+        ],
+        borderRadius: BorderRadius.all(Radius.circular(22)),
+      ),
       backgroundColor: SrColors.white,
       enableBorder: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(22)),
