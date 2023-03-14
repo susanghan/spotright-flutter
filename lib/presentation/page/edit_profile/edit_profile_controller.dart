@@ -17,7 +17,7 @@ class EditProfileController extends GetxController {
     if(userResponse.value.memberPhoto?.photoUrl!.isNotEmpty ?? false) userProfileState.value = UserProfileState.serverState;
     userProfilePath.value = '';
 
-    TextEditingController nicknameController = TextEditingController();
+    nicknameController = TextEditingController();
     editProfileState.nickname.value = userResponse.value.nickname ?? '';
     nicknameController.text = userResponse.value.nickname ?? '';
     userNickname.value = userResponse.value.nickname ?? '';
@@ -45,7 +45,10 @@ class EditProfileController extends GetxController {
   RxString userNickname = ''.obs;
 
   //**완료 버튼
-  RxBool get ctaActive => ((userNickname.value != userResponse.value.nickname ) && (editProfileState.nicknameMessageStatus.value == MessageStatus.enabled)).obs;
+  RxBool get ctaActive => (((userNickname.value != userResponse.value.nickname ) &&
+      (editProfileState.nicknameMessageStatus.value == MessageStatus.enabled)) ||
+      (((userResponse.value.memberPhoto?.photoUrl ?? '') != userProfilePath.value) &&
+      (userProfileState.value != UserProfileState.serverState))).obs;
 
   ImageProvider? get imageProvider {
     switch(userProfileState.value) {
