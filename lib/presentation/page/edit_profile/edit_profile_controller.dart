@@ -13,8 +13,9 @@ class EditProfileController extends GetxController {
 
   void initState() {
     userResponse.value = userRepository.userResponse!;
+    userRepository.fetchMyInfo();
 
-    if(userResponse.value.memberPhoto?.photoUrl!.isNotEmpty ?? false) userProfileState.value = UserProfileState.serverState;
+    if(userResponse.value.memberPhoto?.photoUrl != null) userProfileState.value = UserProfileState.serverState;
     userProfilePath.value = '';
 
     nicknameController = TextEditingController();
@@ -51,6 +52,7 @@ class EditProfileController extends GetxController {
       (userProfileState.value != UserProfileState.serverState))).obs;
 
   ImageProvider? get imageProvider {
+    print("userProfileState.value : ${userProfileState.value}");
     switch(userProfileState.value) {
       case UserProfileState.serverState: return NetworkImage(userResponse.value.memberPhoto!.photoUrl!);
       case UserProfileState.galleryState: return Image.file(File(userProfilePath.value), cacheWidth: 720,).image;
@@ -61,8 +63,10 @@ class EditProfileController extends GetxController {
   Future<void> onEditButtonPressed(ImageSource source, {BuildContext? context}) async {
     try {
       final XFile? pickedFile = await _picker.pickImage(source: source);
-      userProfileState.value = UserProfileState.galleryState;
-      userProfilePath.value = pickedFile!.path;
+      (userProfileState.value == UserProfileState.serverState && pickedFile == null) ? null : {
+        userProfileState.value = UserProfileState.galleryState,
+        userProfilePath.value = pickedFile!.path};
+
     } catch (e) {
       pickImageError = e;
     }
@@ -86,7 +90,6 @@ class EditProfileController extends GetxController {
     else{
       updateProfilePhoto();
     }
-
     Get.back();
     await userRepository.updateNickname(editProfileState.nickname.value);
     userRepository.fetchMyInfo();
