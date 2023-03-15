@@ -30,8 +30,9 @@ class UserRepository {
   final String _unblockUsersPath = "/member/unblock";
   final String _updateNicknamePath = "/member/nickname";
   final String _deactivatePath = "/member/spotright-id";
+  final String _findIdPath = "/member/spotright-id/forgot";
 
-  bool get isLoggedIn => networkClient.accessToken != null;
+  bool get isLoggedIn => networkClient.accessToken.isNotEmpty;
 
   NetworkClient networkClient = Get.find();
   LocalRepository localRepository = Get.find();
@@ -168,5 +169,12 @@ class UserRepository {
   Future<bool> deactivate(String spotrightId) async {
     var res = await networkClient.request(method: Http.delete, path: "$_deactivatePath/$spotrightId");
     return res.statusCode == 200;
+  }
+
+  Future<void> findId(String email) async {
+    await networkClient.request(method: Http.post, path: _findIdPath, body: {
+      "email": email,
+      "language": "KR",
+    });
   }
 }
