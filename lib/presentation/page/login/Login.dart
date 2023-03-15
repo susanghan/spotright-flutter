@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:spotright/presentation/common/colors.dart';
+import 'package:spotright/presentation/common/typography.dart';
+import 'package:spotright/presentation/component/buttons/sr_cta_button.dart';
+import 'package:spotright/presentation/component/sr_text_field/sr_text_field.dart';
 import 'package:spotright/presentation/page/home/home.dart';
 import 'package:spotright/presentation/page/login/user_controller.dart';
 import 'package:spotright/presentation/page/signup/sign_up.dart';
@@ -36,51 +39,85 @@ class _LoginState extends State<Login> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
-              padding: EdgeInsets.only(top: 200, bottom: 40),
-                child: Image(image: AssetImage("assets/login_logo.jpg"), width: 214,)),
-            _signInButton("assets/google.svg", "구글 로그인", userController.signInWithGoogle),
-            if(Platform.isIOS) _signInButton("assets/apple.svg", "애플 로그인", userController.signInWithApple),
-            _signInButton("assets/kakao.svg", "카카오 로그인", userController.signInWithKakao, isKakao: true),
+              padding: EdgeInsets.only(top: 108, bottom: 44),
+                child: SvgPicture.asset("assets/login_logo.svg"),),
+            Column(
+              children: [
+                SrTextField(
+                  hint: "아이디를 입력하세요",
+                ),
+                SrTextField(
+                  hint: "비밀번호를 입력하세요",
+                  password: true,
+                ),
+                SrCTAButton(action: () {}, text: "로그인"),
+                Padding(
+                  padding: EdgeInsets.only(bottom: 60),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextButton(onPressed: () {}, child: Text("아이디 찾기", style: SrTypography.body3medium.copy(color: SrColors.gray2),)),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8),
+                          child: Text("|", style: SrTypography.body3medium.copy(color: SrColors.gray2))),
+                      TextButton(onPressed: () {}, child: Text("비밀번호 찾기", style: SrTypography.body3medium.copy(color: SrColors.gray2)))
+                    ],
+                  ),
+                )
+              ],
+            ),
+            Padding(
+              padding: EdgeInsets.only(bottom: 40),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if(Platform.isIOS) _signInButton("assets/apple.svg", userController.signInWithApple, Colors.black, Colors.black),
+                  _signInButton("assets/google.svg", userController.signInWithGoogle, SrColors.gray2, SrColors.white),
+                  _signInButton("assets/kakao.svg", userController.signInWithKakao, SrColors.kakao, SrColors.kakao),
+                ],
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("아직 Spotright에 가입하지 않으셨나요? ", style: SrTypography.body2medium.copy(color: SrColors.gray2),),
+                GestureDetector(
+                  onTap: () {
+                    Get.to(SignUp());
+                  },
+                    child: Text("회원가입", style: SrTypography.body2medium.copy(color: SrColors.primary),)),
+              ],
+            )
           ],
         ),
       ),
     ));
   }
 
-  Widget _signInButton(String iconPath, String buttonName, Function() action,
-      {bool isKakao = false}) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 12),
-      width: double.infinity,
-      height: 45,
-      child: OutlinedButton(
-        onPressed: () async {
-          bool isSuccessful = await action();
-          if(isSuccessful) {
-            Get.to(() => const Home());
-            return;
-          }
+  Widget _signInButton(String iconPath, Function() action, Color borderColor, Color background) {
+    return GestureDetector(
+      onTap: () async {
+        bool isSuccessful = await action();
+        if(isSuccessful) {
+          Get.to(() => const Home());
+          return;
+        }
 
-          Get.to(const SignUp());
-        },
-        style: OutlinedButton.styleFrom(
-            backgroundColor: isKakao ? SrColors.kakao : SrColors.white,
-            side: BorderSide(
-              width: 2,
-              color: isKakao ? SrColors.kakao : SrColors.gray2,
-            ),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(100),
-            )
+        Get.to(const SignUp());
+      },
+      child: Container(
+        padding: EdgeInsets.all(8),
+        margin: EdgeInsets.only(right: 20),
+        width: 46,
+        height: 46,
+        decoration: BoxDecoration(
+          color: background,
+          borderRadius: BorderRadius.circular(100),
+          border: Border.all(
+            color: borderColor
+          )
         ),
-        child:
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              SizedBox(width: 24, child: SvgPicture.asset(iconPath)),
-              Text(buttonName, style: TextStyle(color: SrColors.black)),
-              SizedBox(
-            width: 24,
-          ),
-        ]),
+        child: SvgPicture.asset(iconPath, width: 28,),
       ),
     );
   }
