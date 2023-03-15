@@ -20,7 +20,7 @@ class OAuthRepository {
     GoogleSignInAuthentication? auth = await googleSignInAccount?.authentication;
     oAuthResponse = OAuthResponse.fromGoogle(googleSignInAccount!, auth!);
 
-    return userRepository.login("google", oAuthResponse!.token);
+    return userRepository.oauthLogin("google", oAuthResponse!.token);
   }
 
   Future<bool> signInWithApple() async {
@@ -28,15 +28,14 @@ class OAuthRepository {
     OAuthCredential appleCredential = await AppleSignInApi().login();
     oAuthResponse = OAuthResponse.fromApple(appleCredential);
 
-    return userRepository.login("apple", oAuthResponse!.token);
+    return userRepository.oauthLogin("apple", oAuthResponse!.token);
   }
 
   Future<bool> signInWithKakao() async {
     logger.d("카카오톡으로 로그인");
     OAuthToken kakaoToken = await KakaoTalkSignInApi().login();
-    print("hehe ${kakaoToken.idToken}");
     oAuthResponse = OAuthResponse.fromKakao(kakaoToken);
 
-    return userRepository.login("kakao", oAuthResponse!.token);
+    return userRepository.oauthLogin("kakao", oAuthResponse!.token);
   }
 }

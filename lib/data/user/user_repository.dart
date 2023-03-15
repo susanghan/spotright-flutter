@@ -14,7 +14,7 @@ class UserRepository {
   final String _memberIdKey = "memberId";
   final String _getUserInfoPath = "/member";
   final String _signUpPath = "/member";
-  final String _loginPath = "/member/oauth";
+  final String _oauthLoginPath = "/member/oauth";
   final String _getMemberInfoPath = "/member";
   final String _updateBirthDatePath = "/member/birthdate";
   final String _blockPath = "/member/block";
@@ -32,6 +32,7 @@ class UserRepository {
   final String _deactivatePath = "/member/spotright-id";
   final String _findIdPath = "/member/spotright-id/forgot";
   final String _findPasswordPath = "/member/password/forgot";
+  final String _loginPath = "/member/login";
 
   bool get isLoggedIn => networkClient.accessToken.isNotEmpty;
 
@@ -52,14 +53,28 @@ class UserRepository {
   /**
    * @return 로그인 성공 여부 반환.
    */
-  Future<bool> login(String oAuthProvider, String accessToken) async {
-    var res = await networkClient.login(method: Http.post, path: "$_loginPath/$oAuthProvider", headers: {"authorization": "Bearer $accessToken"});
+  Future<bool> oauthLogin(String oAuthProvider, String accessToken) async {
+    var res = await networkClient.login(method: Http.post, path: "$_oauthLoginPath/$oAuthProvider", headers: {"authorization": "Bearer $accessToken"});
 
     if(res.jsonMap == null) return false;
     userResponse = UserResponse.fromJson(res.jsonMap!);
     localRepository.save(_memberIdKey, userResponse!.memberId.toString());
 
-    return true;
+    return res.statusCode == 200;
+  }
+
+  Future<bool> login(String id, String password) async {
+    var res = await networkClient.request(method: Http.post, path: _loginPath, body: {
+      "spotrightId": id,
+      "password": password,
+    });
+    Map<String, String>? resHeaders = res.headers;
+    if(res.responseWrapper.responseCode == "MEMBER_LOGGED_IN") networkClient.saveRefreshToken(resHeaders);
+    var user = UserResponse.fromJson(res.jsonMap!);
+    userResponse = user;
+    localRepository.save(_memberIdKey, user.memberId.toString());
+
+    return res.statusCode == 200;
   }
 
   Future<void> logout() async {

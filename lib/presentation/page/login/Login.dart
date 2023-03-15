@@ -37,64 +37,68 @@ class _LoginState extends State<Login> {
         child: Scaffold(
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(top: 108, bottom: 44),
-                child: SvgPicture.asset("assets/login_logo.svg"),),
-            Column(
-              children: [
-                SrTextField(
-                  hint: "아이디를 입력하세요",
-                ),
-                SrTextField(
-                  hint: "비밀번호를 입력하세요",
-                  password: true,
-                ),
-                SrCTAButton(action: () {}, text: "로그인"),
-                Padding(
-                  padding: EdgeInsets.only(bottom: 60),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      TextButton(onPressed: () {
-                        Get.to(FindId());
-                      }, child: Text("아이디 찾기", style: SrTypography.body3medium.copy(color: SrColors.gray2),)),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 8),
-                          child: Text("|", style: SrTypography.body3medium.copy(color: SrColors.gray2))),
-                      TextButton(onPressed: () {
-                        Get.to(FindPassword());
-                      }, child: Text("비밀번호 찾기", style: SrTypography.body3medium.copy(color: SrColors.gray2)))
-                    ],
-                  ),
-                )
-              ],
-            ),
-            Padding(
-              padding: EdgeInsets.only(bottom: 40),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(top: 108, bottom: 44),
+                  child: SvgPicture.asset("assets/login_logo.svg"),),
+              Column(
                 children: [
-                  if(Platform.isIOS) _signInButton("assets/apple.svg", userController.signInWithApple, Colors.black, Colors.black),
-                  _signInButton("assets/google.svg", userController.signInWithGoogle, SrColors.gray2, SrColors.white),
-                  _signInButton("assets/kakao.svg", userController.signInWithKakao, SrColors.kakao, SrColors.kakao),
+                  SrTextField(
+                    hint: "아이디를 입력하세요",
+                    onChanged: userController.onIdChanged,
+                  ),
+                  SrTextField(
+                    hint: "비밀번호를 입력하세요",
+                    password: true,
+                    onChanged: userController.onPasswordChanged,
+                  ),
+                  SrCTAButton(action: userController.login, text: "로그인"),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 60),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        TextButton(onPressed: () {
+                          Get.to(FindId());
+                        }, child: Text("아이디 찾기", style: SrTypography.body3medium.copy(color: SrColors.gray2),)),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 8),
+                            child: Text("|", style: SrTypography.body3medium.copy(color: SrColors.gray2))),
+                        TextButton(onPressed: () {
+                          Get.to(FindPassword());
+                        }, child: Text("비밀번호 찾기", style: SrTypography.body3medium.copy(color: SrColors.gray2)))
+                      ],
+                    ),
+                  )
                 ],
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("아직 Spotright에 가입하지 않으셨나요? ", style: SrTypography.body2medium.copy(color: SrColors.gray2),),
-                GestureDetector(
-                  onTap: () {
-                    Get.to(SignUp());
-                  },
-                    child: Text("회원가입", style: SrTypography.body2medium.copy(color: SrColors.primary),)),
-              ],
-            )
-          ],
+              Padding(
+                padding: EdgeInsets.only(bottom: 40),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    if(Platform.isIOS) _signInButton("assets/apple.svg", userController.signInWithApple, Colors.black, Colors.black),
+                    _signInButton("assets/google.svg", userController.signInWithGoogle, SrColors.gray2, SrColors.white),
+                    _signInButton("assets/kakao.svg", userController.signInWithKakao, SrColors.kakao, SrColors.kakao),
+                  ],
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("아직 Spotright에 가입하지 않으셨나요? ", style: SrTypography.body2medium.copy(color: SrColors.gray2),),
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(SignUp());
+                    },
+                      child: Text("회원가입", style: SrTypography.body2medium.copy(color: SrColors.primary),)),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     ));
