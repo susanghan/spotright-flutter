@@ -31,6 +31,7 @@ class UserRepository {
   final String _updateNicknamePath = "/member/nickname";
   final String _deactivatePath = "/member/spotright-id";
   final String _findIdPath = "/member/spotright-id/forgot";
+  final String _findPasswordPath = "/member/password/forgot";
 
   bool get isLoggedIn => networkClient.accessToken.isNotEmpty;
 
@@ -173,6 +174,14 @@ class UserRepository {
 
   Future<void> findId(String email) async {
     await networkClient.request(method: Http.post, path: _findIdPath, body: {
+      "email": email,
+      "language": "KR",
+    });
+  }
+
+  Future<void> findPassword(String id, String email) async {
+    await networkClient.request(method: Http.post, path: _findPasswordPath, body: {
+      "spotrightId": id,
       "email": email,
       "language": "KR",
     });

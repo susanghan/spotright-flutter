@@ -8,6 +8,7 @@ import 'package:spotright/presentation/common/typography.dart';
 import 'package:spotright/presentation/component/buttons/sr_cta_button.dart';
 import 'package:spotright/presentation/component/sr_text_field/sr_text_field.dart';
 import 'package:spotright/presentation/page/find_id/find_id.dart';
+import 'package:spotright/presentation/page/find_password/find_password.dart';
 import 'package:spotright/presentation/page/home/home.dart';
 import 'package:spotright/presentation/page/login/user_controller.dart';
 import 'package:spotright/presentation/page/signup/sign_up.dart';
@@ -63,7 +64,9 @@ class _LoginState extends State<Login> {
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 8),
                           child: Text("|", style: SrTypography.body3medium.copy(color: SrColors.gray2))),
-                      TextButton(onPressed: () {}, child: Text("비밀번호 찾기", style: SrTypography.body3medium.copy(color: SrColors.gray2)))
+                      TextButton(onPressed: () {
+                        Get.to(FindPassword());
+                      }, child: Text("비밀번호 찾기", style: SrTypography.body3medium.copy(color: SrColors.gray2)))
                     ],
                   ),
                 )
