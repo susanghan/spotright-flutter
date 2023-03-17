@@ -33,19 +33,41 @@ class MapController extends GetxController {
   Rx<UserResponse> userInfo = UserResponse(memberId: 0).obs;
   final RxList<SpotResponse> _spots = <SpotResponse>[].obs;
 
-  RxSet<Marker> get spots => _spots
-      .where((spot) => selectedCategories.contains("전체") || selectedCategories.contains(spot.mainCategory))
-      .map(
-        (spot) => Marker(
-        markerId: MarkerId(spot.memberSpotId.toString()),
-        position: LatLng(spot.latitude!, spot.longitude!),
-        icon: BitmapDescriptor.fromBytes( selectedSpot.value == spot.memberSpotId.toString() ?
-            markerImageBytesList[spot.mainCategoryIndex] : pinImageBytesList[spot.mainCategoryIndex]),
-        onTap: () => _showSpotBottomSheet(spot)),
-  )
-      .toSet()
-      .obs;
+  RxSet<Marker> get spots => _convertSpots(_spots).obs;
   RxBool shouldSpotsRefresh = false.obs;
+
+  Set<Marker> _convertSpots(List<SpotResponse> spotList) {
+    var showSpots = spotList
+        .where((spot) => selectedCategories.contains("전체") || selectedCategories.contains(spot.mainCategory)).toList();
+
+    Set<Marker> showMarkers = {};
+    Set<SpotResponse> usedSpots = {};
+
+    for(int i = 0; i < showSpots.length; i++) {
+      if(usedSpots.where((spot) => spot.memberSpotId == showSpots[i].memberSpotId).isNotEmpty) {
+        continue;
+      }
+
+      var spot = showSpots[i];
+      showMarkers.add(Marker(
+          markerId: MarkerId(spot.memberSpotId.toString()),
+          position: LatLng(spot.latitude!, spot.longitude!),
+          icon: BitmapDescriptor.fromBytes(selectedSpot.value == spot.memberSpotId.toString() ?
+          markerImageBytesList[spot.mainCategoryIndex] : pinImageBytesList[spot.mainCategoryIndex]),
+          onTap: () => _showSpotBottomSheet(findSameLocationSpots(spotList, spot))
+      ));
+
+      findSameLocationSpots(showSpots, spot).forEach((element) {
+        usedSpots.add(element);
+      });
+    }
+
+    return showMarkers;
+  }
+
+  List<SpotResponse> findSameLocationSpots(List<SpotResponse> spotList, SpotResponse spot) {
+    return spotList.where((cur) => (cur.latitude! - spot.latitude!).abs() < 0.00001).toList();
+  }
 
   void initState(Function() reRender, UserResponse user) {
     this.reRender = reRender;
@@ -109,15 +131,15 @@ class MapController extends GetxController {
     reRender?.call();
   }
 
-  void _showSpotBottomSheet(SpotResponse spot) {
-    selectedSpot.value = spot.memberSpotId.toString();
+  void _showSpotBottomSheet(List<SpotResponse> spots) {
+    selectedSpot.value = spots[0].memberSpotId.toString();
     Get.bottomSheet(SrBottomSheet(
-      spots: [spot],
-      moveDetail: _moveDetail(spot),
+      spots: spots,
+      moveDetail: _moveDetail,
     ));
   }
 
-  Function() _moveDetail(SpotResponse spot) => () => Get.to(Detail(userId: userInfo.value.memberId, memberSpotId: spot.memberSpotId!));
+  void _moveDetail(SpotResponse spot) => Get.to(Detail(userId: userInfo.value.memberId, memberSpotId: spot.memberSpotId!));
   void navigateSpotList(LatLngBounds latLngBounds) async {
     Get.to(SpotList(userId: userInfo.value.memberId,
         topLatitude: latLngBounds.northeast.latitude,
