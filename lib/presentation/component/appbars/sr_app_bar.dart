@@ -322,28 +322,28 @@ class _SrAppBarState extends State<SrAppBar> {
   }
 
   Widget _ExpandButton() {
-    return Container(
-      alignment: Alignment.center,
-      width: double.infinity,
-      height: arrowAreaSize,
-      decoration: BoxDecoration(
-          color: SrColors.white,
-          borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(15),
-              bottomRight: Radius.circular(15))),
-      child: GestureDetector(
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          expanded = !expanded;
+          topContentSize = expanded ? _topContentSize : 0;
+        });
+      },
+      child: Container(
+        alignment: Alignment.center,
+        width: double.infinity,
+        height: arrowAreaSize,
+        decoration: BoxDecoration(
+            color: SrColors.white,
+            borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(15),
+                bottomRight: Radius.circular(15))),
         child: SvgPicture.asset(
           expanded ? 'assets/arrow_up.svg' : 'assets/arrow_down.svg',
           color: SrColors.primary,
           width: 20,
           height: 20,
         ),
-        onTap: () {
-          setState(() {
-            expanded = !expanded;
-            topContentSize = expanded ? _topContentSize : 0;
-          });
-        },
       ),
     );
   }
