@@ -28,6 +28,7 @@ class MapController extends GetxController {
   final int pinSize = 24;
   Set<String> selectedCategories = <String>{"전체"};
   Function()? reRender;
+  RxString selectedSpot = "".obs;
 
   Rx<UserResponse> userInfo = UserResponse(memberId: 0).obs;
   final RxList<SpotResponse> _spots = <SpotResponse>[].obs;
@@ -38,8 +39,8 @@ class MapController extends GetxController {
         (spot) => Marker(
         markerId: MarkerId(spot.memberSpotId.toString()),
         position: LatLng(spot.latitude!, spot.longitude!),
-        icon: BitmapDescriptor.fromBytes(
-            markerImageBytesList[spot.mainCategoryIndex]),
+        icon: BitmapDescriptor.fromBytes( selectedSpot.value == spot.memberSpotId.toString() ?
+            markerImageBytesList[spot.mainCategoryIndex] : pinImageBytesList[spot.mainCategoryIndex]),
         onTap: () => _showSpotBottomSheet(spot)),
   )
       .toSet()
@@ -109,6 +110,7 @@ class MapController extends GetxController {
   }
 
   void _showSpotBottomSheet(SpotResponse spot) {
+    selectedSpot.value = spot.memberSpotId.toString();
     Get.bottomSheet(SrBottomSheet(
       spots: [spot],
       moveDetail: _moveDetail(spot),
