@@ -89,7 +89,7 @@ class _ChangeUserBirthState extends State<ChangeUserBirth> {
             borderRadius: BorderRadius.circular(100),
               border: Border.all(color: SrColors.gray1, width: 1),
           ),
-          child: Obx(() => Text(birthdayController.birthdate.value, style: SrTypography.body2medium.copy(color: SrColors.gray1)),)
+          child: Obx(() => Text(birthdayController.birthdate.value, style: SrTypography.body2medium.copy(color: SrColors.black)),)
         ),
       )
     ];
