@@ -8,7 +8,6 @@ class SrSpinner extends StatelessWidget {
   final List<String> list;
   final Function(String current) onChanged;
   String defaultValue;
-  int? seletedValue;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +25,6 @@ class SrSpinner extends StatelessWidget {
           controller: controller,
           itemBuilder: (_, i) => _buildItem(list[i]),
           onPageChanged: (page) {
-            seletedValue = page;
             onChanged(list[page]);
           },
         ),
