@@ -77,7 +77,7 @@ class SrTextField_State extends State<SrTextField> {
           controller: widget.controller,
           focusNode: widget.focusNode,
           textInputAction: widget.textInputAction,
-          cursorColor: SrColors.success,
+          cursorColor: SrColors.gray1,
           cursorWidth: widget.cursorWidth,
           maxLines: widget.maxLines,
           textAlign: TextAlign.start,

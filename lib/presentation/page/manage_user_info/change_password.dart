@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spotright/presentation/common/typography.dart';
 import 'package:spotright/presentation/page/manage_user_info/change_passowrd_controller.dart';
-import 'package:spotright/presentation/page/manage_user_info/id_controller.dart';
 
 import '../../common/colors.dart';
 import '../../component/appbars/default_app_bar.dart';
@@ -19,6 +18,8 @@ class ChangePassword extends StatefulWidget {
 
 class _ChangePasswordState extends State<ChangePassword> {
   ChangePasswordController changePasswordController = Get.put(ChangePasswordController());
+
+  final InputBorder? focusInputBorder = const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(22)), borderSide: BorderSide(width: 1, color: SrColors.gray1));
 
   @override
   void initState() {
@@ -81,13 +82,14 @@ class _ChangePasswordState extends State<ChangePassword> {
             hint: "비밀번호",
             password: true,
             onChanged: changePasswordController.onPasswordChanged,
+            focusInputBorder: focusInputBorder,
           ),
         ),
         Obx(() => Padding(
             padding: const EdgeInsets.only(left: 14, bottom: 8),
             child: Text(
               changePasswordController.passwordValidationMessage,
-              style: SrTypography.body2light.copy(color: SrColors.gray1),
+              style: changePasswordController.passwordMessageStatus.value == MessageStatus.enabled ? SrTypography.body2light.copy(color: SrColors.success) : SrTypography.body2light.copy(color: SrColors.primary),
             )),)
       ],
     );
@@ -114,13 +116,14 @@ class _ChangePasswordState extends State<ChangePassword> {
             hint: "비밀번호 확인",
             password: true,
             onChanged: changePasswordController.onPasswordConfirmChanged,
+            focusInputBorder: focusInputBorder,
           ),
         ),
         Obx(() => Padding(
           padding: const EdgeInsets.only(left: 14),
           child: Text(
               (changePasswordController.password.value == changePasswordController.passwordConfirm.value) ? "비밀번호가 일치합니다" : "비밀번호가 일치하지 않습니다",
-              style: SrTypography.body2light.copy(color: SrColors.gray1)
+              style: (changePasswordController.password.value == changePasswordController.passwordConfirm.value) ? SrTypography.body2light.copy(color: SrColors.success) : SrTypography.body2light.copy(color: SrColors.primary)
           ),
         )),
       ],

@@ -14,9 +14,9 @@ class ChangePasswordController extends GetxController {
 
   RxString password = "".obs;
   RxString passwordConfirm = "".obs;
-  bool get ctaActive => (passwordMessageStatue.value == MessageStatus.enabled) && (password.value == passwordConfirm.value);
-  var passwordMessageStatue = MessageStatus.defaultMessage.obs;
-  String get passwordValidationMessage => _passwordMessageMap[passwordMessageStatue]!;
+  bool get ctaActive => (passwordMessageStatus.value == MessageStatus.enabled) && (password.value == passwordConfirm.value);
+  var passwordMessageStatus = MessageStatus.defaultMessage.obs;
+  String get passwordValidationMessage => _passwordMessageMap[passwordMessageStatus]!;
 
   void onPasswordChanged(String text) {
     password.value = text;
@@ -37,22 +37,22 @@ class ChangePasswordController extends GetxController {
   void _validatePassword() {
     final specialRegex = RegExp(r'[^a-zA-Z0-9#$@!%&*?]');
     if(specialRegex.hasMatch(password.value)) {
-      passwordMessageStatue.value = MessageStatus.defaultMessage;
+      passwordMessageStatus.value = MessageStatus.defaultMessage;
       return;
     }
 
     final regex = RegExp(r'^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[#$@!%&*?]).{8,30}$');
     if (regex.hasMatch(password.value)) {
-      passwordMessageStatue.value = MessageStatus.enabled;
+      passwordMessageStatus.value = MessageStatus.enabled;
       return;
     }
 
     if (password.isEmpty) {
-      passwordMessageStatue.value = MessageStatus.defaultMessage;
+      passwordMessageStatus.value = MessageStatus.defaultMessage;
     } else if (password.value.length < 8 || password.value.length > 30) {
-      passwordMessageStatue.value = MessageStatus.checkLength;
+      passwordMessageStatus.value = MessageStatus.checkLength;
     } else {
-      passwordMessageStatue.value = MessageStatus.defaultMessage;
+      passwordMessageStatus.value = MessageStatus.defaultMessage;
     }
   }
 }
