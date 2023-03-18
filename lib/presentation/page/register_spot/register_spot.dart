@@ -27,6 +27,9 @@ RegisterSpotController registerSpotController = Get.find();
 
 final List<String> mainCategory = registerSpotController.mainCategory;
 final List<Color> mainCategoryColors = registerSpotController.mainCategoryColors;
+const InputBorder gray1Border = OutlineInputBorder(borderRadius:BorderRadius.all(Radius.circular(22)),borderSide: BorderSide(width: 1, color: SrColors.gray1));
+const InputBorder gray2Border = OutlineInputBorder(borderRadius:BorderRadius.all(Radius.circular(22)),borderSide: BorderSide(width: 1, color: SrColors.gray2));
+
 
 class _RegisterSpotState extends State<RegisterSpot> {
   @override
@@ -166,13 +169,20 @@ class _RegisterSpotState extends State<RegisterSpot> {
       _TextFieldLabel("장소명을 입력해 주세요", true),
       Padding(
         padding: const EdgeInsets.only(bottom: 16),
-        child: SrTextField(
-
-          controller: registerSpotController.spotNameController,
-          textInputAction: TextInputAction.next,
-          onChanged: (text){
-            registerSpotController.onChangeCtaState();
+        child: Focus(
+          onFocusChange: (focus) {
+            registerSpotController.init.value ? Get.to(SearchLocation()) : null;
+            registerSpotController.init.value = false;
           },
+          child: SrTextField(
+            controller: registerSpotController.spotNameController,
+            focusInputBorder: gray1Border,
+            textInputAction: TextInputAction.next,
+            onChanged: (text){
+              registerSpotController.spotnameText.value = text;
+              registerSpotController.onChangeCtaState();
+            },
+          ),
         ),
       ),
     ];
@@ -187,9 +197,11 @@ class _RegisterSpotState extends State<RegisterSpot> {
           Padding(
             padding: EdgeInsets.only(bottom: 16),
             child: Obx(() => SrRecommendTextField(
+                  enabled: !registerSpotController.init.value || registerSpotController.spotnameText.value.isNotEmpty,
                   inputController: registerSpotController.provinceController,
                   searchList: registerSpotController.searchProvinceList.value,
-                  onChanged: () {
+                  onChanged: (text) {
+                    registerSpotController.provinceText.value = text;
                     registerSpotController.setSearchCityList(
                         registerSpotController.provinceController.text);
                   },
@@ -215,9 +227,13 @@ class _RegisterSpotState extends State<RegisterSpot> {
       Padding(
         padding: EdgeInsets.only(bottom: 16),
         child: Obx(() => SrRecommendTextField(
+              enabled: registerSpotController.provinceText.value.isNotEmpty,
               inputController: registerSpotController.cityController,
               searchList: registerSpotController.searchCityList.value,
-              onChanged: () {
+              onChanged: (text) {
+                registerSpotController.cityText.value = text;
+                print("registerSpotController.cityText.value : ${registerSpotController.cityText.value}");
+                print("registerSpotController.cityText.value : ${registerSpotController.cityText.value.isNotEmpty}");
                 registerSpotController.onChangeCtaState();
               },
               onDropdownPressed: () {},
@@ -232,13 +248,15 @@ class _RegisterSpotState extends State<RegisterSpot> {
       _TextFieldLabel("상세주소를 입력해주세요", true),
       Padding(
         padding: EdgeInsets.only(bottom: 16),
-        child: SrTextField(
+        child: Obx(()=>SrTextField(
+          enabled: registerSpotController.cityText.value.isNotEmpty,
           controller: registerSpotController.addressController,
+          focusInputBorder: gray1Border,
           textInputAction: TextInputAction.next,
           onChanged: (text) {
             registerSpotController.onChangeCtaState();
           },
-        ),
+        ),)
       ),
     ];
   }

@@ -18,7 +18,7 @@ class SrDropdownButton extends StatefulWidget {
       : super(key: key);
 
   String hint; //카테고리 제몰
-  final List<String> dropdownItems; //버튼 누르면 나오는 아이템들 List
+  List<String> dropdownItems; //버튼 누르면 나오는 아이템들 List
   final ValueChanged<String?>? onChanged; //아이템 선택했을 때 실행되는 함수
   final bool hasIcon; //드롭다운 아이템이 앞에 아이콘을 갖고 있는지
   bool isRequired; //필수 항목인지(글자 표시됨)
@@ -58,6 +58,7 @@ class _SrDropdownState extends State<SrDropdownButton> {
 
   bool isActive = false;
   Color activeButtonColor = SrColors.gray2;
+  Color inactiveButtonColor = SrColors.gray3;
 
 
   @override
@@ -70,10 +71,10 @@ class _SrDropdownState extends State<SrDropdownButton> {
           alignment: Alignment.centerLeft,
           child: Text.rich(
             TextSpan(
-                style: const TextStyle(
+                style: TextStyle(
                   fontWeight: FontWeight.w300,
                   fontSize: 15,
-                  color: SrColors.black,
+                  color: widget.dropdownItems.isNotEmpty ? SrColors.black : SrColors.gray3,
                 ),
                 children: [
                   TextSpan(text: widget.hint),
@@ -165,7 +166,7 @@ class _SrDropdownState extends State<SrDropdownButton> {
         buttonDecoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(22)),
             color: Colors.white,
-            border: Border.all(color: activeButtonColor, width: 1)),
+            border: Border.all(color: widget.dropdownItems.isNotEmpty ? activeButtonColor : inactiveButtonColor, width: 1)),
         buttonElevation: widget.buttonElevation,
         itemHeight: 45,
         itemPadding: widget.itemPadding ?? EdgeInsets.zero,

@@ -10,6 +10,7 @@ import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/buttons/sr_cta_button.dart';
 import 'package:spotright/presentation/component/divider/sr_divider.dart';
 import 'package:spotright/presentation/component/sr_text_field/sr_text_field.dart';
+import 'package:spotright/presentation/page/register_spot/register_spot.dart';
 import 'package:spotright/presentation/page/search_location/search_location_controller.dart';
 
 import '../../common/colors.dart';
@@ -253,6 +254,38 @@ class _SearchLocationState extends State<SearchLocation> {
               padding: EdgeInsets.all(4),
               child: Row(
                 children: [
+
+                  Obx(() => InkWell(
+                    onTap: () {
+                      searchLocationController.queryTypeState.value =
+                          QueryTypeState.KEYWORD;
+                    },
+                    child: AnimatedContainer(
+                      width: 44,
+                      height: 24,
+                      decoration: BoxDecoration(
+                        color:
+                        searchLocationController.queryTypeState.value ==
+                            QueryTypeState.KEYWORD
+                            ? SrColors.primary
+                            : SrColors.white,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      duration: const Duration(milliseconds: 200),
+                      child: Center(
+                          child: Text(
+                            "장소",
+                            style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                color: searchLocationController
+                                    .queryTypeState.value ==
+                                    QueryTypeState.KEYWORD
+                                    ? SrColors.white
+                                    : SrColors.primary),
+                          )),
+                    ),
+                  )),
                   Obx(() => InkWell(
                         onTap: () {
                           searchLocationController.queryTypeState.value =
@@ -278,37 +311,6 @@ class _SearchLocationState extends State<SearchLocation> {
                                 fontWeight: FontWeight.w500,
                                 color: searchLocationController
                                             .queryTypeState.value !=
-                                        QueryTypeState.KEYWORD
-                                    ? SrColors.white
-                                    : SrColors.primary),
-                          )),
-                        ),
-                      )),
-                  Obx(() => InkWell(
-                        onTap: () {
-                          searchLocationController.queryTypeState.value =
-                              QueryTypeState.KEYWORD;
-                        },
-                        child: AnimatedContainer(
-                          width: 44,
-                          height: 24,
-                          decoration: BoxDecoration(
-                            color:
-                                searchLocationController.queryTypeState.value ==
-                                        QueryTypeState.KEYWORD
-                                    ? SrColors.primary
-                                    : SrColors.white,
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          duration: const Duration(milliseconds: 200),
-                          child: Center(
-                              child: Text(
-                            "장소",
-                            style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                                color: searchLocationController
-                                            .queryTypeState.value ==
                                         QueryTypeState.KEYWORD
                                     ? SrColors.white
                                     : SrColors.primary),
@@ -357,6 +359,7 @@ class _SearchLocationState extends State<SearchLocation> {
             searchLocationController.countryImage,
             width: 24,
             height: 24,
+
           )),
         ),
       ),
@@ -392,6 +395,11 @@ class _SearchLocationState extends State<SearchLocation> {
         registerSpotController.provinceController.text = spot.province ?? "";
         registerSpotController.cityController.text = spot.city ?? "";
         registerSpotController.addressController.text = spot.address ?? "";
+
+        registerSpotController.spotnameText.value = spot.name ?? "";
+        registerSpotController.provinceText.value = spot.province ?? "";
+        registerSpotController.cityText.value = spot.city ?? "";
+        registerSpotController.addressText.value = spot.address ?? "";
 
         isResultSelected= true;
       },

@@ -47,7 +47,7 @@ class SrTextField extends StatefulWidget {
   final bool password;
   double? suffixIconHeight, suffixIconWidth;
   Color? backgroundColor;
-  InputBorder? inputBorder, enableBorder, focusInputBorder, errorInputBorder;
+  InputBorder? inputBorder, enableBorder, focusInputBorder, errorInputBorder, disabledBorder;
   BoxConstraints? prefixIconConstraints;
   final EdgeInsets? contentPadding;
   final int? maxLength;
@@ -70,8 +70,9 @@ class SrTextField_State extends State<SrTextField> {
       Container(
         margin: EdgeInsets.only(bottom: 8),
         height: widget.height,
-        decoration: widget.boxShadow = null,
+        decoration: widget.boxShadow,
         child: TextField(
+
           style: SrTypography.body2light.copy(color: SrColors.black),
           controller: widget.controller,
           focusNode: widget.focusNode,
@@ -107,6 +108,11 @@ class SrTextField_State extends State<SrTextField> {
                   BorderRadius.all(Radius.circular(widget.borderRadius)),
                   borderSide:
                   const BorderSide(width: 1, color: SrColors.gray1)),
+              disabledBorder: widget.disabledBorder ?? OutlineInputBorder(
+                  borderRadius:
+                  BorderRadius.all(Radius.circular(widget.borderRadius)),
+                  borderSide:
+                  const BorderSide(width: 1, color: SrColors.gray3)),
               focusedBorder: widget.focusInputBorder ??
                   OutlineInputBorder(
                       borderRadius:

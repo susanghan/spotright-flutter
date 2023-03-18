@@ -153,10 +153,10 @@ class _EditProfileState extends State<EditProfile> {
               () => Text(
                 editProfileController
                     .editProfileState.nicknameValidationMessage,
-                style: const TextStyle(
+                style: TextStyle(
                     fontWeight: FontWeight.w300,
                     fontSize: 15,
-                    color: SrColors.gray2),
+                    color: editProfileController.editProfileState.nicknameMessageStatus.value != MessageStatus.enabled ? SrColors.primary : SrColors.gray2),
               ),
             ))
       ],

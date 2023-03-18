@@ -73,11 +73,12 @@ class _SpotListState extends State<SpotList> {
     return Obx(() => Column(
       children: [
         SrChips(
+          height: 38,
           onCategorySelected: _spotListController.onCategorySelected,
           selectedCategories: _spotListController.selectedCategories,
         ),
         if(_spotListController.isMyPage.value) Container(
-            margin: EdgeInsets.only(right: 16, top: 10, bottom: 4),
+            margin: EdgeInsets.only(right: 16, top: 8, bottom: 4),
             alignment: Alignment.centerRight,
             child: GestureDetector(
               onTap: _spotListController.changeMode,

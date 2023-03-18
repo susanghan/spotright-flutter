@@ -59,26 +59,26 @@ class SpotResponse {
       this.spotPhotos,
       this.visited});
 
-  SpotResponse.fromJson(Map<String, dynamic> json) {
-    address = json['address'];
-    category = json['category'];
-    city = json['city'];
-    country = json['country'];
-    fullAddress = json['fullAddress'];
-    latitude = json['latitude'];
-    longitude = json['longitude'];
-    memberSpotId = json['memberSpotId'];
-    memo = json['memo'];
-    province = json['province'];
-    rating = json['rating'];
-    spotName = json['spotName'];
-    if (json['spotPhotos'] != null) {
+  SpotResponse.fromJson(Map<String, dynamic>? json) {
+    address = json?['address'];
+    category = json?['category'];
+    city = json?['city'];
+    country = json?['country'];
+    fullAddress = json?['fullAddress'];
+    latitude = json?['latitude'];
+    longitude = json?['longitude'];
+    memberSpotId = json?['memberSpotId'];
+    memo = json?['memo'];
+    province = json?['province'];
+    rating = json?['rating'];
+    spotName = json?['spotName'];
+    if (json?['spotPhotos'] != null) {
       spotPhotos = <SpotPhoto>[];
-      json['spotPhotos'].forEach((v) {
+      json?['spotPhotos'].forEach((v) {
         spotPhotos!.add(SpotPhoto.fromJson(v));
       });
     }
-    visited = json['visited'];
+    visited = json?['visited'];
   }
 
   Map<String, dynamic> toJson() {
@@ -118,4 +118,13 @@ class SpotPhoto {
     data['spotPhotoId'] = memberSpotPhotoId;
     return data;
   }
+}
+
+class SpotCode{
+  SpotCode( this.spotResponse, this.statusCode, this.responseCode, this.responseMessage);
+
+  SpotResponse? spotResponse;
+  int statusCode;
+  String? responseCode;
+  String? responseMessage;
 }
