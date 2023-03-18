@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spotright/data/oauth/oauth_repository.dart';
 import 'package:spotright/presentation/common/colors.dart';
+import 'package:spotright/presentation/common/typography.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/buttons/sr_cta_button.dart';
 import 'package:spotright/presentation/component/dialog/birthday_dialog.dart';
@@ -78,13 +79,8 @@ class _SignUpState extends State<SignUp> {
 
   List<Widget> _InputEmail() {
     return [
-      Padding(
-        padding: EdgeInsets.only(
-          top: 30,
-          bottom: 4,
-        ),
-        child: Text("input_email".tr),
-      ),
+      Padding(padding: EdgeInsets.only(bottom: 30)),
+      _SectionTitle("input_email".tr),
       Padding(
         padding: EdgeInsets.only(bottom: 24),
         child: SrTextField(
@@ -117,10 +113,7 @@ class _SignUpState extends State<SignUp> {
 
   List<Widget> _InputPassword() {
     return [
-      Padding(
-        padding: EdgeInsets.only(bottom: 4),
-        child: Text('비밀번호를 입력해주세요.'),
-      ),
+      _SectionTitle('비밀번호를 입력해주세요'),
       Padding(
         padding: EdgeInsets.only(bottom: 6),
         child: SrTextField(
@@ -139,10 +132,7 @@ class _SignUpState extends State<SignUp> {
 
   List<Widget> _InputPasswordConfirm() {
     return [
-      Padding(
-        padding: EdgeInsets.only(bottom: 4),
-        child: Text('다시 한 번 입력해주세요.'),
-      ),
+      _SectionTitle('다시 한 번 입력해주세요'),
       Padding(
         padding: EdgeInsets.only(bottom: 6),
         child: SrTextField(
@@ -161,10 +151,7 @@ class _SignUpState extends State<SignUp> {
 
   List<Widget> _InputId() {
     return [
-      Padding(
-        padding: EdgeInsets.only(bottom: 4),
-        child: Text('아이디를 입력해주세요.'),
-      ),
+      _SectionTitle('아이디를 입력해주세요'),
       Padding(
         padding: EdgeInsets.only(bottom: 6),
         child: SrTextField(
@@ -196,10 +183,7 @@ class _SignUpState extends State<SignUp> {
 
   List<Widget> _InputNickname() {
     return [
-      Padding(
-        padding: EdgeInsets.only(bottom: 6),
-        child: Text('닉네임을 입력해주세요.'),
-      ),
+      _SectionTitle('닉네임을 입력해주세요'),
       Padding(
         padding: EdgeInsets.only(bottom: 6),
         child: SrTextField(
@@ -216,8 +200,7 @@ class _SignUpState extends State<SignUp> {
 
   List<Widget> _InputBirthday() {
     return [
-      Padding(
-          padding: EdgeInsets.only(bottom: 6), child: Text('생년월일을 입력해주세요.')),
+      _SectionTitle('생년월일을 입력해주세요'),
       Container(
         width: double.infinity,
         height: 44,
@@ -246,7 +229,7 @@ class _SignUpState extends State<SignUp> {
 
   List<Widget> _InputSex() {
     return [
-      Text("input_sex".tr),
+      _SectionTitle("input_sex".tr),
       _SexSelector(),
       Padding(padding: EdgeInsets.only(bottom: 18)),
     ];
@@ -288,9 +271,7 @@ class _SignUpState extends State<SignUp> {
 
   List<Widget> _InputJoinPath() {
     return [
-      Padding(
-        padding: EdgeInsets.only(bottom: 16),
-          child: Text("가입경로를 선택해주세요")),
+      _SectionTitle("가입경로를 선택해주세요"),
       ...{"INSTAGRAM": "인스타그램", "EVERYTIME": "에브리타임", "FRIEND": "지인", "ETC": "기타"}
           .entries.map((entry) => _PathItem(entry.key, entry.value, signUpController.signUpState.selectedJoinPath == entry.key)).toList(),
       Padding(padding: EdgeInsets.only(bottom: 12)),
@@ -334,5 +315,9 @@ class _SignUpState extends State<SignUp> {
         ],
       ),
     ];
+  }
+
+  Widget _SectionTitle(String title) {
+    return Padding(padding: EdgeInsets.only(bottom: 8), child: Text(title, style: SrTypography.body2medium,));
   }
 }
