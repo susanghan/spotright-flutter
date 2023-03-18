@@ -8,6 +8,7 @@ class ProfileController extends GetxController {
   UserRepository userRepository = Get.find();
   ReportRepository reportRepository = Get.find();
   Rx<UserResponse> user = UserResponse(memberId: 0).obs;
+  RxBool isMyPage = false.obs;
   final String reportType =  "MEMBER";
 
   ProfileController();
@@ -15,6 +16,7 @@ class ProfileController extends GetxController {
   void fetchProfileInfo(int userId) async {
     UserResponse userInfo = await userRepository.getMemberInfo(userId);
     user.value = userInfo;
+    isMyPage.value = userInfo.memberId == userRepository.userResponse!.memberId;
   }
 
   Future<void> follow() async {

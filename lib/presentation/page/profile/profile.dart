@@ -13,7 +13,6 @@ import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/appbars/sr_app_bar.dart';
 import 'package:spotright/presentation/page/profile/profile_controller.dart';
 import 'package:spotright/presentation/page/search/search.dart';
-import 'package:spotright/presentation/page/spot_list/spot_list.dart';
 
 class Profile extends StatefulWidget {
   Profile({Key? key, required this.user}) : super(key: key);
@@ -28,7 +27,6 @@ class _ProfileState extends State<Profile> {
   Completer<GoogleMapController> _mapController = Completer();
   ProfileController profileController = Get.put(ProfileController());
   MapController mapController = Get.put(MapController());
-
 
   @override
   void initState() {
@@ -118,7 +116,7 @@ class _ProfileState extends State<Profile> {
           )),
           Obx(() => SrAppBar(
             userName: profileController.user.value.nickname ?? "",
-            isMyPage: false,
+            isMyPage: profileController.isMyPage.value,
             follow: profileController.follow,
             unfollow: profileController.unFollow,
             isFollowing: profileController.user.value.isFollowing ?? false,
