@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spotright/presentation/common/typography.dart';
+import 'package:spotright/presentation/page/manage_user_info/change_passowrd_controller.dart';
 import 'package:spotright/presentation/page/manage_user_info/id_controller.dart';
 
 import '../../common/colors.dart';
@@ -17,7 +18,7 @@ class ChangePassword extends StatefulWidget {
 }
 
 class _ChangePasswordState extends State<ChangePassword> {
-
+  ChangePasswordController changePasswordController = Get.put(ChangePasswordController());
 
   @override
   void initState() {
@@ -41,17 +42,17 @@ class _ChangePasswordState extends State<ChangePassword> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _InputNewPassword("새로운 비밀번호를 입력해 주세요", ""),
+                    _InputNewPassword("새로운 비밀번호를 입력해 주세요"),
                     const SizedBox(height: 8,),
-                    _ConfirmNewPassword("다시 한 번 입력하세요", ""),
+                    _ConfirmNewPassword("다시 한 번 입력하세요"),
                   ],
                 ),
               ),
-              SrCTAButton(
+              Obx(() => SrCTAButton(
                 text: "완료",
-                isEnabled: false,
-                action: () {  },
-              ),
+                isEnabled: changePasswordController.ctaActive,
+                action: changePasswordController.changePassword,
+              )),
             ],
           ),
         ),
@@ -59,7 +60,7 @@ class _ChangePasswordState extends State<ChangePassword> {
     );
   }
 
-  Widget _InputNewPassword(String labelText, String captionText) {
+  Widget _InputNewPassword(String labelText) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -74,26 +75,25 @@ class _ChangePasswordState extends State<ChangePassword> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(bottom: 6),
+          padding: const EdgeInsets.only(bottom: 0),
           child: SrTextField(
             height: 47,
+            hint: "비밀번호",
+            password: true,
+            onChanged: changePasswordController.onPasswordChanged,
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(left: 14),
-          child: Text(
-            captionText,
-            style: const TextStyle(
-                fontSize: 0,
-                fontWeight: FontWeight.w300,
-                color: SrColors.gray1),
-          ),
-        ),
+        Obx(() => Padding(
+            padding: const EdgeInsets.only(left: 14, bottom: 8),
+            child: Text(
+              changePasswordController.passwordValidationMessage,
+              style: SrTypography.body2light.copy(color: SrColors.gray1),
+            )),)
       ],
     );
   }
 
-  Widget _ConfirmNewPassword(String labelText, String captionText) {
+  Widget _ConfirmNewPassword(String labelText) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -108,21 +108,21 @@ class _ChangePasswordState extends State<ChangePassword> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(bottom: 6),
+          padding: const EdgeInsets.only(bottom: 0),
           child: SrTextField(
             height: 47,
+            hint: "비밀번호 확인",
+            password: true,
+            onChanged: changePasswordController.onPasswordConfirmChanged,
           ),
         ),
-        Padding(
+        Obx(() => Padding(
           padding: const EdgeInsets.only(left: 14),
           child: Text(
-            captionText,
-            style: const TextStyle(
-                fontSize: 0,
-                fontWeight: FontWeight.w300,
-                color: SrColors.gray1),
+              (changePasswordController.password.value == changePasswordController.passwordConfirm.value) ? "비밀번호가 일치합니다" : "비밀번호가 일치하지 않습니다",
+              style: SrTypography.body2light.copy(color: SrColors.gray1)
           ),
-        ),
+        )),
       ],
     );
   }

@@ -33,6 +33,7 @@ class UserRepository {
   final String _findIdPath = "/member/spotright-id/forgot";
   final String _findPasswordPath = "/member/password/forgot";
   final String _loginPath = "/member/login";
+  final String _updatePassword = "/member/password";
 
   bool get isLoggedIn => networkClient.accessToken.isNotEmpty;
 
@@ -200,5 +201,14 @@ class UserRepository {
       "email": email,
       "language": "KR",
     });
+  }
+
+  Future<bool> updatePassword(String password, String passwordReEntered) async {
+    var res = await networkClient.request(method: Http.patch, path: _updatePassword, body: {
+      "password": password,
+      "passwordReEntered": passwordReEntered,
+    });
+
+    return res.statusCode == 200;
   }
 }

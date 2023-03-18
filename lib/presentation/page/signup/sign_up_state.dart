@@ -94,7 +94,7 @@ class SignUpState {
       return;
     }
 
-    if (id.isEmpty) {
+    if (password.isEmpty) {
       passwordMessageStatue.value = MessageStatus.defaultMessage;
     } else if (password.value.length < 8 || password.value.length > 30) {
       passwordMessageStatue.value = MessageStatus.checkLength;
