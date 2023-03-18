@@ -26,6 +26,7 @@ class SrAppBar extends StatefulWidget {
     required this.user,
     this.onCategorySelected,
     this.moveSpotList,
+    this.initState,
   }) : super(key: key);
 
   UserResponse user;
@@ -40,6 +41,7 @@ class SrAppBar extends StatefulWidget {
   Function()? fetchRegionSpots;
   Function(Set<String> selected)? onCategorySelected;
   Function()? moveSpotList;
+  Function()? initState;
 
   @override
   State<SrAppBar> createState() => _SrAppBarState();
@@ -157,9 +159,7 @@ class _SrAppBarState extends State<SrAppBar> {
                             ),
                           ),
                           GestureDetector(
-                            onTap: () {
-                              Get.to(Following(tabIndex: 0, user: widget.user,));
-                            },
+                            onTap: _navigatePage(Following(tabIndex: 0, user: widget.user,)),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
@@ -169,9 +169,7 @@ class _SrAppBarState extends State<SrAppBar> {
                             ),
                           ),
                           GestureDetector(
-                            onTap: () {
-                              Get.to(Following(tabIndex: 1, user: widget.user,));
-                            },
+                            onTap: _navigatePage(Following(tabIndex: 1, user: widget.user,)),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
@@ -200,9 +198,7 @@ class _SrAppBarState extends State<SrAppBar> {
       width: double.infinity,
       height: 26,
       child: TextButton(
-        onPressed: () {
-          Get.to(MyPage());
-        },
+        onPressed: _navigatePage(MyPage()),
         style: TextButton.styleFrom(
             primary: SrColors.gray1,
             padding: EdgeInsets.symmetric(vertical: 6),
@@ -389,4 +385,6 @@ class _SrAppBarState extends State<SrAppBar> {
           }),
         ));
   }
+
+  Function() _navigatePage(dynamic page) => () => Get.to(page)?.then((_) => widget.initState?.call());
 }

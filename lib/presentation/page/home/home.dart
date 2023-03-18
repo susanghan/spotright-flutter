@@ -7,6 +7,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/common/controller/map_controller.dart';
+import 'package:spotright/presentation/component/appbars/appbar_title.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/appbars/sr_app_bar.dart';
 import 'package:spotright/presentation/page/home/home_controller.dart';
@@ -29,10 +30,13 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
 
   @override
   void initState() {
+    _initState();
     super.initState();
-    homeController.initState();
+  }
+
+  Future<void> _initState() async {
+    await homeController.initState();
     mapController.initState(() => {setState(() {})}, homeController.userInfo.value);
-    //Todo: current 이동 완료 후에 실행. 맨 처음에 어플 실행시 장소 없다는 실행은 하되 경고창은 없게.
     _fetchRegionSpots();
   }
 
@@ -80,12 +84,10 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
     return SafeArea(
       child: Scaffold(
         appBar: DefaultAppBar(
-          title: homeController.userInfo.value.spotrightId ?? "",
+            titleWidget: Obx(() => AppbarTitle(title: homeController.userInfo.value.spotrightId ?? "")),
           actions: [
             GestureDetector(
-              onTap: () {
-                Get.to(Search());
-              },
+              onTap: homeController.navigatePage(Search()),
               child: Padding(
                 padding: EdgeInsets.only(right: 20),
                 child: SvgPicture.asset(
@@ -116,6 +118,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
             },
           )),
           Obx(() => SrAppBar(
+            initState: homeController.initState,
             userName: homeController.userInfo.value.nickname ?? "",
             fetchRegionSpots: _refreshSpots,
             shouldRefresh: mapController.shouldSpotsRefresh.value,
@@ -124,7 +127,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
             moveSpotList: () => mapController.navigateSpotList(LatLngBounds(
               northeast: LatLng(90, 179.999999),
               southwest: LatLng(0, -180),
-            )),
+            ), refresh: homeController.initState),
           )),
           GestureDetector(
             onTap: () async {
@@ -160,9 +163,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 GestureDetector(
-                  onTap: () {
-                    Get.to(RegisterSpot(pageMode: PageMode.add));
-                  },
+                  onTap: homeController.navigatePage(RegisterSpot(pageMode: PageMode.add)),
                   child: Container(
                     width: 44,
                     height: 44,

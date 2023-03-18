@@ -7,7 +7,10 @@ class HomeController {
 
   Rx<UserResponse> userInfo = UserResponse(memberId: 0).obs;
 
-  void initState() {
+  Future<void> initState() async {
+    await userRepository.fetchMyInfo();
     userInfo.value = userRepository.userResponse!;
   }
+  
+  Function() navigatePage(dynamic page) => () => Get.to(page)?.then((_) => initState());
 }

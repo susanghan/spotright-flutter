@@ -140,11 +140,11 @@ class MapController extends GetxController {
   }
 
   void _moveDetail(SpotResponse spot) => Get.to(Detail(userId: userInfo.value.memberId, memberSpotId: spot.memberSpotId!));
-  void navigateSpotList(LatLngBounds latLngBounds) async {
+  void navigateSpotList(LatLngBounds latLngBounds, {Function()? refresh}) async {
     Get.to(SpotList(userId: userInfo.value.memberId,
         topLatitude: latLngBounds.northeast.latitude,
         topLongitude: latLngBounds.southwest.longitude,
         bottomLatitude: latLngBounds.southwest.latitude,
-        bottomLongitude: latLngBounds.northeast.longitude));
+        bottomLongitude: latLngBounds.northeast.longitude))?.then((_) => refresh?.call());
   }
 }
