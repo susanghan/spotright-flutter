@@ -359,6 +359,7 @@ class _SearchLocationState extends State<SearchLocation> {
             searchLocationController.countryImage,
             width: 24,
             height: 24,
+
           )),
         ),
       ),

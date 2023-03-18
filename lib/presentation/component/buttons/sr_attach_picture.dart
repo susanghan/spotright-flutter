@@ -12,7 +12,9 @@ import 'dart:io';
 
 import 'package:spotright/presentation/common/colors.dart';
 
+import '../../common/typography.dart';
 import '../../page/register_spot/register_spot_controller.dart';
+import '../dialog/sr_dialog.dart';
 
 class SrAttachPiture extends StatefulWidget {
   SrAttachPiture({Key? key}) : super(key: key);
@@ -129,12 +131,20 @@ class _SrAttachPitureState extends State<SrAttachPiture> {
       final List<XFile> pickedFileList = await _picker.pickMultiImage();
       setState(() {
         int _insertIndex = 0;
-
-        while(registerSpotController.imageFilePath.length < 5 && pickedFileList.length > _insertIndex){
+        while(registerSpotController.imageFilePath.length < 6 && pickedFileList.length > _insertIndex){
+          if(registerSpotController.imageFilePath.length == 5){
+              Get.dialog(SrDialog(
+                icon: SvgPicture.asset("assets/warning.svg"),
+                title: "선택 이미지가 최대 장수를 넘었습니다",
+                description: "이미지 첨부는 5장까지 적용됩니다",
+                actions: [
+                  TextButton(onPressed: () => Get.back(), child: Text("완료", style: SrTypography.body2medium.copy(color: SrColors.white),))
+                ],
+              ));
+              break;
+            }
             registerSpotController.imageFilePath.add(pickedFileList[_insertIndex].path);
-            print("registerSpotController.spotPhotoIds : ${registerSpotController.spotPhotoIds}");
-            registerSpotController.spotPhotoIds.add( 0);
-            print("registerSpotController.spotPhotoIds : ${registerSpotController.spotPhotoIds}");
+            registerSpotController.spotPhotoIds.add(0);
             _insertIndex += 1;
         }
 

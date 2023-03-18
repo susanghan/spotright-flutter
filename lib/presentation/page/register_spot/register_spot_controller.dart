@@ -2,10 +2,14 @@ import 'dart:ffi';
 import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:spotright/data/spot/spot_repository.dart';
 import 'package:spotright/data/spot/spot_request.dart';
+import 'package:spotright/presentation/common/colors.dart';
+import 'package:spotright/presentation/component/dialog/sr_dialog.dart';
 import 'package:spotright/presentation/page/detail/detail_controller.dart';
 import 'package:spotright/presentation/page/search_location/search_location_controller.dart';
 
@@ -13,6 +17,9 @@ import '../../../data/resources/category.dart';
 import '../../../data/resources/enum_country.dart';
 import '../../../data/resources/geo.dart';
 import 'package:spotright/data/file/file_repository.dart';
+
+import '../../../data/spot/spot_response.dart';
+import '../../common/typography.dart';
 
 class RegisterSpotController extends GetxController {
   SearchLocationController searchLocationController = Get.find();
@@ -199,7 +206,7 @@ class RegisterSpotController extends GetxController {
     int totalCode = 000;
 
     mainCode = ((selectedMainIndex.value += mainCategory.length + 1) % mainCategory.length).toString();
-    if (mainCode != "0") {
+    if (mainCode != "0" && subCategory.isNotEmpty) {
       if (selectedSubString.value == "기타") {
         subCode = "01";
       } else {
@@ -239,12 +246,28 @@ class RegisterSpotController extends GetxController {
 
     var res = await spotRepository.saveSpot(req);
 
-    memberSpotId.value = res.memberSpotId!;
+    if(res.statusCode == 200){
+      memberSpotId.value = res.spotResponse?.memberSpotId ?? 0;
+      uploadSpotPhotos();
+      Get.back();
+    }
+    else{
+      checkRegisterError(res.statusCode, res.responseCode, res.responseMessage);
+    }
 
-    uploadSpotPhotos();
-
-    Get.back();
   }
+
+  Future<void> checkRegisterError(int statusCode, String? responseCode, String? responseMessage ) async {
+    Get.dialog(SrDialog(
+      icon: SvgPicture.asset("assets/warning.svg"),
+      title: "스팟 저장 오류",
+      description: responseMessage ?? "입력 내용을 다시 한 번 확인해 주세요",
+      actions: [
+        TextButton(onPressed: () => Get.back(), child: Text("완료", style: SrTypography.body2medium.copy(color: SrColors.white),))
+      ],
+    ));
+  }
+
 
 
   Future<void> editSpot() async {
@@ -270,13 +293,16 @@ class RegisterSpotController extends GetxController {
         rating: "${rating.value.round()}",
         spotName: spotNameController.text);
 
-    await spotRepository.updateSpot(req);
+    var res = await spotRepository.updateSpot(req);
 
-    //사진 추가하여 넣기
-    uploadSpotPhotos();
+    if(res.statusCode == 200){
+      uploadSpotPhotos();
+      Get.back();
+    }
+    else{
+      checkRegisterError(res.statusCode, res.responseCode, res.responseMessage);
+    }
 
-
-    Get.back();
   }
 }
 
