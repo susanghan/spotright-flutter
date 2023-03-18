@@ -29,4 +29,10 @@ class DetailController extends GetxController{
         reportType: "MEMBER_SPOT",
     ));
   }
+
+  RxInt currentCarouselPage = 1.obs;
+
+  void updatePage(int page) {
+    currentCarouselPage.value = page;
+  }
 }

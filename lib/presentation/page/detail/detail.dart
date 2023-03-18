@@ -161,12 +161,11 @@ class _DetailState extends State<Detail> {
           decoration: BoxDecoration(
               color: SrColors.black.withOpacity(0.4),
               borderRadius: BorderRadius.circular(20)),
-          child: Text(
-            "1/${list.length}",
-            //"${detailController.currentCarouselPage}/${list.length}",
+          child: Obx(()=>Text(
+            "${detailController.currentCarouselPage}/${list.length}",
             style: const TextStyle(
                 color: Colors.white, fontWeight: FontWeight.w400, fontSize: 12),
-          )),
+          )),)
     ]);
   }
 
@@ -189,6 +188,9 @@ class _DetailState extends State<Detail> {
               height: MediaQuery.of(context).size.width,
               viewportFraction: 1,
               enableInfiniteScroll: false,
+              onPageChanged: (index, reason) => {
+                detailController.updatePage(index + 1)
+              }
             )),
       ),
       GestureDetector(
