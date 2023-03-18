@@ -89,7 +89,7 @@ class _ChangePasswordState extends State<ChangePassword> {
             padding: const EdgeInsets.only(left: 14, bottom: 8),
             child: Text(
               changePasswordController.passwordValidationMessage,
-              style: SrTypography.body2light.copy(color: SrColors.gray1),
+              style: changePasswordController.passwordMessageStatus.value == MessageStatus.enabled ? SrTypography.body2light.copy(color: SrColors.success) : SrTypography.body2light.copy(color: SrColors.primary),
             )),)
       ],
     );
@@ -123,7 +123,7 @@ class _ChangePasswordState extends State<ChangePassword> {
           padding: const EdgeInsets.only(left: 14),
           child: Text(
               (changePasswordController.password.value == changePasswordController.passwordConfirm.value) ? "비밀번호가 일치합니다" : "비밀번호가 일치하지 않습니다",
-              style: SrTypography.body2light.copy(color: SrColors.gray1)
+              style: (changePasswordController.password.value == changePasswordController.passwordConfirm.value) ? SrTypography.body2light.copy(color: SrColors.success) : SrTypography.body2light.copy(color: SrColors.primary)
           ),
         )),
       ],
