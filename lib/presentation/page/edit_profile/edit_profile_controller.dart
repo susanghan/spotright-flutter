@@ -6,8 +6,10 @@ import 'package:spotright/data/user/user_repository.dart';
 import 'package:spotright/data/user/user_response.dart';
 import 'package:spotright/presentation/page/edit_profile/edit_profile_state.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:spotright/presentation/page/my_page/my_page_controller.dart';
 
 class EditProfileController extends GetxController {
+  MyPageController myPageController = Get.put(MyPageController());
   final EditProfileState editProfileState = EditProfileState();
   final FileRepository fileRepository = Get.find();
 
@@ -93,6 +95,7 @@ class EditProfileController extends GetxController {
     Get.back();
     await userRepository.updateNickname(editProfileState.nickname.value);
     userRepository.fetchMyInfo();
+    myPageController.initState();
   }
 
   Future<void> updateProfilePhoto() async {
