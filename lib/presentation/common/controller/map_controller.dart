@@ -102,7 +102,7 @@ class MapController extends GetxController {
         .asUint8List();
   }
 
-  void fetchSpots(LatLngBounds latLngBounds) async {
+  Future<void> fetchSpots(LatLngBounds latLngBounds) async {
     _spots.value = await spotRepository.getSpotsFromCoordinate(
         userInfo.value.memberId,
         topLatitude: latLngBounds.northeast.latitude,

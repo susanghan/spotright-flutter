@@ -43,7 +43,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
 
   void _refreshSpots() async {
     var region = await _getRegion();
-    mapController.fetchSpots(region);
+    await mapController.fetchSpots(region);
     mapController.checkSpotEmpty();
   }
 

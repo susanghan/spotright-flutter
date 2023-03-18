@@ -43,7 +43,7 @@ class _ProfileState extends State<Profile> {
 
   void _refreshSpots() async {
     var region = await _getRegion();
-    mapController.fetchSpots(region);
+    await mapController.fetchSpots(region);
     mapController.checkSpotEmpty();
   }
 
