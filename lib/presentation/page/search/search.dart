@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:spotright/data/user/user_response.dart';
 import 'package:spotright/presentation/common/colors.dart';
+import 'package:spotright/presentation/common/typography.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/sr_text_field/sr_text_field.dart';
 import 'package:spotright/presentation/page/profile/profile.dart';
@@ -33,9 +34,14 @@ class _SearchState extends State<Search> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(bottom: 20),
+                  padding: EdgeInsets.only(bottom: 25),
                   child: SrTextField(
+                    focusInputBorder: const OutlineInputBorder(
+                        borderRadius:
+                        BorderRadius.all(Radius.circular(22)),
+                        borderSide: BorderSide(width: 1, color: SrColors.gray2)),
                     onChanged: searchController.onChangeSearchText,
+                    //Todo : 이거 실행이 안 되네. 해주세요.
                     onSubmitted: (text){searchController.search;},
                     hint: "아이디로 사용자를 검색하세요.",
                     suffixIcon: GestureDetector(
@@ -54,8 +60,8 @@ class _SearchState extends State<Search> {
                           .toList(),
                     )),
                 Padding(
-                    padding: EdgeInsets.only(left: 10, bottom: 14),
-                    child: Text("최근 검색어")),
+                    padding: EdgeInsets.only( bottom: 14),
+                    child: Text("최근 검색", style: SrTypography.body2semi,)),
                 Obx(() => Column(
                   children: searchController.recentUsers.value
                       .map((user) => _Profile(user, isRecentSearch: true))
