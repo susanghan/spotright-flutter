@@ -41,8 +41,7 @@ class _SearchState extends State<Search> {
                         BorderRadius.all(Radius.circular(22)),
                         borderSide: BorderSide(width: 1, color: SrColors.gray2)),
                     onChanged: searchController.onChangeSearchText,
-                    //Todo : 이거 실행이 안 되네. 해주세요.
-                    onSubmitted: (text){searchController.search;},
+                    onSubmitted: (text){searchController.search();},
                     hint: "아이디로 사용자를 검색하세요.",
                     suffixIcon: GestureDetector(
                       onTap: searchController.search,
