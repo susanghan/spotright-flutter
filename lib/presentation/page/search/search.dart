@@ -36,6 +36,7 @@ class _SearchState extends State<Search> {
                   padding: EdgeInsets.only(bottom: 20),
                   child: SrTextField(
                     onChanged: searchController.onChangeSearchText,
+                    onSubmitted: (text){searchController.search;},
                     hint: "아이디로 사용자를 검색하세요.",
                     suffixIcon: GestureDetector(
                       onTap: searchController.search,
