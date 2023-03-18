@@ -77,6 +77,11 @@ class _FollowingState extends State<Following> {
   }
 
   Widget _Profile(UserResponse user, bool isFollower) {
+    ImageProvider profilePhoto =
+      user.memberPhoto?.photoUrl != null ?
+      NetworkImage(widget.user.memberPhoto?.photoUrl! ?? "")
+          : AssetImage("assets/user_profile_default_small.png") as ImageProvider;
+
     return Container(
       margin: EdgeInsets.fromLTRB(16, 0, 16, 30),
       child: Row(children: [
@@ -87,7 +92,7 @@ class _FollowingState extends State<Following> {
           child: CircleAvatar(
             backgroundColor: SrColors.white,
               radius: 100,
-              backgroundImage: NetworkImage("https://picsum.photos/180")),
+              backgroundImage: profilePhoto),
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
