@@ -12,6 +12,7 @@ import 'package:spotright/presentation/component/dialog/sr_dialog.dart';
 import 'package:spotright/presentation/page/register_spot/register_spot.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../data/resources/category.dart';
 import '../../common/colors.dart';
 import '../../component/sr_chip/sr_chip_read_only.dart';
 import '../register_spot/register_spot_controller.dart';
@@ -75,7 +76,7 @@ class _DetailState extends State<Detail> {
                         // todo : 소분류 정보 추가
                         _SpotChips(
                             detailController.spot.value.mainCategory ?? "",
-                            "소분류"),
+                            detailController.spot.value.subCategory ?? ""),
                         _SpotLocation(
                             detailController.spot.value.fullAddress ?? "정보 없음"),
                         _SearchLocation(),
@@ -224,13 +225,18 @@ class _DetailState extends State<Detail> {
       child: Row(
         children: [
           SrChipReadOnly(
+            categoryColor: SpotCategory.mainCategoryColors[detailController.spot.value.mainCategoryIndex],
             categoryKind: CategoryKind.mainCategory,
             categoryName: mainCategoryName,
           ),
           const Padding(padding: EdgeInsets.only(right: 4)),
-          SrChipReadOnly(
-            categoryKind: CategoryKind.subCategory,
-            categoryName: subCategoryName,
+          Visibility(
+            visible: subCategoryName.isNotEmpty,
+            child: SrChipReadOnly(
+              categoryColor: SpotCategory.mainCategoryColors[detailController.spot.value.mainCategoryIndex],
+              categoryKind: CategoryKind.subCategory,
+              categoryName: subCategoryName,
+            ),
           ),
         ],
       ),
