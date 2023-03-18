@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
@@ -17,8 +16,6 @@ import '../../../data/resources/category.dart';
 import '../../../data/resources/enum_country.dart';
 import '../../../data/resources/geo.dart';
 import 'package:spotright/data/file/file_repository.dart';
-
-import '../../../data/spot/spot_response.dart';
 import '../../common/typography.dart';
 
 class RegisterSpotController extends GetxController {
@@ -246,7 +243,7 @@ class RegisterSpotController extends GetxController {
 
     var res = await spotRepository.saveSpot(req);
 
-    if(res.statusCode == 200){
+    if(res.statusCode == 200 || res.statusCode == 201){
       memberSpotId.value = res.spotResponse?.memberSpotId ?? 0;
       uploadSpotPhotos();
       Get.back();
