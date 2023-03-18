@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:logger/logger.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/common/controller/map_controller.dart';
 import 'package:spotright/presentation/component/appbars/appbar_title.dart';
@@ -27,6 +28,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
   Completer<GoogleMapController> _mapController = Completer();
   HomeController homeController = Get.find();
   MapController mapController = Get.put(MapController());
+  Logger logger = Get.find();
 
   @override
   void initState() {
@@ -56,25 +58,26 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
     return await controller.getVisibleRegion();
   }
 
-  Future<LatLng> _currentLocation() async {
-    final GoogleMapController controller = await _mapController.future;
-    LocationData? currentLocation;
-    var location = Location();
+  //Todo : Get.locale 함수로 언어 설정 받아와서 추후에 수도로 찍어주기
+  Future<void> _moveCurrentPosition() async {
+    // LatLng(37.510181246, 127.043505829) // 강남 좌표
+    var currentPosition = await _getCurrentPosition();
+    _moveCameraPosition(currentPosition);
+  }
 
-    try {
-      currentLocation = await location.getLocation();
-      controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
-        bearing: 0,
-        target: LatLng(currentLocation.latitude!, currentLocation.longitude!),
-        //target: LatLng(37.510181246, 127.043505829),
-        zoom: 17.0,
-      )));
-      return LatLng(currentLocation.latitude!, currentLocation.longitude!);
-    } on Exception {
-      currentLocation = null;
-      //Todo : Get.locale 함수로 언어 설정 받아와서 추후에 수도로 찍어주기
-      return LatLng(37.510181246, 127.043505829);
-    }
+  Future<void> _moveCameraPosition(LatLng target) async {
+    final GoogleMapController controller = await _mapController.future;
+    controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+      bearing: 0,
+      target: target,
+      zoom: 17.0,
+    )));
+  }
+
+  Future<LatLng> _getCurrentPosition() async {
+    var location = Location();
+    LocationData? currentLocation = await location.getLocation();
+    return LatLng(currentLocation.latitude!, currentLocation.longitude!);
   }
 
   @override
@@ -114,7 +117,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
             ),
             onMapCreated: (GoogleMapController controller) {
               _mapController.complete(controller);
-              _currentLocation();
+              _moveCurrentPosition();
             },
           )),
           Obx(() => SrAppBar(
@@ -186,7 +189,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                 ),
                 GestureDetector(
                   onTap: () {
-                    _currentLocation();
+                    _moveCurrentPosition();
                   },
                   child: Container(
                     width: 44,
