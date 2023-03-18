@@ -60,7 +60,7 @@ class SrBottomSheet extends StatelessWidget {
                                           )),
                                     ),
                                     Padding(
-                                        padding: EdgeInsets.only(right: 6),
+                                        padding: EdgeInsets.only(right: 10),
                                         child: Text(
                                           e.mainCategory ?? "",
                                           style: SrTypography.body4medium
@@ -81,13 +81,16 @@ class SrBottomSheet extends StatelessWidget {
                                         color: SrColors.gray1,
                                       ),
                                     ),
-                                    Padding(
-                                        padding: EdgeInsets.only(bottom: 4),
-                                        child: Text(
-                                          e.fullAddress ?? "",
-                                          style: SrTypography.body4medium
-                                              .copy(color: SrColors.gray1),
-                                        ))
+                                    Flexible(
+                                      child: Padding(
+                                          padding: EdgeInsets.only(bottom: 4, right: 4),
+                                          child: Text(
+                                            e.fullAddress ?? "",
+                                            style: SrTypography.body4medium
+                                                .copy(color: SrColors.gray1),
+                                            overflow: TextOverflow.ellipsis,
+                                          )),
+                                    )
                                   ],
                                 ),
                               ),

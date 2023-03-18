@@ -7,15 +7,16 @@ class SrChipReadOnly extends StatelessWidget {
     Key? key,
     required this.categoryKind,
     required this.categoryName,
+    required this.categoryColor,
   }) : super(key: key);
 
   CategoryKind categoryKind = CategoryKind.mainCategory;
   String? categoryName;
-  Color categoryColor = SrColors.restaurant;
+  Color categoryColor = SrColors.primary;
   TextStyle mainCategoryTextStyle = const TextStyle(
       fontSize: 12, fontWeight: FontWeight.w500, color: SrColors.white);
-  TextStyle subCategoryTextStyle = const TextStyle(
-      fontSize: 12, fontWeight: FontWeight.w500, color: SrColors.restaurant);
+  late TextStyle? subCategoryTextStyle = TextStyle(
+      fontSize: 12, fontWeight: FontWeight.w500, color: categoryColor);
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +26,10 @@ class SrChipReadOnly extends StatelessWidget {
         style: OutlinedButton.styleFrom(
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
             backgroundColor: categoryKind == CategoryKind.mainCategory ? categoryColor : SrColors.white,
-            side: BorderSide(width: 1.5, color: SrColors.restaurant),
+            side: BorderSide(width: 1.5, color: categoryColor,),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-            padding: EdgeInsets.zero,
-            maximumSize: categoryName != null ? Size(50, 23) : Size(0, 0),
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            //maximumSize: categoryName != null ? Size(50, 23) : Size(0, 0),
             minimumSize: categoryName != null ? Size(50, 23) : Size(0, 0),),
         child: Text(
           categoryName ?? "",

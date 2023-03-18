@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/component/spinner/sr_spinner.dart';
 
+import '../../common/typography.dart';
+
 class BirthdayDialog extends StatefulWidget {
   BirthdayDialog({Key? key, required this.onChanged, required this.defaultDate}) : super(key: key);
 
@@ -32,10 +34,10 @@ class _BirthdayDialogState extends State<BirthdayDialog> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Container(
         width: double.infinity,
-        height: 290,
+        height: 260,
         padding: EdgeInsets.only(top: 32),
         child: Column(children: [
-          Padding(padding: EdgeInsets.only(bottom: 12), child: Text("생년월일을 입력하세요")),
+          Padding(padding: EdgeInsets.only(bottom: 24), child: Text("생년월일을 입력하세요", style: SrTypography.body2semi,)),
           SizedBox(
             width: 202,
             child: Row(
@@ -58,7 +60,7 @@ class _BirthdayDialogState extends State<BirthdayDialog> {
           ),
           Spacer(),
           Container(
-              height: 60,
+              height: 64,
               decoration: BoxDecoration(
                   color: SrColors.primary,
                   borderRadius: BorderRadius.only(

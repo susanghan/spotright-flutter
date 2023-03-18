@@ -7,6 +7,7 @@ import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/common/typography.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/buttons/sr_rating_button.dart';
+import 'package:spotright/presentation/component/divider/sr_divider.dart';
 import 'package:spotright/presentation/component/sr_check_box/sr_check_box.dart';
 import 'package:spotright/presentation/component/sr_chip/sr_chips.dart';
 import 'package:spotright/presentation/page/spot_list/spot_list_controller.dart';
@@ -87,10 +88,8 @@ class _SpotListState extends State<SpotList> {
                 style: SrTypography.body3medium.copy(color: SrColors.gray1),
               ),
             )),
-        Divider(
-          height: 2,
-          thickness: 1,
-          color: SrColors.gray3,
+        SrDivider(
+          height: 1,
         ),
         Flexible(
           child: ListView(
@@ -131,16 +130,16 @@ class _SpotListState extends State<SpotList> {
 
   Widget _CommonItem(SpotResponse spot) {
     return Container(
-        height: 72,
+        height: 80,
         padding: EdgeInsets.symmetric(vertical: 16),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
                 alignment: Alignment.center,
-                padding: EdgeInsets.only(right: 8),
+                padding: EdgeInsets.only(right: 12),
                 child: SvgPicture.asset("assets/marker.svg",
-                    width: 26,
+                    width: 28,
                     color:
                         SpotCategory.mainCategoryColors[spot.mainCategoryIndex])),
             Flexible(
@@ -154,9 +153,9 @@ class _SpotListState extends State<SpotList> {
                       children: [
                         Flexible(
                           child: Padding(
-                              padding: EdgeInsets.only(right: 4),
+                              padding: EdgeInsets.only(right: 2),
                               child: Text(spot.spotName ?? "",
-                                  style: SrTypography.body2semi, overflow: TextOverflow.ellipsis,)),
+                                  style: SrTypography.body2medium, overflow: TextOverflow.ellipsis,)),
                         ),
                         Text(
                           spot.mainCategory ?? "",

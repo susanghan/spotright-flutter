@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spotright/presentation/common/colors.dart';
+import 'package:spotright/presentation/common/typography.dart';
 
 class SrSpinner extends StatelessWidget {
   SrSpinner({Key? key, required this.defaultValue, required this.list, required this.onChanged}) : super(key: key);
@@ -10,11 +11,11 @@ class SrSpinner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    PageController controller = PageController(initialPage: list.indexOf(defaultValue), viewportFraction: 0.3);
+    PageController controller = PageController(initialPage: list.indexOf(defaultValue), viewportFraction: 0.4);
 
     return Container(
       height: 80,
-      width: 54,
+      width: 53,
       child: Stack(
         alignment: Alignment.center,
           children: [
@@ -51,6 +52,6 @@ class SrSpinner extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       padding: EdgeInsets.symmetric(vertical: 4),
-        child: Text(text));
+        child: Text(text, style: SrTypography.body2semi.copy(color: SrColors.gray2),));
   }
 }
