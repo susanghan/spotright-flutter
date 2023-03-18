@@ -90,7 +90,7 @@ class UserRepository {
   }
 
   Future<void> fetchMyInfo() async {
-    if(networkClient.accessToken == null) return;
+    if(networkClient.accessToken.isEmpty) return;
 
     String memberId = await localRepository.fetch(_memberIdKey);
     var res = await networkClient.request(path: "$_getUserInfoPath/$memberId");
