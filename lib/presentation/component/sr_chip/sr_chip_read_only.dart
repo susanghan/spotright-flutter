@@ -26,10 +26,10 @@ class SrChipReadOnly extends StatelessWidget {
         style: OutlinedButton.styleFrom(
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
             backgroundColor: categoryKind == CategoryKind.mainCategory ? categoryColor : SrColors.white,
-            side: BorderSide(width: 1.5, color: categoryColor),
+            side: BorderSide(width: 1.5, color: categoryColor,),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-            padding: EdgeInsets.zero,
-            maximumSize: categoryName != null ? Size(50, 23) : Size(0, 0),
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            //maximumSize: categoryName != null ? Size(50, 23) : Size(0, 0),
             minimumSize: categoryName != null ? Size(50, 23) : Size(0, 0),),
         child: Text(
           categoryName ?? "",
