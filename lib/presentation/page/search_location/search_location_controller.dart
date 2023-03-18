@@ -27,7 +27,7 @@ class SearchLocationController extends GetxController {
     countryState.value = Country.SOUTH_KOREA;
     isLoadedMarkerImage = false.obs;
     markerPosition.value = LatLng(37.510181246, 127.043505829);
-    queryTypeState.value = QueryTypeState.COORDINATE;
+    queryTypeState.value = QueryTypeState.KEYWORD;
     searchQuery.value = "";
     spots.value = <LocationResponse>[];
 
@@ -135,10 +135,16 @@ class SearchLocationController extends GetxController {
       await searchSpot();
 
 
-      searchQuery.value.isNotEmpty ? registerSpotController.spotNameController.text = searchQuery.value : null ;
+      searchQuery.value.isNotEmpty ? registerSpotController.spotNameController.text = searchQuery.value : "";
       registerSpotController.provinceController.text = spots[0].province ?? "";
       registerSpotController.cityController.text = spots[0].city ?? "";
       registerSpotController.addressController.text = spots[0].address ?? "";
+
+      searchQuery.value.isNotEmpty ? registerSpotController.spotnameText.value = searchQuery.value : "";
+      registerSpotController.provinceText.value = spots[0].province ?? "";
+      registerSpotController.cityText.value = spots[0].city ?? "";
+      registerSpotController.addressText.value = spots[0].address ?? "";
+
     }
 
   }

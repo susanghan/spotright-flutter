@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:spotright/presentation/component/sr_text_field/sr_text_field.dart';
 
 import '../../../data/resources/geo.dart';
+import '../../common/colors.dart';
 import 'sr_custom_drop_down.dart';
 
 class SrRecommendTextField extends StatefulWidget {
@@ -11,14 +12,18 @@ class SrRecommendTextField extends StatefulWidget {
       required this.inputController,
       required this.onDropdownPressed,
       required this.searchList,
-      required this.onChanged})
+      required this.onChanged,
+      this.enableBorder,
+      this.enabled = true})
       : super(key: key);
 
   late TextEditingController inputController;
+  InputBorder? enableBorder;
   List<String> searchList;
-  Function() onChanged;
+  Function(String) onChanged;
   Function() onDropdownPressed;
   Function() focusOut;
+  bool enabled;
 
   @override
   State<SrRecommendTextField> createState() => _SrRecommendTextFieldState();
@@ -87,8 +92,8 @@ class _SrRecommendTextFieldState extends State<SrRecommendTextField> {
   }
 
   Widget _inputTextField() {
-    void _showInputOverlay() {
-      widget.onChanged();
+    void _showInputOverlay(String text) {
+      widget.onChanged(text);
       _isDropdownSelected = false;
 
       if (_inputFocusNode.hasFocus) {
@@ -112,9 +117,12 @@ class _SrRecommendTextFieldState extends State<SrRecommendTextField> {
       child: SrTextField(
         height: 45,
         controller: widget.inputController,
+        enableBorder: widget.enableBorder,
+        enabled: widget.enabled,
+        focusInputBorder : const OutlineInputBorder(borderRadius:BorderRadius.all(Radius.circular(22)),borderSide: BorderSide(width: 1, color: SrColors.gray1)),
         focusNode: _inputFocusNode,
         textInputAction: TextInputAction.next,
-        onChanged: (_) => _showInputOverlay(),
+        onChanged: (text) => _showInputOverlay(text),
       ),
     );
   }

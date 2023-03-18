@@ -55,11 +55,19 @@ class RegisterSpotController extends GetxController {
 
     memberSpotId.value = detailController.spot.value.memberSpotId ?? 0;
 
+    init.value = true;
+
     spotNameController = TextEditingController();
     provinceController = TextEditingController();
     cityController = TextEditingController();
     addressController = TextEditingController();
     memoController = TextEditingController();
+
+    spotnameText.value = '';
+    provinceText.value = '';
+    cityText.value = '';
+    addressText.value = '';
+
 
     subCategory.value = [];
 
@@ -94,6 +102,8 @@ class RegisterSpotController extends GetxController {
       setEditInit();
     }
   }
+  //**초기
+  RxBool init = true.obs;
 
   //**inputController
   TextEditingController spotNameController = TextEditingController();
@@ -101,6 +111,11 @@ class RegisterSpotController extends GetxController {
   TextEditingController cityController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController memoController = TextEditingController();
+
+  RxString spotnameText = ''.obs;
+  RxString provinceText = ''.obs;
+  RxString cityText = ''.obs;
+  RxString addressText = ''.obs;
 
   //**주소
   var countryState = Country.SOUTH_KOREA.obs;
