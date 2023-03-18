@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spotright/presentation/common/typography.dart';
 import 'package:spotright/presentation/page/manage_user_info/change_passowrd_controller.dart';
-import 'package:spotright/presentation/page/manage_user_info/id_controller.dart';
 
 import '../../common/colors.dart';
 import '../../component/appbars/default_app_bar.dart';
@@ -19,6 +18,8 @@ class ChangePassword extends StatefulWidget {
 
 class _ChangePasswordState extends State<ChangePassword> {
   ChangePasswordController changePasswordController = Get.put(ChangePasswordController());
+
+  final InputBorder? focusInputBorder = const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(22)), borderSide: BorderSide(width: 1, color: SrColors.gray1));
 
   @override
   void initState() {
@@ -81,6 +82,7 @@ class _ChangePasswordState extends State<ChangePassword> {
             hint: "비밀번호",
             password: true,
             onChanged: changePasswordController.onPasswordChanged,
+            focusInputBorder: focusInputBorder,
           ),
         ),
         Obx(() => Padding(
@@ -114,6 +116,7 @@ class _ChangePasswordState extends State<ChangePassword> {
             hint: "비밀번호 확인",
             password: true,
             onChanged: changePasswordController.onPasswordConfirmChanged,
+            focusInputBorder: focusInputBorder,
           ),
         ),
         Obx(() => Padding(
