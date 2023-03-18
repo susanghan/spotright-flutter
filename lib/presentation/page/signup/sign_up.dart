@@ -166,7 +166,7 @@ class _SignUpState extends State<SignUp> {
                 style: TextStyle(color: SrColors.white),
               ),
               style: OutlinedButton.styleFrom(
-                  backgroundColor: signUpController.signUpState.checkedIdDuplication.value ? SrColors.gray9e : SrColors.primary,
+                  backgroundColor: (signUpController.signUpState.checkedIdDuplication.value || (signUpController.signUpState.idMessageStatus.value != MessageStatus.empty)) ? SrColors.gray9e : SrColors.primary,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(100))),
             ),

@@ -65,6 +65,10 @@ class SignUpController extends GetxController {
   }
 
   void verifyDuplicateId() async {
+    if(signUpState.idMessageStatus.value != MessageStatus.empty) {
+      Fluttertoast.showToast(msg: "유효한 아이디를 입력해주세요");
+    }
+
     bool isUsable = await userRepository
         .verifyDuplicatedId(signUpState.id.value)
         .catchError((err) {
@@ -76,9 +80,11 @@ class SignUpController extends GetxController {
 
     if (isUsable) {
       signUpState.validateIdDuplication(true);
+      Fluttertoast.showToast(msg: "확인되었습니다");
     } else {
       signUpState.validateIdDuplication(false);
       signUpState.idMessageStatus.value = MessageStatus.checkDuplicate;
+      Fluttertoast.showToast(msg: "중복된 아이디입니다");
     }
     signUpState.onChangeCtaState();
   }
