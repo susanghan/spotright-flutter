@@ -6,6 +6,8 @@ import 'package:spotright/presentation/component/buttons/sr_cta_button.dart';
 import 'package:spotright/presentation/component/sr_text_field/sr_text_field.dart';
 import 'package:spotright/presentation/page/find_password/find_password_controller.dart';
 
+import '../../common/colors.dart';
+
 class FindPassword extends StatefulWidget {
   const FindPassword({Key? key}) : super(key: key);
 
@@ -35,11 +37,17 @@ class _FindPasswordState extends State<FindPassword> {
                   child: Text("아이디를 입력해주세요", style: SrTypography.body2medium,)),
               Padding(
                 padding: EdgeInsets.only(bottom: 16),
-                  child: SrTextField(hint: "spotright", onChanged: findPasswordController.onIdChanged,)),
+                  child: SrTextField(hint: "spotright", onChanged: findPasswordController.onIdChanged, focusInputBorder: const OutlineInputBorder(
+                      borderRadius:
+                      BorderRadius.all(Radius.circular(22)),
+                      borderSide: BorderSide(width: 1, color: SrColors.gray1)),)),
               Padding(
                   padding: EdgeInsets.only(bottom: 8),
                   child: Text("이메일을 입력해주세요", style: SrTypography.body2medium,)),
-              SrTextField(hint: "example@spotright.com", onChanged: findPasswordController.onEmailChanged,),
+              SrTextField(hint: "example@spotright.com", onChanged: findPasswordController.onEmailChanged,focusInputBorder: const OutlineInputBorder(
+                  borderRadius:
+                  BorderRadius.all(Radius.circular(22)),
+                  borderSide: BorderSide(width: 1, color: SrColors.gray1)),),
               Spacer(),
               Padding(
                 padding: EdgeInsets.only(bottom: 36),

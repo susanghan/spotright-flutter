@@ -6,6 +6,8 @@ import 'package:spotright/presentation/component/buttons/sr_cta_button.dart';
 import 'package:spotright/presentation/component/sr_text_field/sr_text_field.dart';
 import 'package:spotright/presentation/page/find_id/find_id_controller.dart';
 
+import '../../common/colors.dart';
+
 class FindId extends StatefulWidget {
   const FindId({Key? key}) : super(key: key);
 
@@ -33,7 +35,11 @@ class _FindIdState extends State<FindId> {
               Padding(
                 padding: EdgeInsets.only(bottom: 8),
                   child: Text("이메일을 입력해주세요", style: SrTypography.body2medium,)),
-              SrTextField(hint: "example@spotright.com", onChanged: findIdController.onEmailChanged,),
+              SrTextField(hint: "example@spotright.com", onChanged: findIdController.onEmailChanged,
+                focusInputBorder: OutlineInputBorder(
+                  borderRadius:
+                  BorderRadius.all(Radius.circular(22)),
+                  borderSide: BorderSide(width: 1, color: SrColors.gray1)),),
               Spacer(),
               Padding(
                 padding: EdgeInsets.only(bottom: 36),
