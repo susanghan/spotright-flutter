@@ -153,29 +153,40 @@ class _SrAppBarState extends State<SrAppBar> {
                         children: [
                           GestureDetector(
                             onTap: widget.moveSpotList,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [Padding(padding: const EdgeInsets.only(bottom: 4), child: Text(widget.user.memberSpotsCnt.toString(), style: SrTypography.body3semi,)), SizedBox(width: 35, child: const Text('장소', style: SrTypography.body4light, textAlign: TextAlign.center,))],
+                            child: Container(
+                              color: SrColors.white,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Padding(padding: const EdgeInsets.only(bottom: 4), child: Text(widget.user.memberSpotsCnt.toString(), style: SrTypography.body3semi,)),
+                                  SizedBox(width: 35, child: const Text('장소', style: SrTypography.body4light, textAlign: TextAlign.center,))],
+                              ),
                             ),
                           ),
                           GestureDetector(
                             onTap: _navigatePage(Following(tabIndex: 0, user: widget.user,)),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Padding(padding: const EdgeInsets.only(bottom: 4), child: Text(widget.user.followersCnt.toString(), style: SrTypography.body3semi)),
-                                const Text('팔로워', style: SrTypography.body4light,)
-                              ],
+                            child: Container(
+                              color: SrColors.white,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Padding(padding: const EdgeInsets.only(bottom: 4), child: Text(widget.user.followersCnt.toString(), style: SrTypography.body3semi)),
+                                  const Text('팔로워', style: SrTypography.body4light,)
+                                ],
+                              ),
                             ),
                           ),
                           GestureDetector(
                             onTap: _navigatePage(Following(tabIndex: 1, user: widget.user,)),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Padding(padding: const EdgeInsets.only(bottom: 4), child: Text(widget.user.followingsCnt.toString(), style: SrTypography.body3semi)),
-                                const Text('팔로잉',  style: SrTypography.body4light,)
-                              ],
+                            child: Container(
+                              color: SrColors.white,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Padding(padding: const EdgeInsets.only(bottom: 4), child: Text(widget.user.followingsCnt.toString(), style: SrTypography.body3semi)),
+                                  const Text('팔로잉',  style: SrTypography.body4light,)
+                                ],
+                              ),
                             ),
                           )
                         ],
