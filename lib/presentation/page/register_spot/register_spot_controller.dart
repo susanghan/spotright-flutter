@@ -85,6 +85,8 @@ class RegisterSpotController extends GetxController {
 
     isVisited.value = false;
 
+    rating.value = 0.0;
+
     countryState.value = Country.SOUTH_KOREA;
 
     searchProvinceList.value = [""];
@@ -180,12 +182,9 @@ class RegisterSpotController extends GetxController {
     imageFilePath.value != [] ? fileRepository.uploadSpotImages(imageFilePath.value, memberSpotId.value) : null;
   }
 
-
-
-
   //**완료 버튼
-  bool get isCtaActive => (spotnameText.value.isNotEmpty && provinceText.value.isNotEmpty && cityText.value.isNotEmpty && addressText.value.isNotEmpty && mainIsSelected.value);
-
+  bool get isCtaActive => (spotnameText.value.isNotEmpty && provinceText.value.isNotEmpty && cityText.value.isNotEmpty && addressText.value.isNotEmpty && mainIsSelected.value && isEvaluated);
+  bool get isEvaluated => !isVisited.value ? true : rating.value > 0 ? true : false;
 
   int encodeCategory() {
     String mainCode = "0";
@@ -286,7 +285,7 @@ class RegisterSpotController extends GetxController {
 
     var res = await spotRepository.updateSpot(req);
 
-    if(res.statusCode == 200){
+    if(res.statusCode == 200 || res.statusCode == 201){
       uploadSpotPhotos();
       Get.back();
     }
