@@ -111,6 +111,7 @@ class _RegisterSpotState extends State<RegisterSpot> {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
             onPressed: () {
               Get.to(SearchLocation());
+              registerSpotController.init.value = false;
             },
             color: SrColors.primary,
             splashColor: SrColors.primary,
@@ -430,7 +431,7 @@ class _RegisterSpotState extends State<RegisterSpot> {
     return [
       SrCTAButton(
             text: "완료",
-            isEnabled: true,//registerSpotController.isCtaActive.value,
+            isEnabled: registerSpotController.isCtaActive.value,
             action: () => widget.pageMode == PageMode.add ? registerSpotController.addSpot() : registerSpotController.editSpot(),
           )
     ];
