@@ -100,7 +100,6 @@ class RegisterSpotController extends GetxController {
     spotPhotoIds.value = [];
     spotDeletedPhotoIds.value = [];
 
-    isCtaActive.value = false;
 
     if (_pageMode == PageMode.edit) {
       setEditInit();
@@ -185,17 +184,8 @@ class RegisterSpotController extends GetxController {
 
 
   //**완료 버튼
-  RxBool isCtaActive = false.obs;
+  bool get isCtaActive => (spotnameText.value.isNotEmpty && provinceText.value.isNotEmpty && cityText.value.isNotEmpty && addressText.value.isNotEmpty && mainIsSelected.value);
 
-  bool get _isCtaActive => ((spotNameController.text.length >= 3) &&
-      provinceController.text.isNotEmpty &&
-      cityController.text.isNotEmpty &&
-      addressController.text.isNotEmpty &&
-      mainIsSelected.value);
-
-  void onChangeCtaState() {
-    isCtaActive.value = _isCtaActive;
-  }
 
   int encodeCategory() {
     String mainCode = "0";

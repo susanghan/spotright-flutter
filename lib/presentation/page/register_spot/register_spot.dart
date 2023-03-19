@@ -182,7 +182,6 @@ class _RegisterSpotState extends State<RegisterSpot> {
             textInputAction: TextInputAction.next,
             onChanged: (text){
               registerSpotController.spotnameText.value = text;
-              registerSpotController.onChangeCtaState();
             },
           ),
         ),
@@ -215,7 +214,6 @@ class _RegisterSpotState extends State<RegisterSpot> {
                   focusOut: () {
                     registerSpotController.setSearchCityList(
                         registerSpotController.provinceController.text);
-                    registerSpotController.onChangeCtaState();
                   },
                 )),
           ),
@@ -236,9 +234,6 @@ class _RegisterSpotState extends State<RegisterSpot> {
               searchList: registerSpotController.searchCityList.value,
               onChanged: (text) {
                 registerSpotController.cityText.value = text;
-                print("registerSpotController.cityText.value : ${registerSpotController.cityText.value}");
-                print("registerSpotController.cityText.value : ${registerSpotController.cityText.value.isNotEmpty}");
-                registerSpotController.onChangeCtaState();
               },
               onDropdownPressed: () {},
               focusOut: () {},
@@ -259,7 +254,7 @@ class _RegisterSpotState extends State<RegisterSpot> {
           focusInputBorder: gray1Border,
           textInputAction: TextInputAction.next,
           onChanged: (text) {
-            registerSpotController.onChangeCtaState();
+            registerSpotController.addressText.value = text;
           },
         ),)
       ),
@@ -287,8 +282,6 @@ class _RegisterSpotState extends State<RegisterSpot> {
                     hint: '대분류',
                     dropdownIconColors: mainCategoryColors,
                     onChanged: (value) {
-                      registerSpotController.onChangeCtaState();
-
                       registerSpotController.mainIsSelected.value = true;
                       registerSpotController.selectedMainString.value = value;
                       registerSpotController.selectedMainIndex.value =
@@ -429,11 +422,11 @@ class _RegisterSpotState extends State<RegisterSpot> {
 
   List<Widget> _SubmitButton() {
     return [
-      SrCTAButton(
-            text: "완료",
-            isEnabled: registerSpotController.isCtaActive.value,
-            action: () => widget.pageMode == PageMode.add ? registerSpotController.addSpot() : registerSpotController.editSpot(),
-          )
+      Obx(()=>SrCTAButton(
+        text: "완료",
+        isEnabled: registerSpotController.isCtaActive,
+        action: () => widget.pageMode == PageMode.add ? registerSpotController.addSpot() : registerSpotController.editSpot(),
+      ))
     ];
   }
 }
