@@ -1,3 +1,5 @@
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:spotright/data/report/report_repository.dart';
 import 'package:spotright/data/report/report_request.dart';
@@ -28,6 +30,13 @@ class DetailController extends GetxController{
         reasonType: reasonType,
         reportType: "MEMBER_SPOT",
     ));
+  }
+
+  Function() copyAddressToClipboard(String text) {
+    return () {
+      Clipboard.setData(ClipboardData(text: text));
+      Fluttertoast.showToast(msg: "복사되었습니다");
+    };
   }
 
   RxInt currentCarouselPage = 1.obs;
