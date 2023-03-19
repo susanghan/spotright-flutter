@@ -265,11 +265,14 @@ class _DetailState extends State<Detail> {
                 color: SrColors.black),
           ),
           const Padding(padding: EdgeInsets.only(right: 4)),
-          SvgPicture.asset(
-            'assets/copy.svg',
-            width: 12,
-            height: 12,
-            color: SrColors.gray1,
+          GestureDetector(
+            onTap: detailController.copyAddressToClipboard(spotLocation),
+            child: SvgPicture.asset(
+              'assets/copy.svg',
+              width: 12,
+              height: 12,
+              color: SrColors.gray1,
+            ),
           ),
         ],
       ),
