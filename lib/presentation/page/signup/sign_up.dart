@@ -8,6 +8,7 @@ import 'package:spotright/presentation/component/buttons/sr_cta_button.dart';
 import 'package:spotright/presentation/component/dialog/birthday_dialog.dart';
 import 'package:spotright/presentation/component/sr_check_box/sr_check_box.dart';
 import 'package:spotright/presentation/component/sr_text_field/sr_text_field.dart';
+import 'package:spotright/presentation/page/privacy/privacy.dart';
 import 'package:spotright/presentation/page/signup/sign_up_controller.dart';
 import 'package:spotright/presentation/page/signup/sign_up_state.dart';
 
@@ -296,10 +297,13 @@ class _SignUpState extends State<SignUp> {
                     signUpController.changePrivacyPolicy()),
           ),
           Padding(padding: EdgeInsets.only(right: 12)),
-          Text(
-            "개인정보 수집 및 이용동의(필수)".tr,
-            style: TextStyle(
-                decoration: TextDecoration.underline),
+          GestureDetector(
+            onTap: () => Get.to(Privacy()),
+            child: Text(
+              "개인정보 수집 및 이용동의(필수)".tr,
+              style: TextStyle(
+                  decoration: TextDecoration.underline),
+            ),
           ),
         ],
       ),
