@@ -173,10 +173,6 @@ class RegisterSpotController extends GetxController {
   RxBool subIsSelected = false.obs;
   Rxn<String> selectedSubString = Rxn<String>();
 
-  void mainCategoryChanged(){
-
-  }
-
   //**방문 여부
   RxBool isVisited = false.obs;
 

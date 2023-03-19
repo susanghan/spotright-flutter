@@ -392,12 +392,12 @@ class _SearchLocationState extends State<SearchLocation> {
         searchLocationController.moveMap;
 
         registerSpotController.spotNameController.text = spot.name ?? "";
-        registerSpotController.provinceController.text = spot.province ?? "";
+        registerSpotController.provinceController.text = searchLocationController.unifyGeo(spot.province) ?? "";
         registerSpotController.cityController.text = spot.city ?? "";
         registerSpotController.addressController.text = spot.address ?? "";
 
         registerSpotController.spotnameText.value = spot.name ?? "";
-        registerSpotController.provinceText.value = spot.province ?? "";
+        registerSpotController.provinceText.value = searchLocationController.unifyGeo(spot.province) ?? "";
         registerSpotController.cityText.value = spot.city ?? "";
         registerSpotController.addressText.value = spot.address ?? "";
 

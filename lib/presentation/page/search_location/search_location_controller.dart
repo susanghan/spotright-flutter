@@ -9,6 +9,7 @@ import 'package:location/location.dart';
 import 'package:spotright/data/spot/location_request.dart';
 import 'package:spotright/data/spot/location_response.dart';
 import 'package:spotright/data/spot/spot_repository.dart';
+import '../../../data/resources/geo.dart';
 import '../../../data/user/user_repository.dart';
 import '../../../data/user/user_response.dart';
 import 'dart:ui' as ui;
@@ -129,6 +130,21 @@ class SearchLocationController extends GetxController {
 
   }
 
+  String? unifyGeo(String? province) {
+    String _province;
+    if(countryState.value == Country.SOUTH_KOREA && province != null){
+      _province = Geo.SOUTH_KOREA.keys.where((element) => element.contains(province)).join();
+      if(_province.isNotEmpty){
+
+        return _province;
+      }
+      else {
+        return province;
+      }
+    }
+    return province;
+  }
+
   Future<void> submitClicked(bool isCameraMoving, bool isMoveByHuman) async {
     if(!isCameraMoving && !isMoveByHuman){
       queryTypeState.value = QueryTypeState.COORDINATE;
@@ -136,12 +152,12 @@ class SearchLocationController extends GetxController {
 
 
       searchQuery.value.isNotEmpty ? registerSpotController.spotNameController.text = searchQuery.value : "";
-      registerSpotController.provinceController.text = spots[0].province ?? "";
+      registerSpotController.provinceController.text = unifyGeo(spots[0].province) ?? "";
       registerSpotController.cityController.text = spots[0].city ?? "";
       registerSpotController.addressController.text = spots[0].address ?? "";
 
       searchQuery.value.isNotEmpty ? registerSpotController.spotnameText.value = searchQuery.value : "";
-      registerSpotController.provinceText.value = spots[0].province ?? "";
+      registerSpotController.provinceText.value = unifyGeo(spots[0].province) ?? "";
       registerSpotController.cityText.value = spots[0].city ?? "";
       registerSpotController.addressText.value = spots[0].address ?? "";
 
