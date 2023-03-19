@@ -39,7 +39,7 @@ class _EmailState extends State<Email> {
                       controller: TextEditingController(),
                       enabled: true,
                       onChanged: emailController.onChanged,
-                      hint: 'example@gmail.com',
+                      hint: '',
                       suffixIcon: Padding(
                         padding: EdgeInsets.all(4),
                         child: OutlinedButton(
