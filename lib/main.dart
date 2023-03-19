@@ -14,6 +14,7 @@ import 'package:spotright/data/local/local_repository.dart';
 import 'package:spotright/data/report/report_repository.dart';
 import 'package:spotright/data/spot/spot_repository.dart';
 import 'package:spotright/data/user/user_repository.dart';
+import 'package:spotright/data/version/version.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/common/controller/navigation_controller.dart';
 import 'package:spotright/presentation/common/language.dart';
@@ -98,6 +99,8 @@ class _State extends State<Spotright> {
     super.initState();
     Firebase.initializeApp();
     KakaoSdk.init(nativeAppKey: "6141df4779382304859d905edc750579");
+
+    VersionRepository().checkAppVersion();
 
     initLocale();
   }
