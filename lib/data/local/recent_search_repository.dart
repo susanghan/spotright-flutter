@@ -27,6 +27,7 @@ class RecentSearchRepository {
 
   Future<List<UserResponse>> getRecentSearch() async {
     String jsonString = await localRepository.fetch(key);
+    if(jsonString.isEmpty) jsonString = "[]";
     return (jsonDecode(jsonString) as List<dynamic>).map((e) => UserResponse.fromJson(e)).toList();
   }
 
