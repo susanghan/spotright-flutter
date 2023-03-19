@@ -293,6 +293,7 @@ class _RegisterSpotState extends State<RegisterSpot> {
                       registerSpotController.selectedMainIndex.value =
                           SpotCategory.mainCategory.indexOf(value!);
                       registerSpotController.subIsSelected.value = false;
+                      registerSpotController.selectedSubIndex.value = -2;
                       registerSpotController.selectedSubString.value = null;
                       registerSpotController.subCategory.value =
                           SpotCategory.subCategories[

@@ -200,24 +200,28 @@ class RegisterSpotController extends GetxController {
   int encodeCategory() {
     String mainCode = "0";
     String subCode = "00";
-    int totalCode = 000;
+    int resultCode = 000;
 
-    mainCode = ((selectedMainIndex.value += mainCategory.length + 1) % mainCategory.length).toString();
-    if (mainCode != "0" && subCategory.isNotEmpty) {
-      if (selectedSubString.value == "기타") {
-        subCode = "01";
-      } else {
-        subCode = ((selectedSubIndex.value + (subCategory.length * 2) + 2) %
-            (subCategory.length * 2))
-            .toString();
-        if(subCode.length < 2) {
-          subCode = "0$subCode";
-        }
-      }
-      return totalCode = int.parse(mainCode + subCode);
-    } else {
-      return totalCode = 0;
-    }
+    mainCode = ((selectedMainIndex.value + mainCategory.length + 1) % mainCategory.length).toString();
+
+   if(mainCode != "0"){
+     if(subCategory.isEmpty){
+       return resultCode = int.parse("${mainCode}00");
+     }
+     if(selectedSubString.value == "기타"){
+       return resultCode = int.parse("${mainCode}01");
+     }
+     else{
+       subCode = ((selectedSubIndex.value + (subCategory.length * 2) + 2) % (subCategory.length * 2)).toString();
+       if(subCode.length < 2) {
+         subCode = "0$subCode";
+       }
+       return resultCode = int.parse(mainCode + subCode);
+     }
+   }
+   return resultCode = 0;
+
+
   }
 
   Future<void> addSpot() async {
