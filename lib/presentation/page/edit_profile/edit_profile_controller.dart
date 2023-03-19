@@ -25,6 +25,8 @@ class EditProfileController extends GetxController {
     nicknameController.text = userResponse.value.nickname ?? '';
     userNickname.value = userResponse.value.nickname ?? '';
 
+    onNicknameChanged(nicknameController.text);
+
     ctaActive.value = false;
 
     imageProvider;
@@ -94,7 +96,7 @@ class EditProfileController extends GetxController {
     }
     Get.back();
     await userRepository.updateNickname(editProfileState.nickname.value);
-    userRepository.fetchMyInfo();
+    await userRepository.fetchMyInfo();
     myPageController.initState();
   }
 

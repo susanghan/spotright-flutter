@@ -13,12 +13,13 @@ class FileRepository {
 
   Future<void> postProfileFile(String? photoPath, String mediaType) async {
     if(photoPath == null) {
-      networkClient.request(method: Http.delete, path: _postProfileFilePath);
+      await networkClient.request(method: Http.delete, path: _postProfileFilePath);
     }
     else{
       FormData formData = FormData.fromMap({'photo': MultipartFile.fromFileSync(photoPath, contentType: MediaType("image", mediaType))});
-      uploadImage(formData, _postProfileFilePath);
+      await uploadImage(formData, _postProfileFilePath);
     }
+    print("성공");
   }
 
   Future<bool> uploadSpotImages(List<String> photoPaths, int spotId) async {

@@ -18,6 +18,8 @@ class MyPageController extends GetxController {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     versionName.value = packageInfo.version;
     buildNumber.value = packageInfo.buildNumber;
+
+    hasPhoto.value = false;
     if(userResponse.value.memberPhoto?.photoUrl?.isNotEmpty ?? false) hasPhoto.value = true;
   }
 }
