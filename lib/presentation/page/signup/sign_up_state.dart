@@ -3,7 +3,7 @@ import 'package:spotright/presentation/page/edit_profile/edit_profile_state.dart
 
 class SignUpState {
   final Map<MessageStatus, String> _idMessageMap = {
-    MessageStatus.defaultMessage: "영문자, 숫자, 특수문자('-', '_')를 사용해 입력해 주세요.",
+    MessageStatus.defaultMessage: "영문, 숫자 특수문자(#\$@!%&*?) 조합으로 입력해주세요",
     MessageStatus.checkLength: '아이디는 6~16자여야 합니다.',
     MessageStatus.checkDuplicate: '중복된 아이디입니다.',
     MessageStatus.enabled: '사용 가능한 아이디입니다.',
@@ -36,13 +36,13 @@ class SignUpState {
   bool get isPasswordsEqual => password.value == passwordConfirm.value;
   var idMessageStatus = MessageStatus.defaultMessage.obs;
   var nicknameMessageStatus = MessageStatus.defaultMessage.obs;
-  var passwordMessageStatue = MessageStatus.defaultMessage.obs;
+  var passwordMessageStatus = MessageStatus.defaultMessage.obs;
   RxString selectedJoinPath = "INSTAGRAM".obs;
 
   String get idValidationMessage => _idMessageMap[idMessageStatus.value]!;
   String get nicknameValidationMessage =>
       _nicknameMessageMap[nicknameMessageStatus.value]!;
-  String get passwordValidationMessage => _passwordMessageMap[passwordMessageStatue]!;
+  String get passwordValidationMessage => _passwordMessageMap[passwordMessageStatus]!;
   RxString birthdate = "2000-01-01".obs;
   RxInt sex = 0.obs; // 0: 남자, 1: 여자
   RxBool privacyPolicy = false.obs;
@@ -50,7 +50,7 @@ class SignUpState {
   bool get _ctaActive =>
       checkedEmail.value &&
       checkedIdDuplication.value &&
-      passwordMessageStatue.value == MessageStatus.enabled &&
+      passwordMessageStatus.value == MessageStatus.enabled &&
           isPasswordsEqual &&
       (nicknameMessageStatus.value == MessageStatus.enabled) &&
       privacyPolicy.value;
@@ -84,22 +84,22 @@ class SignUpState {
   void validatePassword() {
     final specialRegex = RegExp(r'[^a-zA-Z0-9#$@!%&*?]');
     if(specialRegex.hasMatch(password.value)) {
-      passwordMessageStatue.value = MessageStatus.defaultMessage;
+      passwordMessageStatus.value = MessageStatus.defaultMessage;
       return;
     }
 
     final regex = RegExp(r'^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[#$@!%&*?]).{8,30}$');
     if (regex.hasMatch(password.value)) {
-      passwordMessageStatue.value = MessageStatus.enabled;
+      passwordMessageStatus.value = MessageStatus.enabled;
       return;
     }
 
     if (password.isEmpty) {
-      passwordMessageStatue.value = MessageStatus.defaultMessage;
+      passwordMessageStatus.value = MessageStatus.defaultMessage;
     } else if (password.value.length < 8 || password.value.length > 30) {
-      passwordMessageStatue.value = MessageStatus.checkLength;
+      passwordMessageStatus.value = MessageStatus.checkLength;
     } else {
-      passwordMessageStatue.value = MessageStatus.defaultMessage;
+      passwordMessageStatus.value = MessageStatus.defaultMessage;
     }
   }
 
