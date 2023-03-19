@@ -82,7 +82,7 @@ class _FollowingState extends State<Following> {
   Widget _Profile(UserResponse user, bool isFollower) {
     ImageProvider profilePhoto =
       user.memberPhoto?.photoUrl != null ?
-      NetworkImage(widget.user.memberPhoto?.photoUrl! ?? "")
+      NetworkImage(user.memberPhoto?.photoUrl! ?? "")
           : AssetImage("assets/user_profile_default_small.png") as ImageProvider;
 
     return GestureDetector(
