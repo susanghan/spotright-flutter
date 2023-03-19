@@ -37,17 +37,11 @@ class _FindPasswordState extends State<FindPassword> {
                   child: Text("아이디를 입력해주세요", style: SrTypography.body2medium,)),
               Padding(
                 padding: EdgeInsets.only(bottom: 16),
-                  child: SrTextField(hint: "spotright", onChanged: findPasswordController.onIdChanged, focusInputBorder: const OutlineInputBorder(
-                      borderRadius:
-                      BorderRadius.all(Radius.circular(22)),
-                      borderSide: BorderSide(width: 1, color: SrColors.gray1)),)),
+                  child: SrTextField(hint: "spotright", onChanged: findPasswordController.onIdChanged)),
               Padding(
                   padding: EdgeInsets.only(bottom: 8),
                   child: Text("이메일을 입력해주세요", style: SrTypography.body2medium,)),
-              SrTextField(hint: "example@spotright.com", onChanged: findPasswordController.onEmailChanged,focusInputBorder: const OutlineInputBorder(
-                  borderRadius:
-                  BorderRadius.all(Radius.circular(22)),
-                  borderSide: BorderSide(width: 1, color: SrColors.gray1)),),
+              SrTextField(hint: "example@spotright.com", onChanged: findPasswordController.onEmailChanged,),
               Spacer(),
               Padding(
                 padding: EdgeInsets.only(bottom: 36),

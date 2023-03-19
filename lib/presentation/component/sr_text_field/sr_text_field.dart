@@ -118,7 +118,7 @@ class SrTextField_State extends State<SrTextField> {
                       borderRadius:
                       BorderRadius.all(Radius.circular(widget.borderRadius)),
                       borderSide:
-                      const BorderSide(width: 1, color: SrColors.success)),
+                      const BorderSide(width: 1, color: SrColors.gray1)),
               errorBorder: widget.errorInputBorder ??
                   OutlineInputBorder(
                       borderRadius:

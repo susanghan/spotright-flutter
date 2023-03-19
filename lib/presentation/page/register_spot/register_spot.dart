@@ -27,7 +27,6 @@ RegisterSpotController registerSpotController = Get.find();
 
 final List<String> mainCategory = registerSpotController.mainCategory;
 final List<Color> mainCategoryColors = registerSpotController.mainCategoryColors;
-const InputBorder gray1Border = OutlineInputBorder(borderRadius:BorderRadius.all(Radius.circular(22)),borderSide: BorderSide(width: 1, color: SrColors.gray1));
 const InputBorder gray2Border = OutlineInputBorder(borderRadius:BorderRadius.all(Radius.circular(22)),borderSide: BorderSide(width: 1, color: SrColors.gray2));
 
 
@@ -178,7 +177,6 @@ class _RegisterSpotState extends State<RegisterSpot> {
           child: SrTextField(
             hint: "장소명",
             controller: registerSpotController.spotNameController,
-            focusInputBorder: gray1Border,
             textInputAction: TextInputAction.next,
             onChanged: (text){
               registerSpotController.spotnameText.value = text;
@@ -251,7 +249,6 @@ class _RegisterSpotState extends State<RegisterSpot> {
           hint: "상세주소",
           enabled: registerSpotController.cityText.value.isNotEmpty,
           controller: registerSpotController.addressController,
-          focusInputBorder: gray1Border,
           textInputAction: TextInputAction.next,
           onChanged: (text) {
             registerSpotController.addressText.value = text;

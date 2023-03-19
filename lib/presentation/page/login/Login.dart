@@ -48,20 +48,11 @@ class _LoginState extends State<Login> {
                 children: [
                   SrTextField(
                     hint: "아이디를 입력하세요",
-                    onChanged: userController.onIdChanged,
-                    focusInputBorder: const OutlineInputBorder(
-                        borderRadius:
-                        BorderRadius.all(Radius.circular(22)),
-                        borderSide: BorderSide(width: 1, color: SrColors.gray1)),
-                  ),
+                    onChanged: userController.onIdChanged,),
                   SrTextField(
                     hint: "비밀번호를 입력하세요",
                     password: true,
                     onChanged: userController.onPasswordChanged,
-                    focusInputBorder: const OutlineInputBorder(
-                      borderRadius:
-                      BorderRadius.all(Radius.circular(22)),
-                      borderSide: BorderSide(width: 1, color: SrColors.gray1)),
                   ),
                   SrCTAButton(action: userController.login, text: "로그인"),
                   Padding(

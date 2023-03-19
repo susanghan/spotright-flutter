@@ -35,11 +35,7 @@ class _FindIdState extends State<FindId> {
               Padding(
                 padding: EdgeInsets.only(bottom: 8),
                   child: Text("이메일을 입력해주세요", style: SrTypography.body2medium,)),
-              SrTextField(hint: "example@spotright.com", onChanged: findIdController.onEmailChanged,
-                focusInputBorder: OutlineInputBorder(
-                  borderRadius:
-                  BorderRadius.all(Radius.circular(22)),
-                  borderSide: BorderSide(width: 1, color: SrColors.gray1)),),
+              SrTextField(hint: "example@spotright.com", onChanged: findIdController.onEmailChanged,),
               Spacer(),
               Padding(
                 padding: EdgeInsets.only(bottom: 36),

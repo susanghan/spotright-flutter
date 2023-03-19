@@ -19,7 +19,6 @@ class ChangePassword extends StatefulWidget {
 class _ChangePasswordState extends State<ChangePassword> {
   ChangePasswordController changePasswordController = Get.put(ChangePasswordController());
 
-  final InputBorder? focusInputBorder = const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(22)), borderSide: BorderSide(width: 1, color: SrColors.gray1));
 
   @override
   void initState() {
@@ -82,7 +81,6 @@ class _ChangePasswordState extends State<ChangePassword> {
             hint: "비밀번호",
             password: true,
             onChanged: changePasswordController.onPasswordChanged,
-            focusInputBorder: focusInputBorder,
           ),
         ),
         Obx(() => Padding(
@@ -116,7 +114,6 @@ class _ChangePasswordState extends State<ChangePassword> {
             hint: "비밀번호 확인",
             password: true,
             onChanged: changePasswordController.onPasswordConfirmChanged,
-            focusInputBorder: focusInputBorder,
           ),
         ),
         Obx(() => Padding(

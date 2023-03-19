@@ -122,7 +122,6 @@ class _SrRecommendTextFieldState extends State<SrRecommendTextField> {
         controller: widget.inputController,
         enableBorder: widget.enableBorder,
         enabled: widget.enabled,
-        focusInputBorder : const OutlineInputBorder(borderRadius:BorderRadius.all(Radius.circular(22)),borderSide: BorderSide(width: 1, color: SrColors.gray1)),
         focusNode: _inputFocusNode,
         textInputAction: TextInputAction.next,
         onChanged: (text) => _showInputOverlay(text),
