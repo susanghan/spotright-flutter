@@ -327,10 +327,10 @@ class _SearchLocationState extends State<SearchLocation> {
   }
 
   Widget _SearchField() {
-    return SrTextField(
+    return Obx(()=>SrTextField(
       height: 47,
       borderRadius: 22,
-      hint: "",
+      hint: searchLocationController.queryTypeState.value == QueryTypeState.ADDRESS ? "검색할 주소를 입력하세요" : "검색할 장소를 입력하세요",
       boxShadow: BoxDecoration(
         boxShadow: [
           BoxShadow(
@@ -374,7 +374,7 @@ class _SearchLocationState extends State<SearchLocation> {
         searchLocationController.searchQuery.value = text;
         searchLocationController.searchSpot();
       },
-    );
+    ));
   }
 
   Widget _Result(LocationResponse spot, int index) {
