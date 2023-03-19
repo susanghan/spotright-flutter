@@ -48,10 +48,10 @@ class EditProfileController extends GetxController {
   RxString userNickname = ''.obs;
 
   //**완료 버튼
-  RxBool get ctaActive => (((userNickname.value != userResponse.value.nickname ) &&
-      (editProfileState.nicknameMessageStatus.value == MessageStatus.enabled)) ||
-      (((userResponse.value.memberPhoto?.photoUrl ?? '') != userProfilePath.value) &&
-      (userProfileState.value != UserProfileState.serverState))).obs;
+  RxBool get ctaActive => (
+      ((userNickname.value != userResponse.value.nickname ) && (editProfileState.nicknameMessageStatus.value == MessageStatus.enabled)) ||
+      ( ((userResponse.value.memberPhoto?.photoUrl ?? '') != userProfilePath.value) &&  (userProfileState.value != UserProfileState.serverState) &&(editProfileState.nicknameMessageStatus.value == MessageStatus.enabled) )
+  ).obs;
 
   ImageProvider? get imageProvider {
     print("userProfileState.value : ${userProfileState.value}");
