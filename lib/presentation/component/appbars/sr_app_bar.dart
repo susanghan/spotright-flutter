@@ -53,9 +53,10 @@ class _SrAppBarState extends State<SrAppBar> {
   double topContentSize = _topContentSize;
   double arrowAreaSize = 40;
   Set<String> selected = {"전체"};
+
   ImageProvider get profilePhoto {
-    if(widget.user.memberPhoto?.photoUrl != null) {
-      return NetworkImage(widget.user.memberPhoto?.photoUrl! ?? "");      
+    if (widget.user.memberPhoto?.photoUrl != null) {
+      return NetworkImage(widget.user.memberPhoto?.photoUrl! ?? "");
     }
     return const AssetImage("assets/user_profile_default_small.png");
   }
@@ -63,45 +64,54 @@ class _SrAppBarState extends State<SrAppBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
-      child: Column(
-        children: [
+        width: double.infinity,
+        child: Column(children: [
           _TopContent(expanded),
           _ExpandButton(),
           expanded ? SizedBox.shrink() : _Chips(),
           if (widget.shouldRefresh)
-            TextButton(
+            Container(
+              width: 183,
+              height: 33,
+              margin: EdgeInsets.only(top: 4),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                      color: SrColors.black.withOpacity(0.25),
+                      offset: Offset(0, 4),
+                      blurRadius: 4)
+                ],
+              ),
+              child: TextButton(
+                style: TextButton.styleFrom(
+                  backgroundColor: SrColors.white,
+                  primary: SrColors.gray1,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
                 onPressed: widget.fetchRegionSpots,
                 child: Container(
-                  height: 33,
-                  width: 183,
-                  child: Material(
-                    elevation: 2,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(14, 8, 15, 8),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Padding(
-                                padding: EdgeInsets.only(right: 8),
-                                child: SvgPicture.asset(
-                                  "assets/refresh.svg",
-                                  width: 16,
-                                )),
-                            Text(
-                              "이 지역에서 검색하기",
-                              style: SrTypography.body3medium,
-                            ),
-                          ]),
-                    ),
-                  ),
-                ))
-        ],
-      ),
-    );
+                  alignment: Alignment.center,
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                            padding: EdgeInsets.only(right: 8),
+                            child: SvgPicture.asset(
+                              "assets/refresh.svg",
+                              width: 16,
+                            )),
+                        Text(
+                          "이 지역에서 검색하기",
+                          style: SrTypography.body3medium,
+                        ),
+                      ]),
+                ),
+              ),
+            ),
+        ]));
   }
 
   Widget _TopContent(bool expanded) {
@@ -134,7 +144,10 @@ class _SrAppBarState extends State<SrAppBar> {
                         color: SrColors.black,
                         borderRadius: BorderRadius.circular(100)),
                   ),
-                  Text(widget.userName, style: SrTypography.body3semi,)
+                  Text(
+                    widget.userName,
+                    style: SrTypography.body3semi,
+                  )
                 ],
               ),
             ),
@@ -158,33 +171,65 @@ class _SrAppBarState extends State<SrAppBar> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Padding(padding: const EdgeInsets.only(bottom: 4), child: Text(widget.user.memberSpotsCnt.toString(), style: SrTypography.body3semi,)),
-                                  SizedBox(width: 35, child: const Text('장소', style: SrTypography.body4light, textAlign: TextAlign.center,))],
-                              ),
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: _navigatePage(Following(tabIndex: 0, user: widget.user,)),
-                            child: Container(
-                              color: SrColors.white,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Padding(padding: const EdgeInsets.only(bottom: 4), child: Text(widget.user.followersCnt.toString(), style: SrTypography.body3semi)),
-                                  const Text('팔로워', style: SrTypography.body4light,)
+                                  Padding(
+                                      padding: const EdgeInsets.only(bottom: 4),
+                                      child: Text(
+                                        widget.user.memberSpotsCnt.toString(),
+                                        style: SrTypography.body3semi,
+                                      )),
+                                  SizedBox(
+                                      width: 35,
+                                      child: const Text(
+                                        '장소',
+                                        style: SrTypography.body4light,
+                                        textAlign: TextAlign.center,
+                                      ))
                                 ],
                               ),
                             ),
                           ),
                           GestureDetector(
-                            onTap: _navigatePage(Following(tabIndex: 1, user: widget.user,)),
+                            onTap: _navigatePage(Following(
+                              tabIndex: 0,
+                              user: widget.user,
+                            )),
                             child: Container(
                               color: SrColors.white,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Padding(padding: const EdgeInsets.only(bottom: 4), child: Text(widget.user.followingsCnt.toString(), style: SrTypography.body3semi)),
-                                  const Text('팔로잉',  style: SrTypography.body4light,)
+                                  Padding(
+                                      padding: const EdgeInsets.only(bottom: 4),
+                                      child: Text(
+                                          widget.user.followersCnt.toString(),
+                                          style: SrTypography.body3semi)),
+                                  const Text(
+                                    '팔로워',
+                                    style: SrTypography.body4light,
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: _navigatePage(Following(
+                              tabIndex: 1,
+                              user: widget.user,
+                            )),
+                            child: Container(
+                              color: SrColors.white,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                      padding: const EdgeInsets.only(bottom: 4),
+                                      child: Text(
+                                          widget.user.followingsCnt.toString(),
+                                          style: SrTypography.body3semi)),
+                                  const Text(
+                                    '팔로잉',
+                                    style: SrTypography.body4light,
+                                  )
                                 ],
                               ),
                             ),
@@ -239,7 +284,8 @@ class _SrAppBarState extends State<SrAppBar> {
               child: Text(
                 widget.isFollowing ? "팔로잉" : "팔로우",
                 style: TextStyle(
-                    color: widget.isFollowing ? SrColors.primary : SrColors.white),
+                    color:
+                        widget.isFollowing ? SrColors.primary : SrColors.white),
               ),
               style: OutlinedButton.styleFrom(
                   backgroundColor:
@@ -284,7 +330,13 @@ class _SrAppBarState extends State<SrAppBar> {
                     title: "신고 완료!",
                     description: "신고처리 완료되었습니다",
                     actions: [
-                      TextButton(onPressed: () => Get.back(), child: Text("완료", style: SrTypography.body2medium.copy(color: SrColors.white),))
+                      TextButton(
+                          onPressed: () => Get.back(),
+                          child: Text(
+                            "완료",
+                            style: SrTypography.body2medium
+                                .copy(color: SrColors.white),
+                          ))
                     ],
                   ));
                 },
@@ -385,7 +437,7 @@ class _SrAppBarState extends State<SrAppBar> {
                     selected: selected.contains(chipNames[index]),
                     onTab: (isSelected) {
                       setState(() {
-                        if(isSelected) {
+                        if (isSelected) {
                           selected.add(chipNames[index]);
                         } else {
                           selected.remove(chipNames[index]);
@@ -397,5 +449,6 @@ class _SrAppBarState extends State<SrAppBar> {
         ));
   }
 
-  Function() _navigatePage(dynamic page) => () => Get.to(page)?.then((_) => widget.initState?.call());
+  Function() _navigatePage(dynamic page) =>
+      () => Get.to(page)?.then((_) => widget.initState?.call());
 }
