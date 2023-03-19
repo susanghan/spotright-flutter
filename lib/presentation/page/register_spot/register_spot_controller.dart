@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:spotright/data/spot/spot_repository.dart';
 import 'package:spotright/data/spot/spot_request.dart';
 import 'package:spotright/presentation/common/colors.dart';
@@ -239,7 +240,7 @@ class RegisterSpotController extends GetxController {
     if(res.statusCode == 200 || res.statusCode == 201){
       memberSpotId.value = res.spotResponse?.memberSpotId ?? 0;
       uploadSpotPhotos();
-      Get.back();
+      Get.back(result: LatLng(searchLocationController.markerPosition.value.latitude, searchLocationController.markerPosition.value.longitude));
     }
     else{
       checkRegisterError(res.statusCode, res.responseCode, res.responseMessage);

@@ -168,7 +168,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 GestureDetector(
-                  onTap: navigationController.navigatePage(RegisterSpot(pageMode: PageMode.add), initState),
+                  onTap: () => homeController.navigateRegisterSpot(RegisterSpot(pageMode: PageMode.add), _moveCameraPosition, _initState),
                   child: Container(
                     width: 44,
                     height: 44,
