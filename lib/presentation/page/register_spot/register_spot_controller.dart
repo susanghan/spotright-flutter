@@ -18,6 +18,7 @@ import '../../../data/resources/enum_country.dart';
 import '../../../data/resources/geo.dart';
 import 'package:spotright/data/file/file_repository.dart';
 import '../../common/typography.dart';
+import '../home/home.dart';
 
 class RegisterSpotController extends GetxController {
   SearchLocationController searchLocationController = Get.find();
@@ -32,6 +33,11 @@ class RegisterSpotController extends GetxController {
     provinceController.text = detailController.spot.value.province ?? "";
     cityController.text = detailController.spot.value.city ?? "";
     addressController.text = detailController.spot.value.address ?? "";
+
+    spotnameText.value = spotNameController.text;
+    provinceText.value = provinceController.text;
+    cityText.value = cityController.text;
+    addressText.value = addressController.text;
 
     selectedMainIndex.value = detailController.spot.value.mainCategoryIndex;
     mainIsSelected.value = true;
@@ -53,6 +59,7 @@ class RegisterSpotController extends GetxController {
     }
 
     memoController.text = detailController.spot.value.memo ?? "";
+
   }
 
   void initState(PageMode _pageMode) {
@@ -107,6 +114,9 @@ class RegisterSpotController extends GetxController {
     if (_pageMode == PageMode.edit) {
       setEditInit();
     }
+
+    isEvaluated;
+    isCtaActive;
   }
   //**초기
   RxBool init = true.obs;

@@ -17,6 +17,7 @@ class DetailController extends GetxController{
   Future<void> initState(int userId, int memberSpotId) async {
     await initSpot(userId, memberSpotId);
     isMyPage.value = userId == userRepository.userResponse!.memberId;
+    currentCarouselPage.value = spot.value.spotPhotos!.isNotEmpty ? 1 : 0;
   }
 
   Future<void> initSpot(int userId, int memberSpotId) async {
