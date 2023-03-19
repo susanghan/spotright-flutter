@@ -20,6 +20,12 @@ class _SearchState extends State<Search> {
   SearchController searchController = Get.put(SearchController());
 
   @override
+  void initState() {
+    searchController.onInit();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
