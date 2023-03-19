@@ -14,7 +14,8 @@ class SrRecommendTextField extends StatefulWidget {
       required this.searchList,
       required this.onChanged,
       this.enableBorder,
-      this.enabled = true})
+      this.enabled = true,
+      this.hint})
       : super(key: key);
 
   late TextEditingController inputController;
@@ -24,6 +25,7 @@ class SrRecommendTextField extends StatefulWidget {
   Function() onDropdownPressed;
   Function() focusOut;
   bool enabled;
+  String? hint;
 
   @override
   State<SrRecommendTextField> createState() => _SrRecommendTextFieldState();
@@ -115,6 +117,7 @@ class _SrRecommendTextFieldState extends State<SrRecommendTextField> {
     return CompositedTransformTarget(
       link: _layerLink,
       child: SrTextField(
+        hint: widget.hint ?? "",
         height: 45,
         controller: widget.inputController,
         enableBorder: widget.enableBorder,

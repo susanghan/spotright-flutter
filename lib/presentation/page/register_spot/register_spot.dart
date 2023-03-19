@@ -175,6 +175,7 @@ class _RegisterSpotState extends State<RegisterSpot> {
             registerSpotController.init.value = false;
           },
           child: SrTextField(
+            hint: "장소명",
             controller: registerSpotController.spotNameController,
             focusInputBorder: gray1Border,
             textInputAction: TextInputAction.next,
@@ -197,6 +198,7 @@ class _RegisterSpotState extends State<RegisterSpot> {
           Padding(
             padding: EdgeInsets.only(bottom: 16),
             child: Obx(() => SrRecommendTextField(
+                  hint:"도/시",
                   enabled: !registerSpotController.init.value || registerSpotController.spotnameText.value.isNotEmpty,
                   inputController: registerSpotController.provinceController,
                   searchList: registerSpotController.searchProvinceList.value,
@@ -227,6 +229,7 @@ class _RegisterSpotState extends State<RegisterSpot> {
       Padding(
         padding: EdgeInsets.only(bottom: 16),
         child: Obx(() => SrRecommendTextField(
+              hint: "시/군/구",
               enabled: registerSpotController.provinceText.value.isNotEmpty,
               inputController: registerSpotController.cityController,
               searchList: registerSpotController.searchCityList.value,
@@ -249,6 +252,7 @@ class _RegisterSpotState extends State<RegisterSpot> {
       Padding(
         padding: EdgeInsets.only(bottom: 16),
         child: Obx(()=>SrTextField(
+          hint: "상세주소",
           enabled: registerSpotController.cityText.value.isNotEmpty,
           controller: registerSpotController.addressController,
           focusInputBorder: gray1Border,
