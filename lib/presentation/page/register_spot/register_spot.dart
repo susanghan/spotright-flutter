@@ -306,7 +306,7 @@ class _RegisterSpotState extends State<RegisterSpot> {
                     hasIcon: false,
                     isRequired: false,
                     dropdownItems: registerSpotController.subCategory.value,
-                    hint: '소분류',
+                    hint: registerSpotController.subCategory.isNotEmpty || !registerSpotController.mainIsSelected.value ? '소분류' : '선택 사항 없음',
                     onChanged: (value) {
                       registerSpotController.subIsSelected.value = true;
                       registerSpotController.selectedSubString.value = value;
