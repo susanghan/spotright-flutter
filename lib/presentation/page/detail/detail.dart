@@ -10,6 +10,7 @@ import 'package:spotright/presentation/component/buttons/sr_rating_button.dart';
 import 'package:spotright/presentation/component/dialog/report_dialog.dart';
 import 'package:spotright/presentation/component/dialog/sr_dialog.dart';
 import 'package:spotright/presentation/page/register_spot/register_spot.dart';
+import 'package:spotright/presentation/page/showing_location/showing_location.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../data/resources/category.dart';
@@ -281,7 +282,11 @@ class _DetailState extends State<Detail> {
 
   Widget _SearchLocation() {
     return GestureDetector(
-      onTap: () => Get.back(),
+      onTap: () {
+        if(detailController.spot.value.memberSpotId == null) return;
+
+        Get.to(ShowingLocation(spot: detailController.spot.value));
+      },
       child: Padding(
           padding: EdgeInsets.only(bottom: 18, left: 18),
           child: Text(
