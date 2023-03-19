@@ -32,10 +32,18 @@ class FollowingController extends GetxController {
   }
 
   Function() unfollow(int userId) {
-    return () => userRepository.unfollow(userId, userRepository.userResponse!.memberId);
+    return () {
+      userRepository.unfollow(userId, userRepository.userResponse!.memberId);
+      var target = followings.firstWhere((user) => user.memberId == userId);
+      followings.remove(target);
+    };
   }
 
   Function() removeFollower(int removingFollowerId) {
-    return () => userRepository.unfollow(removingFollowerId, userRepository.userResponse!.memberId, isUnfollowing: false);
+    return () {
+      userRepository.unfollow(removingFollowerId, userRepository.userResponse!.memberId, isUnfollowing: false);
+      var target = followers.firstWhere((user) => user.memberId == removingFollowerId);
+      followers.remove(target);
+    };
   }
 }
