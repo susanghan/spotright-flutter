@@ -21,9 +21,10 @@ class SrCTAButton extends StatelessWidget {
         onPressed: () {
           if(isEnabled) action();
         },
+
         color: isEnabled ? SrColors.primary : SrColors.gray3,
-        splashColor: SrColors.primary,
-        highlightColor: SrColors.primary,
+        splashColor: isEnabled ? SrColors.primary : SrColors.gray3,
+        highlightColor: isEnabled ? SrColors.primary : SrColors.gray3,
         child:Text(
           text,
           style: const TextStyle(color: SrColors.white, fontWeight: FontWeight.w600, fontSize: 18),
