@@ -8,6 +8,7 @@ import 'package:location/location.dart';
 import 'package:logger/logger.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/common/controller/map_controller.dart';
+import 'package:spotright/presentation/common/controller/navigation_controller.dart';
 import 'package:spotright/presentation/component/appbars/appbar_title.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/appbars/sr_app_bar.dart';
@@ -27,6 +28,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> with WidgetsBindingObserver {
   Completer<GoogleMapController> _mapController = Completer();
   HomeController homeController = Get.find();
+  NavigationController navigationController = Get.find();
   MapController mapController = Get.put(MapController());
   Logger logger = Get.find();
 
@@ -90,7 +92,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
             titleWidget: Obx(() => AppbarTitle(title: homeController.userInfo.value.spotrightId ?? "")),
           actions: [
             GestureDetector(
-              onTap: homeController.navigatePage(Search()),
+              onTap: navigationController.navigatePage(Search(), initState),
               child: Padding(
                 padding: EdgeInsets.only(right: 20),
                 child: SvgPicture.asset(
@@ -166,7 +168,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 GestureDetector(
-                  onTap: homeController.navigatePage(RegisterSpot(pageMode: PageMode.add)),
+                  onTap: navigationController.navigatePage(RegisterSpot(pageMode: PageMode.add), initState),
                   child: Container(
                     width: 44,
                     height: 44,

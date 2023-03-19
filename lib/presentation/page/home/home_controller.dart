@@ -11,6 +11,4 @@ class HomeController {
     await userRepository.fetchMyInfo();
     userInfo.value = userRepository.userResponse!;
   }
-  
-  Function() navigatePage(dynamic page) => () => Get.to(page)?.then((_) => initState());
 }
