@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spotright/data/user/user_response.dart';
 import 'package:spotright/presentation/common/colors.dart';
+import 'package:spotright/presentation/common/controller/navigation_controller.dart';
 import 'package:spotright/presentation/common/typography.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/page/following/following_controller.dart';
+import 'package:spotright/presentation/page/profile/profile.dart';
 
 class Following extends StatefulWidget {
   const Following({Key? key, required this.tabIndex, required this.user}) : super(key: key);
@@ -18,6 +20,7 @@ class Following extends StatefulWidget {
 
 class _FollowingState extends State<Following> {
   FollowingController followingController = Get.put(FollowingController());
+  NavigationController navigationController = Get.find();
 
   @override
   void initState() {
@@ -82,40 +85,44 @@ class _FollowingState extends State<Following> {
       NetworkImage(widget.user.memberPhoto?.photoUrl! ?? "")
           : AssetImage("assets/user_profile_default_small.png") as ImageProvider;
 
-    return Container(
-      margin: EdgeInsets.fromLTRB(16, 0, 16, 30),
-      child: Row(children: [
-        Container(
-          width: 60,
-          height: 60,
-          margin: EdgeInsets.only(right: 12),
-          child: CircleAvatar(
-            backgroundColor: SrColors.white,
-              radius: 100,
-              backgroundImage: profilePhoto),
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(user.spotrightId ?? "", style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 15, color: Colors.black),),
-            SizedBox(height: 8),
-            Text(user.nickname ?? "", style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w300, color: SrColors.gray1),),
-          ],
-        ),
-        Spacer(),
-        SizedBox(
-          width: 108,
-          height: 36,
-          child: OutlinedButton(
-            onPressed: isFollower ? followingController.removeFollower(user.memberId) : followingController.unfollow(user.memberId),
-            child: Text(isFollower ? "삭제" : "팔로잉", style: SrTypography.body2semi.copy(color: SrColors.primary),),
-            style: OutlinedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(100)),
-                side: BorderSide(color: SrColors.primary)),
+    return GestureDetector(
+      onTap: navigationController.navigatePage(Profile(user: user,), initState),
+      child: Container(
+        color: SrColors.white,
+        margin: EdgeInsets.fromLTRB(16, 0, 16, 30),
+        child: Row(children: [
+          Container(
+            width: 60,
+            height: 60,
+            margin: EdgeInsets.only(right: 12),
+            child: CircleAvatar(
+              backgroundColor: SrColors.white,
+                radius: 100,
+                backgroundImage: profilePhoto),
           ),
-        )
-      ]),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(user.spotrightId ?? "", style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 15, color: Colors.black),),
+              SizedBox(height: 8),
+              Text(user.nickname ?? "", style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w300, color: SrColors.gray1),),
+            ],
+          ),
+          Spacer(),
+          SizedBox(
+            width: 108,
+            height: 36,
+            child: OutlinedButton(
+              onPressed: isFollower ? followingController.removeFollower(user.memberId) : followingController.unfollow(user.memberId),
+              child: Text(isFollower ? "삭제" : "팔로잉", style: SrTypography.body2semi.copy(color: SrColors.primary),),
+              style: OutlinedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(100)),
+                  side: BorderSide(color: SrColors.primary)),
+            ),
+          )
+        ]),
+      ),
     );
   }
 }

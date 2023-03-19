@@ -15,6 +15,7 @@ import 'package:spotright/data/report/report_repository.dart';
 import 'package:spotright/data/spot/spot_repository.dart';
 import 'package:spotright/data/user/user_repository.dart';
 import 'package:spotright/presentation/common/colors.dart';
+import 'package:spotright/presentation/common/controller/navigation_controller.dart';
 import 'package:spotright/presentation/common/language.dart';
 import 'package:spotright/presentation/page/block_list/block_list.dart';
 import 'package:spotright/presentation/page/congratulation/congratulation.dart';
@@ -78,6 +79,7 @@ class _State extends State<Spotright> {
         Get.put(EmailRepository());
         Get.put(FileRepository());
 
+        Get.put(NavigationController());
         Get.put(SpotListController());
         Get.put(DetailController());
         Get.put(UserController());
