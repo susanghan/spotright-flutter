@@ -68,7 +68,7 @@ class SrTextField_State extends State<SrTextField> {
   Widget build(BuildContext context) {
     return Column(children: [
       Container(
-        margin: EdgeInsets.only(bottom: 8),
+        margin: EdgeInsets.only(bottom: 4),
         height: widget.height,
         decoration: widget.boxShadow,
         child: TextField(

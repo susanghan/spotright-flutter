@@ -263,7 +263,7 @@ class _DetailState extends State<Detail> {
             style: const TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 14,
-                color: SrColors.black),
+                color: SrColors.black), overflow: TextOverflow.ellipsis,
           ),
           const Padding(padding: EdgeInsets.only(right: 4)),
           GestureDetector(

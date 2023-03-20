@@ -105,7 +105,7 @@ class _SrAppBarState extends State<SrAppBar> {
                             )),
                         Text(
                           "이 지역에서 검색하기",
-                          style: SrTypography.body3medium,
+                          style: SrTypography.body3medium.copy(color: SrColors.gray1),
                         ),
                       ]),
                 ),
@@ -153,7 +153,7 @@ class _SrAppBarState extends State<SrAppBar> {
             ),
             SizedBox(
               width: 180,
-              height: 76,
+              height: 80,
               child: Padding(
                 padding: EdgeInsets.only(top: 0, right: 0),
                 child: Column(
@@ -175,13 +175,13 @@ class _SrAppBarState extends State<SrAppBar> {
                                       padding: const EdgeInsets.only(bottom: 4),
                                       child: Text(
                                         widget.user.memberSpotsCnt.toString(),
-                                        style: SrTypography.body3semi,
+                                        style: SrTypography.body2semi,
                                       )),
                                   SizedBox(
                                       width: 35,
                                       child: const Text(
                                         '장소',
-                                        style: SrTypography.body4light,
+                                        style: SrTypography.body3regular,
                                         textAlign: TextAlign.center,
                                       ))
                                 ],
@@ -202,10 +202,10 @@ class _SrAppBarState extends State<SrAppBar> {
                                       padding: const EdgeInsets.only(bottom: 4),
                                       child: Text(
                                           widget.user.followersCnt.toString(),
-                                          style: SrTypography.body3semi)),
+                                          style: SrTypography.body2semi)),
                                   const Text(
                                     '팔로워',
-                                    style: SrTypography.body4light,
+                                    style: SrTypography.body3regular,
                                   )
                                 ],
                               ),
@@ -225,10 +225,10 @@ class _SrAppBarState extends State<SrAppBar> {
                                       padding: const EdgeInsets.only(bottom: 4),
                                       child: Text(
                                           widget.user.followingsCnt.toString(),
-                                          style: SrTypography.body3semi)),
+                                          style: SrTypography.body2semi)),
                                   const Text(
                                     '팔로잉',
-                                    style: SrTypography.body4light,
+                                    style: SrTypography.body3regular,
                                   )
                                 ],
                               ),
@@ -302,7 +302,7 @@ class _SrAppBarState extends State<SrAppBar> {
               onTap: _showReportDialog,
               child: SvgPicture.asset(
                 "assets/report.svg",
-                color: SrColors.gray2,
+                color: SrColors.gray3,
                 width: 24,
               ))
         ],

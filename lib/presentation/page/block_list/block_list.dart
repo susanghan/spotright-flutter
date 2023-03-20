@@ -53,7 +53,7 @@ class _BlockListState extends State<BlockList> {
   Widget _Item(UserResponse user) {
     return Container(
       height: 70,
-      padding: EdgeInsets.symmetric(horizontal: 16),
+      padding: EdgeInsets.symmetric(horizontal: 40),
       child: Row(children: [
         Padding(
             padding: EdgeInsets.only(right: 12),
@@ -61,7 +61,7 @@ class _BlockListState extends State<BlockList> {
               value: blockListController.unblockUserIds.contains(user.memberId),
               onChanged: blockListController.onChecked(user),
               isRectangle: true,
-              size: 16,
+              size: 24,
             )),
         Padding(
           padding: EdgeInsets.only(right: 22),

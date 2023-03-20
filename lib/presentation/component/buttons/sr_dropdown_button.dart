@@ -74,7 +74,7 @@ class _SrDropdownState extends State<SrDropdownButton> {
                 style: TextStyle(
                   fontWeight: FontWeight.w300,
                   fontSize: 15,
-                  color: widget.dropdownItems.isNotEmpty ? SrColors.black : SrColors.gray3,
+                  color: widget.dropdownItems.isNotEmpty ? SrColors.black : SrColors.gray2,
                 ),
                 children: [
                   TextSpan(text: widget.hint),
@@ -135,7 +135,7 @@ class _SrDropdownState extends State<SrDropdownButton> {
             if (isOpened) {
               activeButtonColor = SrColors.gray1;
             } else {
-              activeButtonColor = SrColors.gray2;
+              activeButtonColor = SrColors.gray3;
             }
             isOpened = !isOpened;
           });
@@ -145,7 +145,7 @@ class _SrDropdownState extends State<SrDropdownButton> {
               'assets/category_arrow_down.svg',
               width: 16,
               height: 16,
-              color: activeButtonColor,
+              color: widget.dropdownItems.isEmpty ? SrColors.gray3 : activeButtonColor,
             ),
         iconOnClick: widget.icon ??
             SvgPicture.asset(

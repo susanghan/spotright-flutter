@@ -9,6 +9,7 @@ import 'package:logger/logger.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/common/controller/map_controller.dart';
 import 'package:spotright/presentation/common/controller/navigation_controller.dart';
+import 'package:spotright/presentation/common/typography.dart';
 import 'package:spotright/presentation/component/appbars/appbar_title.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/appbars/sr_app_bar.dart';
@@ -151,10 +152,10 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   Padding(
                       padding: EdgeInsets.only(right: 9),
-                      child: Icon(Icons.menu)),
+                      child: Icon(Icons.menu, color: SrColors.gray1,)),
                   Text(
                     '목록보기',
-                    style: TextStyle(color: SrColors.black),
+                    style: SrTypography.body2medium.copy(color: SrColors.gray1),
                   ),
                 ]),
               ),
@@ -163,15 +164,15 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
           Container(
             alignment: Alignment.bottomRight,
             height: 172,
-            margin: EdgeInsets.only(right: 16, bottom: 16),
+            margin: EdgeInsets.only(right: 16, bottom: 32),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 GestureDetector(
                   onTap: () => homeController.navigateRegisterSpot(RegisterSpot(pageMode: PageMode.add), _moveCameraPosition, _initState),
                   child: Container(
-                    width: 44,
-                    height: 44,
+                    width: 56,
+                    height: 56,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(100),
                         color: SrColors.primary,
@@ -194,8 +195,8 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                     _moveCurrentPosition();
                   },
                   child: Container(
-                    width: 44,
-                    height: 44,
+                    width: 56,
+                    height: 56,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(100),
                         color: SrColors.gray9e,
@@ -209,7 +210,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                     child: SvgPicture.asset(
                       "assets/my_location.svg",
                       color: SrColors.white,
-                      fit: BoxFit.scaleDown,
+                      fit : BoxFit.scaleDown
                     ),
                   ),
                 )

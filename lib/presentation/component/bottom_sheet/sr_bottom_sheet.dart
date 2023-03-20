@@ -47,18 +47,17 @@ class SrBottomSheet extends StatelessWidget {
                             children: [
                               Padding(
                                 padding: EdgeInsets.only(
-                                    left: 2, top: 20, bottom: 8),
+                                    left: 2, top: 18, bottom: 10),
                                 child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
-                                    Expanded(
-                                      child: Padding(
-                                          padding: EdgeInsets.only(right: 4),
-                                          child: Text(
-                                            e.spotName ?? "",
-                                            style: SrTypography.body2semi,
-                                            overflow: TextOverflow.ellipsis,
-                                          )),
-                                    ),
+                                    Padding(
+                                        padding: EdgeInsets.only(right: 4),
+                                        child: Text(
+                                          e.spotName ?? "",
+                                          style: SrTypography.body2semi,
+                                          overflow: TextOverflow.ellipsis,
+                                        )),
                                     Padding(
                                         padding: EdgeInsets.only(right: 10),
                                         child: Text(
@@ -71,7 +70,7 @@ class SrBottomSheet extends StatelessWidget {
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsets.only(bottom: 8),
+                                padding: EdgeInsets.only(bottom: 10),
                                 child: Row(
                                   children: [
                                     Padding(
@@ -83,7 +82,7 @@ class SrBottomSheet extends StatelessWidget {
                                     ),
                                     Flexible(
                                       child: Padding(
-                                          padding: EdgeInsets.only(bottom: 4, right: 4),
+                                          padding: EdgeInsets.only(bottom: 2, right: 4),
                                           child: Text(
                                             e.fullAddress ?? "",
                                             style: SrTypography.body4medium
@@ -100,12 +99,13 @@ class SrBottomSheet extends StatelessWidget {
                                     e.memo ?? "",
                                     style: SrTypography.body4medium
                                         .copy(color: SrColors.gray2),
+                                    overflow: TextOverflow.ellipsis,
                                   )),
                             ]),
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(right: 8),
+                      margin: EdgeInsets.only(right: 16,),
                       width: 76,
                       height: 76,
                       child: CircleAvatar(
@@ -127,9 +127,12 @@ class SrBottomSheet extends StatelessWidget {
     List<Widget> children = [];
 
     for (int i = 0; i < rating; i++) {
-      children.add(SvgPicture.asset(
-        "assets/star.svg",
-        color: SrColors.primary,
+      children.add(Padding(
+        padding: EdgeInsets.only(bottom: 3),
+        child: SvgPicture.asset(
+          "assets/star.svg",
+          color: SrColors.primary,
+        ),
       ));
     }
 

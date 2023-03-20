@@ -27,7 +27,7 @@ class SrChips extends StatelessWidget {
             return Padding(
                 padding: EdgeInsets.only(right: 8),
                 child: SrChip(
-                  borderColor: SrColors.gray2,
+                  borderColor: SrColors.gray4,
                     elevation: 0,
                     name: chipNames[index],
                     color: SrColors.categoryColors[index],

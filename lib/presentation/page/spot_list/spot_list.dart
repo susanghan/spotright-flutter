@@ -73,13 +73,16 @@ class _SpotListState extends State<SpotList> {
   Widget _defaultBody() {
     return Obx(() => Column(
       children: [
-        SrChips(
-          height: 38,
-          onCategorySelected: _spotListController.onCategorySelected,
-          selectedCategories: _spotListController.selectedCategories,
+        Padding(
+          padding: EdgeInsets.only(bottom: 16),
+          child: SrChips(
+            height: 38,
+            onCategorySelected: _spotListController.onCategorySelected,
+            selectedCategories: _spotListController.selectedCategories,
+          ),
         ),
         if(_spotListController.isMyPage.value) Container(
-            margin: EdgeInsets.only(right: 16, top: 8, bottom: 4),
+            margin: EdgeInsets.only(right: 16, top: 0, bottom: 12),
             alignment: Alignment.centerRight,
             child: GestureDetector(
               onTap: _spotListController.changeMode,
@@ -153,7 +156,7 @@ class _SpotListState extends State<SpotList> {
                       children: [
                         Flexible(
                           child: Padding(
-                              padding: EdgeInsets.only(right: 2),
+                              padding: EdgeInsets.only(right: 4),
                               child: Text(spot.spotName ?? "",
                                   style: SrTypography.body2medium, overflow: TextOverflow.ellipsis,)),
                         ),
@@ -167,7 +170,7 @@ class _SpotListState extends State<SpotList> {
                   ),
                   Text(
                     spot.fullAddress ?? "정보 없음",
-                    style: SrTypography.body4medium.copy(color: SrColors.gray1),
+                    style: SrTypography.body4medium.copy(color: SrColors.gray1), overflow: TextOverflow.ellipsis,
                   ),
                 ],
               ),
@@ -180,19 +183,19 @@ class _SpotListState extends State<SpotList> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(children: [
+        Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            padding: EdgeInsets.only(left : 40, right: 16, top: 14, bottom: 8),
             child: SrCheckBox(
               value: false,
               onChanged: (bool checked) {},
               isRectangle: true,
             ),
           ),
-          Text("전체 선택"),
+          Padding(padding: EdgeInsets.only(top:4),child: Text("전체 선택", style: SrTypography.body3medium.copy(color: SrColors.gray1),)),
           Spacer(),
           Container(
-              margin: EdgeInsets.only(right: 16, top: 10, bottom: 4),
+              margin: EdgeInsets.only(right: 16, top: 20, bottom: 12),
               alignment: Alignment.centerRight,
               child: GestureDetector(
                 onTap: _spotListController.finishEdit,
@@ -208,10 +211,13 @@ class _SpotListState extends State<SpotList> {
           color: SrColors.gray3,
         ),
         Flexible(
-          child: ListView(
-              children: _spotListController.spots
-                  .map((spot) => _EditItem(spot))
-                  .toList()),
+          child: Padding(
+            padding: EdgeInsets.only(left: 24),
+            child: ListView(
+                children: _spotListController.spots
+                    .map((spot) => _EditItem(spot))
+                    .toList()),
+          ),
         )
       ],
     );

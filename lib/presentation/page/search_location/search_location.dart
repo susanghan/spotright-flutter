@@ -453,7 +453,13 @@ class _SearchLocationState extends State<SearchLocation> {
                       : 0,
               width: double.infinity,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20), color: SrColors.white),
+                  borderRadius: BorderRadius.circular(20), color: SrColors.white,
+                  boxShadow: [BoxShadow(
+                    color: SrColors.gray3.withOpacity(0.7),
+                    blurRadius: 5.0,
+                    spreadRadius: 0.0,
+                    offset: const Offset(0, 4),
+                  )]),
               padding: const EdgeInsets.symmetric(vertical: 2),
               child: ListView.separated(
                   itemCount: searchLocationController.spots.length,

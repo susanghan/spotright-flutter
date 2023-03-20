@@ -40,7 +40,7 @@ class _ReportDialogState extends State<ReportDialog> {
         height: 390,
         padding: EdgeInsets.only(top: 24),
         child: Column(children: [
-          Padding(padding: EdgeInsets.only(bottom: 12), child: Text(widget.title, style: SrTypography.body1semi)),
+          Padding(padding: EdgeInsets.only(bottom: 36), child: Text(widget.title, style: SrTypography.body1semi)),
           _Options(),
           _InputField(),
           Spacer(),
@@ -69,7 +69,7 @@ class _ReportDialogState extends State<ReportDialog> {
   Widget _Options() {
     return Container(
       height: 104,
-      margin: EdgeInsets.symmetric(horizontal: 20),
+      margin: EdgeInsets.symmetric(horizontal: 24),
       child: GridView.count(
         physics: NeverScrollableScrollPhysics(),
         crossAxisCount: 2,
@@ -100,7 +100,7 @@ class _ReportDialogState extends State<ReportDialog> {
 
   Widget _InputField() {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20),
+      padding: EdgeInsets.symmetric(horizontal: 24),
       child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
@@ -108,6 +108,7 @@ class _ReportDialogState extends State<ReportDialog> {
               padding: EdgeInsets.only(bottom: 4),
               child: SrTextField(
                 maxLines: 5,
+                maxLength: 200,
                 height: 84,
                 borderRadius: 15,
                 onChanged: (text) {
@@ -115,9 +116,6 @@ class _ReportDialogState extends State<ReportDialog> {
                 },
               ),
             ),
-            Padding(
-                padding: EdgeInsets.only(right: 10),
-                child: Text("0/200", style: TextStyle(color: SrColors.gray2)))
           ]),
     );
   }

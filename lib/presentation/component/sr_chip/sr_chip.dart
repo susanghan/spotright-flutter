@@ -33,7 +33,7 @@ class _SrChipState extends State<SrChip> {
         elevation: widget.elevation,
         shape: RoundedRectangleBorder(
           side: BorderSide(
-              width: 1.5,
+              width: 2,
               color:
                   widget.selected ? widget.color : widget.borderColor ?? SrColors.white),
           borderRadius: BorderRadius.circular(20),

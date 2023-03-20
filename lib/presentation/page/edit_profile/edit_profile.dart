@@ -134,7 +134,7 @@ class _EditProfileState extends State<EditProfile> {
               textAlign: TextAlign.left,
             )),
         Padding(
-            padding: const EdgeInsets.only(bottom: 0),
+            padding: const EdgeInsets.only(bottom: 6),
             child: SrTextField(
                 hint: "닉네임",
                 maxLines: 1,

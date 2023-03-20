@@ -108,7 +108,7 @@ class _SrAttachPitureState extends State<SrAttachPiture> {
                 child: Container(
                   height: 92,
                   width: 92,
-                  decoration: BoxDecoration(color: _isImgaeFileClicked[index] ? _clickedColor : null, borderRadius: BorderRadius.circular(20), border: Border.all(color: SrColors.gray3)),
+                  decoration: BoxDecoration(color: _isImgaeFileClicked[index] ? _clickedColor : null, borderRadius: BorderRadius.circular(20), border: Border.all(color: SrColors.gray2)),
                 ),
               )
             ),

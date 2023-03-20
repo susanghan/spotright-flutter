@@ -407,23 +407,23 @@ class _RegisterSpotState extends State<RegisterSpot> {
     return [
       _TextFieldLabel("메모", false),
       Padding(
-          padding: const EdgeInsets.only(bottom: 8),
+          padding: const EdgeInsets.only(bottom: 20),
           child: SrTextField(
             controller: registerSpotController.memoController,
             maxLength: 140,
-            maxLines: 5,
+            maxLines: 6,
             height: 137,
           )),
     ];
   }
 
   List<Widget> _SubmitButton() {
-    return [
-      Obx(()=>SrCTAButton(
-        text: "완료",
-        isEnabled: registerSpotController.isCtaActive,
-        action: () => widget.pageMode == PageMode.add ? registerSpotController.addSpot() : registerSpotController.editSpot(),
-      ))
+    return [Padding(padding: EdgeInsets.only(bottom: 36), child: Obx(()=>SrCTAButton(
+      text: "완료",
+      isEnabled: registerSpotController.isCtaActive,
+      action: () => widget.pageMode == PageMode.add ? registerSpotController.addSpot() : registerSpotController.editSpot(),
+    )),)
+
     ];
   }
 }
