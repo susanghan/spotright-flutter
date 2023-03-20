@@ -40,39 +40,42 @@ class _RegisterSpotState extends State<RegisterSpot> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: Scaffold(
       appBar: DefaultAppBar(
-        title:  widget.pageMode==PageMode.add ? "장소 추가" : "장소 수정",
-        hasBackButton: true,
+          title:  widget.pageMode==PageMode.add ? "장소 추가" : "장소 수정",
+          hasBackButton: true,
       ),
       body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 16, 16, 36),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ..._SearchLocation(),
-                  ..._SpotLabel(),
-                  ..._InputSpotName(),
-                  ..._InputSpotProvince(),
-                  ..._InputSpotCity(),
-                  ..._InputSpotAddress(),
-                  ..._SelectSpotCategory(),
-                  ..._InputVisitation(),
-                  ..._InputRating(),
-                  ..._Pictures(),
-                  ..._InputMemo(),
-                  ..._SubmitButton()
-                ],
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 16, 16, 36),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ..._SearchLocation(),
+                    ..._SpotLabel(),
+                    ..._InputSpotName(),
+                    ..._InputSpotProvince(),
+                    ..._InputSpotCity(),
+                    ..._InputSpotAddress(),
+                    ..._SelectSpotCategory(),
+                    ..._InputVisitation(),
+                    ..._InputRating(),
+                    ..._Pictures(),
+                    ..._InputMemo(),
+                    ..._SubmitButton()
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
+            ],
+          ),
       ),
-    ));
+    ),
+        ));
   }
 
   Widget _TextFieldLabel(String text, bool isRequired) {
