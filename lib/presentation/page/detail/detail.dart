@@ -45,6 +45,7 @@ class _DetailState extends State<Detail> {
 
   Future<void> _init() async {
     await detailController.initState(widget.userId, widget.memberSpotId);
+    print("detailController.spot.value.memo : ${detailController.spot.value.memo?.isEmpty}");
     setState(() {});
   }
 
@@ -74,7 +75,6 @@ class _DetailState extends State<Detail> {
                       children: [
                         _SpotName(
                             detailController.spot.value.spotName ?? "정보 없음"),
-                        // todo : 소분류 정보 추가
                         _SpotChips(
                             detailController.spot.value.mainCategory ?? "",
                             detailController.spot.value.subCategory ?? ""),
@@ -84,17 +84,20 @@ class _DetailState extends State<Detail> {
                         _SpotRating(
                             detailController.spot.value.rating?.toDouble() ??
                                 0),
-                        Container(
-                          width: double.infinity,
-                          padding: EdgeInsets.symmetric(
-                              vertical: 14, horizontal: 16),
-                          decoration: BoxDecoration(
-                              shape: BoxShape.rectangle,
-                              borderRadius: BorderRadius.circular(15),
-                              border: Border.fromBorderSide(
-                                  BorderSide(color: SrColors.gray3))),
-                          child: Text(detailController.spot.value.memo ?? "",
-                              style: SrTypography.body4medium),
+                        Visibility(
+                          visible: (detailController.spot.value.memo ?? "").isNotEmpty,
+                          child: Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.symmetric(
+                                vertical: 14, horizontal: 16),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.rectangle,
+                                borderRadius: BorderRadius.circular(15),
+                                border: Border.fromBorderSide(
+                                    BorderSide(color: SrColors.gray3))),
+                            child: Text(detailController.spot.value.memo ?? "",
+                                style: SrTypography.body4medium),
+                          ),
                         ),
                       ],
                     ),
@@ -258,12 +261,15 @@ class _DetailState extends State<Detail> {
             color: SrColors.gray1,
           ),
           const Padding(padding: EdgeInsets.only(right: 4)),
-          Text(
-            spotLocation,
-            style: const TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 14,
-                color: SrColors.black), overflow: TextOverflow.ellipsis,
+          Container(
+            width: 300,
+            child: Text(
+              spotLocation,
+              style: const TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 14,
+                  color: SrColors.black), overflow: TextOverflow.ellipsis, maxLines: 2,
+            ),
           ),
           const Padding(padding: EdgeInsets.only(right: 4)),
           GestureDetector(
