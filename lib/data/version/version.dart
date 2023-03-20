@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:http/http.dart' as http;
@@ -16,7 +17,9 @@ class VersionRepository {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
     if(await VersionRepository().needToUpdate() == 1) {
-      Get.dialog(SrDialog(title: "업데이트가 필요합니다", actions: [
+      Get.dialog(SrDialog(icon: SvgPicture.asset('assets/bulb_new.svg'), title: "최신버전으로 업데이트 해주세요",
+        description: '업데이트로 더 편리해진 Spotright!',
+        actions: [
         TextButton(onPressed: () => exit(0), child: Text("앱 종료", style: SrTypography.body2medium.copy(color: SrColors.white),)),
         TextButton(onPressed: () {
           if(Platform.isAndroid) {
