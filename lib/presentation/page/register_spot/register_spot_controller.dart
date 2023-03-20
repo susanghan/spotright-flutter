@@ -29,6 +29,8 @@ class RegisterSpotController extends GetxController {
   PageMode pageMode = PageMode.add;
 
   void setEditInit() {
+    init.value = false;
+
     spotNameController.text = detailController.spot.value.spotName ?? "";
     provinceController.text = detailController.spot.value.province ?? "";
     cityController.text = detailController.spot.value.city ?? "";

@@ -421,7 +421,8 @@ class _RegisterSpotState extends State<RegisterSpot> {
   }
 
   List<Widget> _SubmitButton() {
-    return [Padding(padding: EdgeInsets.only(bottom: 36), child: Obx(()=>SrCTAButton(
+    return [
+      Padding(padding: EdgeInsets.only(bottom: 36), child: Obx(()=>SrCTAButton(
       text: "완료",
       isEnabled: registerSpotController.isCtaActive,
       action: () => widget.pageMode == PageMode.add ? registerSpotController.addSpot() : registerSpotController.editSpot(),
