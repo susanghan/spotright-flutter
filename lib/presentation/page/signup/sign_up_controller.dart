@@ -100,7 +100,7 @@ class SignUpController extends GetxController {
 
   Future<void> signup() async {
     SignUpRequest req = SignUpRequest(
-      authProvider: oAuthResponse!.authProvider,
+      authProvider: oAuthResponse?.authProvider ?? '',
       birthdate: signUpState.birthdate.value,
       email: signUpState.email.value,
       password: signUpState.password.value,

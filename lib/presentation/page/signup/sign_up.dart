@@ -286,17 +286,25 @@ class _SignUpState extends State<SignUp> {
     return [
       Row(
         children: [
-          SizedBox(
-            width: 16,
-            height: 16,
-            child: SrCheckBox(
-                isRectangle: true,
-                value: signUpController
-                    .signUpState.privacyPolicy.value,
-                onChanged: (checked) =>
-                    signUpController.changePrivacyPolicy()),
+          GestureDetector(
+            onTap: signUpController.changePrivacyPolicy,
+            child: Container(
+              color: SrColors.white,
+              width: 30,
+              height: 30,
+              padding: EdgeInsets.all(8),
+              child: SizedBox(
+                width: 16,
+                height: 16,
+                child: SrCheckBox(
+                    isRectangle: true,
+                    value: signUpController
+                        .signUpState.privacyPolicy.value,
+                    onChanged: (checked) => signUpController.changePrivacyPolicy()),
+              ),
+            ),
           ),
-          Padding(padding: EdgeInsets.only(right: 12)),
+          Padding(padding: EdgeInsets.only(right: 4)),
           GestureDetector(
             onTap: () => Get.to(Privacy()),
             child: Text(
