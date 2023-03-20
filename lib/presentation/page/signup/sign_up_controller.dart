@@ -80,6 +80,7 @@ class SignUpController extends GetxController {
 
     if (isUsable) {
       signUpState.validateIdDuplication(true);
+      signUpState.idMessageStatus.value = MessageStatus.enabled;
       Fluttertoast.showToast(msg: "확인되었습니다");
     } else {
       signUpState.validateIdDuplication(false);
