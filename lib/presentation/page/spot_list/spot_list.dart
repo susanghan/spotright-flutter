@@ -56,13 +56,16 @@ class _SpotListState extends State<SpotList> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
-            appBar: DefaultAppBar(
-              title: '장소',
-              hasBackButton: true,
-            ),
-            body: _body()));
+    return WillPopScope(
+      onWillPop: _spotListController.pressBack,
+      child: SafeArea(
+          child: Scaffold(
+              appBar: DefaultAppBar(
+                title: '장소',
+                hasBackButton: true,
+              ),
+              body: _body())),
+    );
   }
 
   Widget _body() {

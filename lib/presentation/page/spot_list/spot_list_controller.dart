@@ -31,6 +31,16 @@ class SpotListController extends GetxController {
     isEditMode.value = !isEditMode.value;
   }
 
+  Future<bool> pressBack() async {
+    if(isEditMode.value) {
+      isEditMode.value = false;
+    } else {
+      Get.back();
+    }
+
+    return false;
+  }
+
   void onAllSelected(bool checked) {
     isAllSelected.value = checked;
     if(checked) {
