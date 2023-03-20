@@ -45,7 +45,7 @@ class _SpotListState extends State<SpotList> {
     SrColors.etc
   ];
 
-  SpotListController _spotListController = Get.find();
+  final SpotListController _spotListController = Get.put(SpotListController());
 
   @override
   void initState() {
@@ -56,13 +56,16 @@ class _SpotListState extends State<SpotList> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
-            appBar: DefaultAppBar(
-              title: '장소',
-              hasBackButton: true,
-            ),
-            body: _body()));
+    return WillPopScope(
+      onWillPop: _spotListController.pressBack,
+      child: SafeArea(
+          child: Scaffold(
+              appBar: DefaultAppBar(
+                title: '장소',
+                hasBackButton: true,
+              ),
+              body: _body())),
+    );
   }
 
   Widget _body() {
@@ -187,8 +190,8 @@ class _SpotListState extends State<SpotList> {
           Padding(
             padding: EdgeInsets.only(left : 40, right: 16, top: 14, bottom: 8),
             child: SrCheckBox(
-              value: false,
-              onChanged: (bool checked) {},
+              value: _spotListController.isAllSelected.value,
+              onChanged: _spotListController.onAllSelected,
               isRectangle: true,
             ),
           ),

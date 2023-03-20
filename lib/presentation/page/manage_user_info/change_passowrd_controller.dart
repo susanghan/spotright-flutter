@@ -7,7 +7,7 @@ class ChangePasswordController extends GetxController {
 
   final Map<MessageStatus, String> _passwordMessageMap = {
     MessageStatus.defaultMessage: "영문, 숫자, 특수문자(#\$@!%&*?) 조합 8~30자",
-    MessageStatus.checkLength: '비밀번호는 6~16자여야 합니다.',
+    MessageStatus.checkLength: '비밀번호는 8~16자여야 합니다.',
     MessageStatus.enabled: '사용 가능한 비밀번호입니다.',
     MessageStatus.empty: '',
   };

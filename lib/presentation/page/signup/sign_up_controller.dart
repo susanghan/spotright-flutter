@@ -80,6 +80,7 @@ class SignUpController extends GetxController {
 
     if (isUsable) {
       signUpState.validateIdDuplication(true);
+      signUpState.idMessageStatus.value = MessageStatus.enabled;
       Fluttertoast.showToast(msg: "확인되었습니다");
     } else {
       signUpState.validateIdDuplication(false);
@@ -99,7 +100,7 @@ class SignUpController extends GetxController {
 
   Future<void> signup() async {
     SignUpRequest req = SignUpRequest(
-      authProvider: oAuthResponse!.authProvider,
+      authProvider: oAuthResponse?.authProvider ?? '',
       birthdate: signUpState.birthdate.value,
       email: signUpState.email.value,
       password: signUpState.password.value,

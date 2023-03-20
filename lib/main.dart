@@ -30,7 +30,6 @@ import 'package:spotright/presentation/page/register_spot/register_spot_controll
 import 'package:spotright/presentation/page/search_location/search_location.dart';
 import 'package:spotright/presentation/page/search_location/search_location_controller.dart';
 import 'package:spotright/presentation/page/signup/sign_up.dart';
-import 'package:spotright/presentation/page/spot_list/spot_list_controller.dart';
 
 
 void main() {
@@ -81,7 +80,6 @@ class _State extends State<Spotright> {
         Get.put(FileRepository());
 
         Get.put(NavigationController());
-        Get.put(SpotListController());
         Get.put(DetailController());
         Get.put(UserController());
         Get.put(HomeController());

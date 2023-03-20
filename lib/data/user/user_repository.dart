@@ -71,11 +71,15 @@ class UserRepository {
     });
     Map<String, String>? resHeaders = res.headers;
     if(res.responseWrapper.responseCode == "MEMBER_LOGGED_IN") networkClient.saveRefreshToken(resHeaders);
+    else {
+      return false;
+    }
+
     var user = UserResponse.fromJson(res.jsonMap!);
     userResponse = user;
     localRepository.save(_memberIdKey, user.memberId.toString());
 
-    return res.statusCode == 200;
+    return true;
   }
 
   Future<void> logout() async {
