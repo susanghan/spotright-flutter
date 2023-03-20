@@ -1,3 +1,4 @@
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:spotright/data/oauth/oauth_repository.dart';
 import 'package:spotright/data/user/user_repository.dart';
@@ -38,7 +39,12 @@ class UserController extends GetxController {
   }
 
   Future<void> login() async {
-    await userRepository.login(id, password);
-    Get.offAll(const Home());
+    bool res = await userRepository.login(id, password);
+
+    if(res) {
+      Get.offAll(const Home());
+    } else {
+      Fluttertoast.showToast(msg: "로그인에 실패했습니다");
+    }
   }
 }
