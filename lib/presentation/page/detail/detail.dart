@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:spotright/presentation/common/controller/navigation_controller.dart';
 import 'package:spotright/presentation/common/typography.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/appbars/report_options.dart';
@@ -36,6 +37,7 @@ class Detail extends StatefulWidget {
 
 class _DetailState extends State<Detail> {
   DetailController detailController = Get.find();
+  NavigationController navigationController = Get.find();
 
   @override
   void initState() {
@@ -106,9 +108,7 @@ class _DetailState extends State<Detail> {
 
   Widget _EditButton() {
     return GestureDetector(
-      onTap: () {
-        Get.to(RegisterSpot(pageMode: PageMode.edit));
-      },
+      onTap: navigationController.navigatePage(RegisterSpot(pageMode: PageMode.edit), _init),
       child: Padding(
         padding: EdgeInsets.only(right: 20),
         child: SvgPicture.asset(
