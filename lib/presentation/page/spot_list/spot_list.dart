@@ -45,7 +45,7 @@ class _SpotListState extends State<SpotList> {
     SrColors.etc
   ];
 
-  SpotListController _spotListController = Get.find();
+  final SpotListController _spotListController = Get.put(SpotListController());
 
   @override
   void initState() {
@@ -184,8 +184,8 @@ class _SpotListState extends State<SpotList> {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: SrCheckBox(
-              value: false,
-              onChanged: (bool checked) {},
+              value: _spotListController.isAllSelected.value,
+              onChanged: _spotListController.onAllSelected,
               isRectangle: true,
             ),
           ),

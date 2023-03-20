@@ -25,9 +25,19 @@ class SpotListController extends GetxController {
   double bottomLatitude = 0;
   double bottomLongitude = 179.999999;
   RxBool isMyPage = false.obs;
+  RxBool isAllSelected = false.obs;
 
   void changeMode() {
     isEditMode.value = !isEditMode.value;
+  }
+
+  void onAllSelected(bool checked) {
+    isAllSelected.value = checked;
+    if(checked) {
+      toRemoveSpotIds.addAll(spots.map((spot) => spot.memberSpotId!));
+    } else {
+      toRemoveSpotIds.clear();
+    }
   }
 
   Future<void> initState(int userId, double topLatitude, double topLongitude,
