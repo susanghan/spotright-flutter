@@ -79,7 +79,7 @@ class _LoginState extends State<Login> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    if(Platform.isIOS) _signInButton("assets/apple.svg", userController.signInWithApple, Colors.black, Colors.black),
+                    if(Platform.isIOS) _signInButton("assets/apple_white.svg", userController.signInWithApple, Colors.black, Colors.black),
                     _signInButton("assets/google.svg", userController.signInWithGoogle, SrColors.gray4, SrColors.white),
                     _signInButton("assets/kakao.svg", userController.signInWithKakao, SrColors.kakao, SrColors.kakao),
                   ],

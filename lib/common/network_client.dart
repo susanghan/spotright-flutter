@@ -7,6 +7,7 @@ import 'package:logger/logger.dart';
 import 'package:spotright/common/token_util.dart';
 import 'package:spotright/data/local/local_repository.dart';
 import 'package:spotright/data/model/response_wrapper.dart';
+import 'package:spotright/presentation/page/inspection/inspection.dart';
 
 class NetworkClient {
   Logger logger = getx.Get.find();
@@ -59,6 +60,10 @@ class NetworkClient {
         ">>> headers : ${response.headers} ");
     if(response.body.isNotEmpty) debugPrint(">>> body : ${jsonDecode(utf8.decode(response.bodyBytes))}"
         , wrapWidth: 1024);
+    
+    if(response.statusCode == 503) {
+      getx.Get.to(Inspection());
+    }
 
     return response;
   }

@@ -15,12 +15,17 @@ class EmailRepository {
     });
   }
 
-  Future<bool> verifyEmail(String email, String code) async {
+  Future<String> verifyEmail(String email, String code) async {
     var res = await networkClient.request(method: Http.patch, path: _verifyEmailPath, body: {
       "email": email,
       "verificationCode": code,
     });
 
-    return res.statusCode == 200;
+    if(res.statusCode == 200) {
+      String strangeAccessToken = res.headers['authorization']!.split(':')[1].removeAllWhitespace;
+      return strangeAccessToken.substring(0, strangeAccessToken.length - 1);
+    } else {
+      return '';
+    }
   }
 }
