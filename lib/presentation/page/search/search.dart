@@ -87,6 +87,7 @@ class _SearchState extends State<Search> {
         searchController.saveRecentSearch(user);
       },
       child: Container(
+        color: SrColors.white,
         margin: EdgeInsets.only(bottom: 30),
         child: Row(children: [
           Container(
