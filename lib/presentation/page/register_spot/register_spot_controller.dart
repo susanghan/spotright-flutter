@@ -204,7 +204,7 @@ class RegisterSpotController extends GetxController {
      if(subCategory.isEmpty){
        return resultCode = int.parse("${mainCode}00");
      }
-     if(selectedSubString.value == "기타"){
+     else if(selectedSubString.value == "기타"){
        return resultCode = int.parse("${mainCode}01");
      }
      else{

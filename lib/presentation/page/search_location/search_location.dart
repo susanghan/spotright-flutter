@@ -231,7 +231,7 @@ class _SearchLocationState extends State<SearchLocation> {
       child: Padding(
           padding: const EdgeInsets.only(bottom: 50),
           child: SvgPicture.asset(
-            "assets/marker_location.svg",
+            "assets/marker_primary.svg",
             width: 50,
             height: 50,
           )),
