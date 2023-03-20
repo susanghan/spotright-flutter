@@ -28,9 +28,10 @@ class SpotResponse {
         return -2;
       } else {
         subCategoryIndex = int.parse(category.toString().substring(1));
-
+        print("subCategoryIndex : ${subCategoryIndex}");
         if (subCategoryIndex != 0) {
           if (subCategoryIndex == 1) {
+            print("subCategoryIndex2 ${Res.SpotCategory.subCategories[mainCategoryIndex + 1]!.length -1}");
             return Res.SpotCategory.subCategories[mainCategoryIndex + 1]!.length -1;
           }
           return subCategoryIndex - 2;
@@ -41,7 +42,7 @@ class SpotResponse {
     return -2;
   }
 
-  String? get subCategory => subCategoryIndex >= 0 ? Res.SpotCategory.subCategories[mainCategoryIndex +1]![0] : "";
+  String? get subCategory => subCategoryIndex >= 0 ? Res.SpotCategory.subCategories[mainCategoryIndex +1]![subCategoryIndex] : "";
 
   SpotResponse(
       {this.address,
