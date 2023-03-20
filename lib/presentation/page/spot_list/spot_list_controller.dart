@@ -57,6 +57,7 @@ class SpotListController extends GetxController {
   Function() moveDetail(SpotResponse spot) => () => Get.to(Detail(userId: userId, memberSpotId: spot.memberSpotId!));
 
   onCategorySelected(String category, bool isSelected) {
+    print("selectedCategories ${selectedCategories}");
     if(isSelected) {
       selectedCategories.add(category);
     } else {
