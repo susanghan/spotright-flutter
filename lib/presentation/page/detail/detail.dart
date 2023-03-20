@@ -206,8 +206,7 @@ class _DetailState extends State<Detail> {
           padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
           child: Text(
             '"${detailController.spot.value.spotName}" 검색하기',
-            style: SrTypography.body4bold.copy(
-                color: SrColors.gray1, decoration: TextDecoration.underline),
+            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: SrColors.gray1, decoration: TextDecoration.underline), textAlign: TextAlign.right,
           ),
         ),
       )
