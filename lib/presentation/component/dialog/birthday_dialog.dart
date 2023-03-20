@@ -74,7 +74,7 @@ class _BirthdayDialogState extends State<BirthdayDialog> {
                     },
                     child: Text(
                       "확인",
-                      style: TextStyle(color: SrColors.white),
+                      style: SrTypography.body2semi.copy(color: SrColors.white),
                     ),
                   )))
         ]),
