@@ -37,7 +37,7 @@ class _BirthdayDialogState extends State<BirthdayDialog> {
         height: 260,
         padding: EdgeInsets.only(top: 32),
         child: Column(children: [
-          Padding(padding: EdgeInsets.only(bottom: 24), child: Text("생년월일을 입력하세요", style: SrTypography.body2semi,)),
+          Padding(padding: EdgeInsets.only(bottom: 24), child: Text("생년월일을 입력하세요", style: SrTypography.body2semi.copy(color: SrColors.black))),
           SizedBox(
             width: 202,
             child: Row(
