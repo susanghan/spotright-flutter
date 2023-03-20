@@ -250,25 +250,28 @@ class _DetailState extends State<Detail> {
   }
 
   Widget _SpotLocation(String spotLocation) {
+    var screenWidth = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SvgPicture.asset(
             'assets/location.svg',
-            width: 14,
-            height: 14,
+            width: 16,
+            height: 16,
             color: SrColors.gray1,
           ),
           const Padding(padding: EdgeInsets.only(right: 4)),
           Container(
-            width: 300,
+            constraints: BoxConstraints(maxWidth: screenWidth - 70),
             child: Text(
               spotLocation,
               style: const TextStyle(
                   fontWeight: FontWeight.w500,
+                  height: 1,
                   fontSize: 14,
-                  color: SrColors.black), overflow: TextOverflow.ellipsis, maxLines: 2,
+                  color: SrColors.black),overflow: TextOverflow.ellipsis, maxLines: 2,
             ),
           ),
           const Padding(padding: EdgeInsets.only(right: 4)),
@@ -276,8 +279,8 @@ class _DetailState extends State<Detail> {
             onTap: detailController.copyAddressToClipboard(spotLocation),
             child: SvgPicture.asset(
               'assets/copy.svg',
-              width: 12,
-              height: 12,
+              width: 14,
+              height: 14,
               color: SrColors.gray1,
             ),
           ),
