@@ -39,7 +39,7 @@ class _EmailState extends State<Email> {
                       controller: TextEditingController(),
                       enabled: true,
                       onChanged: emailController.onChanged,
-                      hint: '',
+                      hint: '영문, 숫자 6자리',
                       suffixIcon: Padding(
                         padding: EdgeInsets.all(4),
                         child: OutlinedButton(

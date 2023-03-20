@@ -102,6 +102,7 @@ class _SignUpState extends State<SignUp> {
                 style: TextStyle(color: SrColors.white),
               ),
               style: OutlinedButton.styleFrom(
+                  side: const BorderSide(width: 0, color: Colors.white),
                   backgroundColor: signUpController.signUpState.emailInputEnabled.value ? SrColors.primary : SrColors.gray9e,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(100))),
@@ -123,7 +124,7 @@ class _SignUpState extends State<SignUp> {
       Padding(
         padding: EdgeInsets.only(left: 12, bottom: 16),
         child:
-        Obx(() => Text(signUpController.signUpState.passwordValidationMessage, style: signUpController.signUpState.passwordMessageStatus.value != MessageStatus.enabled ? SrTypography.body2light.copy(color: SrColors.primary) : SrTypography.body2light.copy(color: SrColors.success))),
+        Obx(() => Text(signUpController.signUpState.passwordValidationMessage, style: signUpController.signUpState.passwordMessageStatus.value == MessageStatus.defaultMessage ? SrTypography.body2light.copy(color: SrColors.gray1) : signUpController.signUpState.passwordMessageStatus.value == MessageStatus.enabled ? SrTypography.body2light.copy(color: SrColors.success) : SrTypography.body2light.copy(color: SrColors.primary))),
       ),
     ];
   }
@@ -139,7 +140,7 @@ class _SignUpState extends State<SignUp> {
       Padding(
         padding: EdgeInsets.only(left: 12, bottom: 16),
         child:
-        Obx(() => Text(signUpController.signUpState.isPasswordsEqual ? "비밀번호가 일치합니다." : "비밀번호가 일치하지 않습니다.", style: signUpController.signUpState.isPasswordsEqual ? SrTypography.body2light.copy(color: SrColors.success) : SrTypography.body2light.copy(color: SrColors.primary))),
+        Obx(() => Text(signUpController.signUpState.isPasswordsEqual? "비밀번호가 일치합니다." : "비밀번호가 일치하지 않습니다.", style: signUpController.signUpState.isPasswordsEqual ? SrTypography.body2light.copy(color: SrColors.success) : SrTypography.body2light.copy(color: SrColors.primary))),
       ),
     ];
   }
@@ -159,7 +160,8 @@ class _SignUpState extends State<SignUp> {
               style: TextStyle(color: SrColors.white),
             ),
             style: OutlinedButton.styleFrom(
-                backgroundColor: (signUpController.signUpState.checkedIdDuplication.value || (signUpController.signUpState.idMessageStatus.value != MessageStatus.empty)) ? SrColors.gray9e : SrColors.primary,
+                side: const BorderSide(width: 0, color: Colors.white),
+                backgroundColor: (signUpController.signUpState.checkedIdDuplication.value || (signUpController.signUpState.idMessageStatus.value != MessageStatus.empty)) ? SrColors.gray3: SrColors.primary,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(100))),
           ),
@@ -168,7 +170,7 @@ class _SignUpState extends State<SignUp> {
       Padding(
         padding: EdgeInsets.only(left: 12, bottom: 16),
         child:
-        Obx(() => Text(signUpController.signUpState.idValidationMessage, style: signUpController.signUpState.idMessageStatus.value != MessageStatus.enabled ? SrTypography.body2light.copy(color: SrColors.primary) : SrTypography.body2light.copy(color: SrColors.success))),
+        Obx(() => Text(signUpController.signUpState.idValidationMessage, style: signUpController.signUpState.idMessageStatus.value == MessageStatus.defaultMessage ? SrTypography.body2light.copy(color: SrColors.gray1) : signUpController.signUpState.idMessageStatus.value == MessageStatus.enabled ? SrTypography.body2light.copy(color: SrColors.success) : SrTypography.body2light.copy(color: SrColors.primary))),
       ),
     ];
   }
@@ -182,7 +184,7 @@ class _SignUpState extends State<SignUp> {
         padding: EdgeInsets.only(left: 12, bottom: 20),
         child: Obx(
                 () =>
-                Text(signUpController.signUpState.nicknameValidationMessage, style: signUpController.signUpState.nicknameMessageStatus.value != MessageStatus.enabled ? SrTypography.body2light.copy(color: SrColors.primary) : SrTypography.body2light.copy(color: SrColors.success))),
+                Text(signUpController.signUpState.nicknameValidationMessage, style: signUpController.signUpState.nicknameMessageStatus.value == MessageStatus.defaultMessage ? SrTypography.body2light.copy(color: SrColors.gray1) : signUpController.signUpState.nicknameMessageStatus.value == MessageStatus.enabled ? SrTypography.body2light.copy(color: SrColors.success) : SrTypography.body2light.copy(color: SrColors.primary))),
       ),
     ];
   }

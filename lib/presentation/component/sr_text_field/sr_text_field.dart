@@ -88,6 +88,7 @@ class SrTextField_State extends State<SrTextField> {
           onSubmitted: widget.onSubmitted,
           obscureText: widget.password,
           decoration: InputDecoration(
+            hintStyle: SrTypography.body2light.copy(color: SrColors.gray1),
             counterText: "",
               filled: !(widget.backgroundColor == null),
               fillColor: widget.backgroundColor,
@@ -107,7 +108,7 @@ class SrTextField_State extends State<SrTextField> {
                   borderRadius:
                   BorderRadius.all(Radius.circular(widget.borderRadius)),
                   borderSide:
-                  const BorderSide(width: 1, color: SrColors.gray1)),
+                  const BorderSide(width: 1, color: SrColors.gray2)),
               disabledBorder: widget.disabledBorder ?? OutlineInputBorder(
                   borderRadius:
                   BorderRadius.all(Radius.circular(widget.borderRadius)),
