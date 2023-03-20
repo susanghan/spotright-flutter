@@ -35,47 +35,50 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        appBar: DefaultAppBar(
-          title: "회원가입",
-          hasBackButton: true,
-        ),
-        body: Stack(alignment: Alignment.topCenter, children: [
-          Obx(() =>
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                child: SingleChildScrollView(
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ..._InputEmail(),
-                        ..._InputId(),
-                        ..._InputPassword(),
-                        ..._InputPasswordConfirm(),
-                        ..._InputNickname(),
-                        ..._InputBirthday(),
-                        ..._InputSex(),
-                        ..._InputJoinPath(),
-                        ..._InputPrivacyPolicy(),
-                        Padding(padding: EdgeInsets.only(bottom: 40 + 88)),
-                      ]),
-                ),
-              )),
-          Column(children: [
-            const Expanded(child: SizedBox.shrink()),
+      child: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: Scaffold(
+          appBar: DefaultAppBar(
+            title: "회원가입",
+            hasBackButton: true,
+          ),
+          body: Stack(alignment: Alignment.topCenter, children: [
             Obx(() =>
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 36, horizontal: 16),
-                  child: SrCTAButton(
-                    text: '완료',
-                    isEnabled: signUpController.signUpState.ctaActive.value,
-                    action: signUpController.signup,
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  child: SingleChildScrollView(
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ..._InputEmail(),
+                          ..._InputId(),
+                          ..._InputPassword(),
+                          ..._InputPasswordConfirm(),
+                          ..._InputNickname(),
+                          ..._InputBirthday(),
+                          ..._InputSex(),
+                          ..._InputJoinPath(),
+                          ..._InputPrivacyPolicy(),
+                          ..._SrCTAButton()
+                        ]),
                   ),
                 )),
           ]),
-        ]),
+        ),
       ),
     );
+  }
+
+  List<Widget> _SrCTAButton() {
+    return [
+      Padding(padding: EdgeInsets.only(bottom: 45)),
+      SrCTAButton(
+        text: '완료',
+        isEnabled: signUpController.signUpState.ctaActive.value,
+        action: signUpController.signup,
+      ),
+      Padding(padding: EdgeInsets.only(bottom: 36)),
+    ];
   }
 
   List<Widget> _InputEmail() {
