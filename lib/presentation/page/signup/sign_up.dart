@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spotright/data/oauth/oauth_repository.dart';
+import 'package:spotright/data/oauth/oauth_response.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/common/typography.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
@@ -26,10 +27,12 @@ class _SignUpState extends State<SignUp> {
   @override
   void initState() {
     if (oAuthRepository.oAuthResponse == null) {
+      signUpController.oAuthResponse = OAuthResponse(token: '', authProvider: 'SPOTRIGHT');
       return;
     }
 
     signUpController.initOauthInfo(oAuthRepository.oAuthResponse!);
+    super.initState();
   }
 
   @override
