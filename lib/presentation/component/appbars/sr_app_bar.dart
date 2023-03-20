@@ -437,7 +437,12 @@ class _SrAppBarState extends State<SrAppBar> {
                     selected: selected.contains(chipNames[index]),
                     onTab: (isSelected) {
                       setState(() {
-                        if (isSelected) {
+                        if(index == 0 && isSelected){
+                          selected.removeAll(chipNames);
+                          selected.add(chipNames[0]);
+                        }
+                        else if (index !=0 && isSelected) {
+                          selected.remove(chipNames[0]);
                           selected.add(chipNames[index]);
                         } else {
                           selected.remove(chipNames[index]);
