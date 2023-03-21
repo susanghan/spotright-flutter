@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
@@ -32,8 +33,12 @@ import 'package:spotright/presentation/page/search_location/search_location_cont
 import 'package:spotright/presentation/page/signup/sign_up.dart';
 
 
-void main() {
+void main() async {
   runApp(Spotright());
+  Firebase.initializeApp();
+  await dotenv.load(fileName: ".env");
+  String kakaoLoginKey = dotenv.env['KAKAO_LOGIN_KEY'] ?? '';
+  KakaoSdk.init(nativeAppKey: kakaoLoginKey);
 }
 
 class Spotright extends StatefulWidget {
@@ -94,13 +99,11 @@ class _State extends State<Spotright> {
 
   @override
   void initState() {
-    super.initState();
-    Firebase.initializeApp();
-    KakaoSdk.init(nativeAppKey: "6141df4779382304859d905edc750579");
 
     VersionRepository().checkAppVersion();
 
     initLocale();
+    super.initState();
   }
 
   Future<void> initLocale() async {
