@@ -13,7 +13,7 @@ class OAuthResponse {
         authProvider = "GOOGLE";
 
   OAuthResponse.fromApple(OAuthCredential info)
-      : token = info.accessToken!,
+      : token = info.idToken!,
         authProvider = "APPLE";
 
   OAuthResponse.fromKakao(OAuthToken info)

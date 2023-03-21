@@ -118,7 +118,7 @@ class SignUpController extends GetxController {
   void authenticateEmail() {
     emailRepository.sendMail(signUpState.email.value);
     Get.to(Email())?.then((accessToken) {
-      oAuthResponse!.token = accessToken;
+      if(oAuthResponse!.authProvider == 'SPOTRIGHT') oAuthResponse!.token = accessToken;
     });
   }
 }
