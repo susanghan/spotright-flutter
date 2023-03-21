@@ -34,7 +34,6 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
-    print("screenWidth : ${screenHeight}");
 
     return SafeArea(
         child: Scaffold(
