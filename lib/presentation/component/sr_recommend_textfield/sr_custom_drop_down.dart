@@ -17,7 +17,7 @@ class SrCustomDropdown {
     return OverlayEntry(
       maintainState: true,
       builder: (context) => Positioned(
-        width: MediaQuery.of(context).size.width,
+        width: MediaQuery.of(context).size.width - 32,
         child: CompositedTransformFollower(
           link: layerLink,
           showWhenUnlinked: false,
