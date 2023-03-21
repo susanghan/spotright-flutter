@@ -81,7 +81,7 @@ class _EditProfileState extends State<EditProfile> {
                 () => CircleAvatar(
                     backgroundColor: SrColors.white,
                     radius: 100,
-                    backgroundImage: editProfileController.imageProvider),
+                    backgroundImage: editProfileController.imageProvider,),
               ),
             ),
             Positioned(
