@@ -284,7 +284,7 @@ class RegisterSpotController extends GetxController {
     if(res.statusCode == 200 || res.statusCode == 201){
       memberSpotId.value = res.spotResponse?.memberSpotId ?? 0;
       uploadSpotPhotos();
-      Get.back(result: LatLng(searchLocationController.markerPosition.value.latitude, searchLocationController.markerPosition.value.longitude));
+      Get.back(result: LatLng(res.spotResponse?.latitude ?? searchLocationController.markerPosition.value.latitude, res.spotResponse?.longitude ?? searchLocationController.markerPosition.value.longitude));
     }
     else{
       checkRegisterError(res.statusCode, res.responseCode, res.responseMessage);
