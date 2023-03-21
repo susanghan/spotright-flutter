@@ -59,19 +59,27 @@ class _LoginState extends State<Login> {
                   ),
                   SrCTAButton(action: userController.login, text: "로그인"),
                   Padding(
-                    padding: EdgeInsets.only(bottom: 60, left: 10),
+                    padding: EdgeInsets.only(bottom: 60),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        TextButton(onPressed: () {
-                          Get.to(FindId());
-                        }, child: Text("아이디 찾기", style: SrTypography.body3medium.copy(color: SrColors.gray2),)),
+                        Container(
+                          alignment: Alignment.centerRight,
+                          width: 100,
+                          child: TextButton(onPressed: () {
+                            Get.to(FindId());
+                          }, child: Text("아이디 찾기", style: SrTypography.body3medium.copy(color: SrColors.gray2),)),
+                        ),
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 8),
                             child: Text("|", style: SrTypography.body3medium.copy(color: SrColors.gray2))),
-                        TextButton(onPressed: () {
-                          Get.to(FindPassword());
-                        }, child: Text("비밀번호 찾기", style: SrTypography.body3medium.copy(color: SrColors.gray2)))
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          width: 100,
+                          child: TextButton(onPressed: () {
+                            Get.to(FindPassword());
+                          }, child: Text("비밀번호 찾기", style: SrTypography.body3medium.copy(color: SrColors.gray2))),
+                        )
                       ],
                     ),
                   )
@@ -119,7 +127,7 @@ class _LoginState extends State<Login> {
       },
       child: Container(
         padding: EdgeInsets.all(8),
-        margin: EdgeInsets.only(right: 20),
+        margin: EdgeInsets.symmetric(horizontal: 10),
         width: 46,
         height: 46,
         decoration: BoxDecoration(
