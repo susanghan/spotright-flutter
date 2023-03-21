@@ -34,6 +34,7 @@ class _RegisterSpotState extends State<RegisterSpot> {
   @override
   void initState() {
     registerSpotController.initState(widget.pageMode);
+
     super.initState();
   }
 
@@ -171,7 +172,7 @@ class _RegisterSpotState extends State<RegisterSpot> {
     return [
       _TextFieldLabel("장소명을 입력해 주세요", true),
       Padding(
-        padding: const EdgeInsets.only(bottom: 16),
+        padding: const EdgeInsets.only(bottom: 2),
         child: Focus(
           onFocusChange: (focus) {
             registerSpotController.init.value ? Get.to(SearchLocation()) : null;

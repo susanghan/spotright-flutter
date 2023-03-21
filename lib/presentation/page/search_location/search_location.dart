@@ -10,7 +10,6 @@ import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/buttons/sr_cta_button.dart';
 import 'package:spotright/presentation/component/divider/sr_divider.dart';
 import 'package:spotright/presentation/component/sr_text_field/sr_text_field.dart';
-import 'package:spotright/presentation/page/register_spot/register_spot.dart';
 import 'package:spotright/presentation/page/search_location/search_location_controller.dart';
 
 import '../../common/colors.dart';

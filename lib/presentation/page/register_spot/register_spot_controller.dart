@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:spotright/data/spot/spot_repository.dart';
@@ -17,6 +18,8 @@ import '../../../data/resources/category.dart';
 import '../../../data/resources/enum_country.dart';
 import '../../../data/resources/geo.dart';
 import 'package:spotright/data/file/file_repository.dart';
+import '../../../data/spot/location_request.dart';
+import '../../../data/spot/location_response.dart';
 import '../../common/typography.dart';
 import '../home/home.dart';
 
@@ -40,6 +43,8 @@ class RegisterSpotController extends GetxController {
     provinceText.value = provinceController.text;
     cityText.value = cityController.text;
     addressText.value = addressController.text;
+
+    setSearchCityList(provinceController.text);
 
     selectedMainIndex.value = detailController.spot.value.mainCategoryIndex;
     mainIsSelected.value = true;
@@ -69,6 +74,11 @@ class RegisterSpotController extends GetxController {
 
     memberSpotId.value = detailController.spot.value.memberSpotId ?? 0;
 
+    //완료 버튼 눌렀을 때 spots의 정보 받기 위함
+    spot.value = <LocationResponse>[];
+    spot.value = [];
+
+    //처음에 textField 입력하려고 할 시에 강제로 지도로 페이지 이동
     init.value = true;
 
     spotNameController = TextEditingController();
@@ -81,6 +91,11 @@ class RegisterSpotController extends GetxController {
     provinceText.value = '';
     cityText.value = '';
     addressText.value = '';
+
+    spotnameText.value = spotNameController.text;
+    provinceText.value = provinceController.text;
+    cityText.value = cityController.text;
+    addressText.value = addressController.text;
 
 
     subCategory.value = [];
@@ -222,11 +237,30 @@ class RegisterSpotController extends GetxController {
 
   }
 
+  RxList<LocationResponse> spot = <LocationResponse>[].obs;
+
+  Future<void> searchSpot(String _searchQuery) async {
+    LocationRequest req = LocationRequest(
+        country: describeEnum(countryState.value).toString(),
+        queryType: "ADDRESS",
+        searchQuery: _searchQuery);
+
+    spot.value = await spotRepository.searchSpot(req);
+  }
+
+  Future<void> checkLatLngExist() async {
+    spot.isEmpty ? {await searchSpot(provinceController.text + cityController.text), Fluttertoast.showToast(msg: "입력한 주소가 정확하지 않습니다")} : spot[0].latitude != null ? null : {await searchSpot(provinceController.text + cityController.text), Fluttertoast.showToast(msg: "입력한 주소가 정확하지 않습니다")};
+  }
+
   Future<void> addSpot() async {
 
     if (isVisited.value == false) {
       rating.value = 0.0;
     }
+
+    await searchSpot(provinceController.text + cityController.text + addressController.text);
+
+    await checkLatLngExist();
 
     int totalCode = encodeCategory();
 
@@ -236,8 +270,10 @@ class RegisterSpotController extends GetxController {
         category: totalCode,
         city: cityController.text,
         country: describeEnum(countryState.value).toString(),
-        latitude: searchLocationController.markerPosition.value.latitude,
-        longitude: searchLocationController.markerPosition.value.longitude,
+        //latitude: searchLocationController.markerPosition.value.latitude,
+        //longitude: searchLocationController.markerPosition.value.longitude,
+        latitude: spot.isNotEmpty ? spot[0].latitude : searchLocationController.markerPosition.value.latitude,
+        longitude: spot.isNotEmpty ? spot[0].longitude : searchLocationController.markerPosition.value.longitude,
         memo: memoController.text,
         province: provinceController.text,
         rating: "${rating.value.round()}",
@@ -276,6 +312,10 @@ class RegisterSpotController extends GetxController {
 
     int totalCode = encodeCategory();
 
+   await searchSpot(provinceController.text + cityController.text + addressController.text);
+
+   await checkLatLngExist();
+
 
     //사진 제외 스팟 정보 넣기
     SpotRequest req = SpotRequest(
@@ -285,8 +325,10 @@ class RegisterSpotController extends GetxController {
         city: cityController.text,
         country: describeEnum(countryState.value).toString(),
         deleteSpotPhotoIds: spotDeletedPhotoIds,
-        latitude: searchLocationController.markerPosition.value.latitude,
-        longitude: searchLocationController.markerPosition.value.longitude,
+        //latitude: searchLocationController.markerPosition.value.latitude,
+        //longitude: searchLocationController.markerPosition.value.longitude,
+        latitude: spot.isNotEmpty ? spot[0].latitude : searchLocationController.markerPosition.value.latitude,
+        longitude: spot.isNotEmpty ? spot[0].longitude : searchLocationController.markerPosition.value.longitude,
         memo: memoController.text,
         province: provinceController.text,
         rating: "${rating.value.round()}",
