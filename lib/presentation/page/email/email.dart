@@ -54,7 +54,11 @@ class _EmailState extends State<Email> {
                                   borderRadius: BorderRadius.circular(100))),
                         ),
                       ),
-                    ),]
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                        child: Text("메일을 못 받았다면 스팸 메일함을 확인해주세요", style: SrTypography.body3medium.copy(color: SrColors.gray1)))
+                  ]
             ))));
   }
 }
