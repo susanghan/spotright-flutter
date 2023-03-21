@@ -16,7 +16,7 @@ class SrBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(left: 16, right: 16, bottom: 50),
-      height: spots.length * 122,
+      height: spots.length * 130,
       child: SingleChildScrollView(
         child: Column(children: _SpotList()),
       ),
@@ -29,94 +29,97 @@ class SrBottomSheet extends StatelessWidget {
               onTap: () {
                 moveDetail?.call(e);
               },
-              child: Container(
-                height: 108,
-                margin: EdgeInsets.only(bottom: 14),
-                decoration: BoxDecoration(
-                  color: SrColors.white,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: EdgeInsets.only(left: 14),
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left: 2, top: 18, bottom: 10),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Padding(
-                                        padding: EdgeInsets.only(right: 4),
-                                        child: Text(
-                                          e.spotName ?? "",
-                                          style: SrTypography.body2semi,
-                                          overflow: TextOverflow.ellipsis,
-                                        )),
-                                    Padding(
-                                        padding: EdgeInsets.only(right: 10),
-                                        child: Text(
-                                          e.mainCategory ?? "",
-                                          style: SrTypography.body4medium
-                                              .copy(color: SrColors.gray2),
-                                        )),
-                                    ..._Rating(e.rating),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(bottom: 10),
-                                child: Row(
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(right: 4),
-                                      child: SvgPicture.asset(
-                                        "assets/location.svg",
-                                        color: SrColors.gray1,
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 8),
+                child: Container(
+                  height: 121,
+                  decoration: BoxDecoration(
+                    color: SrColors.white,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 14),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      left: 2, top: 18, bottom: 10),
+                                  child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Flexible(
+                                        child: Padding(
+                                            padding: EdgeInsets.only(right: 4),
+                                            child: Text(
+                                              e.spotName ?? "",
+                                              style: SrTypography.body2semi,
+                                              overflow: TextOverflow.ellipsis,
+                                            )),
                                       ),
-                                    ),
-                                    Flexible(
-                                      child: Padding(
-                                          padding: EdgeInsets.only(bottom: 2, right: 4),
+                                      Padding(
+                                          padding: EdgeInsets.only(right: 10),
                                           child: Text(
-                                            e.fullAddress ?? "",
+                                            e.mainCategory ?? "",
                                             style: SrTypography.body4medium
-                                                .copy(color: SrColors.gray1),
-                                            overflow: TextOverflow.ellipsis,
+                                                .copy(color: SrColors.gray2),
                                           )),
-                                    )
-                                  ],
+                                      ..._Rating(e.rating),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              Padding(
-                                  padding: EdgeInsets.only(left: 2),
-                                  child: Text(
-                                    e.memo ?? "",
-                                    style: SrTypography.body4medium
-                                        .copy(color: SrColors.gray2),
-                                    overflow: TextOverflow.ellipsis,
-                                  )),
-                            ]),
+                                Padding(
+                                  padding: EdgeInsets.only(bottom: 10),
+                                  child: Row(
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.only(right: 4),
+                                        child: SvgPicture.asset(
+                                          "assets/location.svg",
+                                          color: SrColors.gray1,
+                                        ),
+                                      ),
+                                      Flexible(
+                                        child: Padding(
+                                            padding: EdgeInsets.only(bottom: 2, right: 4),
+                                            child: Text(
+                                              e.fullAddress ?? "",
+                                              style: SrTypography.body4medium
+                                                  .copy(color: SrColors.gray1),
+                                              overflow: TextOverflow.ellipsis,
+                                            )),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                    padding: EdgeInsets.only(left: 2),
+                                    child: Text(
+                                      e.memo ?? "",
+                                      style: SrTypography.body4medium
+                                          .copy(color: SrColors.gray2),
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                    )
+                                ),
+                              ]),
+                        ),
                       ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(right: 16,),
-                      width: 76,
-                      height: 76,
-                      child: CircleAvatar(
-                          backgroundColor: SrColors.white,
-                          radius: 100,
-                          backgroundImage: NetworkImage(
-                              (e.spotPhotos?.length ?? 0) > 0
-                                  ? e.spotPhotos!.first.photoUrl!
-                                  : "")),
-                    )
-                  ],
+                      Container(
+                        margin: EdgeInsets.only(right: 16,),
+                        width: 76,
+                        height: 76,
+                        child: CircleAvatar(
+                            backgroundColor: SrColors.white,
+                            radius: 100,
+                            backgroundImage: (e.spotPhotos?.length ?? 0) > 0 ? NetworkImage(e.spotPhotos!.first.photoUrl!) : AssetImage('assets/spot_default_small.png') as ImageProvider),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ))
