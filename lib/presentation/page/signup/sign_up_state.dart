@@ -4,24 +4,24 @@ import 'package:spotright/presentation/page/edit_profile/edit_profile_state.dart
 class SignUpState {
   final Map<MessageStatus, String> _idMessageMap = {
     MessageStatus.defaultMessage: "영문, 숫자 특수문자(#\$@!%&*?) 조합으로 입력해주세요",
-    MessageStatus.checkLength: '아이디는 6~16자여야 합니다.',
-    MessageStatus.checkDuplicate: '중복된 아이디입니다.',
-    MessageStatus.enabled: '사용 가능한 아이디입니다.',
-    MessageStatus.empty: '',
+    MessageStatus.checkLength: '아이디는 6~16자여야 합니다',
+    MessageStatus.checkDuplicate: '중복된 아이디입니다',
+    MessageStatus.enabled: '사용 가능한 아이디입니다',
+    MessageStatus.empty: '중복 검사를 해주세요',
   };
 
   final Map<MessageStatus, String> _nicknameMessageMap = {
-    MessageStatus.defaultMessage: "한글 혹은 영문자를 사용해 10자 이내로 입력해 주세요.",
-    MessageStatus.checkLength: '닉네임은 10자 이내여야 합니다.',
-    MessageStatus.checkSpecialCharacter: '한글 혹은 영문자만 입력해 주세요.',
-    MessageStatus.enabled: '사용 가능한 닉네임입니다.',
+    MessageStatus.defaultMessage: "한글 혹은 영문자를 사용해 10자 이내로 입력해 주세요",
+    MessageStatus.checkLength: '닉네임은 10자 이내여야 합니다',
+    MessageStatus.checkSpecialCharacter: '한글 혹은 영문자만 입력해 주세요',
+    MessageStatus.enabled: '사용 가능한 닉네임입니다',
     MessageStatus.empty: '',
   };
 
   final Map<MessageStatus, String> _passwordMessageMap = {
     MessageStatus.defaultMessage: "영문, 숫자, 특수문자(#\$@!%&*?) 조합 8~30자",
-    MessageStatus.checkLength: '비밀번호는 8~16자여야 합니다.',
-    MessageStatus.enabled: '사용 가능한 비밀번호입니다.',
+    MessageStatus.checkLength: '비밀번호는 8~16자여야 합니다',
+    MessageStatus.enabled: '사용 가능한 비밀번호입니다',
     MessageStatus.empty: '',
   };
 
