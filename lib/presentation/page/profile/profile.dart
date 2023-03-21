@@ -26,7 +26,7 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   Completer<GoogleMapController> _mapController = Completer();
   ProfileController profileController = Get.put(ProfileController());
-  MapController mapController = Get.put(MapController());
+  MapController mapController = MapController();
 
   @override
   void initState() {

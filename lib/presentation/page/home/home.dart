@@ -30,7 +30,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
   Completer<GoogleMapController> _mapController = Completer();
   HomeController homeController = Get.find();
   NavigationController navigationController = Get.find();
-  MapController mapController = Get.put(MapController());
+  MapController mapController = MapController();
   Logger logger = Get.find();
 
   @override
