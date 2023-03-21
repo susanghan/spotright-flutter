@@ -24,8 +24,8 @@ class _FollowingState extends State<Following> {
 
   @override
   void initState() {
-    super.initState();
     followingController.initState(widget.tabIndex, widget.user);
+    super.initState();
   }
 
   @override
@@ -109,7 +109,7 @@ class _FollowingState extends State<Following> {
             ],
           ),
           Spacer(),
-          SizedBox(
+          if(followingController.isMyPage.value) SizedBox(
             width: 108,
             height: 36,
             child: OutlinedButton(
