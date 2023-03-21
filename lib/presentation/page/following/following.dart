@@ -36,7 +36,7 @@ class _FollowingState extends State<Following> {
       length: 2,
       child: Scaffold(
           appBar: DefaultAppBar(
-            title: 'id',
+            title: followingController.user.value.spotrightId ?? "id",
             hasBackButton: true,
           ),
           body: Column(children: [
