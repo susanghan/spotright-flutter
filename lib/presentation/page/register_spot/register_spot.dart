@@ -181,6 +181,7 @@ class _RegisterSpotState extends State<RegisterSpot> {
             hint: "장소명",
             controller: registerSpotController.spotNameController,
             textInputAction: TextInputAction.next,
+            maxLength: 100,
             onChanged: (text){
               registerSpotController.spotnameText.value = text;
             },

@@ -173,6 +173,16 @@ class _DetailState extends State<Detail> {
     ]);
   }
 
+  Widget _imageError(BuildContext context, Object exception,
+      StackTrace? stackTrace) {
+    return Container(
+      alignment: Alignment.center,
+      width: 200,
+      height: 50,
+      child: Text("이미지를 로딩 실패"),
+    );
+  }
+
   Widget Carousel(List<String> list) {
     return Stack(alignment: Alignment.bottomRight, children: [
       Container(
@@ -187,6 +197,21 @@ class _DetailState extends State<Detail> {
                         child: Image(
                           image: NetworkImage(list[itemIndex]),
                           fit: BoxFit.cover,
+                          errorBuilder: (context, exception, stackTrace) =>
+                              _imageError(context, exception, stackTrace),
+                          loadingBuilder:  (context, child, loadingProgress) {
+                            if (loadingProgress == null) return child;
+                            return Container(
+                              padding: EdgeInsets.all(180),
+                              child: CircularProgressIndicator(
+                                color: SrColors.primary,
+                                value: loadingProgress.expectedTotalBytes != null
+                                    ? loadingProgress.cumulativeBytesLoaded /
+                                    loadingProgress.expectedTotalBytes!
+                                    : null,
+                              ),
+                            );
+                          },
                         )),
             options: CarouselOptions(
               height: MediaQuery.of(context).size.width,
@@ -206,8 +231,7 @@ class _DetailState extends State<Detail> {
           padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
           child: Text(
             '"${detailController.spot.value.spotName}" 검색하기',
-            style: SrTypography.body4bold.copy(
-                color: SrColors.gray1, decoration: TextDecoration.underline),
+            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: SrColors.gray1, decoration: TextDecoration.underline), textAlign: TextAlign.right,
           ),
         ),
       )
@@ -250,25 +274,28 @@ class _DetailState extends State<Detail> {
   }
 
   Widget _SpotLocation(String spotLocation) {
+    var screenWidth = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SvgPicture.asset(
             'assets/location.svg',
-            width: 14,
-            height: 14,
+            width: 16,
+            height: 16,
             color: SrColors.gray1,
           ),
           const Padding(padding: EdgeInsets.only(right: 4)),
           Container(
-            width: 300,
+            constraints: BoxConstraints(maxWidth: screenWidth - 70),
             child: Text(
               spotLocation,
               style: const TextStyle(
                   fontWeight: FontWeight.w500,
+                  height: 1,
                   fontSize: 14,
-                  color: SrColors.black), overflow: TextOverflow.ellipsis, maxLines: 2,
+                  color: SrColors.black),overflow: TextOverflow.ellipsis, maxLines: 2,
             ),
           ),
           const Padding(padding: EdgeInsets.only(right: 4)),
@@ -276,8 +303,8 @@ class _DetailState extends State<Detail> {
             onTap: detailController.copyAddressToClipboard(spotLocation),
             child: SvgPicture.asset(
               'assets/copy.svg',
-              width: 12,
-              height: 12,
+              width: 14,
+              height: 14,
               color: SrColors.gray1,
             ),
           ),

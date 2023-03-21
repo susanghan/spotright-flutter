@@ -118,12 +118,14 @@ class _SrAppBarState extends State<SrAppBar> {
     return AnimatedSize(
       duration: Duration(milliseconds: 500),
       curve: Curves.ease,
-      child: Container(
+      child: AnimatedContainer(
         height: topContentSize,
         padding: EdgeInsets.only(left: 32, right: 32, top: 4),
         decoration: const BoxDecoration(
           color: SrColors.white,
         ),
+        duration: Duration(milliseconds: 500),
+        curve: Curves.ease,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
