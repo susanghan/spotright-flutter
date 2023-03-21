@@ -43,5 +43,5 @@ class DefaultAppBar extends StatelessWidget with PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(60);
+  Size get preferredSize => Size.fromHeight(56);
 }
