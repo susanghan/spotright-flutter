@@ -25,7 +25,7 @@ class MapController extends GetxController {
   List<Uint8List> pinImageBytesList = [];
   RxDouble pixelRatio = 2.625.obs;
   final int markerSize = 50;
-  final int pinSize = 24;
+  final int pinSize = 32;
   Set<String> selectedCategories = <String>{"전체"};
   Function()? reRender;
   RxString selectedSpot = "".obs;
