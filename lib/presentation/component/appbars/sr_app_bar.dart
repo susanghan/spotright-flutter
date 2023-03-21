@@ -398,7 +398,13 @@ class _SrAppBarState extends State<SrAppBar> {
             color: SrColors.white,
             borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(15),
-                bottomRight: Radius.circular(15))),
+                bottomRight: Radius.circular(15)),
+          boxShadow: [
+            BoxShadow(
+                color: SrColors.black.withOpacity(0.25),
+                offset: Offset(0, 4),
+                blurRadius: 4)
+          ],),
         child: SvgPicture.asset(
           expanded ? 'assets/arrow_up.svg' : 'assets/arrow_down.svg',
           color: SrColors.primary,
