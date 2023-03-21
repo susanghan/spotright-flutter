@@ -146,7 +146,8 @@ class _SignUpState extends State<SignUp> {
       Padding(
         padding: EdgeInsets.only(left: 12, bottom: 16),
         child:
-        Obx(() => Text(signUpController.signUpState.isPasswordsEqual? "비밀번호가 일치합니다." : "비밀번호가 일치하지 않습니다.", style: signUpController.signUpState.isPasswordsEqual ? SrTypography.body2light.copy(color: SrColors.success) : SrTypography.body2light.copy(color: SrColors.primary))),
+        //Obx(() => Text(signUpController.signUpState.isPasswordsEqual? "비밀번호가 일치합니다." : "비밀번호가 일치하지 않습니다.", style: signUpController.signUpState.isPasswordsEqual ? SrTypography.body2light.copy(color: SrColors.success) : SrTypography.body2light.copy(color: SrColors.primary))),
+        Obx(() => Text(signUpController.signUpState.passwordConfirm.isEmpty ?  "" : signUpController.signUpState.isPasswordsEqual? "비밀번호가 일치합니다." : "비밀번호가 일치하지 않습니다.", style: signUpController.signUpState.isPasswordsEqual ? SrTypography.body2light.copy(color: SrColors.success) : SrTypography.body2light.copy(color: SrColors.primary))),
       ),
     ];
   }
