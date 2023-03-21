@@ -7,12 +7,13 @@ import 'package:logger/logger.dart';
 import 'package:spotright/common/token_util.dart';
 import 'package:spotright/data/local/local_repository.dart';
 import 'package:spotright/data/model/response_wrapper.dart';
+import 'package:spotright/env/server_env.dart';
 import 'package:spotright/presentation/page/inspection/inspection.dart';
 
 class NetworkClient {
   Logger logger = getx.Get.find();
   LocalRepository localRepository = LocalRepository();
-  String baseUrl = "spotright-dev.nogamsung.com";
+  String baseUrl = ServerEnv.baseUrl;
   String prefix = "/api";
   String accessToken = "";
   String? refreshToken;
