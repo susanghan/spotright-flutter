@@ -173,6 +173,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                   child: Container(
                     width: 56,
                     height: 56,
+                    padding: EdgeInsets.all(12),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(100),
                         color: SrColors.primary,
@@ -182,12 +183,12 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                             blurRadius: 5.0,
                             offset: Offset(0, 3.5), )
                         ]),
+                    margin: EdgeInsets.only(bottom: 12),
                     child: SvgPicture.asset(
                       "assets/plus.svg",
                       color: SrColors.white,
-                      fit: BoxFit.scaleDown,
+                      fit: BoxFit.fill,
                     ),
-                    margin: EdgeInsets.only(bottom: 12),
                   ),
                 ),
                 GestureDetector(
@@ -197,6 +198,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                   child: Container(
                     width: 56,
                     height: 56,
+                    padding: EdgeInsets.all(12),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(100),
                         color: SrColors.gray9e,
@@ -210,7 +212,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                     child: SvgPicture.asset(
                       "assets/my_location.svg",
                       color: SrColors.white,
-                      fit : BoxFit.scaleDown
+                      fit: BoxFit.fill,
                     ),
                   ),
                 )

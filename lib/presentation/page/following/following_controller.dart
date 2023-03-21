@@ -9,12 +9,12 @@ class FollowingController extends GetxController {
   RxInt tabIndex = 0.obs;
   RxList<UserResponse> followers = <UserResponse>[].obs;
   RxList<UserResponse> followings = <UserResponse>[].obs;
-
-  FollowingController();
+  RxBool isMyPage = false.obs;
 
   void initState(int index, UserResponse user) {
     this.user.value = user;
     tabIndex.value = index;
+    isMyPage.value = userRepository.userResponse!.memberId == user.memberId;
     fetchFollowers();
     fetchFollowings();
   }

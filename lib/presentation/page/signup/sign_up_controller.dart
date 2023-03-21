@@ -115,10 +115,16 @@ class SignUpController extends GetxController {
     if (res) Get.offAll(const Home());
   }
 
-  void authenticateEmail() {
-    emailRepository.sendMail(signUpState.email.value);
-    Get.to(Email())?.then((accessToken) {
-      if(oAuthResponse!.authProvider == 'SPOTRIGHT') oAuthResponse!.token = accessToken;
-    });
+  void authenticateEmail() async {
+    bool res = await emailRepository.sendMail(signUpState.email.value);
+
+    if(res) {
+      Fluttertoast.showToast(msg: '인증코드를 메일로 전송했습니다');
+      Get.to(Email())?.then((accessToken) {
+        if(oAuthResponse!.authProvider == 'SPOTRIGHT') oAuthResponse!.token = accessToken;
+      });
+    } else {
+      Fluttertoast.showToast(msg: '인증코드 전송에 실패했습니다');
+    }
   }
 }
