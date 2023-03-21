@@ -33,6 +33,9 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    var screenHeight = MediaQuery.of(context).size.height;
+    print("screenWidth : ${screenHeight}");
+
     return SafeArea(
         child: Scaffold(
       body: Padding(
@@ -42,7 +45,7 @@ class _LoginState extends State<Login> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                padding: EdgeInsets.only(top: 108, bottom: 44),
+                padding: EdgeInsets.only(top : (screenHeight-614) / 2, bottom: 44),
                   child: SvgPicture.asset("assets/login_logo.svg"),),
               Column(
                 children: [
@@ -75,36 +78,32 @@ class _LoginState extends State<Login> {
                 ],
               ),
               Padding(
-                padding: EdgeInsets.only(bottom: 40, left: 20),
+                padding: EdgeInsets.only(bottom: 40),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    if(Platform.isIOS) _signInButton("assets/apple_white.svg", userController.signInWithApple, Colors.black, Colors.black),
-                    _signInButton("assets/google.svg", userController.signInWithGoogle, SrColors.gray4, SrColors.white),
+                    if(Platform.isIOS) _signInButton("assets/apple.svg", userController.signInWithApple, Colors.black, Colors.black),
+                    _signInButton("assets/google.svg", userController.signInWithGoogle, SrColors.gray2, SrColors.white),
                     _signInButton("assets/kakao.svg", userController.signInWithKakao, SrColors.kakao, SrColors.kakao),
                   ],
                 ),
               ),
-
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("아직 Spotright에 가입하지 않으셨나요? ", style: SrTypography.body2medium.copy(color: SrColors.gray2),),
+                  GestureDetector(
+                      onTap: () {
+                        Get.to(SignUp());
+                      },
+                      child: Text("회원가입", style: SrTypography.body2medium.copy(color: SrColors.primary),)),
+                ],
+              )
             ],
           ),
         ),
       ),
-          bottomNavigationBar: Padding(
-            padding: EdgeInsets.only(bottom: 88 + 16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("아직 Spotright에 가입하지 않으셨나요? ", style: SrTypography.body2medium.copy(color: SrColors.gray2),),
-                GestureDetector(
-                    onTap: () {
-                      Get.to(SignUp());
-                    },
-                    child: Text("회원가입", style: SrTypography.body2medium.copy(color: SrColors.primary),)),
-              ],
-            ),
-          ),
-    ));
+        ));
   }
 
   Widget _signInButton(String iconPath, Function() action, Color borderColor, Color background) {
