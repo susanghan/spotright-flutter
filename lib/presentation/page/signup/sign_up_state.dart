@@ -3,7 +3,7 @@ import 'package:spotright/presentation/page/edit_profile/edit_profile_state.dart
 
 class SignUpState {
   final Map<MessageStatus, String> _idMessageMap = {
-    MessageStatus.defaultMessage: "영문, 숫자 특수문자(#\$@!%&*?) 조합으로 입력해주세요",
+    MessageStatus.defaultMessage: "영문자, 숫자, 특수문자('-', '_')를 사용해 입력해 주세요",
     MessageStatus.checkLength: '아이디는 6~16자여야 합니다',
     MessageStatus.checkDuplicate: '중복된 아이디입니다',
     MessageStatus.enabled: '사용 가능한 아이디입니다',
@@ -19,7 +19,7 @@ class SignUpState {
   };
 
   final Map<MessageStatus, String> _passwordMessageMap = {
-    MessageStatus.defaultMessage: "영문, 숫자, 특수문자(#\$@!%&*?) 조합 8~30자",
+    MessageStatus.defaultMessage: "영문, 숫자, 특수문자(#\$@!%&*?) 조합으로 입력해주세요",
     MessageStatus.checkLength: '비밀번호는 8~16자여야 합니다',
     MessageStatus.enabled: '사용 가능한 비밀번호입니다',
     MessageStatus.empty: '',
