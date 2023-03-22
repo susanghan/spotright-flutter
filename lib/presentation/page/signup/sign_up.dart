@@ -243,8 +243,8 @@ class _SignUpState extends State<SignUp> {
                 Text("남자"),
                 Padding(padding: EdgeInsets.only(right: 12)),
                 SrCheckBox(
-                  value: signUpController.signUpState.sex.value == 0,
-                  onChanged: (checked) => signUpController.selectSex(0),
+                  value: signUpController.signUpState.sex.value == 'MALE',
+                  onChanged: (checked) => signUpController.selectSex('MALE'),
                 ),
               ],
             ),
@@ -255,8 +255,20 @@ class _SignUpState extends State<SignUp> {
                 Text("여자"),
                 Padding(padding: EdgeInsets.only(right: 12)),
                 SrCheckBox(
-                  value: signUpController.signUpState.sex.value == 1,
-                  onChanged: (checked) => signUpController.selectSex(1),
+                  value: signUpController.signUpState.sex.value == 'FEMALE',
+                  onChanged: (checked) => signUpController.selectSex('FEMALE'),
+                ),
+              ],
+            ),
+          ),
+          Flexible(
+            child: Row(
+              children: [
+                Text("선택없음"),
+                Padding(padding: EdgeInsets.only(right: 12)),
+                SrCheckBox(
+                  value: signUpController.signUpState.sex.value == 'NONE',
+                  onChanged: (checked) => signUpController.selectSex('NONE'),
                 ),
               ],
             ),

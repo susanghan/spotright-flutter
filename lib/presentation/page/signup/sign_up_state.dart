@@ -44,7 +44,7 @@ class SignUpState {
       _nicknameMessageMap[nicknameMessageStatus.value]!;
   String get passwordValidationMessage => _passwordMessageMap[passwordMessageStatus]!;
   RxString birthdate = "2000-01-01".obs;
-  RxInt sex = 0.obs; // 0: 남자, 1: 여자
+  RxString sex = 'NONE'.obs; // 0: 남자, 1: 여자
   RxBool privacyPolicy = false.obs;
 
   bool get _ctaActive =>

@@ -42,7 +42,7 @@ class SignUpController extends GetxController {
     signUpState.onChangeCtaState();
   }
 
-  void selectSex(int sex) {
+  void selectSex(String sex) {
     signUpState.sex.value = sex;
   }
 
@@ -105,7 +105,7 @@ class SignUpController extends GetxController {
       email: signUpState.email.value,
       password: signUpState.password.value,
       passwordReEntered: signUpState.passwordConfirm.value,
-      gender: signUpState.sex.value == 0 ? "MALE" : "FEMALE",
+      gender: signUpState.sex.value,
       nickname: signUpState.nickname.value,
       spotrightId: signUpState.id.value,
       registrationPath: signUpState.selectedJoinPath.value,
