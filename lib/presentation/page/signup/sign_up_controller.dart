@@ -51,7 +51,7 @@ class SignUpController extends GetxController {
     signUpState.onChangeCtaState();
   }
 
-  void changeBirthdate(String newBirthdate) {
+  void changeBirthdate(String? newBirthdate) {
     signUpState.changeBirthdate(newBirthdate);
   }
 

@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/component/spinner/sr_spinner.dart';
+import 'package:spotright/presentation/component/sr_check_box/sr_check_box.dart';
 
 import '../../common/typography.dart';
 
 class BirthdayDialog extends StatefulWidget {
-  BirthdayDialog({Key? key, required this.onChanged, required this.defaultDate}) : super(key: key);
+  BirthdayDialog({Key? key, required this.onChanged, this.defaultDate}) : super(key: key);
 
-  final Function(String date) onChanged;
-  final String defaultDate;
+  final Function(String? date) onChanged;
+  final String? defaultDate;
 
   @override
   State<BirthdayDialog> createState() => _BirthdayDialogState();
@@ -17,15 +18,21 @@ class BirthdayDialog extends StatefulWidget {
 
 class _BirthdayDialogState extends State<BirthdayDialog> {
   String year = "2000";
-  String month = "1";
-  String day = "1";
+  String month = "06";
+  String day = "15";
+  bool isNone = false;
 
   @override
   void initState() {
-    List<String> splitDate = widget.defaultDate.split("-");
-    year = splitDate[0];
-    month = splitDate[1];
-    day = splitDate[2];
+    if(widget.defaultDate == null) {
+      isNone = true;
+    } else {
+      List<String> splitDate = widget.defaultDate!.split("-");
+      year = splitDate[0];
+      month = splitDate[1];
+      day = splitDate[2];
+    }
+    super.initState();
   }
 
   @override
@@ -35,26 +42,45 @@ class _BirthdayDialogState extends State<BirthdayDialog> {
       child: Container(
         width: double.infinity,
         height: 260,
-        padding: EdgeInsets.only(top: 32),
+        padding: EdgeInsets.only(top: 24),
         child: Column(children: [
           Padding(padding: EdgeInsets.only(bottom: 24), child: Text("생년월일을 입력하세요", style: SrTypography.body2semi.copy(color: SrColors.black))),
-          SizedBox(
+          Container(
+            margin: EdgeInsets.only(bottom: 16),
             width: 202,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SrSpinner(list: range(1950, 2023), onChanged: (value) {
                   year = value;
-                  widget.onChanged("$year-$month-$day");
+                  _onChanged();
                 }, defaultValue: year,),
                 SrSpinner(list: range(1, 13), onChanged: (value) {
                   month = value;
-                  widget.onChanged("$year-$month-$day");
+                  _onChanged();
                 }, defaultValue: month),
                 SrSpinner(list: range(1, 32), onChanged: (value) {
                   day = value;
-                  widget.onChanged("$year-$month-$day");
+                  _onChanged();
                 }, defaultValue: day),
+              ],
+            ),
+          ),
+          SizedBox(
+            width: 202,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Padding(
+                    padding: EdgeInsets.only(right: 8),
+                    child: Text('선택없음', style: SrTypography.body3medium.copy(color: SrColors.gray1),)
+                ),
+                SrCheckBox(isRectangle: true, size: 20, value: isNone, onChanged: (checked) {
+                  setState(() {
+                    isNone = checked;
+                  });
+                  _onChanged();
+                }),
               ],
             ),
           ),
@@ -91,5 +117,13 @@ class _BirthdayDialogState extends State<BirthdayDialog> {
     }
 
     return res;
+  }
+
+  void _onChanged() {
+    if(isNone) {
+      widget.onChanged(null);
+    } else {
+      widget.onChanged("$year-$month-$day");
+    }
   }
 }

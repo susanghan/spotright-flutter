@@ -43,7 +43,7 @@ class SignUpState {
   String get nicknameValidationMessage =>
       _nicknameMessageMap[nicknameMessageStatus.value]!;
   String get passwordValidationMessage => _passwordMessageMap[passwordMessageStatus]!;
-  RxString birthdate = "2000-01-01".obs;
+  Rxn<String> birthdate = Rxn('2000-06-15');
   RxString sex = 'NONE'.obs; // 0: 남자, 1: 여자
   RxBool privacyPolicy = false.obs;
 
@@ -119,7 +119,7 @@ class SignUpState {
     }
   }
 
-  void changeBirthdate(String newBirthdate) {
+  void changeBirthdate(String? newBirthdate) {
     birthdate.value = newBirthdate;
   }
 }

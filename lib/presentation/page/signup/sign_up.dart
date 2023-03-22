@@ -204,12 +204,12 @@ class _SignUpState extends State<SignUp> {
         margin: EdgeInsets.only(bottom: 16),
         child: OutlinedButton(
           onPressed: () {
-            Get.dialog(BirthdayDialog(onChanged: (date) {
-              signUpController.changeBirthdate(date);
-            },
-              defaultDate: signUpController.signUpState.birthdate.value,));
+            Get.dialog(BirthdayDialog(
+              onChanged: signUpController.changeBirthdate,
+              defaultDate: signUpController.signUpState.birthdate.value,)
+            );
           },
-          child: Text(signUpController.signUpState.birthdate.value,
+          child: Text(signUpController.signUpState.birthdate.value ?? '선택없음',
             style: TextStyle(color: SrColors.gray1),),
           style: OutlinedButton.styleFrom(
               side: BorderSide(
