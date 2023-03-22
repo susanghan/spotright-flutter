@@ -69,18 +69,18 @@ class _BirthdayDialogState extends State<BirthdayDialog> {
           SizedBox(
             width: 202,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Padding(
-                    padding: EdgeInsets.only(right: 8),
-                    child: Text('선택없음', style: SrTypography.body3medium.copy(color: SrColors.gray1),)
+                  padding: EdgeInsets.only(right: 8),
+                  child: SrCheckBox(isRectangle: true, size: 20, value: isNone, onChanged: (checked) {
+                    setState(() {
+                      isNone = checked;
+                    });
+                    _onChanged();
+                  }),
                 ),
-                SrCheckBox(isRectangle: true, size: 20, value: isNone, onChanged: (checked) {
-                  setState(() {
-                    isNone = checked;
-                  });
-                  _onChanged();
-                }),
+                Text('선택안함', style: SrTypography.body3medium.copy(color: SrColors.gray1),),
               ],
             ),
           ),
