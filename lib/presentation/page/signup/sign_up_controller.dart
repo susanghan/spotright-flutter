@@ -110,9 +110,14 @@ class SignUpController extends GetxController {
       spotrightId: signUpState.id.value,
       registrationPath: signUpState.selectedJoinPath.value,
     );
-    bool res =
+    int statusCode =
         await userRepository.signUp(req, "Bearer ${oAuthResponse!.token}");
-    if (res) Get.offAll(const Home());
+
+    if (statusCode == 200 || statusCode == 201) {
+      Get.offAll(const Home());
+    } else if(statusCode == 409) {
+      Fluttertoast.showToast(msg: "이미 가입된 이메일입니다");
+    }
   }
 
   void authenticateEmail() async {
