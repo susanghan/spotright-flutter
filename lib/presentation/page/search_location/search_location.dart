@@ -329,6 +329,7 @@ class _SearchLocationState extends State<SearchLocation> {
     return Obx(()=>SrTextField(
       height: 47,
       borderRadius: 22,
+      textInputAction: TextInputAction.search,
       hint: searchLocationController.queryTypeState.value == QueryTypeState.ADDRESS ? "검색할 주소를 입력하세요" : "검색할 장소를 입력하세요",
       boxShadow: BoxDecoration(
         boxShadow: [
