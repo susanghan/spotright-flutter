@@ -168,15 +168,23 @@ class _ProfileState extends State<Profile> {
                     _currentLocation();
                   },
                   child: Container(
-                    width: 44,
-                    height: 44,
+                    width: 56,
+                    height: 56,
+                    padding: EdgeInsets.all(12),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(100),
-                        color: SrColors.gray9e),
+                        color: SrColors.gray9e,
+                        boxShadow: [
+                          BoxShadow(color: Colors.grey.withOpacity(0.7),
+                            spreadRadius: 0,
+                            blurRadius: 5.0,
+                            offset: Offset(0, 3.5), )
+                        ]
+                    ),
                     child: SvgPicture.asset(
                       "assets/my_location.svg",
                       color: SrColors.white,
-                      fit: BoxFit.scaleDown,
+                      fit: BoxFit.fill,
                     ),
                   ),
                 )
