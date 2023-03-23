@@ -8,11 +8,12 @@ import 'sr_custom_drop_down.dart';
 class SrRecommendTextField extends StatefulWidget {
   SrRecommendTextField(
       {Key? key,
-      required this.focusOut,
+      this.focusIn,
+      this.focusOut,
       required this.inputController,
-      required this.onDropdownPressed,
+      this.onDropdownPressed,
       required this.searchList,
-      required this.onChanged,
+      this.onChanged,
       this.enableBorder,
       this.enabled = true,
       this.hint})
@@ -21,9 +22,9 @@ class SrRecommendTextField extends StatefulWidget {
   late TextEditingController inputController;
   InputBorder? enableBorder;
   List<String> searchList;
-  Function(String) onChanged;
-  Function() onDropdownPressed;
-  Function() focusOut;
+  Function(String)? onChanged;
+  Function()? onDropdownPressed;
+  Function()? focusOut, focusIn;
   bool enabled;
   String? hint;
 
@@ -68,11 +69,12 @@ class _SrRecommendTextFieldState extends State<SrRecommendTextField> {
   Widget build(BuildContext context) {
     return Focus(
       onFocusChange: (foucus) {
+        widget.focusIn!();
         if (!foucus &&
             widget.inputController.text.isNotEmpty &&
             !_isDropdownSelected) {
           widget.inputController.text = resultList![0];
-          widget.focusOut();
+          widget.focusOut!();
         }
       },
       child: GestureDetector(
@@ -95,7 +97,7 @@ class _SrRecommendTextFieldState extends State<SrRecommendTextField> {
 
   Widget _inputTextField() {
     void _showInputOverlay(String text) {
-      widget.onChanged(text);
+      widget.onChanged!(text);
       _isDropdownSelected = false;
 
       if (_inputFocusNode.hasFocus) {
@@ -141,7 +143,7 @@ class _SrRecommendTextFieldState extends State<SrRecommendTextField> {
       layerLink: _layerLink,
       controller: widget.inputController,
       onPressed: () {
-        widget.onDropdownPressed();
+        widget.onDropdownPressed!();
         setState(() {
           _isDropdownSelected = true;
           _inputFocusNode.unfocus();

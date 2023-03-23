@@ -238,8 +238,9 @@ class _RegisterSpotState extends State<RegisterSpot> {
               onChanged: (text) {
                 registerSpotController.cityText.value = text;
               },
-              onDropdownPressed: () {},
-              focusOut: () {},
+              focusIn: (){print("provinceNOw : ${registerSpotController.provinceController.text}");
+              print("provinceNOw : ${registerSpotController.provinceText.value}");
+                registerSpotController.setSearchCityList(registerSpotController.provinceController.text);},
             )),
       ),
     ];
