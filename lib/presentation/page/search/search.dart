@@ -42,6 +42,7 @@ class _SearchState extends State<Search> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 25),
                   child: SrTextField(
+                    textInputAction: TextInputAction.search,
                     focusInputBorder: const OutlineInputBorder(
                         borderRadius:
                         BorderRadius.all(Radius.circular(22)),

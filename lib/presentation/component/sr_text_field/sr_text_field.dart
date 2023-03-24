@@ -76,7 +76,7 @@ class SrTextField_State extends State<SrTextField> {
           style: SrTypography.body2light.copy(color: SrColors.black),
           controller: widget.controller,
           focusNode: widget.focusNode,
-          textInputAction: widget.textInputAction,
+          textInputAction: widget.textInputAction ?? TextInputAction.next,
           cursorColor: SrColors.gray1,
           cursorWidth: widget.cursorWidth,
           maxLines: widget.maxLines,

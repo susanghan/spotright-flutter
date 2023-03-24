@@ -91,6 +91,7 @@ class _SignUpState extends State<SignUp> {
       Padding(
         padding: EdgeInsets.only(bottom: 24),
         child: SrTextField(
+          textInputAction: TextInputAction.done,
           controller: signUpController.emailController,
           enabled: signUpController.signUpState.emailInputEnabled.value,
           onChanged: (text) {
@@ -157,6 +158,7 @@ class _SignUpState extends State<SignUp> {
       SrTextField(
         hint: '아이디',
         onChanged: signUpController.onIdChanged,
+        textInputAction: TextInputAction.done,
         suffixIcon: Padding(
           padding: EdgeInsets.all(4),
           child: OutlinedButton(
