@@ -53,7 +53,7 @@ class NetworkClient {
     Function func = method.function;
 
     logger.log(
-        Level.debug, "$method : $path <<< headers : $headers <<< parameters : $queryParameters <<< body : $body");
+        Level.debug, "$method : $baseUrl$path <<< headers : $headers <<< parameters : $queryParameters <<< body : $body");
     Response response = (body == null)
         ? await func.call(url, headers: headers)
         : await func.call(url, headers: headers, body: jsonEncode(body));
