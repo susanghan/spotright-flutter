@@ -113,9 +113,10 @@ class _ShowingLocationState extends State<ShowingLocation> {
               onTap: () {
                 _moveCurrentPosition();
               },
-              child: Container(
-                width: 44,
-                height: 44,
+              child:  Container(
+                width: 56,
+                height: 56,
+                padding: EdgeInsets.all(12),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100),
                     color: SrColors.gray9e,
@@ -129,7 +130,7 @@ class _ShowingLocationState extends State<ShowingLocation> {
                 child: SvgPicture.asset(
                   "assets/my_location.svg",
                   color: SrColors.white,
-                  fit: BoxFit.scaleDown,
+                  fit: BoxFit.fill,
                 ),
               ),
             ),

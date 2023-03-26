@@ -178,6 +178,7 @@ class _SearchLocationState extends State<SearchLocation> {
                 _ResultList(),
                 const Spacer(),
                 _UserLocation(),
+                const Padding(padding: EdgeInsets.only(bottom: 16)),
                 _SubmitButton()
               ],
             ),
@@ -329,6 +330,7 @@ class _SearchLocationState extends State<SearchLocation> {
     return Obx(()=>SrTextField(
       height: 47,
       borderRadius: 22,
+      textInputAction: TextInputAction.search,
       hint: searchLocationController.queryTypeState.value == QueryTypeState.ADDRESS ? "검색할 주소를 입력하세요" : "검색할 장소를 입력하세요",
       boxShadow: BoxDecoration(
         boxShadow: [
@@ -482,15 +484,23 @@ class _SearchLocationState extends State<SearchLocation> {
       child: Align(
         alignment: Alignment.centerRight,
         child: Container(
-          width: 44,
-          height: 44,
-          margin: const EdgeInsets.only(bottom: 16),
+          width: 56,
+          height: 56,
+          padding: EdgeInsets.all(12),
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100), color: SrColors.gray9e),
+              borderRadius: BorderRadius.circular(100),
+              color: SrColors.gray9e,
+              boxShadow: [
+                BoxShadow(color: Colors.grey.withOpacity(0.7),
+                  spreadRadius: 0,
+                  blurRadius: 5.0,
+                  offset: Offset(0, 3.5), )
+              ]
+          ),
           child: SvgPicture.asset(
             "assets/my_location.svg",
             color: SrColors.white,
-            fit: BoxFit.scaleDown,
+            fit: BoxFit.fill,
           ),
         ),
       ),

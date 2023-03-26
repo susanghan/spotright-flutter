@@ -39,9 +39,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>You are about to use location!</string>
+	<string>The location is used to show your current location on the map</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>to access photo library</string>
+	<string>The photo library is used for you to choose a photo to upload</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
