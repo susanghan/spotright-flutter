@@ -118,7 +118,7 @@ class _LoginState extends State<Login> {
       onTap: () async {
         bool isSuccessful = await action();
         if(isSuccessful) {
-          Get.to(() => const Home());
+          Get.offAll(const Home());
           return;
         }
 

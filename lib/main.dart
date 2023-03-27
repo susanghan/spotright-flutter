@@ -109,17 +109,19 @@ class _State extends State<Spotright> {
   Future<void> initLocale() async {
     final String languageKey = "language";
     String savedLanguage = await LocalRepository().fetch(languageKey);
-    Locale locale = Get.deviceLocale ?? Locale('en', 'US');
+    Locale locale = Get.deviceLocale ?? const Locale('ko', 'KR');
 
-    switch (savedLanguage) {
-      case 'ko':
-        locale = Locale('ko', 'KR');
-        break;
-      case 'en':
-        locale = Locale('en', 'US');
-        break;
-      default:
-        locale = Locale('en', 'US');
+    if(savedLanguage.isNotEmpty) {
+      switch (savedLanguage) {
+        case 'ko':
+          locale = const Locale('ko', 'KR');
+          break;
+        case 'en':
+          locale = const Locale('en', 'US');
+          break;
+        default:
+          locale = const Locale('ko', 'KR');
+      }
     }
 
     Get.locale = locale;
