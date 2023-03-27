@@ -52,7 +52,7 @@ class SignUpState {
       checkedIdDuplication.value &&
       passwordMessageStatus.value == MessageStatus.enabled &&
           isPasswordsEqual &&
-      (nicknameMessageStatus.value == MessageStatus.enabled) &&
+      (nicknameMessageStatus.value == MessageStatus.enabled || nicknameMessageStatus.value == MessageStatus.defaultMessage) &&
       privacyPolicy.value;
 
   RxBool ctaActive = false.obs;
