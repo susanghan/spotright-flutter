@@ -44,7 +44,7 @@ class UserController extends GetxController {
     if(res) {
       Get.offAll(const Home());
     } else {
-      Fluttertoast.showToast(msg: "로그인에 실패했습니다");
+      Fluttertoast.showToast(msg: "failed_to_login".tr);
     }
   }
 }

@@ -28,7 +28,7 @@ class _ChangeUserLanguageState extends State<ChangeUserLanguage> {
     return SafeArea(
         child: Scaffold(
       appBar: DefaultAppBar(
-        title: "settingLanguage".tr,
+        title: "setting_language".tr,
         hasBackButton: true,
       ),
       body: Column(

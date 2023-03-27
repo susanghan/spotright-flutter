@@ -49,14 +49,14 @@ class _LoginState extends State<Login> {
               Column(
                 children: [
                   SrTextField(
-                    hint: "아이디를 입력하세요",
+                    hint: "login_id_hint".tr,
                     onChanged: userController.onIdChanged,),
                   SrTextField(
-                    hint: "비밀번호를 입력하세요",
+                    hint: "login_password_hint".tr,
                     password: true,
                     onChanged: userController.onPasswordChanged,
                   ),
-                  SrCTAButton(action: userController.login, text: "로그인"),
+                  SrCTAButton(action: userController.login, text: "login".tr),
                   Padding(
                     padding: EdgeInsets.only(bottom: 60),
                     child: Row(
@@ -64,20 +64,20 @@ class _LoginState extends State<Login> {
                       children: [
                         Container(
                           alignment: Alignment.centerRight,
-                          width: 100,
+                          width: 150,
                           child: TextButton(onPressed: () {
                             Get.to(FindId());
-                          }, child: Text("아이디 찾기", style: SrTypography.body3medium.copy(color: SrColors.gray2),)),
+                          }, child: Text("find_id".tr, style: SrTypography.body3medium.copy(color: SrColors.gray2),)),
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 8),
                             child: Text("|", style: SrTypography.body3medium.copy(color: SrColors.gray2))),
                         Container(
                           alignment: Alignment.centerLeft,
-                          width: 100,
+                          width: 150,
                           child: TextButton(onPressed: () {
                             Get.to(FindPassword());
-                          }, child: Text("비밀번호 찾기", style: SrTypography.body3medium.copy(color: SrColors.gray2))),
+                          }, child: Text("find_password".tr, style: SrTypography.body3medium.copy(color: SrColors.gray2))),
                         )
                       ],
                     ),
@@ -98,12 +98,12 @@ class _LoginState extends State<Login> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("아직 Spotright에 가입하지 않으셨나요? ", style: SrTypography.body2medium.copy(color: SrColors.gray2),),
+                  Text("inform_sign_up".tr, style: SrTypography.body2medium.copy(color: SrColors.gray2),),
                   GestureDetector(
                       onTap: () {
                         Get.to(SignUp());
                       },
-                      child: Text("회원가입", style: SrTypography.body2medium.copy(color: SrColors.primary),)),
+                      child: Text("sign_up".tr, style: SrTypography.body2medium.copy(color: SrColors.primary),)),
                 ],
               )
             ],

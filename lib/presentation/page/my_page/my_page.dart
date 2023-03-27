@@ -48,7 +48,7 @@ class _MyPageState extends State<MyPage> {
               SrDivider(height: 3,),
               _ListText(listText: "개인정보관리", action: () {Get.to(ManageUserInfoList()); }),
               _ListText(listText: "차단사용자관리", action: () => Get.to(BlockList())),
-              _ListText(listText: "settingLanguage".tr, action: () { Get.to(ChangeUserLanguage());}),
+              _ListText(listText: "setting_language".tr, action: () { Get.to(ChangeUserLanguage());}),
               SrDivider(),
               _ListText(listText: "오픈소스라이센스", action: () => Get.to(OpenSourceLicence())),
               _ListText(listText: "개인정보 처리방침", action: () => Get.to(Privacy())),
