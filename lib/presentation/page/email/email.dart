@@ -21,12 +21,33 @@ class _EmailState extends State<Email> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-            appBar: DefaultAppBar(
-              title: "이메일 인증",
-              hasBackButton: true,
+        child: Stack(children: [
+      Obx(()=>Offstage(
+        offstage: !emailController.isLoading.value,
+        child: Stack(
+          children: const [
+            Opacity(
+              opacity: 0.5,
+              child: ModalBarrier(
+                dismissible: false,
+                color: SrColors.gray1,
+              ),
             ),
-            body: Padding(
+            Center(
+              child: CircularProgressIndicator(
+                strokeWidth: 2.0,
+                color: SrColors.primary,
+              ),
+            )
+          ],
+        ),
+      ),),
+      Scaffold(
+          appBar: DefaultAppBar(
+            title: "이메일 인증",
+            hasBackButton: true,
+          ),
+          body: Padding(
               padding: EdgeInsets.only(left: 16, right: 16, top: 152),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,9 +77,11 @@ class _EmailState extends State<Email> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
-                        child: Text("메일을 못 받았다면 스팸 메일함을 확인해주세요", style: SrTypography.body3medium.copy(color: SrColors.gray1)))
-                  ]
-            ))));
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        child: Text("메일을 못 받았다면 스팸 메일함을 확인해주세요",
+                            style: SrTypography.body3medium
+                                .copy(color: SrColors.gray1)))
+                  ]))),
+    ]));
   }
 }
