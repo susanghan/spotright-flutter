@@ -48,7 +48,29 @@ class _RegisterSpotState extends State<RegisterSpot> {
           title:  widget.pageMode==PageMode.add ? "장소 추가" : "장소 수정",
           hasBackButton: true,
       ),
-      body: SingleChildScrollView(
+      body: Stack(
+        children:[
+          Obx(()=>Offstage(
+            offstage: !registerSpotController.isLoading.value,
+            child: Stack(
+              children: const [
+                Opacity(
+                  opacity: 0.5,
+                  child: ModalBarrier(
+                    dismissible: false,
+                    color: SrColors.gray1,
+                  ),
+                ),
+                Center(
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2.0,
+                    color: SrColors.primary,
+                  ),
+                )
+              ],
+            ),
+          ),),
+          SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -74,6 +96,7 @@ class _RegisterSpotState extends State<RegisterSpot> {
               ),
             ],
           ),
+        ),]
       ),
     ),
         ));
@@ -428,7 +451,7 @@ class _RegisterSpotState extends State<RegisterSpot> {
       Padding(padding: EdgeInsets.only(bottom: 36), child: Obx(()=>SrCTAButton(
       text: "완료",
       isEnabled: registerSpotController.isCtaActive,
-      action: () => widget.pageMode == PageMode.add ? registerSpotController.addSpot() : registerSpotController.editSpot(),
+      action: () => widget.pageMode == PageMode.add ? {registerSpotController.isLoading.value = true, registerSpotController.addSpot()} : {registerSpotController.isLoading.value = true, registerSpotController.editSpot()},
     )),)
 
     ];
