@@ -33,49 +33,72 @@ class _SearchState extends State<Search> {
           title: "검색",
           hasBackButton: true,
         ),
-        body: Padding(
-          padding: EdgeInsets.only(left: 16, right: 16, top: 16),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(bottom: 25),
-                  child: SrTextField(
-                    textInputAction: TextInputAction.search,
-                    focusInputBorder: const OutlineInputBorder(
-                        borderRadius:
-                        BorderRadius.all(Radius.circular(22)),
-                        borderSide: BorderSide(width: 1, color: SrColors.gray2)),
-                    onChanged: searchController.onChangeSearchText,
-                    onSubmitted: (text){searchController.search();},
-                    hint: "아이디로 사용자를 검색하세요.",
-                    suffixIcon: GestureDetector(
-                      onTap: searchController.search,
-                      child: SvgPicture.asset(
-                        "assets/search.svg",
-                        color: SrColors.primary,
-                        fit: BoxFit.scaleDown,
+        body: Stack(
+          children:[
+            Obx(()=>Offstage(
+              offstage: !searchController.isLoading.value,
+              child: Stack(
+                children: const [
+                  Opacity(
+                    opacity: 0.5,
+                    child: ModalBarrier(
+                      dismissible: false,
+                      color: SrColors.white,
+                    ),
+                  ),
+                  Center(
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2.0,
+                      color: SrColors.primary,
+                    ),
+                  )
+                ],
+              ),
+            ),),
+            Padding(
+            padding: EdgeInsets.only(left: 16, right: 16, top: 16),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 25),
+                    child: SrTextField(
+                      textInputAction: TextInputAction.search,
+                      focusInputBorder: const OutlineInputBorder(
+                          borderRadius:
+                          BorderRadius.all(Radius.circular(22)),
+                          borderSide: BorderSide(width: 1, color: SrColors.gray2)),
+                      onChanged: searchController.onChangeSearchText,
+                      onSubmitted: (text){searchController.search();},
+                      hint: "아이디로 사용자를 검색하세요.",
+                      suffixIcon: GestureDetector(
+                        onTap: searchController.search,
+                        child: SvgPicture.asset(
+                          "assets/search.svg",
+                          color: SrColors.primary,
+                          fit: BoxFit.scaleDown,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Obx(() => Column(
-                      children: searchController.users.value
-                          .map((user) => _Profile(user))
-                          .toList(),
-                    )),
-                Padding(
-                    padding: EdgeInsets.only( bottom: 14),
-                    child: Text("최근 검색", style: SrTypography.body2semi,)),
-                Obx(() => Column(
-                  children: searchController.recentUsers.value
-                      .map((user) => _Profile(user, isRecentSearch: true))
-                      .toList(),
-                ))
-              ],
+                  Obx(() => Column(
+                    children: searchController.users.value
+                        .map((user) => _Profile(user))
+                        .toList(),
+                  )),
+                  Padding(
+                      padding: EdgeInsets.only( bottom: 14),
+                      child: Text("최근 검색", style: SrTypography.body2semi,)),
+                  Obx(() => Column(
+                    children: searchController.recentUsers.value
+                        .map((user) => _Profile(user, isRecentSearch: true))
+                        .toList(),
+                  ))
+                ],
+              ),
             ),
-          ),
+          ),]
         ),
       ),
     );

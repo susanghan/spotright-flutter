@@ -10,20 +10,29 @@ class EmailController extends GetxController {
 
   RxString authCode = "".obs;
   RxBool isAuthenticated = false.obs;
+  RxBool isLoading = false.obs;
+
+  void initState(){
+    isLoading.value = false;
+  }
 
   void onChanged(String text) {
     authCode.value = text;
   }
 
   Future<void> verifyEmail() async {
+    isLoading.value = true;
+
     var res = await emailRepository.verifyEmail(signUpController.signUpState.email.value, authCode.value);
     isAuthenticated.value = res.isNotEmpty;
 
     if (isAuthenticated.value) {
       signUpController.signUpState.emailInputEnabled.value = false;
+      isLoading.value = false;
       Get.back(result: res);
     } else {
       Fluttertoast.showToast(msg: "인증번호가 일치하지 않습니다.");
+      isLoading.value = false;
     }
   }
 }

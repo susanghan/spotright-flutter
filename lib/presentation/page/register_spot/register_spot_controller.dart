@@ -72,6 +72,8 @@ class RegisterSpotController extends GetxController {
   void initState(PageMode _pageMode) {
     pageMode = _pageMode;
 
+    isLoading.value = false;
+
     memberSpotId.value = detailController.spot.value.memberSpotId ?? 0;
 
     //완료 버튼 눌렀을 때 spots의 정보 받기 위함
@@ -137,6 +139,7 @@ class RegisterSpotController extends GetxController {
   }
   //**초기
   RxBool init = true.obs;
+  RxBool isLoading = false.obs;
 
   //**inputController
   TextEditingController spotNameController = TextEditingController();
@@ -207,7 +210,7 @@ class RegisterSpotController extends GetxController {
   }
 
   //**완료 버튼
-  bool get isCtaActive => (spotnameText.value.isNotEmpty && provinceText.value.isNotEmpty && cityText.value.isNotEmpty && addressText.value.isNotEmpty && mainIsSelected.value && isEvaluated);
+  bool get isCtaActive => (spotnameText.value.isNotEmpty && provinceText.value.isNotEmpty && cityText.value.isNotEmpty && addressText.value.isNotEmpty && mainIsSelected.value && isEvaluated && !isLoading.value);
   bool get isEvaluated => !isVisited.value ? true : rating.value > 0 ? true : false;
 
   int encodeCategory() {
@@ -306,6 +309,11 @@ class RegisterSpotController extends GetxController {
 
 
   Future<void> editSpot() async {
+
+    isLoading.value = true;
+
+    await Future.delayed(Duration(milliseconds: 500)) .then((onValue) => true);
+
     if (isVisited.value == false) {
       rating.value = 0.0;
     }
@@ -334,14 +342,17 @@ class RegisterSpotController extends GetxController {
         rating: "${rating.value.round()}",
         spotName: spotNameController.text);
 
+
     var res = await spotRepository.updateSpot(req);
 
     if(res.statusCode == 200 || res.statusCode == 201){
       uploadSpotPhotos();
       Get.back();
+      isLoading.value = false;
     }
     else{
       checkRegisterError(res.statusCode, res.responseCode, res.responseMessage);
+      isLoading.value = false;
     }
 
   }

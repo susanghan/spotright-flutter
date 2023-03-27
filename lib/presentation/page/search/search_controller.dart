@@ -10,9 +10,12 @@ class SearchController extends GetxController {
   Rx<List<UserResponse>> users = Rx<List<UserResponse>>([]);
   Rx<List<UserResponse>> recentUsers = Rx<List<UserResponse>>([]);
 
+  RxBool isLoading = false.obs;
+
   @override
   void onInit() {
     initRecentUser();
+    isLoading.value = false;
     super.onInit();
   }
 
@@ -35,6 +38,8 @@ class SearchController extends GetxController {
   }
 
   Future<void> search() async {
+    isLoading.value = true;
     users.value = await userRepository.searchMembersById(searchText.value, 0, 100);
+    isLoading.value = false;
   }
 }

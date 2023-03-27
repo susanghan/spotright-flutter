@@ -21,33 +21,57 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  SignUpController signUpController = Get.put(SignUpController(signUpState: SignUpState()));
+  SignUpController signUpController =
+      Get.put(SignUpController(signUpState: SignUpState()));
   OAuthRepository oAuthRepository = Get.find();
 
   @override
   void initState() {
     if (oAuthRepository.oAuthResponse == null) {
-      signUpController.oAuthResponse = OAuthResponse(token: '', authProvider: 'SPOTRIGHT');
+      signUpController.oAuthResponse =
+          OAuthResponse(token: '', authProvider: 'SPOTRIGHT');
       return;
     }
 
     signUpController.initOauthInfo(oAuthRepository.oAuthResponse!);
+
+    signUpController.isLoading.value = false;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: Scaffold(
-          appBar: DefaultAppBar(
-            title: "회원가입",
-            hasBackButton: true,
-          ),
-          body: Stack(alignment: Alignment.topCenter, children: [
-            Obx(() =>
-                Padding(
+        child: GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        appBar: DefaultAppBar(
+          title: "회원가입",
+          hasBackButton: true,
+        ),
+        body: Stack(children: [
+          Obx(()=>Offstage(
+            offstage: !signUpController.isLoading.value,
+            child: Stack(
+              children: const [
+                Opacity(
+                  opacity: 0.5,
+                  child: ModalBarrier(
+                    dismissible: false,
+                    color: SrColors.gray1,
+                  ),
+                ),
+                Center(
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2.0,
+                    color: SrColors.primary,
+                  ),
+                )
+              ],
+            ),
+          ),),
+          Stack(alignment: Alignment.topCenter, children: [
+            Obx(() => Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16),
                   child: SingleChildScrollView(
                     child: Column(
@@ -67,9 +91,9 @@ class _SignUpState extends State<SignUp> {
                   ),
                 )),
           ]),
-        ),
+        ]),
       ),
-    );
+    ));
   }
 
   List<Widget> _SrCTAButton() {
@@ -102,15 +126,22 @@ class _SignUpState extends State<SignUp> {
             padding: EdgeInsets.all(4),
             child: OutlinedButton(
               onPressed: () {
-                if(signUpController.signUpState.emailInputEnabled.value) signUpController.authenticateEmail();
+                signUpController.isLoading.value = true;
+                if (signUpController.signUpState.emailInputEnabled.value)
+                  signUpController.authenticateEmail();
               },
               child: Text(
-                signUpController.signUpState.emailInputEnabled.value ? "인증하기" : "인증완료",
+                signUpController.signUpState.emailInputEnabled.value
+                    ? "인증하기"
+                    : "인증완료",
                 style: TextStyle(color: SrColors.white),
               ),
               style: OutlinedButton.styleFrom(
                   side: const BorderSide(width: 0, color: Colors.white),
-                  backgroundColor: signUpController.signUpState.emailInputEnabled.value ? SrColors.primary : SrColors.gray9e,
+                  backgroundColor:
+                      signUpController.signUpState.emailInputEnabled.value
+                          ? SrColors.primary
+                          : SrColors.gray9e,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(100))),
             ),
@@ -130,8 +161,15 @@ class _SignUpState extends State<SignUp> {
       ),
       Padding(
         padding: EdgeInsets.only(left: 12, bottom: 16),
-        child:
-        Obx(() => Text(signUpController.signUpState.passwordValidationMessage, style: signUpController.signUpState.passwordMessageStatus.value == MessageStatus.defaultMessage ? SrTypography.body2light.copy(color: SrColors.gray1) : signUpController.signUpState.passwordMessageStatus.value == MessageStatus.enabled ? SrTypography.body2light.copy(color: SrColors.success) : SrTypography.body2light.copy(color: SrColors.primary))),
+        child: Obx(() => Text(
+            signUpController.signUpState.passwordValidationMessage,
+            style: signUpController.signUpState.passwordMessageStatus.value ==
+                    MessageStatus.defaultMessage
+                ? SrTypography.body2light.copy(color: SrColors.gray1)
+                : signUpController.signUpState.passwordMessageStatus.value ==
+                        MessageStatus.enabled
+                    ? SrTypography.body2light.copy(color: SrColors.success)
+                    : SrTypography.body2light.copy(color: SrColors.primary))),
       ),
     ];
   }
@@ -146,8 +184,15 @@ class _SignUpState extends State<SignUp> {
       ),
       Padding(
         padding: EdgeInsets.only(left: 12, bottom: 16),
-        child:
-        Obx(() => Text(signUpController.signUpState.passwordConfirm.isEmpty ?  "" : signUpController.signUpState.isPasswordsEqual? "비밀번호가 일치합니다." : "비밀번호가 일치하지 않습니다.", style: signUpController.signUpState.isPasswordsEqual ? SrTypography.body2light.copy(color: SrColors.success) : SrTypography.body2light.copy(color: SrColors.primary))),
+        child: Obx(() => Text(
+            signUpController.signUpState.passwordConfirm.isEmpty
+                ? ""
+                : signUpController.signUpState.isPasswordsEqual
+                    ? "비밀번호가 일치합니다."
+                    : "비밀번호가 일치하지 않습니다.",
+            style: signUpController.signUpState.isPasswordsEqual
+                ? SrTypography.body2light.copy(color: SrColors.success)
+                : SrTypography.body2light.copy(color: SrColors.primary))),
       ),
     ];
   }
@@ -164,12 +209,19 @@ class _SignUpState extends State<SignUp> {
           child: OutlinedButton(
             onPressed: signUpController.verifyDuplicateId,
             child: Text(
-              signUpController.signUpState.checkedIdDuplication.value ? "확인완료" : "중복확인",
+              signUpController.signUpState.checkedIdDuplication.value
+                  ? "확인완료"
+                  : "중복확인",
               style: TextStyle(color: SrColors.white),
             ),
             style: OutlinedButton.styleFrom(
                 side: const BorderSide(width: 0, color: Colors.white),
-                backgroundColor: (signUpController.signUpState.checkedIdDuplication.value || (signUpController.signUpState.idMessageStatus.value != MessageStatus.empty)) ? SrColors.gray3: SrColors.primary,
+                backgroundColor: (signUpController
+                            .signUpState.checkedIdDuplication.value ||
+                        (signUpController.signUpState.idMessageStatus.value !=
+                            MessageStatus.empty))
+                    ? SrColors.gray3
+                    : SrColors.primary,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(100))),
           ),
@@ -177,8 +229,14 @@ class _SignUpState extends State<SignUp> {
       ),
       Padding(
         padding: EdgeInsets.only(left: 12, bottom: 16),
-        child:
-        Obx(() => Text(signUpController.signUpState.idValidationMessage, style: signUpController.signUpState.idMessageStatus.value == MessageStatus.defaultMessage ? SrTypography.body2light.copy(color: SrColors.gray1) : signUpController.signUpState.idMessageStatus.value == MessageStatus.enabled ? SrTypography.body2light.copy(color: SrColors.success) : SrTypography.body2light.copy(color: SrColors.primary))),
+        child: Obx(() => Text(signUpController.signUpState.idValidationMessage,
+            style: signUpController.signUpState.idMessageStatus.value ==
+                    MessageStatus.defaultMessage
+                ? SrTypography.body2light.copy(color: SrColors.gray1)
+                : signUpController.signUpState.idMessageStatus.value ==
+                        MessageStatus.enabled
+                    ? SrTypography.body2light.copy(color: SrColors.success)
+                    : SrTypography.body2light.copy(color: SrColors.primary))),
       ),
     ];
   }
@@ -186,13 +244,18 @@ class _SignUpState extends State<SignUp> {
   List<Widget> _InputNickname() {
     return [
       _SectionTitle('닉네임을 입력해주세요'),
-      SrTextField(
-          hint: '닉네임', onChanged: signUpController.onNicknameChanged),
+      SrTextField(hint: '닉네임', onChanged: signUpController.onNicknameChanged),
       Padding(
         padding: EdgeInsets.only(left: 12, bottom: 20),
-        child: Obx(
-                () =>
-                Text(signUpController.signUpState.nicknameValidationMessage, style: signUpController.signUpState.nicknameMessageStatus.value == MessageStatus.defaultMessage ? SrTypography.body2light.copy(color: SrColors.gray1) : signUpController.signUpState.nicknameMessageStatus.value == MessageStatus.enabled ? SrTypography.body2light.copy(color: SrColors.success) : SrTypography.body2light.copy(color: SrColors.primary))),
+        child: Obx(() => Text(
+            signUpController.signUpState.nicknameValidationMessage,
+            style: signUpController.signUpState.nicknameMessageStatus.value ==
+                    MessageStatus.defaultMessage
+                ? SrTypography.body2light.copy(color: SrColors.gray1)
+                : signUpController.signUpState.nicknameMessageStatus.value ==
+                        MessageStatus.enabled
+                    ? SrTypography.body2light.copy(color: SrColors.success)
+                    : SrTypography.body2light.copy(color: SrColors.primary))),
       ),
     ];
   }
@@ -208,11 +271,13 @@ class _SignUpState extends State<SignUp> {
           onPressed: () {
             Get.dialog(BirthdayDialog(
               onChanged: signUpController.changeBirthdate,
-              defaultDate: signUpController.signUpState.birthdate.value,)
-            );
+              defaultDate: signUpController.signUpState.birthdate.value,
+            ));
           },
-          child: Text(signUpController.signUpState.birthdate.value ?? '선택없음',
-            style: TextStyle(color: SrColors.gray1),),
+          child: Text(
+            signUpController.signUpState.birthdate.value ?? '선택없음',
+            style: TextStyle(color: SrColors.gray1),
+          ),
           style: OutlinedButton.styleFrom(
               side: BorderSide(
                 width: 1,
@@ -236,7 +301,7 @@ class _SignUpState extends State<SignUp> {
 
   Widget _SexSelector() {
     return Container(
-      margin: EdgeInsets.only(left: 13,top: 10),
+      margin: EdgeInsets.only(left: 13, top: 10),
       child: Row(
         children: [
           Flexible(
@@ -284,8 +349,16 @@ class _SignUpState extends State<SignUp> {
     return [
       _SectionTitle("가입경로를 선택해주세요"),
       Padding(padding: EdgeInsets.only(top: 10)),
-      ...{"INSTAGRAM": "인스타그램", "EVERYTIME": "에브리타임", "FRIEND": "지인", "ETC": "기타"}
-          .entries.map((entry) => _PathItem(entry.key, entry.value, signUpController.signUpState.selectedJoinPath == entry.key)).toList(),
+      ...{
+        "INSTAGRAM": "인스타그램",
+        "EVERYTIME": "에브리타임",
+        "FRIEND": "지인",
+        "ETC": "기타"
+      }
+          .entries
+          .map((entry) => _PathItem(entry.key, entry.value,
+              signUpController.signUpState.selectedJoinPath == entry.key))
+          .toList(),
       Padding(padding: EdgeInsets.only(bottom: 12)),
     ];
   }
@@ -297,7 +370,9 @@ class _SignUpState extends State<SignUp> {
         children: [
           Padding(
               padding: EdgeInsets.only(right: 8),
-              child: SrCheckBox(value: selected, onChanged: signUpController.onJoinPathChanged(key))),
+              child: SrCheckBox(
+                  value: selected,
+                  onChanged: signUpController.onJoinPathChanged(key))),
           Text(path)
         ],
       ),
@@ -320,9 +395,9 @@ class _SignUpState extends State<SignUp> {
                 height: 16,
                 child: SrCheckBox(
                     isRectangle: true,
-                    value: signUpController
-                        .signUpState.privacyPolicy.value,
-                    onChanged: (checked) => signUpController.changePrivacyPolicy()),
+                    value: signUpController.signUpState.privacyPolicy.value,
+                    onChanged: (checked) =>
+                        signUpController.changePrivacyPolicy()),
               ),
             ),
           ),
@@ -331,8 +406,7 @@ class _SignUpState extends State<SignUp> {
             onTap: () => Get.to(Privacy()),
             child: Text(
               "개인정보 수집 및 이용동의(필수)".tr,
-              style: TextStyle(
-                  decoration: TextDecoration.underline),
+              style: TextStyle(decoration: TextDecoration.underline),
             ),
           ),
         ],
@@ -341,6 +415,11 @@ class _SignUpState extends State<SignUp> {
   }
 
   Widget _SectionTitle(String title) {
-    return Padding(padding: EdgeInsets.only(bottom: 8), child: Text(title, style: SrTypography.body2medium,));
+    return Padding(
+        padding: EdgeInsets.only(bottom: 8),
+        child: Text(
+          title,
+          style: SrTypography.body2medium,
+        ));
   }
 }
