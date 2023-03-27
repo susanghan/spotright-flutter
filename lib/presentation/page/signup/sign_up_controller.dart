@@ -18,6 +18,8 @@ class SignUpController extends GetxController {
   final TextEditingController emailController = TextEditingController();
   OAuthResponse? oAuthResponse;
 
+  RxBool isLoading = false.obs;
+
   void onIdChanged(String id) {
     signUpState.id.value = id;
     signUpState.validateId(id);
@@ -125,11 +127,15 @@ class SignUpController extends GetxController {
 
     if(res) {
       Fluttertoast.showToast(msg: '인증코드를 메일로 전송했습니다');
+      isLoading.value = false;
+
       Get.to(Email())?.then((accessToken) {
         if(oAuthResponse!.authProvider == 'SPOTRIGHT') oAuthResponse!.token = accessToken;
       });
     } else {
       Fluttertoast.showToast(msg: '인증코드 전송에 실패했습니다');
+      isLoading.value = false;
+
     }
   }
 }
