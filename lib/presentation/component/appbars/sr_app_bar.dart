@@ -66,14 +66,29 @@ class _SrAppBarState extends State<SrAppBar> {
     return Container(
         width: double.infinity,
         child: Column(children: [
-          _TopContent(expanded),
-          _ExpandButton(),
+          Container(
+            child: Column(
+              children: [
+                _TopContent(expanded),
+                _ExpandButton(),
+              ],
+            ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                boxShadow: [
+                  BoxShadow(
+                      color: SrColors.black.withOpacity(0.25),
+                      offset: Offset(0, 4),
+                      blurRadius: 4)
+                ],
+              )
+          ),
           expanded ? SizedBox.shrink() : _Chips(),
           if (widget.shouldRefresh)
             Container(
               width: 183,
               height: 33,
-              margin: EdgeInsets.only(top: 4),
+              margin: EdgeInsets.only(top: 8),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 boxShadow: [
@@ -398,13 +413,7 @@ class _SrAppBarState extends State<SrAppBar> {
             color: SrColors.white,
             borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(15),
-                bottomRight: Radius.circular(15)),
-          boxShadow: [
-            BoxShadow(
-                color: SrColors.black.withOpacity(0.25),
-                offset: Offset(0, 4),
-                blurRadius: 4)
-          ],),
+                bottomRight: Radius.circular(15)),),
         child: SvgPicture.asset(
           expanded ? 'assets/arrow_up.svg' : 'assets/arrow_down.svg',
           color: SrColors.primary,
