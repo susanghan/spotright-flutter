@@ -31,6 +31,7 @@ import 'package:spotright/presentation/page/register_spot/register_spot_controll
 import 'package:spotright/presentation/page/search_location/search_location.dart';
 import 'package:spotright/presentation/page/search_location/search_location_controller.dart';
 import 'package:spotright/presentation/page/signup/sign_up.dart';
+import 'package:spotright/presentation/page/splash/splash.dart';
 
 
 void main() async {
@@ -63,6 +64,7 @@ class _State extends State<Spotright> {
         '/login': (context) => const Login(),
         '/congratulation': (context) => const Congratulation(),
         '/searchLocation': (context) => const SearchLocation(),
+        '/splash': (context) => const Splash(),
       },
       theme: ThemeData(
         primarySwatch: SrColors.materialPrimary,

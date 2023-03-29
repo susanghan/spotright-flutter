@@ -24,14 +24,6 @@ class _LoginState extends State<Login> {
   UserController userController = Get.find();
 
   @override
-  void initState() {
-    super.initState();
-    userController.loginWithCache(() {
-      Get.offAll(const Home());
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
 

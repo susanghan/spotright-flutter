@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:spotright/data/oauth/oauth_repository.dart';
 import 'package:spotright/data/user/user_repository.dart';
 import 'package:spotright/presentation/page/home/home.dart';
+import 'package:spotright/presentation/page/login/Login.dart';
 
 class UserController extends GetxController {
   OAuthRepository oAuthRepository = Get.find();
@@ -18,11 +19,13 @@ class UserController extends GetxController {
     password = text;
   }
 
-  void loginWithCache(Function() movePage) async {
+  void loginWithCache() async {
     await userRepository.loginWithLocalToken();
     if (userRepository.isLoggedIn) {
       await userRepository.fetchMyInfo();
-      movePage();
+      Get.offAll(const Home());
+    } else {
+      Get.offAll(const Login());
     }
   }
 
