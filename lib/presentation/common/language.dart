@@ -47,6 +47,7 @@ class Languages extends Translations {
       'id_default_message': "영문자, 숫자, 특수문자('-', '_')를 사용해 입력해 주세요",
       'id_check_length': '아이디는 6~16자여야 합니다',
       'id_check_duplicate': '중복된 아이디입니다',
+      'id_check_unavailable': '사용할 수 없는 아이디입니다',
       'id_enabled': '사용 가능한 아이디입니다',
       'id_verify_duplication': '중복 검사를 해주세요',
 

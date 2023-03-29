@@ -26,7 +26,7 @@ class IdController extends GetxController {
   Future<void> verifyId() async {
     if(idMessageStatus.value != MessageStatus.empty) return;
 
-    bool res = await userRepository.verifyDuplicatedId(newId.value);
+    bool res = await userRepository.verifyDuplicatedId(newId.value) == 'NON_EXISTING_SPOTRIGHTID';
     ctaActive.value = res;
     if(res) {
       idMessageStatus.value = MessageStatus.enabled;

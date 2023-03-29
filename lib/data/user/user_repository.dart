@@ -139,11 +139,11 @@ class UserRepository {
 
   }
 
-  Future<bool> verifyDuplicatedId(String spotrightId) async {
+  Future<String> verifyDuplicatedId(String spotrightId) async {
     var res = await networkClient.request(path: "$_verifyDuplicatedIdPath/$spotrightId");
 
     if(res.statusCode == 400 || res.statusCode == 500) throw NetworkException("네트워크 요청 중 에러가 발생했습니다. error code 1");
-    return res.statusCode == 200;
+    return res.responseWrapper.responseCode!;
   }
 
   Future<void> updateId(String spotrightId) async {

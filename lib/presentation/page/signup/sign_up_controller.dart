@@ -72,20 +72,24 @@ class SignUpController extends GetxController {
       Fluttertoast.showToast(msg: "유효한 아이디를 입력해주세요");
     }
 
-    bool isUsable = await userRepository
+    String messageCode = await userRepository
         .verifyDuplicatedId(signUpState.id.value)
         .catchError((err) {
       Fluttertoast.showToast(msg: err.toString());
-      return false;
+      return "NONE";
     });
 
-    signUpState.checkedIdDuplication.value = isUsable;
+    signUpState.checkedIdDuplication.value = messageCode == 'NON_EXISTING_SPOTRIGHTID';
 
-    if (isUsable) {
+    if (messageCode == 'NON_EXISTING_SPOTRIGHTID') {
       signUpState.validateIdDuplication(true);
       signUpState.idMessageStatus.value = IdMessageStatus.enabled;
       Fluttertoast.showToast(msg: "확인되었습니다");
-    } else {
+    } else if (messageCode == 'UNAVAILABLE_SPOTRIGHTID') {
+      signUpState.validateIdDuplication(false);
+      signUpState.idMessageStatus.value = IdMessageStatus.unavailable;
+      Fluttertoast.showToast(msg: "사용할 수 없는 아이디입니다");
+    } else if (messageCode == 'EXISTING_SPOTRIGHTID') {
       signUpState.validateIdDuplication(false);
       signUpState.idMessageStatus.value = IdMessageStatus.checkDuplicate;
       Fluttertoast.showToast(msg: "중복된 아이디입니다");
