@@ -73,7 +73,7 @@ class _FollowingState extends State<Following> {
             "팔로워",
             style: TextStyle(fontSize : 17, fontWeight : FontWeight.w600, color: SrColors.black),
           ),
-          Text("팔로잉", style:  TextStyle(fontSize : 17, fontWeight : FontWeight.w600, color: SrColors.black)),
+          Text("팔로잉 ", style:  TextStyle(fontSize : 17, fontWeight : FontWeight.w600, color: SrColors.black)),
         ],
       ),
     );
@@ -114,7 +114,7 @@ class _FollowingState extends State<Following> {
             height: 36,
             child: OutlinedButton(
               onPressed: isFollower ? followingController.removeFollower(user.memberId) : followingController.unfollow(user.memberId),
-              child: Text(isFollower ? "삭제" : "팔로잉", style: SrTypography.body2semi.copy(color: SrColors.primary),),
+              child: Text(isFollower ? "삭제" : "팔로우 취소", style: SrTypography.body2semi.copy(color: SrColors.primary),),
               style: OutlinedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(100)),

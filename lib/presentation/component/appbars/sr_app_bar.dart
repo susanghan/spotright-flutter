@@ -284,7 +284,7 @@ class _SrAppBarState extends State<SrAppBar> {
             child: OutlinedButton(
               onPressed: widget.isFollowing ? widget.unfollow : widget.follow,
               child: Text(
-                widget.isFollowing ? "팔로잉" : "팔로우",
+                widget.isFollowing ? "팔로우 취소" : "팔로우",
                 style: TextStyle(
                     color:
                         widget.isFollowing ? SrColors.primary : SrColors.white),
