@@ -58,7 +58,6 @@ class _State extends State<Spotright> {
       title: 'Spotright',
       routes: {
         '/home': (context) => const Home(),
-        '/signup': (context) => const SignUp(),
         '/block_list': (context) => const BlockList(),
         '/edit_profile': (context) => const EditProfile(),
         '/login': (context) => const Login(),

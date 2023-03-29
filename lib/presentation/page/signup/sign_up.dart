@@ -22,8 +22,7 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  SignUpController signUpController =
-      Get.put(SignUpController(signUpState: SignUpState()));
+  SignUpController signUpController = SignUpController(signUpState: SignUpState());
   OAuthRepository oAuthRepository = Get.find();
 
   @override
@@ -38,6 +37,13 @@ class _SignUpState extends State<SignUp> {
 
     signUpController.isLoading.value = false;
     super.initState();
+  }
+
+
+  @override
+  void dispose() {
+    oAuthRepository.clear();
+    super.dispose();
   }
 
   @override

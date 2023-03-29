@@ -38,4 +38,8 @@ class OAuthRepository {
 
     return userRepository.oauthLogin("kakao", oAuthResponse!.token);
   }
+
+  void clear() {
+    oAuthResponse = null;
+  }
 }
