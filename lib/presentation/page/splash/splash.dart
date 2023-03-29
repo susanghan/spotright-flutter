@@ -1,30 +1,29 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:spotright/presentation/page/login/user_controller.dart';
 
 import '../../common/colors.dart';
 
-
-// Timer(Duration(milliseconds: 1500), () {
-//   Navigator.push(context, MaterialPageRoute(
-//       builder: (context) => const Login()
-//   )
-//   );
-// });
-
-//Todo: 그냥 가운데로만 하면 됨. 조정 안 필요함.
-class Splash extends StatelessWidget {
+class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);
 
+  @override
+  State<Splash> createState() => _SplashState();
+}
 
+class _SplashState extends State<Splash> {
+  UserController userController = Get.find();
+
+  @override
+  void initState() {
+    userController.loginWithCache();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final String imageLogoName = 'assets/splash122.svg';
-
-    var screenHeight = MediaQuery.of(context).size.height;
-    var screenWidth = MediaQuery.of(context).size.width;
-
     return WillPopScope(
       onWillPop: () async => false,
       child: MediaQuery(
@@ -32,24 +31,11 @@ class Splash extends StatelessWidget {
         child: Scaffold(
           backgroundColor: SrColors.primary,
           body: Container(
-            //height : MediaQuery.of(context).size.height,
-            //color: kPrimaryColor,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                SizedBox(height: screenHeight * 0.384375),
-                Container(
-                  child: SvgPicture.asset(
-                    imageLogoName,
-                    width: screenWidth * 0.616666,
-                    height: screenHeight * 0.0859375,
-                  ),
-                ),
-                Expanded(child: SizedBox()),
-                SizedBox( height: MediaQuery.of(context).size.height*0.0625,),
-              ],
+            alignment: Alignment.center,
+            child: SvgPicture.asset(
+              "assets/spotright.svg",
+              color: SrColors.white,
             ),
-
           ),
         ),
       ),

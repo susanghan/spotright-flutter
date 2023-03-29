@@ -71,7 +71,7 @@ class _State extends State<Spotright> {
         canvasColor: SrColors.white,
         fontFamily: 'Pretendard'
       ),
-      initialRoute: '/login',
+      initialRoute: '/splash',
       initialBinding: BindingsBuilder(() {
         // 순서 중요
         Get.put(Logger());
