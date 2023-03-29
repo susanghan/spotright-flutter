@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spotright/presentation/common/colors.dart';
 import 'package:spotright/presentation/common/typography.dart';
+import 'package:spotright/presentation/component/gr_grid_view/sr_grid_view.dart';
 import 'package:spotright/presentation/component/sr_check_box/sr_check_box.dart';
 import 'package:spotright/presentation/component/sr_text_field/sr_text_field.dart';
 
@@ -68,33 +69,30 @@ class _ReportDialogState extends State<ReportDialog> {
 
   Widget _Options() {
     return Container(
-      height: 104,
-      margin: EdgeInsets.symmetric(horizontal: 24),
-      child: GridView.count(
-        physics: NeverScrollableScrollPhysics(),
-        crossAxisCount: 2,
-        childAspectRatio: 5,
-        children: [
-          ...widget.options
+      margin: EdgeInsets.fromLTRB(36, 0, 36, 12),
+      child: SrGridView(
+        children:
+          widget.options
               .entries
-              .map((entry) => Row(children: [
+              .map((entry) => Padding(
+            padding: EdgeInsets.only(bottom: 12),
+                child: Row(children: [
             SrCheckBox(
-              size: 24,
-              value: entry.key == selectedKey,
-              onChanged: (bool checked) {
-                if(checked) {
-                  setState(() {
-                    selectedKey = entry.key;
-                  });
-                }
-              },
+                size: 24,
+                value: entry.key == selectedKey,
+                onChanged: (bool checked) {
+                  if(checked) {
+                    setState(() {
+                      selectedKey = entry.key;
+                    });
+                  }
+                },
             ),
             Padding(padding: EdgeInsets.only(right: 12)),
             Text(entry.value)
-          ]))
-              .toList()
-        ],
-      ),
+          ]),
+              )).toList(),
+      )
     );
   }
 
