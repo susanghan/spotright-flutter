@@ -5,6 +5,7 @@ import 'package:spotright/data/email/email_repository.dart';
 import 'package:spotright/data/oauth/oauth_response.dart';
 import 'package:spotright/data/user/sign_up_request.dart';
 import 'package:spotright/data/user/user_repository.dart';
+import 'package:spotright/presentation/common/controller/id_validator.dart';
 import 'package:spotright/presentation/page/email/email.dart';
 import 'package:spotright/presentation/page/home/home.dart';
 import 'package:spotright/presentation/page/signup/sign_up_state.dart';
@@ -67,7 +68,7 @@ class SignUpController extends GetxController {
   }
 
   void verifyDuplicateId() async {
-    if(signUpState.idMessageStatus.value != MessageStatus.empty) {
+    if(signUpState.idMessageStatus.value != IdMessageStatus.empty) {
       Fluttertoast.showToast(msg: "유효한 아이디를 입력해주세요");
     }
 
@@ -82,11 +83,11 @@ class SignUpController extends GetxController {
 
     if (isUsable) {
       signUpState.validateIdDuplication(true);
-      signUpState.idMessageStatus.value = MessageStatus.enabled;
+      signUpState.idMessageStatus.value = IdMessageStatus.enabled;
       Fluttertoast.showToast(msg: "확인되었습니다");
     } else {
       signUpState.validateIdDuplication(false);
-      signUpState.idMessageStatus.value = MessageStatus.checkDuplicate;
+      signUpState.idMessageStatus.value = IdMessageStatus.checkDuplicate;
       Fluttertoast.showToast(msg: "중복된 아이디입니다");
     }
     signUpState.onChangeCtaState();

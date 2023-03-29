@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:spotright/data/oauth/oauth_repository.dart';
 import 'package:spotright/data/oauth/oauth_response.dart';
 import 'package:spotright/presentation/common/colors.dart';
+import 'package:spotright/presentation/common/controller/id_validator.dart';
 import 'package:spotright/presentation/common/typography.dart';
 import 'package:spotright/presentation/component/appbars/default_app_bar.dart';
 import 'package:spotright/presentation/component/buttons/sr_cta_button.dart';
@@ -219,7 +220,7 @@ class _SignUpState extends State<SignUp> {
                 backgroundColor: (signUpController
                             .signUpState.checkedIdDuplication.value ||
                         (signUpController.signUpState.idMessageStatus.value !=
-                            MessageStatus.empty))
+                            IdMessageStatus.empty))
                     ? SrColors.gray3
                     : SrColors.primary,
                 shape: RoundedRectangleBorder(
