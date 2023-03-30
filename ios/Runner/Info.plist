@@ -41,7 +41,7 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>The location is used to show your current location on the map</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>The photo library is used for you to choose a photo to upload</string>
+	<string>The permission allows you to access your photos through spotright so that you may choose a photo to upload for profile picture, spot picture, etc.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
